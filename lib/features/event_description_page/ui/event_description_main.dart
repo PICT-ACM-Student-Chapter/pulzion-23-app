@@ -1,21 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:drop_shadow/drop_shadow.dart';
-import './eventlist.dart';
-
-void main() {
-  runApp(const EventDescription());
-}
-
-class EventDescription extends StatelessWidget {
-  const EventDescription({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: EventDescriptionPage(),
-    );
-  }
-}
+import '../models/eventlist.dart';
 
 class EventDescriptionPage extends StatelessWidget {
   const EventDescriptionPage({super.key});
