@@ -1,25 +1,9 @@
 import 'package:flutter/material.dart';
-import './information.dart';
+import '../models/information_model.dart';
 import 'package:intl/intl.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: ProfilePage(),
-      // theme: ThemeData(colorScheme: Color.fromARGB(255, 4, 35, 60))),
-    );
-  }
-}
-
 class ProfilePage extends StatelessWidget {
-  ProfilePage({super.key});
+  const ProfilePage({super.key});
   @override
   Widget build(BuildContext context) {
     final Info obj1 = Info(
@@ -57,45 +41,45 @@ class ProfilePage extends StatelessWidget {
       return Container(
         // height: 40,
         child: Card(
-          margin: EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           elevation: 05,
           shadowColor: Colors.white,
-          color: Color.fromARGB(255, 59, 19, 130),
+          color: const Color.fromARGB(255, 59, 19, 130),
           child: Container(
             height: 40,
             child: ListView(
               scrollDirection: Axis.horizontal,
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               children: [
                 Align(
                   alignment: Alignment.center,
                   child: Text(
                     obj1.eventregistered[index].Eventname.toString(),
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 15,
                     ),
                   ),
                 ),
-                SizedBox(width: 30),
+                const SizedBox(width: 30),
                 Align(
                   alignment: Alignment.center,
                   child: Text(
                     obj1.eventregistered[index].Slot.toString(),
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 15,
                     ),
                   ),
                 ),
-                SizedBox(width: 30),
+                const SizedBox(width: 30),
                 Align(
                   alignment: Alignment.center,
                   child: Text(
                     obj1.eventregistered[index].date.toString(),
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 15,
                     ),
@@ -124,8 +108,8 @@ class ProfilePage extends StatelessWidget {
                     child: Container(
                         child: Image.network(
                             "https://pict.acm.org/pulzion19/About-us/data1/PASClogo.png"))),
-                SizedBox(height: 15),
-                Divider(
+                const SizedBox(height: 15),
+                const Divider(
                   color: Colors.black,
                   thickness: 5.00,
                 ),
@@ -133,16 +117,16 @@ class ProfilePage extends StatelessWidget {
                   flex: 1,
                   child: Row(
                     children: [
-                      Padding(
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: const Text(
+                      const Padding(
+                          padding: EdgeInsets.only(bottom: 10),
+                          child: Text(
                             "NAME : ",
                             style: TextStyle(color: Colors.white),
                           )),
                       Padding(
                           padding: const EdgeInsets.only(bottom: 10),
                           child: Text(obj1.Name,
-                              style: TextStyle(color: Colors.white))),
+                              style: const TextStyle(color: Colors.white))),
                     ],
                   ),
                 ),
@@ -150,9 +134,9 @@ class ProfilePage extends StatelessWidget {
                   flex: 1,
                   child: Row(
                     children: [
-                      Padding(
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: const Text(
+                      const Padding(
+                          padding: EdgeInsets.only(bottom: 10),
+                          child: Text(
                             "USER ID:  : ",
                             style: TextStyle(color: Colors.white),
                           )),
@@ -160,7 +144,7 @@ class ProfilePage extends StatelessWidget {
                         padding: const EdgeInsets.only(bottom: 10),
                         child: Text(
                           obj1.userid,
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                         ),
                       ),
                     ],
@@ -170,9 +154,9 @@ class ProfilePage extends StatelessWidget {
                   flex: 1,
                   child: Row(
                     children: [
-                      Padding(
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: const Text(
+                      const Padding(
+                          padding: EdgeInsets.only(bottom: 10),
+                          child: Text(
                             "EMAIL ID : ",
                             style: TextStyle(color: Colors.white),
                           )),
@@ -180,7 +164,7 @@ class ProfilePage extends StatelessWidget {
                         padding: const EdgeInsets.only(bottom: 10),
                         child: Text(
                           obj1.email,
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                         ),
                       ),
                     ],
@@ -190,9 +174,9 @@ class ProfilePage extends StatelessWidget {
                   flex: 1,
                   child: Row(
                     children: [
-                      Padding(
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: const Text(
+                      const Padding(
+                          padding: EdgeInsets.only(bottom: 10),
+                          child: Text(
                             "MOBILE NO: : ",
                             style: TextStyle(color: Colors.white),
                           )),
@@ -200,7 +184,7 @@ class ProfilePage extends StatelessWidget {
                         padding: const EdgeInsets.only(bottom: 10),
                         child: Text(
                           obj1.contact_no,
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                         ),
                       ),
                     ],
@@ -210,9 +194,9 @@ class ProfilePage extends StatelessWidget {
                   flex: 1,
                   child: Row(
                     children: [
-                      Padding(
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: const Text(
+                      const Padding(
+                          padding: EdgeInsets.only(bottom: 10),
+                          child: Text(
                             "YEAR : ",
                             style: TextStyle(color: Colors.white),
                           )),
@@ -225,37 +209,37 @@ class ProfilePage extends StatelessWidget {
                                 child: Center(
                                   child: Card(
                                     color: myCol[0],
-                                    child: Center(child: Text("FE")),
+                                    child: const Center(child: Text("FE")),
                                   ),
                                 ),
                               ),
-                              SizedBox(width: 15),
+                              const SizedBox(width: 15),
                               Container(
                                 width: 40,
                                 child: Center(
                                   child: Card(
                                     color: myCol[1],
-                                    child: Center(child: Text("SE")),
+                                    child: const Center(child: Text("SE")),
                                   ),
                                 ),
                               ),
-                              SizedBox(width: 15),
+                              const SizedBox(width: 15),
                               Container(
                                 width: 40,
                                 child: Center(
                                   child: Card(
                                     color: myCol[2],
-                                    child: Center(child: Text("TE")),
+                                    child: const Center(child: Text("TE")),
                                   ),
                                 ),
                               ),
-                              SizedBox(width: 15),
+                              const SizedBox(width: 15),
                               Container(
                                 width: 40,
                                 child: Center(
                                   child: Card(
                                     color: myCol[3],
-                                    child: Center(child: Text("BE")),
+                                    child: const Center(child: Text("BE")),
                                   ),
                                 ),
                               ),
@@ -264,7 +248,7 @@ class ProfilePage extends StatelessWidget {
                     ],
                   ),
                 ),
-                Divider(
+                const Divider(
                   color: Colors.black,
                   thickness: 5.00,
                 ),
@@ -272,11 +256,11 @@ class ProfilePage extends StatelessWidget {
                   flex: 1,
                   child: Row(
                     children: [
-                      Align(
+                      const Align(
                         alignment: Alignment.centerLeft,
                         child: Padding(
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: const Text(
+                          padding: EdgeInsets.only(bottom: 10),
+                          child: Text(
                             "NO OF EVENTS REGISTERED : ",
                             style: TextStyle(color: Colors.white),
                           ),
@@ -286,7 +270,7 @@ class ProfilePage extends StatelessWidget {
                         padding: const EdgeInsets.only(bottom: 10.0),
                         child: Text(
                           obj1.No_of_events_reg.toString(),
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                         ),
                       ),
                     ],
@@ -297,11 +281,11 @@ class ProfilePage extends StatelessWidget {
                     flex: 5,
                     child: Column(
                       children: [
-                        Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
+                        const Padding(
+                            padding: EdgeInsets.only(bottom: 10),
                             child: Align(
                               alignment: Alignment.centerLeft,
-                              child: const Text(
+                              child: Text(
                                 "LIST OF EVENTS REGISTERED: ",
                                 style: TextStyle(color: Colors.white),
                                 // )) , ListView(Column(children: [obj1.eventregistered],)
@@ -310,18 +294,18 @@ class ProfilePage extends StatelessWidget {
                         Container(
                           // height: 40,
                           child: Card(
-                            margin: EdgeInsets.all(10),
+                            margin: const EdgeInsets.all(10),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15)),
                             elevation: 05,
                             shadowColor: Colors.white,
-                            color: Color.fromARGB(255, 8, 3, 16),
+                            color: const Color.fromARGB(255, 8, 3, 16),
                             child: Container(
                               height: 40,
                               child: ListView(
                                 scrollDirection: Axis.horizontal,
-                                padding: EdgeInsets.all(10),
-                                children: [
+                                padding: const EdgeInsets.all(10),
+                                children: const [
                                   Align(
                                     alignment: Alignment.center,
                                     child: Text(
