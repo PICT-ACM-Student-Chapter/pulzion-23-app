@@ -1,37 +1,13 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
-
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const Ticket(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
 
 class Ticket extends StatelessWidget {
   const Ticket({super.key, required String title});
 
   @override
   Widget build(BuildContext context) {
-    var size, height, width;
-    size = MediaQuery.of(context).size;
-    height = size.height;
-    width = size.width;
+    var size = MediaQuery.of(context).size;
+    var height = size.height;
+    var width = size.width;
 
     return Scaffold(
       backgroundColor: Colors.purpleAccent,
@@ -45,7 +21,7 @@ class Ticket extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(100, 60, 10, 0),
             child: Row(
-              children: [
+              children: const [
                 Text(
                   "YOUR EVENT IS BOOKED!!",
                   style: TextStyle(fontSize: 25, color: Colors.white),
@@ -56,13 +32,13 @@ class Ticket extends StatelessWidget {
           Center(
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                borderRadius: const BorderRadius.all(Radius.circular(30.0)),
                 color: Colors.purpleAccent[700],
                 image: DecorationImage(
                     alignment: Alignment.topCenter,
                     colorFilter: ColorFilter.mode(
                         Colors.white.withOpacity(0.7), BlendMode.dstATop),
-                    image: NetworkImage(
+                    image: const NetworkImage(
                       "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8NHx8fGVufDB8fHx8&w=1000&q=80",
                     )),
               ),
@@ -74,7 +50,7 @@ class Ticket extends StatelessWidget {
             left: width / 2.63,
             bottom: height / 2.4,
             child: Container(
-              child: Text(
+              child: const Text(
                 "DATAQUEST",
                 style: TextStyle(
                     fontSize: 22,
@@ -87,7 +63,7 @@ class Ticket extends StatelessWidget {
             left: width / 2.74,
             bottom: height / 2.83,
             child: Container(
-              child: Text(
+              child: const Text(
                 "DATE",
                 style: TextStyle(fontSize: 18, color: Colors.white),
               ),
@@ -97,7 +73,7 @@ class Ticket extends StatelessWidget {
             left: width / 1.82,
             bottom: height / 2.83,
             child: Container(
-              child: Text(
+              child: const Text(
                 "TIME",
                 style: TextStyle(fontSize: 18, color: Colors.white),
               ),
@@ -107,7 +83,7 @@ class Ticket extends StatelessWidget {
             left: width / 3,
             bottom: height / 3.27,
             child: Container(
-              child: Text(
+              child: const Text(
                 "1/2/2023",
                 style: TextStyle(fontSize: 18, color: Colors.orange),
               ),
@@ -117,7 +93,7 @@ class Ticket extends StatelessWidget {
             left: width / 1.86,
             bottom: height / 3.27,
             child: Container(
-              child: Text(
+              child: const Text(
                 "6:00 pm",
                 style: TextStyle(fontSize: 18, color: Colors.orange),
               ),
@@ -151,20 +127,20 @@ class Ticket extends StatelessWidget {
               bottom: height / 24,
               left: width / 2.6,
               child: Container(
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  color: Colors.deepPurple,
+                ),
+                height: height / 17,
+                width: width / 4,
                 child: TextButton(
-                  child: Center(
+                  child:  const Center(
                       child: Text(
                     "DONE",
                     style: TextStyle(color: Colors.white),
                   )),
                   onPressed: () {},
                 ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  color: Colors.deepPurple,
-                ),
-                height: height / 17,
-                width: width / 4,
               )),
         ],
       ),
