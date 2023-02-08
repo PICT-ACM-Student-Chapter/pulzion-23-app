@@ -1,128 +1,68 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:pulzion23/constants/colors.dart';
 
+import '../../../constants/styles.dart';
 import '../logic/event.dart';
 
 class EventCard extends StatelessWidget {
   final Event event;
-  final int index;
-  final int listLength;
-  const EventCard(this.event, this.listLength, this.index, {super.key});
+  const EventCard(this.event, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    final double cardWidth =
-        MediaQuery.of(context).size.width * 0.85 - 12 * index;
-    final double cardHeight = MediaQuery.of(context).size.height * 0.47;
-    return Container(
-      padding: const EdgeInsets.all(16),
-      height: cardHeight,
-      width: cardWidth,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        image: DecorationImage(
-          image: AssetImage(event.imageAddress),
-          fit: BoxFit.fitHeight,
-        ),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Container(
-            height: cardHeight * 0.3,
-            width: cardWidth,
+    return Stack(
+      clipBehavior: Clip.none,
+      alignment: Alignment.topCenter,
+      children: [
+        Transform.translate(
+          offset: Offset(0, MediaQuery.of(context).size.width / 10),
+          child: Container(
+            margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.width / 8),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: const Color.fromARGB(215, 255, 255, 255),
-              border: Border.all(
-                color: Colors.black,
-                width: 0.01,
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  event.startColor,
+                  event.endColor,
+                ],
               ),
+              borderRadius: BorderRadius.circular(20),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(8),
+              padding: EdgeInsets.all(MediaQuery.of(context).size.width / 20),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(8),
-                        height: cardHeight * 0.205,
-                        width: cardWidth * 0.65,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            FittedBox(
-                              child: Text(
-                                event.title,
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Text(
-                                event.description,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(8),
-                        alignment: Alignment.center,
-                        width: cardWidth * 0.16,
-                        height: cardHeight * 0.18,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: const Color.fromARGB(200, 255, 255, 255),
-                          border: Border.all(
-                            color: Colors.black,
-                            width: 0.01,
-                          ),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              DateFormat.E()
-                                  .format(event.date)
-                                  .substring(0, 3)
-                                  .toUpperCase(),
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              DateFormat.d().format(event.date),
-                              style: const TextStyle(
-                                color: Color.fromRGBO(77, 16, 158, 1),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 26,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width / 12,
+                  ),
+                  Text(
+                    event.title,
+                    style: AppStyles.bodyTextStyle2(),
+                  ),
+                  Text(
+                    event.description,
+                    style: AppStyles.bodyTextStyle3(),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: (() {}),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: const [
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
                         Text(
-                          'Register Now',
-                          style: TextStyle(
-                            color: Color.fromRGBO(49, 19, 91, 1),
-                          ),
+                          'Know More',
+                          style: AppStyles.bodyTextStyle4(),
                         ),
-                        SizedBox(
-                          height: 10,
-                          child: FittedBox(
-                              child: Icon(Icons.arrow_forward_ios_rounded)),
+                        Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          color: AppColors.cardTitleTextColor,
+                          size: MediaQuery.of(context).size.height / 60,
                         ),
                       ],
                     ),
@@ -130,9 +70,26 @@ class EventCard extends StatelessWidget {
                 ],
               ),
             ),
-          )
-        ],
-      ),
+          ),
+        ),
+        Align(
+          alignment: Alignment.topLeft,
+          child: Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: MediaQuery.of(context).size.width / 128,
+                ),
+              ],
+            ),
+            child: CircleAvatar(
+              radius: MediaQuery.of(context).size.width / 8,
+              backgroundImage: AssetImage(event.imageAddress),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
