@@ -70,20 +70,30 @@ class _HomePageState extends State<HomePage> {
                     child: Container(
                       child: Row(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
+                          Expanded(
+                            flex: 3,
                             child: Container(
                               height: h / 10,
-                              color: Colors.pinkAccent,
-                              child: Text("sjhhsgshsgahsgjghjhjhajsjh"),
+                              color: Colors.black,
+                              child: Text("sjhhsadsdsdjsjh",style: TextStyle(
+                                  overflow: TextOverflow.ellipsis,
+                                color: Colors.white,
+                              ),),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
+                          Expanded(
+                            flex: 1,
                             child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.white,
+                              ),
                               height: h / 10,
-                              color: Colors.green,
-                              child: Text("sdhgudhdjahasjahhjhj"),
+
+                              child: Text("Date",overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),),
                             ),
                           ),
                         ],
