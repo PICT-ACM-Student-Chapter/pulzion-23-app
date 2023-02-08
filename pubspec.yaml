@@ -20,6 +20,7 @@ dependencies:
     http: ^0.13.5
     firebase_remote_config: ^3.0.9
     firebase_core: ^2.4.1
+    lottie: ^2.2.0
 
 
 dev_dependencies:

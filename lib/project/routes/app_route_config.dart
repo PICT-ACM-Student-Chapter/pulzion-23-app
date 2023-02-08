@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:pulzion23/features/landing_page/ui/home_page.dart';
 import 'package:pulzion23/project/routes/app_route_constant.dart';
 
 import '../../features/landing_page/ui/landing_page.dart';
@@ -9,7 +10,7 @@ final GoRouter router = GoRouter(routes: [
   GoRoute(
     path: '/',
     name: RouteName.landing,
-    builder: (context, state) => const LandingPage(),
+    builder: (context, state) => const HomePage(),
   ),
   GoRoute(
     path: '/profile',
