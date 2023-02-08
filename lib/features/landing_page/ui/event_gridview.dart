@@ -17,7 +17,7 @@ class EventGridView extends StatelessWidget {
       itemBuilder: ((context, index) {
         final event = eventList[index];
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: EventCard(event),
         );
       }),
