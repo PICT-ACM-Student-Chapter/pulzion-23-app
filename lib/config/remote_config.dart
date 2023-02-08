@@ -11,7 +11,9 @@ Future<void> remoteConfig() async {
     minimumFetchInterval: const Duration(hours: 1),
   ));
   await remoteConfig.fetchAndActivate();
-  Url.baseUrl = remoteConfig.getString('BaseUrl');
-  log(Url.baseUrl as String);
+  EndPoints.baseUrl = remoteConfig.getString('BaseUrl');
+  EndPoints.sampleToken = remoteConfig.getString('SampleToken');
+  log(EndPoints.baseUrl as String);
+  log(EndPoints.sampleToken as String);
   return;
 }

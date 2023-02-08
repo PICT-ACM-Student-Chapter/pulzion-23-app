@@ -102,7 +102,7 @@ class Events {
 }
 
 Future<EventList> getEvents() async {
-  var response = await http.get(Uri.parse(Url.events));
+  var response = await http.get(Uri.parse(EndPoints.events));
   var data = jsonDecode(response.body);
   EventList eventList = EventList.fromJson(data);
   for (var event in eventList.events!) {

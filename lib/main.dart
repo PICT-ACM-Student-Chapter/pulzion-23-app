@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pulzion23/config/remote_config.dart';
+// import 'package:pulzion23/constants/models/user_model.dart';
 // import 'package:pulzion23/constants/urls.dart';
 import 'package:pulzion23/constants/utils/theme.dart';
 import 'package:pulzion23/project/routes/app_route_config.dart';
@@ -12,6 +13,7 @@ Future<void> main() async {
   await Firebase.initializeApp();
   await remoteConfig();
   // await getEvents();
+  // await getUser();
   runApp(const Pulzion23App());
 }
 
