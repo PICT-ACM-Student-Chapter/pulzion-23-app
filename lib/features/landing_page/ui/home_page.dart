@@ -39,39 +39,72 @@ class _HomePageState extends State<HomePage> {
 
                     child: Row(
                       children: [
-                        Container(
-                          color: Colors.pinkAccent,
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: h/10,
+                            color: Colors.pinkAccent,
+                            child: Text("sjhhsgshsgahsgjghjhjhajsjh"),
+                          ),
                         ),
-                        Container(
-                          color: Colors.green,
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: h/10,
+                            color: Colors.green,
+                            child: Text("sdhgudhdjahasjahhjhj"),
+                          ),
                         ),
                       ],
                     ),
                   ),
               ),
-                  Padding(padding: const EdgeInsets.all(8.0),
+                  Padding(padding: const EdgeInsets.all(15.0),
                       child:Container(
+                        height: h/10,
+                        width: w,
                         color: Colors.grey,
                         child: Text("Description......."),
                       ),
                   ),
-                  Padding(padding: const EdgeInsets.all(8.0),
+                  Padding(padding: const EdgeInsets.all(15.0),
                     child:Container(
+                      height: h/10,
+                      width: w,
                       color: Colors.red,
                       child: Text("kuch toh"),
                     ),
                   ),
+                  Padding(padding: const EdgeInsets.all(15.0),
+                    child:Container(
+                      height: h/10,
+                      width: w,
+                      color: Colors.grey,
+                      child: Text("Description......."),
+                    ),
+                  ),
                   Padding(padding: const EdgeInsets.all(8.0),
                     child:Container(
-                      color: Colors.deepOrangeAccent,
+
                       child: Row(
                         children: [
-                          Container(
-                            color: Colors.lightBlueAccent,
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              height: h/10,
+                              color: Colors.lightBlueAccent,
+                              child: Text("ajshajshajshadfdeddsdjhsha"),
+                            ),
                           ),
-                          Container(
-                            color: Colors.lightGreen,
-                          )
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              height: h/10,
+
+                              color: Colors.lightGreen,
+                              child: Text("hshakjskhjashakjsh"),
+                            ),
+                          ),
                         ],
                       ),
                     ),
