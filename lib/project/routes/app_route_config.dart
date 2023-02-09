@@ -1,10 +1,11 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:go_router/go_router.dart';
-import 'package:pulzion23/features/landing_page/ui/landing_page_content.dart';
+import 'package:pulzion23/features/login_page/ui/login.dart';
+import 'package:pulzion23/features/login_page/ui/login_signup_intro.dart';
 import 'package:pulzion23/project/routes/app_route_constant.dart';
 
-import '../../features/landing_page/ui/landing_page.dart';
-import '../../features/login_page/ui/login_signin.dart';
-import '../../features/login_page/ui/signup.dart';
+import '../../features/login_page/ui/sign_up.dart';
 import '../../features/profile_page/ui/profile_page.dart';
 
 final GoRouter router = GoRouter(routes: [
@@ -12,7 +13,7 @@ final GoRouter router = GoRouter(routes: [
   GoRoute(
     path: '/',
     name: RouteName.landing,
-    builder: (context, state) => const LandingPageContent(),
+    builder: (context, state) => const LoginSignUpIntro(),
   ),
   GoRoute(
     path: '/profile',
@@ -20,13 +21,13 @@ final GoRouter router = GoRouter(routes: [
     builder: (context, state) => const ProfilePage(),
   ),
   GoRoute(
-      path: '/login',
-      name: RouteName.login,
-      builder: (context, state) => const Loginscreen(),
+    path: '/login',
+    name: RouteName.login,
+    builder: (context, state) => const Login(),
   ),
   GoRoute(
-      path: '/signup',
-      name: RouteName.signup,
-      builder: (context, state) => const SignUp(),
+    path: '/signup',
+    name: RouteName.signup,
+    builder: (context, state) => SignUp(),
   ),
 ]);

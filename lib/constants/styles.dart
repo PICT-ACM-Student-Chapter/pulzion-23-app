@@ -16,7 +16,7 @@ class AppStyles {
     return const TextStyle(
       fontSize: 20,
       fontWeight: FontWeight.w600,
-      fontFamily: 'Roboto',
+      fontFamily: 'Panther',
       color: AppColors.cardTitleTextColor,
     );
   }
@@ -25,7 +25,7 @@ class AppStyles {
     return const TextStyle(
       fontSize: 15,
       fontWeight: FontWeight.normal,
-      fontFamily: 'Roboto',
+      fontFamily: 'QuickSand',
       color: AppColors.cardSubtitleTextColor,
     );
   }
@@ -34,7 +34,7 @@ class AppStyles {
     return const TextStyle(
       fontSize: 15,
       fontWeight: FontWeight.w500,
-      fontFamily: 'Roboto',
+      fontFamily: 'Panther',
       color: AppColors.cardTitleTextColor,
     );
   }
