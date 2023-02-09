@@ -1,0 +1,67 @@
+import 'dart:convert';
+import 'dart:developer';
+import 'package:http/http.dart' as http;
+
+import '../urls.dart';
+
+class User {
+  int? id;
+  String? firstName;
+  String? lastName;
+  String? email;
+  String? mobileNumber;
+  String? college;
+  String? year;
+  String? createdAt;
+  String? updatedAt;
+
+  User(
+      {this.id,
+      this.firstName,
+      this.lastName,
+      this.email,
+      this.mobileNumber,
+      this.college,
+      this.year,
+      this.createdAt,
+      this.updatedAt});
+
+  User.fromJson(Map<String, dynamic> json) {
+    id = json["id"];
+    firstName = json["first_name"];
+    lastName = json["last_name"];
+    email = json["email"];
+    mobileNumber = json["mobile_number"];
+    college = json["college"];
+    year = json["year"];
+    createdAt = json["created_at"];
+    updatedAt = json["updated_at"];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["id"] = id;
+    data["first_name"] = firstName;
+    data["last_name"] = lastName;
+    data["email"] = email;
+    data["mobile_number"] = mobileNumber;
+    data["college"] = college;
+    data["year"] = year;
+    data["created_at"] = createdAt;
+    data["updated_at"] = updatedAt;
+    return data;
+  }
+}
+
+Future<User> getUser() async {
+  Map<String, String> header = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ${EndPoints.sampleToken}'
+  };
+  var response = await http.get(Uri.parse(EndPoints.user), headers: header);
+  var data = jsonDecode(response.body);
+  log(data.toString());
+  User user = User.fromJson(data['user']);
+  log(user.firstName! + user.lastName!);
+  return user;
+}
