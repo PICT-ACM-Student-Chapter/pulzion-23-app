@@ -3,12 +3,12 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:pulzion23/constants/images.dart';
 import 'package:pulzion23/constants/styles.dart';
 import 'package:pulzion23/features/landing_page/ui/app_logo_image.dart';
-import 'package:pulzion23/features/login_page/ui/go_back_button.dart';
+import 'package:pulzion23/features/login_page/ui/widgets/go_back_button.dart';
 
 import '../../../constants/colors.dart';
-import 'roundedbutton.dart';
+import 'widgets/roundedbutton.dart';
 import 'login.dart';
-import 'text_field.dart';
+import 'widgets/text_field.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});

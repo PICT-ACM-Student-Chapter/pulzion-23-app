@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pulzion23/constants/styles.dart';
 
-import '../../../constants/colors.dart';
+import '../../../../constants/colors.dart';
 
 class RoundedButton extends StatelessWidget {
   const RoundedButton({super.key, required this.btnText, required this.onPressed});

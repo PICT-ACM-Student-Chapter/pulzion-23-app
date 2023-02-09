@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:pulzion23/constants/styles.dart';
 import 'package:pulzion23/features/landing_page/ui/app_logo_image.dart';
-import 'package:pulzion23/features/login_page/ui/text_field.dart';
+import 'package:pulzion23/features/login_page/ui/widgets/text_field.dart';
 
 import '../../../constants/images.dart';
-import 'go_back_button.dart';
+import 'widgets/go_back_button.dart';
 import 'sign_up.dart';
-import 'roundedbutton.dart';
+import 'widgets/roundedbutton.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
