@@ -20,6 +20,11 @@ dependencies:
     http: ^0.13.5
     firebase_remote_config: ^3.0.9
     firebase_core: ^2.4.1
+    flutter_svg: ^1.1.6
+    intl: ^0.18.0
+    animated_bottom_navigation_bar: ^1.1.0+1
+    curved_navigation_bar: ^1.0.3
+    modal_progress_hud_nsn: ^0.3.0
 
 
 dev_dependencies:
@@ -38,3 +43,14 @@ flutter:
         - family: Roboto
           fonts:
               - asset: assets/fonts/Roboto-Regular.ttf
+              - asset: assets/fonts/Poppins-Regular.ttf
+              - asset: assets/fonts/Poppins-SemiBold.ttf
+              - asset: assets/fonts/Poppins-Bold.ttf
+        - family: Quicksand
+          fonts:
+              - asset: assets/fonts/Quicksand-Regular.ttf
+              - asset: assets/fonts/Quicksand-Bold.ttf
+                weight: 700
+        - family: Panther
+          fonts:
+              - asset: assets/fonts/Panther.ttf

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pulzion23/config/remote_config.dart';
 // import 'package:pulzion23/constants/models/user_model.dart';
 // import 'package:pulzion23/constants/urls.dart';
@@ -6,10 +7,17 @@ import 'package:pulzion23/constants/utils/theme.dart';
 import 'package:pulzion23/project/routes/app_route_config.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+
 // import 'constants/models/event_model.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      systemNavigationBarColor: Color.fromARGB(0, 0, 0, 0),
+    ),
+  );
   await Firebase.initializeApp();
   await remoteConfig();
   // await getEvents();
