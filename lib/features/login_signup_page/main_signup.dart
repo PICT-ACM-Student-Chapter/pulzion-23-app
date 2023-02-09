@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:login_pulzion23/login.dart';
+
+import 'login.dart';
 
 void main() {
   runApp(const MyApp());

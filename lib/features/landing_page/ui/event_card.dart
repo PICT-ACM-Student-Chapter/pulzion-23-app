@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:pulzion23/constants/colors.dart';
 
 import '../../../constants/styles.dart';

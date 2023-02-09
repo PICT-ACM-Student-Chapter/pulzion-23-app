@@ -1,11 +1,8 @@
-import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import '../logic/event.dart';
 import 'custom_appbar.dart';
 import 'event_gridview.dart';
-import 'navigation_drawer.dart';
 
 class LandingPageContent extends StatefulWidget {
   const LandingPageContent({super.key});
