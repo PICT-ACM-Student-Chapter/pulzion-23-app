@@ -1,24 +1,25 @@
-import 'package:flutter/material.dart';
-import 'package:pulzion23/config/remote_config.dart';
-// import 'package:pulzion23/constants/models/user_model.dart';
-// import 'package:pulzion23/constants/urls.dart';
-import 'package:pulzion23/constants/utils/theme.dart';
-import 'package:pulzion23/features/landing_page/ui/landing_page_content.dart';
-import 'package:pulzion23/project/routes/app_route_config.dart';
-import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'dart:developer';
 
-import 'features/landing_page/ui/custom_appbar.dart';
-import 'features/landing_page/ui/navigation_drawer.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:pulzion23/config/remote_config.dart';
+import 'package:pulzion23/constants/utils/theme.dart';
+import 'package:pulzion23/project/routes/app_route_config.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 // import 'constants/models/event_model.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      systemNavigationBarColor: Color.fromARGB(0, 0, 0, 0),
+    ),
+  );
   await Firebase.initializeApp();
   await remoteConfig();
-  // await getEvents();
-  // await getUser();
+  log("Starting app");
   runApp(const Pulzion23App());
 }
 
