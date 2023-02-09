@@ -33,14 +33,14 @@ class LandingPage extends StatelessWidget {
           logoWidget(),
           BlocProvider(
             create: (context) => SampleCubitCubit(),
-            child: BlocConsumer<SampleCubitCubit, SampleCubitState>(
-              listenWhen: (previous, current) =>
-                  previous.runtimeType != current.runtimeType,
-              listener: (context, state) {
-                if (state is SampleCubitLoaded) {
-                  print("State Loaded");
-                }
-              },
+            child: BlocBuilder<SampleCubitCubit, SampleCubitState>(
+              // listenWhen: (previous, current) =>
+              //     previous.runtimeType != current.runtimeType,
+              // listener: (context, state) {
+              //   if (state is SampleCubitLoaded) {
+              //     print("State Loaded");
+              //   }
+              // },
               builder: (context, state) {
                 if (state is SampleCubitInitial) {
                   return Center(
