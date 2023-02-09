@@ -18,7 +18,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
       ],
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.transparent,
       shadowColor: Colors.transparent,
     );
   }

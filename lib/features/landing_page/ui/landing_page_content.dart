@@ -21,89 +21,94 @@ class _LandingPageContentState extends State<LandingPageContent> with TickerProv
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: const CustomAppBar(),
-        backgroundColor: Colors.black,
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(top: 8.0),
-              child: Text(
-                "Pulzion '23",
-                style: TextStyle(
-                  fontSize: 55,
-                  color: Colors.white,
+      home: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color.fromARGB(255, 0, 47, 98),
+              Color.fromARGB(255, 0, 1, 20),
+            ],
+          ),
+        ),
+        child: Scaffold(
+          appBar: const CustomAppBar(),
+          backgroundColor: Colors.transparent,
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(top: 8.0),
+                child: Text(
+                  "Pulzion '23",
+                  style: TextStyle(
+                    fontSize: 55,
+                    color: Colors.white,
+                  ),
                 ),
               ),
-            ),
-            Text(
-              "$page",
-              style: const TextStyle(
-                fontSize: 16,
-                color: Colors.white,
+              DefaultTabController(
+                length: 2,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 40),
+                  child: TabBar(
+                    labelPadding: const EdgeInsets.all(10),
+                    controller: tabBarController,
+                    indicator: const BoxDecoration(color: Colors.transparent),
+                    labelColor: Colors.white,
+                    unselectedLabelColor: const Color.fromARGB(255, 125, 100, 158),
+                    tabs: const [
+                      Text(
+                        'Tech Events',
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                      Text(
+                        'Non-Tech Events',
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ),
-            DefaultTabController(
-              length: 2,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 40),
-                child: TabBar(
-                  labelPadding: const EdgeInsets.all(10),
+              Expanded(
+                child: TabBarView(
+                  physics: const BouncingScrollPhysics(),
                   controller: tabBarController,
-                  indicator: const BoxDecoration(color: Colors.transparent),
-                  labelColor: Colors.white,
-                  unselectedLabelColor: const Color.fromARGB(255, 125, 100, 158),
-                  tabs: const [
-                    Text(
-                      'Tech Events',
-                      style: TextStyle(
-                        fontSize: 16,
-                      ),
-                    ),
-                    Text(
-                      'Non-Tech Events',
-                      style: TextStyle(
-                        fontSize: 16,
-                      ),
-                    ),
+                  children: [
+                    EventGridView(techEvents),
+                    EventGridView(techEvents),
                   ],
                 ),
               ),
-            ),
-            Expanded(
-              child: TabBarView(
-                physics: const BouncingScrollPhysics(),
-                controller: tabBarController,
-                children: [
-                  EventGridView(techEvents),
-                  EventGridView(techEvents),
-                ],
-              ),
-            ),
-          ],
-        ),
-        bottomNavigationBar: CurvedNavigationBar(
-          index: 2,
-          height: MediaQuery.of(context).size.height * 0.07,
-          items: const <Widget>[
-            Icon(Icons.add, size: 30),
-            Icon(Icons.list, size: 30),
-            Icon(Icons.compare_arrows, size: 30),
-            Icon(Icons.call_split, size: 30),
-            Icon(Icons.perm_identity, size: 30),
-          ],
-          color: Colors.white,
-          buttonBackgroundColor: Colors.white,
-          backgroundColor: Colors.transparent,
-          animationCurve: Curves.easeInOut,
-          animationDuration: const Duration(milliseconds: 400),
-          onTap: (index) {
-            setState(() {
-              page = index;
-            });
-          },
-          letIndexChange: (index) => true,
+            ],
+          ),
+          bottomNavigationBar: CurvedNavigationBar(
+            index: 2,
+            height: MediaQuery.of(context).size.height * 0.07,
+            items: const <Widget>[
+              Icon(Icons.add, size: 30),
+              Icon(Icons.list, size: 30),
+              Icon(Icons.compare_arrows, size: 30),
+              Icon(Icons.call_split, size: 30),
+              Icon(Icons.perm_identity, size: 30),
+            ],
+            color: Colors.white,
+            buttonBackgroundColor: Colors.white,
+            backgroundColor: Colors.transparent,
+            animationCurve: Curves.easeInOut,
+            animationDuration: const Duration(milliseconds: 400),
+            onTap: (index) {
+              setState(() {
+                page = index;
+              });
+            },
+            letIndexChange: (index) => true,
+          ),
         ),
       ),
     );
