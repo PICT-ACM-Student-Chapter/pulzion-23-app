@@ -71,18 +71,28 @@ class _HomePageState extends State<HomePage> {
                       child: Row(
                         children: [
                           Padding(
+
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
+
+
                               height: h / 10,
-                              color: Colors.pinkAccent,
-                              child: Text("sjhhsgshsgahsgjghjhjhajsjh"),
+                              decoration: BoxDecoration(
+                                  color: Colors.pinkAccent,
+                                borderRadius: BorderRadius.all(Radius.circular(20.0))
+                              ),
+
+                              child: Text("placehgfhghfgg info"),
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
                               height: h / 10,
-                              color: Colors.green,
+                              decoration: BoxDecoration(
+                                  color: Colors.pinkAccent,
+                                  borderRadius: BorderRadius.all(Radius.circular(20.0))
+                              ),
                               child: Text("sdhgudhdjahasjahhjhj"),
                             ),
                           ),
