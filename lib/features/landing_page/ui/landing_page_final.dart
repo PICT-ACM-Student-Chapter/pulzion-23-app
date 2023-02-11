@@ -56,8 +56,8 @@ class _LandingPageContentState extends State<LandingPageContent> with TickerProv
                 physics: const BouncingScrollPhysics(),
                 controller: tabBarController,
                 children: [
-                  EventGridView(state.techEvents),
-                  EventGridView(state.nonTechEvents),
+                  EventGridView(state.events.events!.where((element) => element.type=="Technical").toList()),
+                  EventGridView(state.events.events!.where((element) => element.type=="Non Technical").toList()),
                 ],
               ),
             ),

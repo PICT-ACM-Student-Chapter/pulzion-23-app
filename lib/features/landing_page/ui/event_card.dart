@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pulzion23/constants/colors.dart';
 import 'package:pulzion23/constants/models/event_model.dart';
-
 import '../../../constants/styles.dart';
 import '../logic/event.dart';
 
@@ -12,6 +11,10 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    final width = mediaQuery.size.width;
+    final height = mediaQuery.size.height;
+    final fontSizeFactor = height / width;
     return Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.topCenter,
@@ -25,8 +28,8 @@ class EventCard extends StatelessWidget {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  // event.startColor,
-                  // event.endColor,
+                  const Color(0xffebf4f5),
+                  const Color.fromARGB(255, 87, 95, 107),
                 ],
               ),
               borderRadius: BorderRadius.circular(20),
@@ -63,7 +66,7 @@ class EventCard extends StatelessWidget {
                         Icon(
                           Icons.arrow_forward_ios_rounded,
                           color: AppColors.cardTitleTextColor,
-                          size: MediaQuery.of(context).size.height / 60,
+                          size: height / 60,
                         ),
                       ],
                     ),
@@ -80,13 +83,14 @@ class EventCard extends StatelessWidget {
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                  blurRadius: MediaQuery.of(context).size.width / 128,
+                  blurRadius: 8,
                 ),
               ],
             ),
             child: CircleAvatar(
-              radius: MediaQuery.of(context).size.width / 8,
-              backgroundImage: NetworkImage(event.logo!),
+              radius: width / 8,
+              //backgroundImage: NetworkImage(event.logo!),
+              backgroundImage: AssetImage('assets/images/image1.jpg'),
             ),
           ),
         ),

@@ -32,7 +32,7 @@ class RoundedButton extends StatelessWidget {
         child: Center(
           child: Text(
             btnText,
-            style: AppStyles.bodyTextStyle2().copyWith(fontSize: 20),
+            style: AppStyles.bodyTextStyle3().copyWith(fontSize: 20, fontWeight: FontWeight.w600),
           ),
         ),
       ),

@@ -7,4 +7,5 @@ class AppColors {
   static const Color cardTitleTextColor = Color.fromARGB(255, 255, 255, 255);
   static const Color cardSubtitleTextColor = Color.fromARGB(200, 255, 255, 255);
   static const Color cardBorder = Color.fromARGB(255, 88, 128, 155);
+  static const Color loginPageAccent = Color(0xffac84fc);
 }

@@ -8,10 +8,8 @@ class EventDetailsCubitInitial extends EventDetailsCubitState {}
 class EventDetailsCubitLoading extends EventDetailsCubitState {}
 
 class EventDetailsCubitLoaded extends EventDetailsCubitState {
-  //EventList events;
-  List<Events> techEvents;
-  List<Events> nonTechEvents;
-  EventDetailsCubitLoaded(this.techEvents,this.nonTechEvents);
+  EventList events;
+  EventDetailsCubitLoaded(this.events);
 }
 
 class EventDetailsCubitError extends EventDetailsCubitState {
