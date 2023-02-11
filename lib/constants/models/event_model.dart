@@ -1,9 +1,3 @@
-import 'dart:convert';
-import 'dart:developer';
-import 'package:http/http.dart' as http;
-
-import '../urls.dart';
-
 class EventList {
   List<Events>? events;
 
@@ -99,14 +93,4 @@ class Events {
     data["updated_at"] = updatedAt;
     return data;
   }
-}
-
-Future<EventList> getEvents() async {
-  var response = await http.get(Uri.parse(EndPoints.events));
-  var data = jsonDecode(response.body);
-  EventList eventList = EventList.fromJson(data);
-  for (var event in eventList.events!) {
-    log(event.name! + event.description!);
-  }
-  return eventList;
 }

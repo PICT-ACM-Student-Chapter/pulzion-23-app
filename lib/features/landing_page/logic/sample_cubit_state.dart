@@ -9,7 +9,6 @@ class SampleCubitLoading extends SampleCubitState {}
 
 class SampleCubitLoaded extends SampleCubitState {
   final String message;
-
   SampleCubitLoaded(this.message);
 }
 

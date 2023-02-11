@@ -65,3 +65,16 @@ Future<User> getUser() async {
   log(user.firstName! + user.lastName!);
   return user;
 }
+
+// Creating a singleton class for user token
+class UserToken {
+  String? token;
+
+  UserToken._privateConstructor();
+
+  static final UserToken _instance = UserToken._privateConstructor();
+
+  factory UserToken() {
+    return _instance;
+  }
+}
