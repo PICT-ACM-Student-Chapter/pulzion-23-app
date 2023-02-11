@@ -17,8 +17,8 @@ Future<void> main() async {
       systemNavigationBarColor: Color.fromARGB(0, 0, 0, 0),
     ),
   );
-  await Firebase.initializeApp();
-  await remoteConfig();
+  // await Firebase.initializeApp();
+  // await remoteConfig();
   log("Starting app");
   runApp(const Pulzion23App());
 }

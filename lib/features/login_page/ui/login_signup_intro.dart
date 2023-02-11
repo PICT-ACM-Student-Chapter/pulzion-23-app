@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+import 'package:panorama/panorama.dart';
 import 'package:pulzion23/constants/colors.dart';
 import 'package:pulzion23/constants/images.dart';
 import 'package:pulzion23/constants/styles.dart';
@@ -7,7 +9,8 @@ import 'login.dart';
 import 'sign_up.dart';
 
 class LoginSignUpIntro extends StatelessWidget {
-  const LoginSignUpIntro({super.key});
+  LoginSignUpIntro({super.key});
+  final SensorControl sensorControl = SensorControl.AbsoluteOrientation;
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +18,11 @@ class LoginSignUpIntro extends StatelessWidget {
     var padding = MediaQuery.of(context).padding;
     return Stack(
       children: [
-        Image.asset(
-          AppImages.spaceBackground,
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          fit: BoxFit.cover,
+        Panorama(
+          sensitivity: 0.4,
+          animSpeed: 0.5,
+          sensorControl: SensorControl.Orientation,
+          child: Image.asset(AppImages.spaceBackground, fit: BoxFit.cover),
         ),
         Scaffold(
           backgroundColor: Colors.transparent,
@@ -38,10 +41,7 @@ class LoginSignUpIntro extends StatelessWidget {
                   height: size.height * 0.5,
                   width: size.height * 0.5,
                   decoration: BoxDecoration(
-                    image: const DecorationImage(
-                      image: AssetImage(AppImages.djAstronaut),
-                    ),
-                    color: AppColors.primary.withAlpha(200),
+                    color: AppColors.primary.withAlpha(150),
                     borderRadius: const BorderRadius.all(
                       Radius.circular(20),
                     ),
@@ -52,6 +52,7 @@ class LoginSignUpIntro extends StatelessWidget {
                       ),
                     ),
                   ),
+                  child: Lottie.asset(AppImages.djAstronaut),
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,

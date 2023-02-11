@@ -13,7 +13,7 @@ final GoRouter router = GoRouter(routes: [
   GoRoute(
     path: '/',
     name: RouteName.landing,
-    builder: (context, state) => const LoginSignUpIntro(),
+    builder: (context, state) => LoginSignUpIntro(),
   ),
   GoRoute(
     path: '/profile',
