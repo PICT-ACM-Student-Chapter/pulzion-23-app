@@ -1,5 +1,6 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:pulzion23/constants/colors.dart';
 import 'package:pulzion23/constants/models/event_model.dart';
 import 'package:pulzion23/features/landing_page/ui/home_page.dart';
@@ -28,22 +29,27 @@ class EventCard extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [
-                  const Color(0xffebf4f5),
-                  const Color.fromARGB(255, 87, 95, 107),
-                ],
+                colors: AppColors.eventCardGradientList.elementAt(
+                  event.id! % AppColors.eventCardGradientList.length,
+                ),
               ),
               borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: Colors.white,
+                width: 0.2,
+              ),
             ),
             child: Padding(
-              padding: EdgeInsets.symmetric(vertical:MediaQuery.of(context).size.width / 10,horizontal: 10),
+              padding: EdgeInsets.only(
+                top: MediaQuery.of(context).size.width / 5,
+                left: 10,
+                right: 10,
+                bottom: 10,
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).size.width / 12,
-                  ),
                   Text(
                     event.name!,
                     style: AppStyles.bodyTextStyle2(),
@@ -56,24 +62,21 @@ class EventCard extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     maxLines: 3,
                   ),
-                  InkWell(
-                    onTap: (() {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage(event: event,)));
-                    }),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Know More',
-                          style: AppStyles.bodyTextStyle4(),
-                        ),
-                        Icon(
-                          Icons.arrow_forward_ios_rounded,
-                          color: AppColors.cardTitleTextColor,
-                          size: height / 60,
-                        ),
-                      ],
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: InkWell(
+                      onTap: (() {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomePage(
+                                      event: event,
+                                    )));
+                      }),
+                      child: const Icon(
+                        Icons.arrow_forward_rounded,
+                        color: Colors.white,
+                      ),
                     ),
                   )
                 ],

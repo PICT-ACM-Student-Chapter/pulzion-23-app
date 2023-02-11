@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pulzion23/constants/images.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key});
@@ -13,12 +13,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: InkWell(
             onTap: (() {}),
             child: const CircleAvatar(
-              backgroundImage: AssetImage('assets/images/person.png'),
+              backgroundImage: AssetImage(AppImages.person),
             ),
           ),
         ),
       ],
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.transparent,
       shadowColor: Colors.transparent,
     );
   }

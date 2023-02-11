@@ -4,32 +4,39 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pulzion23/constants/models/event_model.dart';
 
+import '../../../constants/colors.dart';
+import '../../../constants/images.dart';
+import '../../../constants/styles.dart';
+
 class HomePage extends StatefulWidget {
   final Events? event;
-  const HomePage({this.event,Key? key}) : super(key: key);
+  const HomePage({this.event, Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final event = widget.event!;
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
     int activeIndex = 1;
+    late final TabController tabBarController = TabController(length: 3, vsync: this);
     String title = "";
     final fontSizeFactor = h / w;
     return Scaffold(
+      backgroundColor: Colors.black,
       bottomNavigationBar: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        margin: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         decoration: BoxDecoration(color: Colors.black, boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.7),
             spreadRadius: 3,
             blurRadius: 9,
-            offset: Offset(0, -4), // changes position of shadow
+            offset: const Offset(0, -4), // changes position of shadow
           ),
         ]),
         child: Row(
@@ -41,27 +48,24 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 3.0),
-                      child: Text("PRICE",
-                          style: TextStyle(color: Colors.grey, fontSize: 16)),
+                    Text(
+                      "PRICE",
+                      style: AppStyles.bodyTextStyle3().copyWith(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
                           "Rs. 30",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
+                          style: AppStyles.bodyTextStyle3(),
                         ),
                         Text(
                           "/person",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold),
+                          style: AppStyles.bodyTextStyle3(),
                         ),
                       ],
                     )
@@ -74,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                 decoration: BoxDecoration(
                     color: Colors.blueAccent,
                     borderRadius: BorderRadius.circular(12),
-                    gradient: LinearGradient(
+                    gradient: const LinearGradient(
                         colors: [Color(0xff07f49e), Color(0xff42047e)],
                         begin: Alignment.centerLeft,
                         end: Alignment.centerRight)),
@@ -85,12 +89,12 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       Text(
                         "Add to Cart  ",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            fontSize: 18),
+                        style: AppStyles.bodyTextStyle3().copyWith(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                      Icon(
+                      const Icon(
                         Icons.shopping_cart,
                         color: Colors.white,
                       )
@@ -110,183 +114,150 @@ class _HomePageState extends State<HomePage> {
               Stack(
                 children: [
                   SizedBox(
-                      height: h / 3,
-                      child: Lottie.asset("assets/images/space.json",
-                          fit: BoxFit.fill)),
+                    height: h / 3,
+                    child: Lottie.asset("assets/images/space.json", fit: BoxFit.fill),
+                  ),
                   Container(
                     height: h / 2.8,
                     decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                          Colors.deepPurple.withOpacity(0.3),
-                          Colors.black
-                        ])),
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [Colors.deepPurple.withOpacity(0.3), Colors.black],
+                      ),
+                    ),
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 8.0),
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            "assets/images/icon.png",
-                            scale: 6,
-                          ),
-                          Text(
-                            event.name!,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: fontSizeFactor * 12),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 8.0),
-                      child: Row(
-                        children: [
-                          infoType(activeIndex: activeIndex, title: "Description",currentIndex: 0),
-                          infoType(activeIndex: activeIndex, title: "Rounds",currentIndex: 1),
-                          infoType(activeIndex: activeIndex, title: "Rules",currentIndex: 2),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 8.0),
-                      child: Center(
-                        child: Container(
-                          child: Text(
-                            event.tagline!,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: fontSizeFactor * 8,
-                              fontWeight: FontWeight.bold,
-                              color: const Color(0xFFfafafa),
-                              fontStyle: FontStyle.italic,
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              "assets/images/icon.png",
+                              scale: 6,
                             ),
+                            Text(
+                              event.name!,
+                              style: AppStyles.bodyTextStyle2().copyWith(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 12.0),
+                        child: DefaultTabController(
+                          length: 2,
+                          child: TabBar(
+                            labelPadding: const EdgeInsets.all(12),
+                            controller: tabBarController,
+                            indicator: const BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(
+                                  color: AppColors.loginPageAccent,
+                                ),
+                              ),
+                            ),
+                            unselectedLabelColor: AppColors.cardSubtitleTextColor,
+                            labelColor: AppColors.loginPageAccent,
+                            tabs: const [
+                              Text("Description",
+                                  style: TextStyle(
+                                      fontFamily: 'Quicksand',
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500)),
+                              Text("Rounds",
+                                  style: TextStyle(
+                                      fontFamily: 'Quicksand',
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500)),
+                              Text("Rules",
+                                  style: TextStyle(
+                                      fontFamily: 'Quicksand',
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500)),
+                            ],
                           ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 8.0),
-                      child: Container(
-                        child: Text(
-                          event.description!,
-                          style: TextStyle(
-                            fontSize: fontSizeFactor * 8,
-                            color: Colors.grey,
-                          ),
+                      SizedBox(
+                        height: h / 1.5,
+                        width: w,
+                        child: TabBarView(
+                          physics: const BouncingScrollPhysics(),
+                          controller: tabBarController,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    event.tagline!,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: fontSizeFactor * 8,
+                                      fontWeight: FontWeight.bold,
+                                      color: const Color(0xFFfafafa),
+                                      fontStyle: FontStyle.italic,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    event.description!,
+                                    style: AppStyles.bodyTextStyle3(),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'Team Details :',
+                                    style: AppStyles.bodyTextStyle3().copyWith(
+                                      color: AppColors.loginPageAccent,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    event.teams!,
+                                    style: AppStyles.bodyTextStyle3(),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Text(
+                              event.rounds!,
+                              style: AppStyles.bodyTextStyle3(),
+                            ),
+                            Text(
+                              event.rules!,
+                              style: AppStyles.bodyTextStyle3(),
+                            ),
+                          ],
                         ),
                       ),
-                    ),
-                    Container(
-                      child: Text(
-                        'Round Details:',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          //fontFamily: 'Montserrat',
-                          fontSize: fontSizeFactor * 8.5,
-                          color: Colors.cyan,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Text(
-                      event.rounds!,
-                      style: TextStyle(
-                        //fontFamily: 'Montserrat',
-                        fontSize: fontSizeFactor * 8,
-                        color: const Color(0xFFfafafa),
-                      ),
-                    ),
-                    Container(
-                      child: Text(
-                        'Rules',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          //fontFamily: 'Montserrat',
-                          fontSize: fontSizeFactor * 8.5,
-                          color: Colors.cyan,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Text(
-                      event.rules!,
-                      style: TextStyle(
-                        //fontFamily: 'Montserrat',
-                        fontSize: fontSizeFactor * 8,
-                        color: const Color(0xFFfafafa),
-                      ),
-                    ),
-                    Container(
-                      child: Text(
-                        'Team Details :',
-                        style: TextStyle(
-                          //fontFamily: 'Montserrat',
-                          fontSize: fontSizeFactor * 8.5,
-                          color: Colors.cyan,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Text(
-                      event.teams!,
-                      style: TextStyle(
-                        //fontFamily: 'Montserrat',
-                        fontSize: fontSizeFactor * 8,
-                        color: Colors.white,
-                      ),
-                    ),
-                    SizedBox(
-                      height: h / 12,
-                    )
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class infoType extends StatelessWidget {
-  const infoType({
-    super.key,
-    required this.activeIndex,
-    required this.title,
-    required this.currentIndex
-  });
-
-  final int activeIndex;
-  final String title;
-  final int currentIndex;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(8),
-      margin: EdgeInsets.only(right: 12),
-      decoration: BoxDecoration(
-          color: activeIndex==currentIndex?Colors.white:Colors.grey[900],
-          borderRadius:
-          BorderRadius.all(Radius.circular(10.0))),
-      child: Text(
-        title,
-        style: TextStyle(
-          fontWeight: activeIndex==currentIndex?FontWeight.bold:FontWeight.normal,
-            fontSize: 18,
-            color: activeIndex==currentIndex?Colors.black:Colors.grey[600]),
       ),
     );
   }
