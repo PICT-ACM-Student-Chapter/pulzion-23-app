@@ -2,9 +2,11 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:pulzion23/constants/models/event_model.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  final Events? event;
+  const HomePage({this.event,Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -13,18 +15,13 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    final event = widget.event!;
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
+    int activeIndex = 1;
+    String title = "";
     final fontSizeFactor = h / w;
     return Scaffold(
-      //   floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      // floatingActionButton: FloatingActionButton.extended(
-      //   onPressed: () {},
-      //   label: Text("Add to cart"),
-      //   icon: Icon(Icons.shopping_cart),
-      //   extendedPadding: EdgeInsets.all(MediaQuery.of(context).size.width*1/10),
-      //
-      // ),
       bottomNavigationBar: Container(
         padding: EdgeInsets.symmetric(horizontal: 16),
         decoration: BoxDecoration(color: Colors.black, boxShadow: [
@@ -143,7 +140,7 @@ class _HomePageState extends State<HomePage> {
                             scale: 6,
                           ),
                           Text(
-                            "Pulzion Event Name",
+                            event.name!,
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: fontSizeFactor * 12),
@@ -155,52 +152,9 @@ class _HomePageState extends State<HomePage> {
                       padding: EdgeInsets.symmetric(vertical: 8.0),
                       child: Row(
                         children: [
-                          Container(
-                            padding: EdgeInsets.all(8),
-                            margin: EdgeInsets.only(right: 12),
-                            //height: h / 10,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10.0))),
-                            child: Text(
-                              "Description",
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.all(8),
-                            margin: EdgeInsets.only(right: 12),
-
-                            //height: h / 10,
-                            decoration: BoxDecoration(
-                                color: Colors.grey[900],
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10.0))),
-                            child: Text(
-                              "Rounds",
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.grey[600]),
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.all(8),
-                            margin: EdgeInsets.only(right: 12),
-
-                            //height: h / 10,
-                            decoration: BoxDecoration(
-                                color: Colors.grey[900],
-                                borderRadius:
-                                BorderRadius.all(Radius.circular(10.0))),
-                            child: Text(
-                              "Rules",
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.grey[600]),
-                            ),
-                          ),
+                          infoType(activeIndex: activeIndex, title: "Description",currentIndex: 0),
+                          infoType(activeIndex: activeIndex, title: "Rounds",currentIndex: 1),
+                          infoType(activeIndex: activeIndex, title: "Rules",currentIndex: 2),
                         ],
                       ),
                     ),
@@ -209,10 +163,9 @@ class _HomePageState extends State<HomePage> {
                       child: Center(
                         child: Container(
                           child: Text(
-                            "\"Logic is the fragrance of a coder\'s garden.\"",
+                            event.tagline!,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              //fontFamily: 'Montserrat',
                               fontSize: fontSizeFactor * 8,
                               fontWeight: FontWeight.bold,
                               color: const Color(0xFFfafafa),
@@ -226,9 +179,8 @@ class _HomePageState extends State<HomePage> {
                       padding: EdgeInsets.symmetric(vertical: 8.0),
                       child: Container(
                         child: Text(
-                          "Before diving into the jargon of every programming language available, one must first establish a sharp sense of how to approach problems. Recode It gives you a chance to put your logical and analytical skills to the test, which are crucial for becoming a strong coder.",
+                          event.description!,
                           style: TextStyle(
-                            //fontFamily: 'Montserrat',
                             fontSize: fontSizeFactor * 8,
                             color: Colors.grey,
                           ),
@@ -248,8 +200,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     Text(
-                      '''Round 1: This is the MCQ round. The participants will be allowed to use a computer to code the solution if required, or they can solve it on paper.
-Round 2: The second round will be conducted on our platform where participants can run the executable files any number of times against the input they want. From the given custom inputs and received outputs, the participant needs to figure out the logic of the code of the executable file and code it.''',
+                      event.rounds!,
                       style: TextStyle(
                         //fontFamily: 'Montserrat',
                         fontSize: fontSizeFactor * 8,
@@ -269,11 +220,7 @@ Round 2: The second round will be conducted on our platform where participants c
                       ),
                     ),
                     Text(
-                      '''1. Both groups, FE-SE and TE-BE would be given a maximum of 30 minutes to complete the questions of the first round.
-2. Both the groups, FE-SE and TE-BE, will be given a maximum of 120 minutes to complete the questions of the second round.
-3. Permitted languages will be C, C+, Python and Java.
-4. Use of unfair means will result in direct disqualification.
-5. The decision of the organizers will be considered final and binding for all participants.''',
+                      event.rules!,
                       style: TextStyle(
                         //fontFamily: 'Montserrat',
                         fontSize: fontSizeFactor * 8,
@@ -292,8 +239,7 @@ Round 2: The second round will be conducted on our platform where participants c
                       ),
                     ),
                     Text(
-                      '''FE-SE (Junior Category): Individual participation
-TE-BE (Senior Category): Individual participation''',
+                      event.teams!,
                       style: TextStyle(
                         //fontFamily: 'Montserrat',
                         fontSize: fontSizeFactor * 8,
@@ -309,6 +255,38 @@ TE-BE (Senior Category): Individual participation''',
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class infoType extends StatelessWidget {
+  const infoType({
+    super.key,
+    required this.activeIndex,
+    required this.title,
+    required this.currentIndex
+  });
+
+  final int activeIndex;
+  final String title;
+  final int currentIndex;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(8),
+      margin: EdgeInsets.only(right: 12),
+      decoration: BoxDecoration(
+          color: activeIndex==currentIndex?Colors.white:Colors.grey[900],
+          borderRadius:
+          BorderRadius.all(Radius.circular(10.0))),
+      child: Text(
+        title,
+        style: TextStyle(
+          fontWeight: activeIndex==currentIndex?FontWeight.bold:FontWeight.normal,
+            fontSize: 18,
+            color: activeIndex==currentIndex?Colors.black:Colors.grey[600]),
       ),
     );
   }

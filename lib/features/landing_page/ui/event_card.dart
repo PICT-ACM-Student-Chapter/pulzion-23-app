@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pulzion23/constants/colors.dart';
 import 'package:pulzion23/constants/models/event_model.dart';
+import 'package:pulzion23/features/landing_page/ui/home_page.dart';
 import '../../../constants/styles.dart';
 import '../logic/event.dart';
 
@@ -35,7 +36,7 @@ class EventCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
             ),
             child: Padding(
-              padding: EdgeInsets.all(MediaQuery.of(context).size.width / 20),
+              padding: EdgeInsets.symmetric(vertical:MediaQuery.of(context).size.width / 10,horizontal: 10),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,6 +47,8 @@ class EventCard extends StatelessWidget {
                   Text(
                     event.name!,
                     style: AppStyles.bodyTextStyle2(),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
                   ),
                   Text(
                     event.description!,
@@ -54,7 +57,9 @@ class EventCard extends StatelessWidget {
                     maxLines: 3,
                   ),
                   InkWell(
-                    onTap: (() {}),
+                    onTap: (() {
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage(event: event,)));
+                    }),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
