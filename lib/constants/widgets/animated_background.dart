@@ -3,9 +3,14 @@ import 'package:panorama/panorama.dart';
 
 import '../images.dart';
 
-class AnimatedBackground extends StatelessWidget {
+class AnimatedBackground extends StatefulWidget {
   AnimatedBackground({super.key});
 
+  @override
+  State<AnimatedBackground> createState() => _AnimatedBackgroundState();
+}
+
+class _AnimatedBackgroundState extends State<AnimatedBackground> {
   final SensorControl sensorControl = SensorControl.AbsoluteOrientation;
 
   @override
