@@ -42,37 +42,5 @@ class AppColors {
       const Color(0xffed71ad).withAlpha(80),
       const Color(0xff7277f1).withAlpha(80),
     ],
-    [
-      const Color(0xff07f49e).withAlpha(80),
-      const Color(0xff42047e).withAlpha(80),
-    ],
-    [
-      const Color(0xffe4b04d).withAlpha(80),
-      const Color.fromARGB(255, 123, 71, 16).withAlpha(80),
-    ],
-    [
-      const Color(0xffebf4f5).withAlpha(80),
-      const Color.fromARGB(255, 87, 95, 107).withAlpha(80),
-    ],
-    [
-      const Color(0xffb15b86).withAlpha(80),
-      const Color(0xff440f50).withAlpha(80),
-    ],
-    [
-      const Color(0xffef745c).withAlpha(80),
-      const Color(0xff34073d).withAlpha(80),
-    ],
-    [
-      const Color(0xff1ed7b5).withAlpha(80),
-      const Color(0xfff0f9a7).withAlpha(80),
-    ],
-    [
-      const Color(0xff6ff7e8).withAlpha(80),
-      const Color(0xff1f7ea1).withAlpha(80),
-    ],
-    [
-      const Color(0xffed71ad).withAlpha(80),
-      const Color(0xff7277f1).withAlpha(80),
-    ],
   };
 }
