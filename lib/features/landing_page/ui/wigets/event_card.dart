@@ -1,11 +1,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:pulzion23/constants/colors.dart';
-import 'package:pulzion23/constants/models/event_model.dart';
-import 'package:pulzion23/features/landing_page/ui/home_page.dart';
-import '../../../constants/styles.dart';
-import '../logic/event.dart';
+
+import '../../../../constants/colors.dart';
+import '../../../../constants/models/event_model.dart';
+import '../../../../constants/styles.dart';
+import '../../../event_description/ui/event_description.dart';
 
 class EventCard extends StatelessWidget {
   final Events event;
@@ -24,7 +24,8 @@ class EventCard extends StatelessWidget {
         Transform.translate(
           offset: Offset(0, MediaQuery.of(context).size.width / 10),
           child: Container(
-            margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.width / 8),
+            margin:
+                EdgeInsets.only(bottom: MediaQuery.of(context).size.width / 8),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
@@ -69,7 +70,7 @@ class EventCard extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => HomePage(
+                                builder: (context) => EventDescription(
                                       event: event,
                                     )));
                       }),

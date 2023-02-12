@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pulzion23/constants/models/event_model.dart';
-import '../logic/event.dart';
+
+import '../../../../constants/models/event_model.dart';
 import 'event_card.dart';
 
 class EventGridView extends StatelessWidget {

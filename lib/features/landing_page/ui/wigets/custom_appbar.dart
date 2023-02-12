@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pulzion23/constants/images.dart';
+
+import '../../../../constants/images.dart';
+
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key});

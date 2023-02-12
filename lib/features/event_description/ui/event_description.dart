@@ -1,29 +1,28 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pulzion23/constants/models/event_model.dart';
 
 import '../../../constants/colors.dart';
-import '../../../constants/images.dart';
 import '../../../constants/styles.dart';
 
-class HomePage extends StatefulWidget {
+class EventDescription extends StatefulWidget {
   final Events? event;
-  const HomePage({this.event, Key? key}) : super(key: key);
+  const EventDescription({this.event, Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<EventDescription> createState() => _EventDescriptionState();
 }
 
-class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+class _EventDescriptionState extends State<EventDescription>
+    with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final event = widget.event!;
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
     int activeIndex = 1;
-    late final TabController tabBarController = TabController(length: 3, vsync: this);
+    late final TabController tabBarController =
+        TabController(length: 3, vsync: this);
     String title = "";
     final fontSizeFactor = h / w;
     return Scaffold(
@@ -115,7 +114,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 children: [
                   SizedBox(
                     height: h / 3,
-                    child: Lottie.asset("assets/images/space.json", fit: BoxFit.fill),
+                    child: Lottie.asset("assets/images/space.json",
+                        fit: BoxFit.fill),
                   ),
                   Container(
                     height: h / 2.8,
@@ -123,7 +123,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
-                        colors: [Colors.deepPurple.withOpacity(0.3), Colors.black],
+                        colors: [
+                          Colors.deepPurple.withOpacity(0.3),
+                          Colors.black
+                        ],
                       ),
                     ),
                   ),
@@ -167,7 +170,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 ),
                               ),
                             ),
-                            unselectedLabelColor: AppColors.cardSubtitleTextColor,
+                            unselectedLabelColor:
+                                AppColors.cardSubtitleTextColor,
                             labelColor: AppColors.loginPageAccent,
                             tabs: const [
                               Text("Description",

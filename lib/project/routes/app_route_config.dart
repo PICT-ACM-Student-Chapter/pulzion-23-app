@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:go_router/go_router.dart';
-import 'package:pulzion23/features/landing_page/ui/home_page.dart';
+import 'package:pulzion23/features/event_description/ui/event_description.dart';
 import 'package:pulzion23/features/landing_page/ui/landing_page_final.dart';
 import 'package:pulzion23/features/login_page/ui/login.dart';
 import 'package:pulzion23/features/login_page/ui/login_signup_intro.dart';

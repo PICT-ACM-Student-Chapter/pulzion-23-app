@@ -3,14 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:panorama/panorama.dart';
-import 'package:pulzion23/constants/styles.dart';
-import 'package:pulzion23/features/landing_page/cubit/event_details_cubit_cubit.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/images.dart';
-import '../logic/event.dart';
-import 'custom_appbar.dart';
-import 'event_gridview.dart';
-import 'navigation_bar.dart';
+import '../../../constants/styles.dart';
+import '../../../project/navigation_bar.dart';
+import '../logic/event_details_cubit_cubit.dart';
+import 'wigets/custom_appbar.dart';
+import 'wigets/event_gridview.dart';
 
 class LandingPageContent extends StatefulWidget {
   const LandingPageContent({super.key});
