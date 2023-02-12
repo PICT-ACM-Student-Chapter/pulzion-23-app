@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:panorama/panorama.dart';
 import 'package:pulzion23/constants/images.dart';
 import 'package:pulzion23/constants/styles.dart';
-import 'package:pulzion23/features/landing_page/ui/app_logo_image.dart';
+import 'package:pulzion23/features/landing_page/ui/wigets/app_logo_image.dart';
 import 'package:pulzion23/features/login_page/ui/widgets/go_back_button.dart';
 
 import '../../../constants/colors.dart';
@@ -22,6 +23,7 @@ class _SignUpState extends State<SignUp> {
   late String email;
   late String password;
   var yearOfStudy = 1;
+  final SensorControl sensorControl = SensorControl.AbsoluteOrientation;
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +31,11 @@ class _SignUpState extends State<SignUp> {
       inAsyncCall: showSpinner,
       child: Stack(
         children: [
-          Image.asset(
-            AppImages.spaceBackground,
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            fit: BoxFit.cover,
+          Panorama(
+            sensitivity: 0.4,
+            animSpeed: 0.5,
+            sensorControl: SensorControl.Orientation,
+            child: Image.asset(AppImages.spaceBackground, fit: BoxFit.cover),
           ),
           Scaffold(
             resizeToAvoidBottomInset: true,

@@ -20,7 +20,7 @@ class LoginSignUpTextField extends StatelessWidget {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(25.0),
         ),
-        fillColor: AppColors.primary.withAlpha(150),
+        fillColor: AppColors.primary.withAlpha(100),
         filled: true,
         prefixIcon: Icon(
           icon,
