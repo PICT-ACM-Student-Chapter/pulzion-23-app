@@ -25,9 +25,8 @@ dependencies:
     firebase_remote_config: ^3.0.9
     firebase_core: ^2.4.1
     flutter_staggered_animations: ^1.1.1
-
-
-
+    font_awesome_flutter: ^10.4.0
+    panorama: ^0.4.1
 
 dev_dependencies:
     flutter_test:
@@ -40,6 +39,8 @@ flutter:
 
     assets:
         - assets/images/
+        - assets/images/menu_page_assets/rocket.gif
+        - assets/images/menu_page_assets/placeholder.jpg
 
     fonts:
         - family: Roboto

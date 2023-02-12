@@ -1,15 +1,16 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import './childWid.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class FrostedGlassBox extends StatelessWidget {
   final cwidth, cheight;
-  final childWid;
-  const FrostedGlassBox(
+  List<FrostedTile> childWid;
+  FrostedGlassBox(
       {required this.cheight, required this.cwidth, required this.childWid});
 
-  @override
-  Widget build(BuildContext context) {
+  Widget FrostedItem(Widget w) {
     return Padding(
       padding: EdgeInsets.all(cheight / 7),
       child: ClipRRect(
@@ -44,8 +45,64 @@ class FrostedGlassBox extends StatelessWidget {
                         )),
                   ),
                   Center(
-                    child: childWid,
+                    child: w,
                   ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(cheight / 10),
+      margin: EdgeInsets.all(cheight / 9),
+      height: cheight * childWid.length * 1.15,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(cheight / 4),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Colors.white.withOpacity(0.3),
+            Colors.black.withOpacity(0.15),
+          ],
+        ),
+      ),
+      child: AnimationLimiter(
+        child: ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: childWid.length,
+          itemBuilder: (context, index) => AnimationConfiguration.staggeredList(
+            position: index,
+            duration: const Duration(milliseconds: 3000),
+            child: ScaleAnimation(
+              child: Column(
+                children: [
+                  Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: () {
+                        print('tapped');
+                        // Navigator
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.all(cheight / 6),
+                        child: childWid[index],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        left: cheight / 15, right: cheight / 15),
+                    child: const Divider(
+                      color: Colors.white54,
+                    ),
+                  )
                 ],
               ),
             ),

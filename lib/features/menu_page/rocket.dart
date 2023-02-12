@@ -52,7 +52,8 @@ class _MyAppState extends State<Rocket> {
                       child: const Image(
                         width: 100,
                         height: 100,
-                        image: AssetImage('assets/rocket.gif'),
+                        image: AssetImage(
+                            'assets/images/menu_page_assets/rocket.gif'),
                       ),
                     ),
                   ),
