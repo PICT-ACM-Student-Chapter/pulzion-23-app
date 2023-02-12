@@ -20,9 +20,27 @@ class LandingPageContent extends StatefulWidget {
 }
 
 class _LandingPageContentState extends State<LandingPageContent> with TickerProviderStateMixin {
-  late final TabController tabBarController = TabController(length: 2, vsync: this);
+  late TabController tabBarController;
   int page = 2;
   final SensorControl sensorControl = SensorControl.AbsoluteOrientation;
+  int a = 0;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    tabBarController=TabController(length: 2, vsync: this);
+
+    tabBarController.addListener(() {
+      setState(() {
+        a = tabBarController.index;
+      });
+    });
+  }
+  void changeAnimation(int index){
+    setState(() {
+      a = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +65,7 @@ class _LandingPageContentState extends State<LandingPageContent> with TickerProv
                   ),
                   Sizer(
                     builder: ((context, orientation, deviceType) {
+                      print(tabBarController.index);
                       return Scaffold(
                         appBar: const CustomAppBar(),
                         backgroundColor: Colors.transparent,
@@ -54,7 +73,35 @@ class _LandingPageContentState extends State<LandingPageContent> with TickerProv
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            AppTitle(fontSizeFactor: fontSizeFactor),
+                            Stack(
+                              clipBehavior: Clip.none,
+                              children: [
+                                // ufo position
+                                Positioned(
+                                  top:height*0.03,
+                                  left:width*0.05,
+
+                                  width: width-width*0.37,
+
+                                  child: AnimatedAlign(curve: Curves.easeInCubic,
+                                      duration: Duration(milliseconds: 1000),
+                                      alignment:
+                                      a == 0?Alignment.centerLeft:Alignment.centerRight,
+
+                                      // child: Transform.rotate(
+                                      //   angle: pi,
+                                        child: Lottie.asset(AppImages.ufo3, width: 70, height:70),
+                                      // )
+                                  ),
+                                ),
+                                Center(
+                                  child: Text(
+                                    "Pulzion '23",
+                                    style: AppStyles.bodyTextStyle2().copyWith(fontSize: 45),
+                                  ),
+                                ),
+                              ],
+                            ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: DefaultTabController(
@@ -71,6 +118,10 @@ class _LandingPageContentState extends State<LandingPageContent> with TickerProv
                                   ),
                                   unselectedLabelColor: AppColors.cardSubtitleTextColor,
                                   labelColor: AppColors.loginPageAccent,
+
+                                  onTap: (_){
+                                      changeAnimation(tabBarController.index);
+                                  },
                                   tabs: [
                                     EventType(
                                         eventType: "Tech Events", fontSizeFactor: fontSizeFactor),
@@ -136,35 +187,36 @@ class EventType extends StatelessWidget {
   }
 }
 
-class AppTitle extends StatelessWidget {
-  const AppTitle({
-    super.key,
-    required this.fontSizeFactor,
-  });
-
-  final double fontSizeFactor;
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      clipBehavior: Clip.none,
-      children: [
-        Positioned(
-          top: -20.h,
-          left: 43.w,
-          child: Lottie.asset(
-            AppImages.ufo,
-            height: 300,
-            width: 300,
-          ),
-        ),
-        Center(
-          child: Text(
-            "Pulzion '23",
-            style: AppStyles.bodyTextStyle2().copyWith(fontSize: 45),
-          ),
-        ),
-      ],
-    );
-  }
-}
+// class AppTitle extends StatelessWidget {
+//   const AppTitle({
+//     super.key,
+//     required this.fontSizeFactor,
+//   });
+//
+//   final double fontSizeFactor;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Stack(
+//       clipBehavior: Clip.none,
+//       children: [
+//         // ufo position
+//         Positioned(
+//           top: -10.h,
+//           left: ,
+//           child: Lottie.asset(
+//             AppImages.ufo2,
+//             height: 200,
+//             width: 100,
+//           ),
+//         ),
+//         Center(
+//           child: Text(
+//             "Pulzion '23",
+//             style: AppStyles.bodyTextStyle2().copyWith(fontSize: 45),
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }

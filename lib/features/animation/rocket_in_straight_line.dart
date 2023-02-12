@@ -46,19 +46,24 @@ class _MyAppState extends State<MyApp> {
                         child: Stack(
 
                             children:[
-                              AnimatedAlign(
-                                  duration: Duration(milliseconds: 2400),
-                                  alignment:
-                                  a == true?Alignment.bottomCenter:Alignment.topCenter,
+                              Positioned(
+                                top: 100,
 
-                                  child: Transform.rotate(
-                                    angle: pi,
-                                    child: Image(
-                                      width: 100,
-                                      height: 100,
-                                      image: AssetImage('images/rocket3.gif'),
-                                    ),
-                                  )
+                                height: 200,
+                                child: AnimatedAlign(
+                                    duration: Duration(milliseconds: 2400),
+                                    alignment:
+                                    a == true?Alignment.bottomCenter:Alignment.topCenter,
+
+                                    child: Transform.rotate(
+                                      angle: pi,
+                                      child: Image(
+                                        width: 100,
+                                        height: 100,
+                                        image: AssetImage('images/rocket3.gif'),
+                                      ),
+                                    )
+                                ),
                               ),
                             ]
                         ),
