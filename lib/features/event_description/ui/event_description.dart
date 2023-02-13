@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pulzion23/constants/models/event_model.dart';
 
 import '../../../constants/colors.dart';
+import '../../../constants/images.dart';
 import '../../../constants/styles.dart';
 
 class EventDescription extends StatefulWidget {
@@ -13,16 +16,14 @@ class EventDescription extends StatefulWidget {
   State<EventDescription> createState() => _EventDescriptionState();
 }
 
-class _EventDescriptionState extends State<EventDescription>
-    with TickerProviderStateMixin {
+class _EventDescriptionState extends State<EventDescription> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final event = widget.event!;
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
     int activeIndex = 1;
-    late final TabController tabBarController =
-        TabController(length: 3, vsync: this);
+    late final TabController tabBarController = TabController(length: 3, vsync: this);
     String title = "";
     final fontSizeFactor = h / w;
     return Scaffold(
@@ -114,8 +115,7 @@ class _EventDescriptionState extends State<EventDescription>
                 children: [
                   SizedBox(
                     height: h / 3,
-                    child: Lottie.asset("assets/images/space.json",
-                        fit: BoxFit.fill),
+                    child: Lottie.asset("assets/images/space.json", fit: BoxFit.fill),
                   ),
                   Container(
                     height: h / 2.8,
@@ -123,13 +123,25 @@ class _EventDescriptionState extends State<EventDescription>
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
-                        colors: [
-                          Colors.deepPurple.withOpacity(0.3),
-                          Colors.black
-                        ],
+                        colors: [Colors.deepPurple.withOpacity(0.3), Colors.black],
                       ),
                     ),
                   ),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Padding(
+                      padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+                      child: InkWell(
+                        onTap: (() {
+                          Navigator.pop(context);
+                        }),
+                        child: Transform.rotate(
+                          angle: -pi / 2,
+                          child: Lottie.asset(AppImages.rocketButton, height: 50, width: 50),
+                        ),
+                      ),
+                    ),
+                  )
                 ],
               ),
               Center(
@@ -170,8 +182,7 @@ class _EventDescriptionState extends State<EventDescription>
                                 ),
                               ),
                             ),
-                            unselectedLabelColor:
-                                AppColors.cardSubtitleTextColor,
+                            unselectedLabelColor: AppColors.cardSubtitleTextColor,
                             labelColor: AppColors.loginPageAccent,
                             tabs: const [
                               Text("Description",
