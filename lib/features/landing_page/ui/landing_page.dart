@@ -2,6 +2,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:panorama/panorama.dart';
+import 'package:pulzion23/features/cart_page/ui/cart_page.dart';
 import 'package:pulzion23/features/home_page/ui/home_page_final.dart';
 import 'package:pulzion23/pages/about_us_page/ui/about_us.dart';
 import 'package:pulzion23/pages/more_page/ui/more_main.dart';
@@ -40,12 +41,7 @@ class LandingPage extends StatelessWidget {
               } else if (state is BottomBarHome) {
                 return const HomePageContent();
               } else if (state is BottomBarCart) {
-                return const Center(
-                  child: Text(
-                    "Cart",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                );
+                return const CartPage();
               } else {
                 return FrostedGlassTile();
               }
