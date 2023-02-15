@@ -5,8 +5,8 @@ import 'package:pulzion23/features/cart_page/ui/card_list_tile.dart';
 import '../../../constants/styles.dart';
 
 var eventList = <Events>[
-  Events(name: 'ABC', mode: 'Technical Events'),
-  Events(name: 'DEF', mode: 'Non-Technical Events')
+  Events(name: 'Dextrous', mode: 'Technical Events', price: 50.0),
+  Events(name: 'Fandom Quiz', mode: 'Non-Technical Events', price: 30.0),
 ];
 
 class CartPage extends StatelessWidget {
@@ -18,6 +18,21 @@ class CartPage extends StatelessWidget {
     double w = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
+        title: Column(
+          children: [
+            Text(
+              "Your Cart",
+              style: TextStyle(color: Colors.white),
+            ),
+            Text(
+              "${eventList.length} items",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_rounded),
           onPressed: (() {
@@ -50,26 +65,26 @@ class CartPage extends StatelessWidget {
                 },
               ),
             ),
-            Column(
-              children: List.generate(
-                2,
-                (index) {
-                  if (index == 0) {
-                    return Column(
-                      children: [
-                        Text(
-                          'Non-Technical Events',
-                          style: AppStyles.bodyTextStyle2(),
-                        ),
-                        CartListTile(eventList[index]),
-                      ],
-                    );
-                  } else {
-                    return CartListTile(eventList[index]);
-                  }
-                },
-              ),
-            ),
+            // Column(
+            //   children: List.generate(
+            //     2,
+            //     (index) {
+            //       if (index == 0) {
+            //         return Column(
+            //           children: [
+            //             Text(
+            //               'Non-Technical Events',
+            //               style: AppStyles.bodyTextStyle2(),
+            //             ),
+            //             CartListTile(eventList[index]),
+            //           ],
+            //         );
+            //       } else {
+            //         return CartListTile(eventList[index]);
+            //       }
+            //     },
+            //   ),
+            // ),
           ],
         ),
       ),
@@ -94,7 +109,7 @@ class CartPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "PRICE",
+                      "TOTAL : ",
                       style: AppStyles.bodyTextStyle3().copyWith(
                         color: Colors.white,
                         fontSize: 18,
@@ -105,13 +120,12 @@ class CartPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          "Rs. 30",
+                          "80",
                           style: AppStyles.bodyTextStyle3(),
                         ),
-                        Text(
-                          "/person",
-                          style: AppStyles.bodyTextStyle3(),
-                        ),
+                        // Text(
+                        //   style: AppStyles.bodyTextStyle3(),
+                        // ),
                       ],
                     )
                   ],
@@ -133,7 +147,7 @@ class CartPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Add to Cart  ",
+                        "Checkout  ",
                         style: AppStyles.bodyTextStyle3().copyWith(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,

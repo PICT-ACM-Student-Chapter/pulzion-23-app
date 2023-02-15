@@ -35,24 +35,27 @@ class Events {
   String? notes;
   String? createdAt;
   String? updatedAt;
+  double? price;
 
-  Events(
-      {this.id,
-      this.name,
-      this.description,
-      this.type,
-      this.mode,
-      this.isActive,
-      this.play,
-      this.link,
-      this.tagline,
-      this.logo,
-      this.rules,
-      this.rounds,
-      this.teams,
-      this.notes,
-      this.createdAt,
-      this.updatedAt});
+  Events({
+    this.id,
+    this.name,
+    this.description,
+    this.type,
+    this.mode,
+    this.isActive,
+    this.play,
+    this.link,
+    this.tagline,
+    this.logo,
+    this.rules,
+    this.rounds,
+    this.teams,
+    this.notes,
+    this.createdAt,
+    this.updatedAt,
+    this.price,
+  });
 
   Events.fromJson(Map<String, dynamic> json) {
     id = json["id"];
@@ -71,6 +74,7 @@ class Events {
     notes = json["notes"];
     createdAt = json["created_at"];
     updatedAt = json["updated_at"];
+    price = json["price"];
   }
 
   Map<String, dynamic> toJson() {
@@ -91,6 +95,7 @@ class Events {
     data["notes"] = notes;
     data["created_at"] = createdAt;
     data["updated_at"] = updatedAt;
+    data["price"] = price;
     return data;
   }
 }

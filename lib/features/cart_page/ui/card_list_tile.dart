@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../constants/models/event_model.dart';
+//import 'package:pulzion23/features/cart_page/ui/cart_page.dart';
 
 class CartListTile extends StatelessWidget {
   final Events event;
@@ -14,3 +15,8 @@ class CartListTile extends StatelessWidget {
     );
   }
 }
+
+var eventList = <Events>[
+  Events(name: 'Electroquest', mode: 'Technical Events', price: 50.0),
+  Events(name: 'Fandom Quiz', mode: 'Non-Technical Events', price: 30.0),
+];
