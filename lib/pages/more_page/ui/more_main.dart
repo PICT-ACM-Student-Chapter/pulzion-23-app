@@ -7,6 +7,7 @@ import 'childWid.dart';
 import 'rocket.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:panorama/panorama.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class FrostedGlassTile extends StatefulWidget {
   @override
@@ -65,9 +66,23 @@ class _FrostedGlassTileState extends State<FrostedGlassTile> {
     ],
   ];
 
+  Future<void> _launchUniversalLinkApp(Uri url) async {
+    final bool nativeAppLaunchSucceeded = await launchUrl(
+      url,
+      mode: LaunchMode.externalNonBrowserApplication,
+    );
+    if (!nativeAppLaunchSucceeded) {
+      await launchUrl(
+        url,
+        mode: LaunchMode.inAppWebView,
+      );
+    }
+  }
+
   Widget titleBar(String img, String name, double ht) {
     return Padding(
-      padding: EdgeInsets.all(ht / 100),
+      padding:
+          EdgeInsets.only(left: ht / 100, right: ht / 100, bottom: ht / 100),
       child: Card(
         // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         color: Colors.transparent,
@@ -90,7 +105,8 @@ class _FrostedGlassTileState extends State<FrostedGlassTile> {
                 )),
           ),
           Padding(
-            padding: EdgeInsets.only(top: ht / 30, left: ht / 50, right: ht / 100, bottom: ht / 50),
+            padding: EdgeInsets.only(
+                top: ht / 30, left: ht / 50, right: ht / 100, bottom: ht / 50),
             child: Row(
               children: [
                 ClipRRect(
@@ -166,14 +182,18 @@ class _FrostedGlassTileState extends State<FrostedGlassTile> {
                         ],
                       )),
                   child: Padding(
-                    padding: EdgeInsets.only(left: height / 90, right: height / 90),
+                    padding:
+                        EdgeInsets.only(left: height / 90, right: height / 90),
                     child: Container(
                       height: height / 11,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              _launchUniversalLinkApp(Uri.parse(
+                                  'https://www.instagram.com/acm.pict/'));
+                            },
                             icon: const FaIcon(FontAwesomeIcons.instagram),
                             color: Colors.white,
                             iconSize: height / 22,
@@ -182,7 +202,10 @@ class _FrostedGlassTileState extends State<FrostedGlassTile> {
                             color: Colors.white54,
                           ),
                           IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              _launchUniversalLinkApp(Uri.parse(
+                                  'https://www.linkedin.com/in/pict-acm-student-chapter-09004a132/'));
+                            },
                             color: Colors.white,
                             iconSize: height / 22,
                             icon: const FaIcon(FontAwesomeIcons.linkedin),
@@ -191,7 +214,10 @@ class _FrostedGlassTileState extends State<FrostedGlassTile> {
                             color: Colors.white54,
                           ),
                           IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              _launchUniversalLinkApp(Uri.parse(
+                                  'https://www.facebook.com/acmpict/'));
+                            },
                             color: Colors.white,
                             iconSize: height / 22,
                             icon: const FaIcon(FontAwesomeIcons.facebook),
@@ -200,7 +226,10 @@ class _FrostedGlassTileState extends State<FrostedGlassTile> {
                             color: Colors.white54,
                           ),
                           IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              _launchUniversalLinkApp(Uri.parse(
+                                  'https://twitter.com/_pict_acm_?lang=en'));
+                            },
                             color: Colors.white,
                             iconSize: height / 22,
                             icon: const FaIcon(FontAwesomeIcons.twitter),
@@ -262,11 +291,13 @@ class _FrostedGlassTileState extends State<FrostedGlassTile> {
                   child: Container(
                     // color: Colors.red,
                     margin: EdgeInsets.only(top: height / 70),
-                    padding: EdgeInsets.only(left: height / 80, right: height / 80),
+                    padding:
+                        EdgeInsets.only(left: height / 80, right: height / 80),
                     child: AnimationLimiter(
                         child: ListView.builder(
                             itemCount: f.length,
-                            itemBuilder: (context, index) => AnimationConfiguration.staggeredList(
+                            itemBuilder: (context, index) =>
+                                AnimationConfiguration.staggeredList(
                                   position: index,
                                   duration: const Duration(milliseconds: 2400),
                                   child: SlideAnimation(
@@ -275,7 +306,8 @@ class _FrostedGlassTileState extends State<FrostedGlassTile> {
                                       child: FadeInAnimation(
                                         child: FrostedGlassBox(
                                           cheight: height / 12.5,
-                                          cwidth: MediaQuery.of(context).size.width,
+                                          cwidth:
+                                              MediaQuery.of(context).size.width,
                                           childWid: f[index],
                                         ),
                                       ),

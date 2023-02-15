@@ -7,6 +7,7 @@ import 'package:pulzion23/constants/images.dart';
 import 'package:widget_circular_animator/widget_circular_animator.dart';
 
 class DevelopersPage extends StatefulWidget {
+  static const routeName = 'developers-page';
   DevelopersPage({super.key});
 
   @override
@@ -26,7 +27,17 @@ class _DevelopersPageState extends State<DevelopersPage> {
 
   bool _move = true;
 
-  var myProducts = ["Awadhoot Khutwad", "Soumya Garg", "s3", "s4", "s5", "s6", "s7", "s8", "s9"];
+  var myProducts = [
+    "Awadhoot Khutwad",
+    "Soumya Garg",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9"
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -51,11 +62,13 @@ class _DevelopersPageState extends State<DevelopersPage> {
                 child: Stack(
                   children: [
                     BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5), child: Container()),
+                        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                        child: Container()),
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(h * 0.02),
-                        border: Border.all(color: Colors.white.withOpacity(0.1)),
+                        border:
+                            Border.all(color: Colors.white.withOpacity(0.1)),
                         gradient: LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
@@ -71,7 +84,8 @@ class _DevelopersPageState extends State<DevelopersPage> {
                         height: h * 0.07,
                         width: w - w * 0.07,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(h * 0.03))),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(h * 0.03))),
                         child: Align(
                           alignment: Alignment.center,
                           child: Text(
@@ -96,14 +110,16 @@ class _DevelopersPageState extends State<DevelopersPage> {
                   child: Container(
                     height: 40,
                     width: 100,
-                    child: Image.asset('assets/images/ufo_developer_page.gif', fit: BoxFit.cover),
+                    child: Image.asset('assets/images/ufo_developer_page.gif',
+                        fit: BoxFit.cover),
                   ),
                 ),
               ),
               Expanded(
                 child: GridView.builder(
                   gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: MediaQuery.of(context).orientation == Orientation.landscape
+                    maxCrossAxisExtent: MediaQuery.of(context).orientation ==
+                            Orientation.landscape
                         ? w * 0.25
                         : w * 0.5,
                     childAspectRatio: 1 / h * 450,
@@ -118,7 +134,10 @@ class _DevelopersPageState extends State<DevelopersPage> {
                           gradient: LinearGradient(
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
-                            colors: [Colors.white.withOpacity(.4), Colors.white.withOpacity(.1)],
+                            colors: [
+                              Colors.white.withOpacity(.4),
+                              Colors.white.withOpacity(.1)
+                            ],
                           ),
                           borderRadius: BorderRadius.circular(15)),
                       child: Padding(
@@ -157,7 +176,8 @@ class _DevelopersPageState extends State<DevelopersPage> {
                               width: w * 0.4,
                               decoration: BoxDecoration(
                                   color: Colors.black.withOpacity(0.7),
-                                  borderRadius: BorderRadius.all(Radius.circular(w * 0.04))),
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(w * 0.04))),
                               child: Align(
                                 alignment: Alignment.center,
                                 child: FittedBox(
@@ -183,7 +203,8 @@ class _DevelopersPageState extends State<DevelopersPage> {
                                     color: Colors.white,
                                   ),
                                   onTap: () {
-                                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(const SnackBar(
                                       content: Text('LINKEDIN'),
                                     ));
                                   },
@@ -197,7 +218,8 @@ class _DevelopersPageState extends State<DevelopersPage> {
                                     color: Colors.white,
                                   ),
                                   onTap: () {
-                                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(const SnackBar(
                                       content: Text('GMAIL'),
                                     ));
                                   },
@@ -211,7 +233,8 @@ class _DevelopersPageState extends State<DevelopersPage> {
                                     color: Colors.white,
                                   ),
                                   onTap: () {
-                                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(const SnackBar(
                                       content: Text('GIT'),
                                     ));
                                   },

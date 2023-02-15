@@ -35,6 +35,8 @@ dependencies:
     widget_circular_animator: ^1.0.0
     flutter_staggered_animations: ^1.1.1
     countup: ^0.1.4
+    url_launcher: ^6.1.9
+
 
 
 dev_dependencies:
