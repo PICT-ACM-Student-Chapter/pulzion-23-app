@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:panorama/panorama.dart';
 import 'package:pulzion23/constants/colors.dart';
 import 'package:pulzion23/constants/images.dart';
 import 'package:pulzion23/constants/styles.dart';
+import '../logic/login_cubit.dart';
+import '../logic/sign_up_cubit.dart';
 import 'login.dart';
 import 'sign_up.dart';
 
-
 class LoginSignUpIntro extends StatelessWidget {
-  LoginSignUpIntro({super.key});
+  const LoginSignUpIntro({super.key});
   final SensorControl sensorControl = SensorControl.AbsoluteOrientation;
 
   @override
@@ -93,13 +95,21 @@ class LoginSignUpIntro extends StatelessWidget {
                         child: InkWell(
                           onTap: () {
                             Navigator.push(
-                                context, MaterialPageRoute(builder: (context) => const SignUp()));
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BlocProvider(
+                                  create: (context) => SignUpCubit(),
+                                  child: const SignUp(),
+                                ),
+                              ),
+                            );
                           },
                           child: Center(
                             child: Text(
                               'Register',
-                              style: AppStyles.bodyTextStyle3()
-                                  .copyWith(fontSize: 15, color: AppColors.cardTitleTextColor),
+                              style: AppStyles.bodyTextStyle3().copyWith(
+                                  fontSize: 15,
+                                  color: AppColors.cardTitleTextColor),
                             ),
                           ),
                         ),
@@ -115,13 +125,21 @@ class LoginSignUpIntro extends StatelessWidget {
                         child: InkWell(
                           onTap: () {
                             Navigator.push(
-                                context, MaterialPageRoute(builder: (context) => const Login()));
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BlocProvider(
+                                  create: (context) => LoginCubit(),
+                                  child: Login(),
+                                ),
+                              ),
+                            );
                           },
                           child: Center(
                             child: Text(
                               'Sign In',
-                              style: AppStyles.bodyTextStyle3()
-                                  .copyWith(fontSize: 15, color: AppColors.cardTitleTextColor),
+                              style: AppStyles.bodyTextStyle3().copyWith(
+                                  fontSize: 15,
+                                  color: AppColors.cardTitleTextColor),
                             ),
                           ),
                         ),

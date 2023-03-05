@@ -1,36 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:panorama/panorama.dart';
-import 'package:pulzion23/constants/styles.dart';
-import 'package:pulzion23/features/login_page/ui/widgets/text_field.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/images.dart';
+import '../../../constants/styles.dart';
+import '../../../constants/widgets/loader.dart';
+import '../cubit/check_login_cubit.dart';
+import '../logic/login_cubit.dart';
 import 'widgets/go_back_button.dart';
 import 'sign_up.dart';
 import 'widgets/roundedbutton.dart';
+import 'widgets/text_field.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class Login extends StatelessWidget {
+  Login({super.key});
 
-  @override
-  _LoginState createState() => _LoginState();
-}
-
-class _LoginState extends State<Login> {
-  bool showSpinner = false;
-  late String email;
-  late String password;
-  final SensorControl sensorControl = SensorControl.AbsoluteOrientation;
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var padding = MediaQuery.of(context).padding;
-    return ModalProgressHUD(
-      inAsyncCall: showSpinner,
-      child: Stack(children: [
+    return Stack(
+      children: [
         Panorama(
           sensitivity: 0.4,
           animSpeed: 0.5,
@@ -45,71 +40,131 @@ class _LoginState extends State<Login> {
           ),
           backgroundColor: Colors.transparent,
           resizeToAvoidBottomInset: true,
-          body: SingleChildScrollView(
-            child: Container(
-              height: size.height - kToolbarHeight - padding.bottom - padding.top,
-              margin: const EdgeInsets.symmetric(horizontal: 25),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Lottie.asset(AppImages.astronautWithPlanet),
-                  Text(
-                    'Login',
-                    style: AppStyles.bodyTextStyle2().copyWith(fontSize: 30),
+          body: BlocConsumer<LoginCubit, LoginState>(
+            listener: (context, state) async {
+              if (state is LoginSuccess) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("Login Successful"),
+                    backgroundColor: Colors.green,
                   ),
-                  Text(
-                    'Please sign in to continue.',
-                    style: AppStyles.bodyTextStyle3().copyWith(fontSize: 15),
+                );
+                await context.read<CheckLoginCubit>().checkLogin();
+                Navigator.pop(context);
+              }
+              if (state is LoginFailure) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(state.message),
+                    backgroundColor: Colors.red,
                   ),
-                  const LoginSignUpTextField('Email', Icons.email),
-                  const LoginSignUpTextField('Password', Icons.lock),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: InkWell(
-                      onTap: () {},
-                      child: const Text(
-                        'Forgot Password?',
-                        style: TextStyle(color: AppColors.loginPageAccent),
-                      ),
-                    ),
+                );
+              }
+              if (state is LoginError) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(state.message),
+                    backgroundColor: Colors.red,
                   ),
-                  Center(
-                    child: RoundedButton(
-                      btnText: 'LOGIN',
-                      onPressed: () async {
-                        setState(() {
-                          showSpinner = true;
-                        });
-                      },
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Don't have an account?",
-                        style: AppStyles.bodyTextStyle3().copyWith(fontSize: 15),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context, MaterialPageRoute(builder: (context) => const SignUp()));
-                        },
-                        child: Text(
-                          'Sign up',
-                          style: AppStyles.bodyTextStyle3()
-                              .copyWith(fontSize: 15, color: AppColors.loginPageAccent),
+                );
+              }
+            },
+            builder: (context, state) {
+              if (state is LoginInitial ||
+                  state is LoginFailure ||
+                  state is LoginError) {
+                return SingleChildScrollView(
+                  child: Container(
+                    height: size.height -
+                        kToolbarHeight -
+                        padding.bottom -
+                        padding.top,
+                    margin: const EdgeInsets.symmetric(horizontal: 25),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Lottie.asset(AppImages.astronautWithPlanet),
+                        Text(
+                          'Login',
+                          style:
+                              AppStyles.bodyTextStyle2().copyWith(fontSize: 30),
                         ),
-                      )
-                    ],
-                  )
-                ],
-              ),
-            ),
+                        Text(
+                          'Please sign in to continue.',
+                          style:
+                              AppStyles.bodyTextStyle3().copyWith(fontSize: 15),
+                        ),
+                        LoginSignUpTextField(
+                          'Email',
+                          Icons.email,
+                          controller: emailController,
+                        ),
+                        LoginSignUpTextField(
+                          'Password',
+                          Icons.lock,
+                          controller: passwordController,
+                        ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: InkWell(
+                            onTap: () {},
+                            child: const Text(
+                              'Forgot Password?',
+                              style:
+                                  TextStyle(color: AppColors.loginPageAccent),
+                            ),
+                          ),
+                        ),
+                        Center(
+                          child: RoundedButton(
+                            btnText: 'LOGIN',
+                            onPressed: () async {
+                              context.read<LoginCubit>().login(
+                                    emailController.text,
+                                    passwordController.text,
+                                  );
+                            },
+                          ),
+                        ),
+                        // TODO: Figure out bloc logic then add this!
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //     Text(
+                        //       "Don't have an account?",
+                        //       style: AppStyles.bodyTextStyle3()
+                        //           .copyWith(fontSize: 15),
+                        //     ),
+                        //     TextButton(
+                        //       onPressed: () {
+                        //         Navigator.push(
+                        //             context,
+                        //             MaterialPageRoute(
+                        //                 builder: (context) => const SignUp()));
+                        //       },
+                        //       child: Text(
+                        //         'Sign up',
+                        //         style: AppStyles.bodyTextStyle3().copyWith(
+                        //             fontSize: 15,
+                        //             color: AppColors.loginPageAccent),
+                        //       ),
+                        //     )
+                        //   ],
+                        // )
+                      ],
+                    ),
+                  ),
+                );
+              }
+              if (state is LoginLoading) {
+                return const Loader();
+              }
+              return const SizedBox();
+            },
           ),
         ),
-      ]),
+      ],
     );
   }
 }
