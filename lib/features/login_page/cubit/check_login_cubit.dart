@@ -31,4 +31,12 @@ class CheckLoginCubit extends Cubit<CheckLoginState> {
       emit(CheckLoginFailure(e.toString()));
     }
   }
+
+  Future<void> logout() async {
+    Singleton.userToken = null;
+    Singleton.user = null;
+    const storage = FlutterSecureStorage();
+    await storage.deleteAll();
+    return Future.value();
+  }
 }

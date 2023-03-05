@@ -14,15 +14,15 @@ part 'sign_up_state.dart';
 class SignUpCubit extends Cubit<SignUpState> {
   SignUpCubit() : super(SignUpInitial());
 
-  Future<void> signUp(
-    String firstName,
-    String lastName,
-    String email,
-    String phone,
-    String college,
-    String year,
-    String password,
-  ) async {
+  Future<void> signUp({
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String phone,
+    required String college,
+    required String year,
+    required String password,
+  }) async {
     emit(SignUpLoading());
     try {
       Map<String, dynamic> data = {};
@@ -32,18 +32,17 @@ class SignUpCubit extends Cubit<SignUpState> {
           'Content-Type': 'application/json',
         },
         body: jsonEncode({
-          'firstName': firstName,
-          'lastName': lastName,
+          'first_name': firstName,
+          'last_name': lastName,
           'email': email,
-          'phone': phone,
+          'mobile_number': phone,
           'college': college,
           'year': year,
           'password': password,
         }),
       );
+      data = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        data = jsonDecode(response.body);
-
         // Save token in secure storage
         const storage = FlutterSecureStorage();
         await storage.write(key: 'token', value: data['token']);
@@ -52,9 +51,8 @@ class SignUpCubit extends Cubit<SignUpState> {
         Singleton.user = User.fromJson(data['user']);
         emit(SignUpSuccess());
       } else {
-        emit(SignUpFailure(message: data['message'] ?? 'Something went wrong'));
+        emit(SignUpFailure(message: data['error'] ?? 'Something went wrong'));
       }
-      emit(SignUpSuccess());
     } catch (e) {
       emit(SignUpError(message: e.toString()));
     }

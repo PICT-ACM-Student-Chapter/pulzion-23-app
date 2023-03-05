@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../../../../constants/images.dart';
 import '../../../login_page/cubit/check_login_cubit.dart';
@@ -16,9 +15,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           padding: const EdgeInsets.all(8.0),
           child: InkWell(
             onTap: (() async {
-              const storage = FlutterSecureStorage();
-              await storage.deleteAll();
-              context.read<CheckLoginCubit>().checkLogin();
+              // Logout button for now
+              await context.read<CheckLoginCubit>().logout();
+              await context.read<CheckLoginCubit>().checkLogin();
             }),
             child: const CircleAvatar(
               backgroundImage: AssetImage(AppImages.person),

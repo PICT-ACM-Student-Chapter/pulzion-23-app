@@ -30,9 +30,8 @@ class LoginCubit extends Cubit<LoginState> {
           'password': password,
         }),
       );
+      var data = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        var data = jsonDecode(response.body);
-
         // Save token in secure storage
         const storage = FlutterSecureStorage();
         await storage.write(key: 'token', value: data['token']);
@@ -41,7 +40,7 @@ class LoginCubit extends Cubit<LoginState> {
         Singleton.user = User.fromJson(data['user']);
         emit(LoginSuccess());
       } else {
-        emit(LoginFailure(message: 'Invalid Credentials'));
+        emit(LoginFailure(message: data['error'] ?? 'Invalid Credentials'));
       }
     } catch (e) {
       emit(LoginError(message: e.toString()));
