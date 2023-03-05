@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
 
@@ -42,6 +43,11 @@ class SignUpCubit extends Cubit<SignUpState> {
       );
       if (response.statusCode == 200) {
         data = jsonDecode(response.body);
+
+        // Save token in secure storage
+        const storage = FlutterSecureStorage();
+        await storage.write(key: 'token', value: data['token']);
+
         Singleton.userToken = data['token'];
         Singleton.user = User.fromJson(data['user']);
         emit(SignUpSuccess());

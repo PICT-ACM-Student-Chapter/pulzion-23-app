@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 class Rocket extends StatefulWidget {
-  Function setRocket;
-  Rocket({required this.setRocket});
+  final Function setRocket;
+  const Rocket({super.key, required this.setRocket});
   @override
   State<Rocket> createState() => _MyAppState();
 }

@@ -7,8 +7,6 @@ import 'package:pulzion23/features/login_page/ui/widgets/go_back_button.dart';
 
 import '../../../constants/colors.dart';
 import 'widgets/roundedbutton.dart';
-import 'login.dart';
-import 'widgets/text_field.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -65,10 +63,10 @@ class _SignUpState extends State<SignUp> {
                       'Please fill the your information below.',
                       style: AppStyles.bodyTextStyle3(),
                     ),
-                    const LoginSignUpTextField('First Name', Icons.mode_edit_rounded),
-                    const LoginSignUpTextField('Last Name', Icons.mode_edit_rounded),
-                    const LoginSignUpTextField('Contact Number', Icons.call),
-                    const LoginSignUpTextField('College Name', Icons.school),
+                    // const LoginSignUpTextField('First Name', Icons.mode_edit_rounded),
+                    // const LoginSignUpTextField('Last Name', Icons.mode_edit_rounded),
+                    // const LoginSignUpTextField('Contact Number', Icons.call),
+                    // const LoginSignUpTextField('College Name', Icons.school),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -77,7 +75,8 @@ class _SignUpState extends State<SignUp> {
                           child: RadioListTile(
                             contentPadding: EdgeInsets.zero,
                             activeColor: AppColors.secondary,
-                            title: Text('FE', style: AppStyles.bodyTextStyle2()),
+                            title:
+                                Text('FE', style: AppStyles.bodyTextStyle2()),
                             value: 1,
                             groupValue: yearOfStudy,
                             onChanged: (value) {
@@ -92,7 +91,8 @@ class _SignUpState extends State<SignUp> {
                           child: RadioListTile(
                             contentPadding: EdgeInsets.zero,
                             activeColor: AppColors.secondary,
-                            title: Text('SE', style: AppStyles.bodyTextStyle2()),
+                            title:
+                                Text('SE', style: AppStyles.bodyTextStyle2()),
                             value: 2,
                             groupValue: yearOfStudy,
                             onChanged: (value) {
@@ -112,7 +112,8 @@ class _SignUpState extends State<SignUp> {
                           child: RadioListTile(
                             contentPadding: EdgeInsets.zero,
                             activeColor: AppColors.secondary,
-                            title: Text('TE', style: AppStyles.bodyTextStyle2()),
+                            title:
+                                Text('TE', style: AppStyles.bodyTextStyle2()),
                             value: 3,
                             groupValue: yearOfStudy,
                             onChanged: (value) {
@@ -127,7 +128,8 @@ class _SignUpState extends State<SignUp> {
                           child: RadioListTile(
                             contentPadding: EdgeInsets.zero,
                             activeColor: AppColors.secondary,
-                            title: Text('BE', style: AppStyles.bodyTextStyle2()),
+                            title:
+                                Text('BE', style: AppStyles.bodyTextStyle2()),
                             value: 4,
                             groupValue: yearOfStudy,
                             onChanged: (value) {
@@ -139,9 +141,9 @@ class _SignUpState extends State<SignUp> {
                         ),
                       ],
                     ),
-                    const LoginSignUpTextField('Email', Icons.email_outlined),
-                    const LoginSignUpTextField('Password', Icons.lock_outline),
-                    const LoginSignUpTextField('Confirm Password', Icons.lock_outline),
+                    // const LoginSignUpTextField('Email', Icons.email_outlined),
+                    // const LoginSignUpTextField('Password', Icons.lock_outline),
+                    // const LoginSignUpTextField('Confirm Password', Icons.lock_outline),
                     Center(
                       child: RoundedButton(
                         btnText: 'SIGN UP',

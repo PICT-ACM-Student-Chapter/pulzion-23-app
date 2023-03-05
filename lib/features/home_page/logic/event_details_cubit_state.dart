@@ -8,7 +8,7 @@ class EventDetailsCubitInitial extends EventDetailsCubitState {}
 class EventDetailsCubitLoading extends EventDetailsCubitState {}
 
 class EventDetailsCubitLoaded extends EventDetailsCubitState {
-  EventList events;
+  final EventList events;
   EventDetailsCubitLoaded(this.events);
 }
 

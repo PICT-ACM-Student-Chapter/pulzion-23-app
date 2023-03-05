@@ -7,8 +7,8 @@ import 'package:pulzion23/constants/images.dart';
 import 'package:widget_circular_animator/widget_circular_animator.dart';
 
 class DevelopersPage extends StatefulWidget {
-  static const routeName = 'developers-page';
-  DevelopersPage({super.key});
+  final routeName = 'developers-page';
+  const DevelopersPage({super.key});
 
   @override
   State<DevelopersPage> createState() => _DevelopersPageState();

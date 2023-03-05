@@ -4,12 +4,15 @@ import 'package:pulzion23/constants/colors.dart';
 class LoginSignUpTextField extends StatelessWidget {
   final String hintText;
   final IconData icon;
-  const LoginSignUpTextField(this.hintText, this.icon, {super.key});
+  final TextEditingController controller;
+  const LoginSignUpTextField(this.hintText, this.icon,
+      {super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-      style: (const TextStyle(color: Colors.white, fontWeight: FontWeight.w400)),
+      style:
+          (const TextStyle(color: Colors.white, fontWeight: FontWeight.w400)),
       cursorColor: Colors.white,
       obscureText: false,
       decoration: InputDecoration(
@@ -27,11 +30,13 @@ class LoginSignUpTextField extends StatelessWidget {
           color: Colors.white,
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.primary.withAlpha(255), width: 2.0),
+          borderSide:
+              BorderSide(color: AppColors.primary.withAlpha(255), width: 2.0),
           borderRadius: const BorderRadius.all(Radius.circular(25.0)),
         ),
       ),
       onChanged: (value) {},
+      controller: controller,
     );
   }
 }
