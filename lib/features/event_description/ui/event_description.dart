@@ -59,7 +59,7 @@ class _EventDescriptionState extends State<EventDescription>
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          "Rs. 30",
+                          "Rs. ${event.price}",
                           style: AppStyles.bodyTextStyle3(),
                         ),
                         Text(
