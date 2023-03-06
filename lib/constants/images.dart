@@ -8,4 +8,7 @@ class AppImages {
   static const ufo2 = 'assets/images/ufo2.json';
   static const ufo3 = 'assets/images/ufo3.json';
   static const person = 'assets/images/person.jpg';
+  static const rocketButton = 'assets/images/rocket_button.json';
+  static const astronautSayingNo = 'assets/images/astronaut_saying_no.json';
+  static const astronautFloating = 'assets/images/astronaut_floating.json';
 }

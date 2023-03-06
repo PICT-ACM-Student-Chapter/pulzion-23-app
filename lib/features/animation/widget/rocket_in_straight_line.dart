@@ -51,13 +51,13 @@ class _MyAppState extends State<MyApp> {
 
                                 height: 200,
                                 child: AnimatedAlign(
-                                    duration: Duration(milliseconds: 2400),
+                                    duration: const Duration(milliseconds: 2400),
                                     alignment:
                                     a == true?Alignment.bottomCenter:Alignment.topCenter,
 
                                     child: Transform.rotate(
                                       angle: pi,
-                                      child: Image(
+                                      child: const Image(
                                         width: 100,
                                         height: 100,
                                         image: AssetImage('images/rocket3.gif'),
@@ -74,7 +74,7 @@ class _MyAppState extends State<MyApp> {
                         child: FloatingActionButton(onPressed: (){
                           _updateState();
                         },backgroundColor: Colors.black,
-                            child: Text("animate")),
+                            child: const Text("animate")),
 
                       ),
                     ]
