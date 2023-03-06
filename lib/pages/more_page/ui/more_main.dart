@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:pulzion23/constants/images.dart';
 import 'frostedglass.dart';
@@ -8,63 +10,27 @@ import 'rocket.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:panorama/panorama.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../../features/login_page/cubit/check_login_cubit.dart';
+import 'package:lottie/lottie.dart';
+import '../../../constants/images.dart';
 
 class FrostedGlassTile extends StatefulWidget {
   @override
   State<FrostedGlassTile> createState() => _FrostedGlassTileState();
 }
 
-class _FrostedGlassTileState extends State<FrostedGlassTile> {
+class _FrostedGlassTileState extends State<FrostedGlassTile>
+    with SingleTickerProviderStateMixin {
   bool isRocket = true;
-  bool _op = true;
+  double _opacity = 1.0;
+  bool imgC = true;
 
   void setRocket() {
     setState(() {
       isRocket = false;
-      _op = false;
+      _opacity = 0.0;
     });
   }
-
-  List<List<FrostedTile>> f = [
-    [
-      FrostedTile(
-        tilename: 'Login',
-        tileicon: Icons.person_outlined,
-      ),
-      FrostedTile(
-        tilename: 'Sign Up',
-        tileicon: Icons.login,
-      ),
-      FrostedTile(
-        tilename: 'Logout',
-        tileicon: Icons.person_off_outlined,
-      ),
-    ],
-    [
-      FrostedTile(
-        tilename: 'Sponsors',
-        tileicon: Icons.monetization_on_outlined,
-      ),
-      FrostedTile(
-        tilename: 'About Us',
-        tileicon: Icons.info_outline,
-      ),
-      FrostedTile(
-        tilename: 'Developers',
-        tileicon: Icons.laptop,
-      ),
-    ],
-    [
-      FrostedTile(
-        tilename: 'Privacy Policy',
-        tileicon: Icons.privacy_tip_outlined,
-      ),
-      FrostedTile(
-        tilename: 'Visit Website',
-        tileicon: Icons.web_outlined,
-      ),
-    ],
-  ];
 
   Future<void> _launchUniversalLinkApp(Uri url) async {
     final bool nativeAppLaunchSucceeded = await launchUrl(
@@ -79,84 +45,190 @@ class _FrostedGlassTileState extends State<FrostedGlassTile> {
     }
   }
 
+  Future<void> _launchInBrowser(Uri url) async {
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw Exception('Could not launch $url');
+    }
+  }
+
   Widget titleBar(String img, String name, double ht) {
-    return Padding(
-      padding:
-          EdgeInsets.only(left: ht / 100, right: ht / 100, bottom: ht / 100),
-      child: Card(
-        // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        color: Colors.transparent,
-        child: Stack(children: [
-          BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 0.9, sigmaY: 0.9),
-            child: Container(),
-          ),
-          Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(ht / 25),
-                border: Border.all(color: Colors.white.withOpacity(0.1)),
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Colors.white.withOpacity(0.23),
-                    Colors.white.withOpacity(0.05),
-                  ],
-                )),
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-                top: ht / 30, left: ht / 50, right: ht / 100, bottom: ht / 50),
-            child: Row(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(ht),
-                  child: FadeInImage(
-                    placeholder: const AssetImage(AppImages.icon),
-                    image: NetworkImage(img.isEmpty
-                        ? 'https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg'
-                        : img),
-                  ),
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+    return BlocBuilder<CheckLoginCubit, CheckLoginState>(
+        builder: (context, state) {
+      if (state is CheckLoginSuccess) {
+        return Padding(
+          padding: EdgeInsets.only(
+              left: ht / 100, right: ht / 100, bottom: ht / 100),
+          child: Card(
+            color: Colors.transparent,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(ht / 25)),
+            child: Stack(children: [
+              BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 0.9, sigmaY: 0.9),
+                child: Container(),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(ht / 25),
+                    border: Border.all(color: Colors.white.withOpacity(0.1)),
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Colors.white.withOpacity(0.23),
+                        Colors.white.withOpacity(0.05),
+                      ],
+                    )),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                    top: ht / 25,
+                    left: ht / 50,
+                    right: ht / 100,
+                    bottom: ht / 50),
+                child: Row(
                   children: [
-                    Text(
-                      'Welcome to Pulzion \'23',
-                      style: TextStyle(
-                          fontSize: ht / 50,
-                          fontWeight: FontWeight.bold,
-                          overflow: TextOverflow.ellipsis,
-                          color: Colors.white),
-                    ),
-                    FittedBox(
-                      fit: BoxFit.contain,
-                      child: Text(
-                        name,
-                        style: TextStyle(
-                          color: Colors.white54,
-                          overflow: TextOverflow.ellipsis,
-                          fontSize: ht / 50,
+                    GestureDetector(
+                      onTap: () => setState(() {
+                        imgC = !imgC;
+                      }),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(ht),
+                        child: FittedBox(
+                          fit: BoxFit.fill,
+                          child: Lottie.asset(
+                            imgC ? AppImages.spaceman : AppImages.spaceman2,
+                          ),
                         ),
                       ),
                     ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Welcome to Pulzion \'23',
+                          style: TextStyle(
+                              fontSize: ht / 50,
+                              fontWeight: FontWeight.bold,
+                              overflow: TextOverflow.ellipsis,
+                              color: Colors.white),
+                        ),
+                        FittedBox(
+                          fit: BoxFit.contain,
+                          child: Text(
+                            name,
+                            style: TextStyle(
+                              color: Colors.white54,
+                              overflow: TextOverflow.ellipsis,
+                              fontSize: ht / 50,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
-                )
-              ],
-            ),
+                ),
+              ),
+            ]),
           ),
-        ]),
-      ),
-    );
+        );
+      } else if (state is CheckLoginFailure) {
+        return Padding(
+          padding: EdgeInsets.only(
+              left: ht / 100, right: ht / 100, bottom: ht / 100),
+          child: Card(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(ht / 25)),
+            color: Colors.transparent,
+            child: Stack(children: [
+              BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 0.9, sigmaY: 0.9),
+                child: Container(),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(ht / 25),
+                  border: Border.all(color: Colors.white.withOpacity(0.1)),
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Colors.white.withOpacity(0.23),
+                      Colors.white.withOpacity(0.05),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                    top: ht / 25,
+                    left: ht / 40,
+                    right: ht / 100,
+                    bottom: ht / 40),
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () => setState(() {
+                        imgC = !imgC;
+                      }),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(ht),
+                        child: FittedBox(
+                          fit: BoxFit.fill,
+                          child: Lottie.asset(
+                            imgC ? AppImages.spaceman : AppImages.spaceman2,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 40,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Welcome to Pulzion \'23',
+                          style: TextStyle(
+                              fontSize: ht / 50,
+                              fontWeight: FontWeight.bold,
+                              overflow: TextOverflow.ellipsis,
+                              color: Colors.white),
+                        ),
+                        FittedBox(
+                          fit: BoxFit.contain,
+                          child: Text(
+                            'Anonymous',
+                            style: TextStyle(
+                              color: Colors.white54,
+                              overflow: TextOverflow.ellipsis,
+                              fontSize: ht / 50,
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ]),
+          ),
+        );
+      }
+      return const CircularProgressIndicator();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
-    final SensorControl sensorControl = SensorControl.AbsoluteOrientation;
+    // final SensorControl sensorControl = SensorControl.AbsoluteOrientation;
 
     return Stack(
       children: [
@@ -239,98 +311,173 @@ class _FrostedGlassTileState extends State<FrostedGlassTile> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(
-                    left: height / 60,
-                    right: height / 60,
-                    top: height / 60,
-                  ),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(height / 60),
-                        gradient: LinearGradient(
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
-                          colors: [
-                            Colors.white.withOpacity(0.15),
-                            Colors.black.withOpacity(0.05),
-                          ],
-                        )),
-                    height: 60,
-                    child: Container(
-                      margin: EdgeInsets.all(height / 150),
-                      child: Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            'Rate us on Play Store',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: height / 55,
-                            ),
-                          ),
-                          const Spacer(),
-                          IconButton(
-                            onPressed: () {},
-                            icon: const FaIcon(
-                              FontAwesomeIcons.googlePlay,
-                              color: Colors.white70,
-                            ),
+                BlocBuilder<CheckLoginCubit, CheckLoginState>(
+                  builder: (context, state) {
+                    if (state is CheckLoginSuccess) {
+                      List<List<FrostedTile>> f = [
+                        [
+                          FrostedTile(
+                            tilename: 'Logout',
+                            tileicon: Icons.person_off_outlined,
                           ),
                         ],
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 3,
-                  child: Container(
-                    // color: Colors.red,
-                    margin: EdgeInsets.only(top: height / 70),
-                    padding:
-                        EdgeInsets.only(left: height / 80, right: height / 80),
-                    child: AnimationLimiter(
-                        child: ListView.builder(
-                            itemCount: f.length,
-                            itemBuilder: (context, index) =>
-                                AnimationConfiguration.staggeredList(
-                                  position: index,
-                                  duration: const Duration(milliseconds: 2400),
-                                  child: SlideAnimation(
-                                    child: ScaleAnimation(
-                                      curve: Curves.easeInOut,
-                                      child: FadeInAnimation(
-                                        child: FrostedGlassBox(
-                                          cheight: height / 12.5,
-                                          cwidth:
-                                              MediaQuery.of(context).size.width,
-                                          childWid: f[index],
+                        [
+                          FrostedTile(
+                            tilename: 'Sponsors',
+                            tileicon: Icons.monetization_on_outlined,
+                          ),
+                          FrostedTile(
+                            tilename: 'About Us',
+                            tileicon: Icons.info_outline,
+                          ),
+                          FrostedTile(
+                            tilename: 'Developers',
+                            tileicon: Icons.laptop,
+                          ),
+                        ],
+                        [
+                          FrostedTile(
+                            tilename: 'Privacy Policy',
+                            tileicon: Icons.privacy_tip_outlined,
+                            launchURL: _launchInBrowser,
+                          ),
+                          FrostedTile(
+                            tilename: 'Visit Website',
+                            tileicon: Icons.web_outlined,
+                            launchURL: _launchInBrowser,
+                          ),
+                          FrostedTile(
+                            tilename: 'Rate us on Play Store',
+                            tileicon: FontAwesomeIcons.googlePlay,
+                          ),
+                        ],
+                      ];
+
+                      return Expanded(
+                        flex: 3,
+                        child: Container(
+                          // color: Colors.red,
+                          margin: EdgeInsets.only(top: height / 70),
+                          padding: EdgeInsets.only(
+                              left: height / 80, right: height / 80),
+                          child: AnimationLimiter(
+                              child: ListView.builder(
+                                  itemCount: f.length,
+                                  itemBuilder: (context, index) =>
+                                      AnimationConfiguration.staggeredList(
+                                        position: index,
+                                        duration:
+                                            const Duration(milliseconds: 2400),
+                                        child: SlideAnimation(
+                                          child: ScaleAnimation(
+                                            curve: Curves.easeInOut,
+                                            child: FadeInAnimation(
+                                              child: FrostedGlassBox(
+                                                cheight: height / 12.5,
+                                                cwidth: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                childWid: f[index],
+                                              ),
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                  ),
-                                ))),
-                  ),
+                                      ))),
+                        ),
+                      );
+                    }
+                    if (state is CheckLoginFailure) {
+                      List<List<FrostedTile>> f = [
+                        [
+                          FrostedTile(
+                            tilename: 'Sign Up',
+                            tileicon: Icons.login,
+                          ),
+                        ],
+                        [
+                          FrostedTile(
+                            tilename: 'Sponsors',
+                            tileicon: Icons.monetization_on_outlined,
+                          ),
+                          FrostedTile(
+                            tilename: 'About Us',
+                            tileicon: Icons.info_outline,
+                          ),
+                          FrostedTile(
+                            tilename: 'Developers',
+                            tileicon: Icons.laptop,
+                          ),
+                        ],
+                        [
+                          FrostedTile(
+                            tilename: 'Privacy Policy',
+                            tileicon: Icons.privacy_tip_outlined,
+                            launchURL: _launchInBrowser,
+                          ),
+                          FrostedTile(
+                            tilename: 'Visit Website',
+                            tileicon: Icons.web_outlined,
+                            launchURL: _launchInBrowser,
+                          ),
+                          FrostedTile(
+                            tilename: 'Rate us on Play Store',
+                            tileicon: FontAwesomeIcons.googlePlay,
+                          ),
+                        ],
+                      ];
+
+                      return Expanded(
+                        flex: 3,
+                        child: Container(
+                          // color: Colors.red,
+                          margin: EdgeInsets.only(top: height / 70),
+                          padding: EdgeInsets.only(
+                              left: height / 80, right: height / 80),
+                          child: AnimationLimiter(
+                              child: ListView.builder(
+                                  itemCount: f.length,
+                                  itemBuilder: (context, index) =>
+                                      AnimationConfiguration.staggeredList(
+                                        position: index,
+                                        duration:
+                                            const Duration(milliseconds: 2400),
+                                        child: SlideAnimation(
+                                          child: ScaleAnimation(
+                                            curve: Curves.easeInOut,
+                                            child: FadeInAnimation(
+                                              child: FrostedGlassBox(
+                                                cheight: height / 12.5,
+                                                cwidth: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                childWid: f[index],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ))),
+                        ),
+                      );
+                    }
+                    return const CircularProgressIndicator();
+                  },
                 ),
               ],
             ),
           ),
         ),
-        if (isRocket)
-          AnimatedOpacity(
-            opacity: _op ? 1.0 : 0.0,
-            duration: const Duration(
-              milliseconds: 500,
-            ),
-            child: Rocket(
-              setRocket: setRocket,
-            ),
-          )
+        AnimatedOpacity(
+          duration: const Duration(milliseconds: 500),
+          opacity: _opacity,
+          curve: Curves.decelerate,
+          child: Rocket(
+            setRocket: setRocket,
+          ),
+        ),
       ],
     );
   }
 }
+
+
+/* */
