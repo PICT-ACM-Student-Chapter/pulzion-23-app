@@ -45,7 +45,7 @@ class _MyAppState extends State<Rocket> {
                       widget.setRocket();
                     });
                   },
-                  duration: const Duration(milliseconds: 2200),
+                  duration: const Duration(milliseconds: 1200),
                   alignment: a ? Alignment.bottomCenter : Alignment.topCenter,
                   child: Transform.rotate(
                     angle: pi,

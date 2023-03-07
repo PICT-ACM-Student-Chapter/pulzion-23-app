@@ -15,6 +15,9 @@ Future<void> remoteConfig() async {
   EndPoints.sampleToken = remoteConfig.getString('SampleToken');
   EndPoints.appLatestStableVersion =
       remoteConfig.getString('AppLatestStableVersion');
+  EndPoints.privacyPolicyURL = remoteConfig.getString('privacyPolicy');
+  EndPoints.websiteURL = remoteConfig.getString('websiteUrl');
+  EndPoints.playStoreURL = remoteConfig.getString('playstoreUrl');
   log(EndPoints.baseUrl as String);
   log(EndPoints.sampleToken as String);
   log(EndPoints.appLatestStableVersion as String);

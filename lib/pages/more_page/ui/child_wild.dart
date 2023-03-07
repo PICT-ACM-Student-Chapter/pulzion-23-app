@@ -1,26 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class FrostedTile extends StatelessWidget {
   final IconData tileicon;
   final String tilename;
 
-  final Function? launchURL;
+  final String? url;
+  final VoidCallback? onTap;
+
+  Future<void> _launchInBrowser(Uri url) async {
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw Exception('Could not launch $url');
+    }
+  }
 
   const FrostedTile(
       {super.key,
       required this.tilename,
       required this.tileicon,
-      this.launchURL});
+      this.url,
+      this.onTap});
 
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     return GestureDetector(
-      onTap: launchURL != null
+      onTap: url != null
           ? () async {
-              await launchURL!(Uri.parse('https://pict.acm.org/pulzion19/'));
+              await _launchInBrowser(Uri.parse(url!));
             }
-          : null,
+          : onTap ??
+              () {
+                // If Both URL and onTap are not present then do nothing
+                null;
+              },
       child: Row(
         children: [
           Padding(

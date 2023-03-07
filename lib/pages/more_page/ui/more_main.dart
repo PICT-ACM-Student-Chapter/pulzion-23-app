@@ -6,6 +6,8 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pulzion23/constants/images.dart';
+import 'package:pulzion23/constants/urls.dart';
+import 'package:pulzion23/features/login_page/ui/login_signup_intro.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../features/login_page/cubit/check_login_cubit.dart';
@@ -46,12 +48,19 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
     }
   }
 
-  Future<void> _launchInBrowser(Uri url) async {
-    if (!await launchUrl(
-      url,
-      mode: LaunchMode.externalApplication,
-    )) {
-      throw Exception('Could not launch $url');
+  // Future<void> _launchInBrowser(Uri url) async {
+  //   if (!await launchUrl(
+  //     url,
+  //     mode: LaunchMode.externalApplication,
+  //   )) {
+  //     throw Exception('Could not launch $url');
+  //   }
+  // }
+
+  Future<void> _logout() async {
+    await context.read<CheckLoginCubit>().logout();
+    if (context.mounted) {
+      await context.read<CheckLoginCubit>().checkLogin();
     }
   }
 
@@ -98,11 +107,8 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                       }),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(ht),
-                        child: FittedBox(
-                          fit: BoxFit.fill,
-                          child: Lottie.asset(
-                            imgC ? AppImages.spaceman : AppImages.spaceman2,
-                          ),
+                        child: Lottie.asset(
+                          imgC ? AppImages.spaceman : AppImages.spaceman2,
                         ),
                       ),
                     ),
@@ -205,7 +211,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                         FittedBox(
                           fit: BoxFit.contain,
                           child: Text(
-                            'Anonymous',
+                            '16 Fun-filled Events',
                             style: TextStyle(
                               color: Colors.white54,
                               overflow: TextOverflow.ellipsis,
@@ -238,7 +244,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
           child: Column(
             children: [
               Expanded(
-                child: titleBar('', 'Your Name', height),
+                child: titleBar('', '16 Fun-filled Events', height),
               ),
               Container(
                 margin: EdgeInsets.all(height / 55),
@@ -316,9 +322,10 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                   if (state is CheckLoginSuccess) {
                     List<List<FrostedTile>> f = [
                       [
-                        const FrostedTile(
+                        FrostedTile(
                           tilename: 'Logout',
                           tileicon: Icons.person_off_outlined,
+                          onTap: _logout,
                         ),
                       ],
                       [
@@ -339,12 +346,12 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                         FrostedTile(
                           tilename: 'Privacy Policy',
                           tileicon: Icons.privacy_tip_outlined,
-                          launchURL: _launchInBrowser,
+                          url: EndPoints.privacyPolicyURL,
                         ),
                         FrostedTile(
                           tilename: 'Visit Website',
                           tileicon: Icons.web_outlined,
-                          launchURL: _launchInBrowser,
+                          url: EndPoints.websiteURL,
                         ),
                         const FrostedTile(
                           tilename: 'Rate us on Play Store',
@@ -367,7 +374,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                                     AnimationConfiguration.staggeredList(
                                       position: index,
                                       duration:
-                                          const Duration(milliseconds: 2400),
+                                          const Duration(milliseconds: 1200),
                                       child: SlideAnimation(
                                         child: ScaleAnimation(
                                           curve: Curves.easeInOut,
@@ -389,9 +396,17 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                   if (state is CheckLoginFailure) {
                     List<List<FrostedTile>> f = [
                       [
-                        const FrostedTile(
+                        FrostedTile(
                           tilename: 'Sign Up',
                           tileicon: Icons.login,
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const LoginSignUpIntro(),
+                              ),
+                            );
+                          },
                         ),
                       ],
                       [
@@ -412,16 +427,17 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                         FrostedTile(
                           tilename: 'Privacy Policy',
                           tileicon: Icons.privacy_tip_outlined,
-                          launchURL: _launchInBrowser,
+                          url: EndPoints.privacyPolicyURL,
                         ),
                         FrostedTile(
                           tilename: 'Visit Website',
                           tileicon: Icons.web_outlined,
-                          launchURL: _launchInBrowser,
+                          url: EndPoints.websiteURL,
                         ),
-                        const FrostedTile(
+                        FrostedTile(
                           tilename: 'Rate us on Play Store',
                           tileicon: FontAwesomeIcons.googlePlay,
+                          url: EndPoints.playStoreURL,
                         ),
                       ],
                     ];
@@ -440,7 +456,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                                     AnimationConfiguration.staggeredList(
                                       position: index,
                                       duration:
-                                          const Duration(milliseconds: 2400),
+                                          const Duration(milliseconds: 1200),
                                       child: SlideAnimation(
                                         child: ScaleAnimation(
                                           curve: Curves.easeInOut,
@@ -466,7 +482,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
           ),
         ),
         AnimatedOpacity(
-          duration: const Duration(milliseconds: 500),
+          duration: const Duration(milliseconds: 300),
           opacity: _opacity,
           curve: Curves.decelerate,
           child: Rocket(

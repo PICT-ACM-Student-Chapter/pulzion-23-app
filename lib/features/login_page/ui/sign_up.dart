@@ -55,7 +55,9 @@ class SignUp extends StatelessWidget {
                 );
                 await context.read<CheckLoginCubit>().checkLogin();
                 if (context.mounted) {
-                  Navigator.pop(context);
+                  while(Navigator.canPop(context)) {
+                    Navigator.pop(context);
+                  }
                 }
                 return;
               }
