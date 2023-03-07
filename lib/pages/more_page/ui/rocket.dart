@@ -5,7 +5,9 @@ import 'package:lottie/lottie.dart';
 
 class Rocket extends StatefulWidget {
   final Function setRocket;
+
   const Rocket({super.key, required this.setRocket});
+
   @override
   State<Rocket> createState() => _MyAppState();
 }
@@ -33,7 +35,7 @@ class _MyAppState extends State<Rocket> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Expanded(
-            child: Container(
+            child: SizedBox(
               height: h * 0.65,
               width: w,
               child: Stack(children: [

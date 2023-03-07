@@ -5,6 +5,7 @@ import 'package:panorama/panorama.dart';
 import 'package:pulzion23/constants/colors.dart';
 import 'package:pulzion23/constants/images.dart';
 import 'package:pulzion23/constants/styles.dart';
+
 import '../logic/login_cubit.dart';
 import '../logic/sign_up_cubit.dart';
 import 'login.dart';
@@ -12,6 +13,7 @@ import 'sign_up.dart';
 
 class LoginSignUpIntro extends StatelessWidget {
   const LoginSignUpIntro({super.key});
+
   final SensorControl sensorControl = SensorControl.AbsoluteOrientation;
 
   @override

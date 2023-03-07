@@ -8,6 +8,7 @@ import 'package:widget_circular_animator/widget_circular_animator.dart';
 
 class DevelopersPage extends StatefulWidget {
   final routeName = 'developers-page';
+
   const DevelopersPage({super.key});
 
   @override
@@ -107,7 +108,7 @@ class _DevelopersPageState extends State<DevelopersPage> {
                 curve: Curves.easeInOut,
                 child: Padding(
                   padding: const EdgeInsets.only(top: 12.0),
-                  child: Container(
+                  child: SizedBox(
                     height: 40,
                     width: 100,
                     child: Image.asset('assets/images/ufo_developer_page.gif',

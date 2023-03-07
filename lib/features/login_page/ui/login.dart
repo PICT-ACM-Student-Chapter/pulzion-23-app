@@ -10,7 +10,6 @@ import '../../../constants/widgets/loader.dart';
 import '../cubit/check_login_cubit.dart';
 import '../logic/login_cubit.dart';
 import 'widgets/go_back_button.dart';
-import 'sign_up.dart';
 import 'widgets/roundedbutton.dart';
 import 'widgets/text_field.dart';
 
@@ -50,23 +49,29 @@ class Login extends StatelessWidget {
                   ),
                 );
                 await context.read<CheckLoginCubit>().checkLogin();
-                Navigator.pop(context);
+                if (context.mounted) {
+                  Navigator.pop(context);
+                }
               }
               if (state is LoginFailure) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(state.message),
-                    backgroundColor: Colors.red,
-                  ),
-                );
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(state.message),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                }
               }
               if (state is LoginError) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(state.message),
-                    backgroundColor: Colors.red,
-                  ),
-                );
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(state.message),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                }
               }
             },
             builder: (context, state) {

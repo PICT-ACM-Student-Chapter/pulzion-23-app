@@ -1,16 +1,21 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'childWid.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
-class FrostedGlassBox extends StatelessWidget {
-  final cwidth, cheight;
-  List<FrostedTile> childWid;
-  FrostedGlassBox(
-      {required this.cheight, required this.cwidth, required this.childWid});
+import 'child_wild.dart';
 
-  Widget FrostedItem(Widget w) {
+class FrostedGlassBox extends StatelessWidget {
+  final double cwidth, cheight;
+  final List<FrostedTile> childWid;
+
+  const FrostedGlassBox(
+      {super.key,
+      required this.cheight,
+      required this.cwidth,
+      required this.childWid});
+
+  Widget frostedItem(Widget w) {
     return Padding(
       padding: EdgeInsets.all(cheight / 7),
       child: ClipRRect(
@@ -87,7 +92,7 @@ class FrostedGlassBox extends StatelessWidget {
                     color: Colors.transparent,
                     child: InkWell(
                       onTap: () {
-                        print('tapped');
+                        // print('tapped');
                         // Navigator
                       },
                       child: Padding(

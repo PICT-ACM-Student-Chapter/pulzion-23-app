@@ -1,9 +1,3 @@
-import 'dart:convert';
-import 'dart:developer';
-import 'package:http/http.dart' as http;
-
-import '../urls.dart';
-
 class User {
   int? id;
   String? firstName;

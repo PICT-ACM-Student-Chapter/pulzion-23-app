@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
 import '../../../constants/models/event_model.dart';
 import '../../../constants/urls.dart';
 

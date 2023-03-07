@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:widget_circular_animator/widget_circular_animator.dart';
 import 'package:countup/countup.dart';
+import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:widget_circular_animator/widget_circular_animator.dart';
 
 class AboutUsPage extends StatelessWidget {
   const AboutUsPage({super.key});
@@ -25,7 +25,8 @@ class AboutUsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var size, height, width;
+    Size size;
+    double height, width;
     size = MediaQuery.of(context).size;
     height = size.height;
     width = size.width;
@@ -115,9 +116,8 @@ class AboutUsPage extends StatelessWidget {
                                     child: Text(
                                       "EVENTS",
                                       style: TextStyle(
-                                        fontSize: width / 25,
-                                        color: Colors.white
-                                      ),
+                                          fontSize: width / 25,
+                                          color: Colors.white),
                                     ),
                                   ),
                                 ]),
@@ -159,9 +159,8 @@ class AboutUsPage extends StatelessWidget {
                                     child: Text(
                                       "VOLUNTEERS",
                                       style: TextStyle(
-                                        fontSize: width / 27,
-                                        color: Colors.white
-                                      ),
+                                          fontSize: width / 27,
+                                          color: Colors.white),
                                     ),
                                   ),
                                 ]),

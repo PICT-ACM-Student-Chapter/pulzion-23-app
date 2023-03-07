@@ -59,7 +59,7 @@ class BottomNavBar extends StatelessWidget {
                       return const LoginSignUpIntro();
                     }
                   } else {
-                    return FrostedGlassTile();
+                    return const FrostedGlassTile();
                   }
                 },
               );

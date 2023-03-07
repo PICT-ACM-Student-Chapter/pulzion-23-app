@@ -5,6 +5,7 @@ import 'event_card.dart';
 
 class EventGridView extends StatelessWidget {
   final List<Events> eventList;
+
   const EventGridView(this.eventList, {super.key});
 
   @override
@@ -19,7 +20,8 @@ class EventGridView extends StatelessWidget {
       itemBuilder: ((context, index) {
         final event = eventList[index];
         return Padding(
-          padding: EdgeInsets.symmetric(horizontal: mediaQuery.size.width * 0.02),
+          padding:
+              EdgeInsets.symmetric(horizontal: mediaQuery.size.width * 0.02),
           child: EventCard(event),
         );
       }),

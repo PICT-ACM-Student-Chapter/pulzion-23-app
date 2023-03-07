@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class GoBackButton extends StatelessWidget {
   final BuildContext ctx;
+
   const GoBackButton(this.ctx, {super.key});
 
   @override

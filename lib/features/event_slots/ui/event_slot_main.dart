@@ -124,7 +124,7 @@ class Ticket extends StatelessWidget {
                 height: height / 17,
                 width: width / 4,
                 child: TextButton(
-                  child:  const Center(
+                  child: const Center(
                       child: Text(
                     "DONE",
                     style: TextStyle(color: Colors.white),

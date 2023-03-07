@@ -10,21 +10,22 @@ import '../../../constants/styles.dart';
 
 class EventDescription extends StatefulWidget {
   final Events? event;
+
   const EventDescription({this.event, Key? key}) : super(key: key);
 
   @override
   State<EventDescription> createState() => _EventDescriptionState();
 }
 
-class _EventDescriptionState extends State<EventDescription> with TickerProviderStateMixin {
+class _EventDescriptionState extends State<EventDescription>
+    with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final event = widget.event!;
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
-    int activeIndex = 1;
-    late final TabController tabBarController = TabController(length: 3, vsync: this);
-    String title = "";
+    late final TabController tabBarController =
+        TabController(length: 3, vsync: this);
     final fontSizeFactor = h / w;
     return Scaffold(
       backgroundColor: Colors.black,
@@ -42,7 +43,7 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
         child: Row(
           children: [
             Expanded(
-              child: Container(
+              child: SizedBox(
                 height: h / 12,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -115,7 +116,8 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                 children: [
                   SizedBox(
                     height: h / 3,
-                    child: Lottie.asset("assets/images/space.json", fit: BoxFit.fill),
+                    child: Lottie.asset("assets/images/space.json",
+                        fit: BoxFit.fill),
                   ),
                   Container(
                     height: h / 2.8,
@@ -123,21 +125,26 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
-                        colors: [Colors.deepPurple.withOpacity(0.3), Colors.black],
+                        colors: [
+                          Colors.deepPurple.withOpacity(0.3),
+                          Colors.black
+                        ],
                       ),
                     ),
                   ),
                   Align(
                     alignment: Alignment.topLeft,
                     child: Padding(
-                      padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+                      padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).padding.top),
                       child: InkWell(
                         onTap: (() {
                           Navigator.pop(context);
                         }),
                         child: Transform.rotate(
                           angle: -pi / 2,
-                          child: Lottie.asset(AppImages.rocketButton, height: 50, width: 50),
+                          child: Lottie.asset(AppImages.rocketButton,
+                              height: 50, width: 50),
                         ),
                       ),
                     ),
@@ -182,7 +189,8 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                                 ),
                               ),
                             ),
-                            unselectedLabelColor: AppColors.cardSubtitleTextColor,
+                            unselectedLabelColor:
+                                AppColors.cardSubtitleTextColor,
                             labelColor: AppColors.loginPageAccent,
                             tabs: const [
                               Text("Description",

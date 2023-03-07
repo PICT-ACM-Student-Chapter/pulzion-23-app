@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 
 class FrostedTile extends StatelessWidget {
-  IconData tileicon;
-  final tilename;
-  
-  Function? launchURL;
-  FrostedTile({required this.tilename, required this.tileicon, this.launchURL});
+  final IconData tileicon;
+  final String tilename;
+
+  final Function? launchURL;
+
+  const FrostedTile(
+      {super.key,
+      required this.tilename,
+      required this.tileicon,
+      this.launchURL});
 
   @override
   Widget build(BuildContext context) {
@@ -29,14 +34,12 @@ class FrostedTile extends StatelessWidget {
           const SizedBox(
             width: 30,
           ),
-          Container(
-            child: Text(
-              tilename,
-              style: TextStyle(
-                fontSize: height / 43,
-                color: Colors.white70,
-                fontWeight: FontWeight.bold,
-              ),
+          Text(
+            tilename,
+            style: TextStyle(
+              fontSize: height / 43,
+              color: Colors.white70,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ],

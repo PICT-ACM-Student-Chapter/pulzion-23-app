@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+
 import 'customcurve.dart';
 
 void main() {
@@ -22,7 +23,7 @@ class CustomAnimationCurve extends StatefulWidget {
   const CustomAnimationCurve({super.key});
 
   @override
-  _CustomAnimationCurveState createState() => _CustomAnimationCurveState();
+  State<CustomAnimationCurve> createState() => _CustomAnimationCurveState();
 }
 
 class _CustomAnimationCurveState extends State<CustomAnimationCurve>
@@ -53,16 +54,19 @@ class _CustomAnimationCurveState extends State<CustomAnimationCurve>
           child: Container(
             height: 100,
             width: 100,
-            decoration: const BoxDecoration(gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [Colors.deepPurple,Colors.blue])
-            ),
-
+            decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Colors.deepPurple, Colors.blue])),
             child: AnimatedBuilder(
                 animation: _animation,
                 builder: (BuildContext context, Widget? child) {
                   return Transform.translate(
-                    offset: Offset(10 * _animation.value, (-20 * (_animation.value * _animation.value))),
+                    offset: Offset(10 * _animation.value,
+                        (-20 * (_animation.value * _animation.value))),
                     child: Transform.rotate(
-                      angle: pi/4,
+                      angle: pi / 4,
                       child: const Align(
                         alignment: Alignment.bottomLeft,
                         child: Image(
