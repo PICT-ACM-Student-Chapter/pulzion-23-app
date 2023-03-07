@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:widget_circular_animator/widget_circular_animator.dart';
 import 'package:countup/countup.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:panorama/panorama.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutUsPage extends StatelessWidget {
@@ -31,18 +30,9 @@ class AboutUsPage extends StatelessWidget {
     height = size.height;
     width = size.width;
     return Scaffold(
-      // backgroundColor: Color.fromARGB(207, 114, 24, 183),
-      // appBar: AppBar(
-      //   title: Center(child: Text("ABOUT US")),
-      // ),
       backgroundColor: Colors.transparent,
       body: Stack(
         children: [
-          // Panorama(
-          //   animSpeed: 0.5,
-          //   sensorControl: SensorControl.Orientation,
-          //   child: Image.asset('assets/images/space_bg.jpg', fit: BoxFit.cover),
-          // ),
           SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.all(width / 20),
@@ -99,8 +89,9 @@ class AboutUsPage extends StatelessWidget {
                           size: width / 2.6,
                           child: Container(
                             decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Color.fromARGB(255, 239, 170, 150)),
+                              shape: BoxShape.circle,
+                              color: Color.fromARGB(255, 21, 68, 102),
+                            ),
                             child: Row(
                               children: [
                                 Column(children: [
@@ -113,9 +104,9 @@ class AboutUsPage extends StatelessWidget {
                                       duration: const Duration(seconds: 1),
                                       separator: ',',
                                       style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: width / 13,
-                                          fontWeight: FontWeight.bold),
+                                        color: Colors.white,
+                                        fontSize: width / 13,
+                                      ),
                                     ),
                                   ),
                                   Padding(
@@ -124,8 +115,9 @@ class AboutUsPage extends StatelessWidget {
                                     child: Text(
                                       "EVENTS",
                                       style: TextStyle(
-                                          fontSize: width / 25,
-                                          fontWeight: FontWeight.bold),
+                                        fontSize: width / 25,
+                                        color: Colors.white
+                                      ),
                                     ),
                                   ),
                                 ]),
@@ -141,8 +133,9 @@ class AboutUsPage extends StatelessWidget {
                           size: width / 2.6,
                           child: Container(
                             decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Color.fromARGB(255, 239, 170, 150)),
+                              shape: BoxShape.circle,
+                              color: Color.fromARGB(255, 21, 68, 102),
+                            ),
                             child: Row(
                               children: [
                                 Column(children: [
@@ -155,9 +148,9 @@ class AboutUsPage extends StatelessWidget {
                                       duration: const Duration(seconds: 1),
                                       separator: ',',
                                       style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: width / 13,
-                                          fontWeight: FontWeight.bold),
+                                        color: Colors.white,
+                                        fontSize: width / 13,
+                                      ),
                                     ),
                                   ),
                                   Padding(
@@ -167,7 +160,7 @@ class AboutUsPage extends StatelessWidget {
                                       "VOLUNTEERS",
                                       style: TextStyle(
                                         fontSize: width / 27,
-                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white
                                       ),
                                     ),
                                   ),
