@@ -60,7 +60,7 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          "Rs. 30",
+                          "Rs. ${event.price}",
                           style: AppStyles.bodyTextStyle3(),
                         ),
                         Text(

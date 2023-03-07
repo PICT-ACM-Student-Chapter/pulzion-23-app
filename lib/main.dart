@@ -10,6 +10,8 @@ import 'package:pulzion23/constants/utils/theme.dart';
 import 'package:pulzion23/constants/widgets/loader.dart';
 import 'package:pulzion23/features/compulsory_update/cubit/compulsory_update_cubit.dart';
 import 'package:pulzion23/features/compulsory_update/ui/compulsary_update.dart';
+import 'package:pulzion23/config/remote_config.dart';
+import 'package:pulzion23/constants/utils/theme.dart';
 import 'package:pulzion23/project/landing_page.dart';
 import 'package:pulzion23/firebase_options.dart';
 import 'package:pulzion23/project/cubit/bottom_bar_cubit.dart';

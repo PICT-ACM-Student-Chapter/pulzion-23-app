@@ -75,7 +75,6 @@ class _MyAppState extends State<MyApp> {
                           _updateState();
                         },backgroundColor: Colors.black,
                             child: const Text("animate")),
-
                       ),
                     ]
                 )

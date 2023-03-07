@@ -11,4 +11,6 @@ class AppImages {
   static const rocketButton = 'assets/images/rocket_button.json';
   static const astronautSayingNo = 'assets/images/astronaut_saying_no.json';
   static const astronautFloating = 'assets/images/astronaut_floating.json';
+  static const spaceman = 'assets/images/space_man.json';
+  static const spaceman2 = 'assets/images/space_man2.json';
 }
