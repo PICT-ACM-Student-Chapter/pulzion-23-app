@@ -4,7 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:panorama/panorama.dart';
 import 'package:pulzion23/constants/images.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:widget_circular_animator/widget_circular_animator.dart';
+
+void main() {
+  runApp(const MaterialApp(home: DevelopersPage()));
+}
 
 class DevelopersPage extends StatefulWidget {
   final routeName = 'developers-page';
@@ -26,6 +31,19 @@ class _DevelopersPageState extends State<DevelopersPage> {
   var count = 20;
 
   bool _move = true;
+
+  Future<void> _launchUniversalLinkApp(String url) async {
+    final bool nativeAppLaunchSucceeded = await launchUrl(
+      Uri.parse(url),
+      mode: LaunchMode.externalNonBrowserApplication,
+    );
+    if (!nativeAppLaunchSucceeded) {
+      await launchUrl(
+        Uri.parse(url),
+        mode: LaunchMode.inAppWebView,
+      );
+    }
+  }
 
   var myProducts = [
     "Awadhoot Khutwad",
@@ -53,50 +71,24 @@ class _DevelopersPageState extends State<DevelopersPage> {
           ),
           Column(
             children: [
-              Container(
-                height: h * 0.12,
-                color: Colors.transparent,
-                padding: EdgeInsets.only(
-                  top: h * 0.05,
-                ),
-                child: Stack(
-                  children: [
-                    BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                        child: Container()),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(h * 0.02),
-                        border:
-                            Border.all(color: Colors.white.withOpacity(0.1)),
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Colors.white.withOpacity(0.5),
-                            Colors.white.withOpacity(0.1),
-                          ],
-                        ),
-                      ),
+              Padding(
+                padding: EdgeInsets.only(top: h * 0.06),
+                child: Center(
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "DEVELOPERS PAGE",
+                      style: TextStyle(
+                          fontSize: h * 0.04,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
                     ),
-                    Center(
-                      child: Container(
-                        height: h * 0.07,
-                        width: w - w * 0.07,
-                        decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(h * 0.03))),
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            "DEVELOPERS PAGE",
-                            style: TextStyle(fontSize: h * 0.04),
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
+                  ),
                 ),
+              ),
+              Divider(
+                thickness: 5,
+                color: Colors.white,
               ),
               AnimatedAlign(
                 alignment: _move ? Alignment.centerLeft : Alignment.centerRight,
@@ -202,11 +194,15 @@ class _DevelopersPageState extends State<DevelopersPage> {
                                     FontAwesomeIcons.linkedin,
                                     color: Colors.white,
                                   ),
-                                  onTap: () {
+                                  onTap: () async {
+                                    ScaffoldMessenger.of(context)
+                                        .hideCurrentSnackBar();
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(const SnackBar(
                                       content: Text('LINKEDIN'),
                                     ));
+                                    await _launchUniversalLinkApp(
+                                        'https://www.linkedin.com/in/soumya-garg-3a7453166');
                                   },
                                 ),
                                 SizedBox(
@@ -218,6 +214,8 @@ class _DevelopersPageState extends State<DevelopersPage> {
                                     color: Colors.white,
                                   ),
                                   onTap: () {
+                                    ScaffoldMessenger.of(context)
+                                        .hideCurrentSnackBar();
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(const SnackBar(
                                       content: Text('GMAIL'),
@@ -233,6 +231,8 @@ class _DevelopersPageState extends State<DevelopersPage> {
                                     color: Colors.white,
                                   ),
                                   onTap: () {
+                                    ScaffoldMessenger.of(context)
+                                        .hideCurrentSnackBar();
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(const SnackBar(
                                       content: Text('GIT'),
