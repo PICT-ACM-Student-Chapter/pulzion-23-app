@@ -9,4 +9,6 @@ class AppImages {
   static const ufo3 = 'assets/images/ufo3.json';
   static const person = 'assets/images/person.jpg';
   static const rocketButton = 'assets/images/rocket_button.json';
+  static const spaceman = 'assets/images/space_man.json';
+  static const spaceman2 = 'assets/images/space_man2.json';
 }
