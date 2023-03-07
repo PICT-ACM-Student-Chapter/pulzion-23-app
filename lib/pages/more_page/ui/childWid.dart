@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class FrostedTile extends StatelessWidget {
   IconData tileicon;
   final tilename;
+  
   Function? launchURL;
   FrostedTile({required this.tilename, required this.tileicon, this.launchURL});
 

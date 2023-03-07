@@ -49,54 +49,44 @@ class Ticket extends StatelessWidget {
           Positioned(
             left: width / 2.63,
             bottom: height / 2.4,
-            child: Container(
-              child: const Text(
-                "DATAQUEST",
-                style: TextStyle(
-                    fontSize: 22,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w700),
-              ),
+            child: const Text(
+              "DATAQUEST",
+              style: TextStyle(
+                  fontSize: 22,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700),
             ),
           ),
           Positioned(
             left: width / 2.74,
             bottom: height / 2.83,
-            child: Container(
-              child: const Text(
-                "DATE",
-                style: TextStyle(fontSize: 18, color: Colors.white),
-              ),
+            child: const Text(
+              "DATE",
+              style: TextStyle(fontSize: 18, color: Colors.white),
             ),
           ),
           Positioned(
             left: width / 1.82,
             bottom: height / 2.83,
-            child: Container(
-              child: const Text(
-                "TIME",
-                style: TextStyle(fontSize: 18, color: Colors.white),
-              ),
+            child: const Text(
+              "TIME",
+              style: TextStyle(fontSize: 18, color: Colors.white),
             ),
           ),
           Positioned(
             left: width / 3,
             bottom: height / 3.27,
-            child: Container(
-              child: const Text(
-                "1/2/2023",
-                style: TextStyle(fontSize: 18, color: Colors.orange),
-              ),
+            child: const Text(
+              "1/2/2023",
+              style: TextStyle(fontSize: 18, color: Colors.orange),
             ),
           ),
           Positioned(
             left: width / 1.86,
             bottom: height / 3.27,
-            child: Container(
-              child: const Text(
-                "6:00 pm",
-                style: TextStyle(fontSize: 18, color: Colors.orange),
-              ),
+            child: const Text(
+              "6:00 pm",
+              style: TextStyle(fontSize: 18, color: Colors.orange),
             ),
           ),
           Positioned(

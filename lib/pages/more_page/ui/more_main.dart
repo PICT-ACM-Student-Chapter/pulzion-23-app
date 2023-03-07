@@ -478,6 +478,3 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
     );
   }
 }
-
-
-/* */

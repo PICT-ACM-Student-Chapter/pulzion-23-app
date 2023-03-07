@@ -35,8 +35,7 @@ class EventCard extends StatelessWidget {
           Transform.translate(
             offset: Offset(0, MediaQuery.of(context).size.width / 10),
             child: Container(
-              margin: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).size.width / 8),
+              margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.width / 8),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
@@ -78,8 +77,7 @@ class EventCard extends StatelessWidget {
                       alignment: Alignment.bottomRight,
                       child: Transform.rotate(
                         angle: pi / 2,
-                        child: Lottie.asset(AppImages.rocketButton,
-                            height: 50, width: 50),
+                        child: Lottie.asset(AppImages.rocketButton, height: 50, width: 50),
                       ),
                     )
                   ],

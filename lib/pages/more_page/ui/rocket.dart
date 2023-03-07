@@ -12,12 +12,13 @@ class Rocket extends StatefulWidget {
 
 class _MyAppState extends State<Rocket> {
   bool a = false;
+
   late AnimationController controller;
 
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 100))
+    Future.delayed(const Duration(milliseconds: 5))
         .then((value) => setState(() {
               a = !a;
             }));
