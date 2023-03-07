@@ -376,6 +376,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.2.0"
+  glowstone:
+    dependency: "direct main"
+    description:
+      name: glowstone
+      sha256: e2859994c3debb0983a2e956a729c0017fd94bd1c43ae3aad1dcd8ea725bb447
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2"
   http:
     dependency: "direct main"
     description:
