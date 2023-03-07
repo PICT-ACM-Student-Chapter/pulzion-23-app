@@ -1,33 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pulzion23/constants/widgets/loader.dart';
+import '../cubit/profile_cubit.dart';
 import 'card.dart';
 import 'package:panorama/panorama.dart';
 import 'package:glowstone/glowstone.dart';
-
-class ProfileCubit extends Cubit<ProfileState> {
-  ProfileCubit() : super(ProfileState());
-}
-
-class ProfileState {
-  final String? name;
-  final String? emailId;
-  final String? contactNo;
-  final String? year;
-  final String? college;
-
-  ProfileState(
-      {this.name, this.contactNo, this.emailId, this.year, this.college});
-} //the part above this is just for the bloc which I am not able to implement exactly
-
-List<ProfileState> list = [
-  ProfileState(
-    name: "Soumya Garg",
-    contactNo: "7777888800",
-    emailId: "soumyagarg2905@gmail.com",
-    year: "SE",
-    college: "PICT",
-  )
-];
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -35,32 +12,40 @@ class ProfilePage extends StatelessWidget {
   //main ui starts from here
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProfileCubit, ProfileState>(
-      builder: (context, state) {
-        var h = MediaQuery.of(context).size.height;
-        var w = MediaQuery.of(context).size.width;
-        return Scaffold(
-          appBar: AppBar(
-            leading: const BackButton(
-              color: Colors.white,
-            ),
-            backgroundColor: Colors.transparent,
+    var h = MediaQuery.of(context).size.height;
+    var w = MediaQuery.of(context).size.width;
+    return Scaffold(
+      appBar: AppBar(
+        leading: const BackButton(
+          color: Colors.white,
+        ),
+        backgroundColor: Colors.transparent,
+      ),
+      extendBodyBehindAppBar: true,
+      body: Stack(children: [
+        Panorama(
+          animSpeed: 0.5,
+          sensorControl: SensorControl.Orientation,
+          child: Image.asset('assets/images/space_bg.jpg', fit: BoxFit.cover),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(
+            top: kToolbarHeight,
           ),
-          extendBodyBehindAppBar: true,
-          body: Stack(children: [
-            Panorama(
-              animSpeed: 0.5,
-              sensorControl: SensorControl.Orientation,
-              child:
-                  Image.asset('assets/images/space_bg.jpg', fit: BoxFit.cover),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                top: kToolbarHeight,
-              ),
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: Column(
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: BlocConsumer<ProfileCubit, ProfileState>(
+                listener: (context, state) {
+              if (state is ProfileError) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(state.message),
+                  ),
+                );
+              }
+            }, builder: (context, state) {
+              if (state is ProfileLoaded) {
+                return Column(
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -114,7 +99,6 @@ class ProfilePage extends StatelessWidget {
                         )
                       ],
                     ),
-
                     Padding(
                       padding: const EdgeInsets.only(top: 1),
                       child: Row(
@@ -139,7 +123,7 @@ class ProfilePage extends StatelessWidget {
                           LimitedBox(
                             maxWidth: w - w * 0.2,
                             child: Text(
-                              list[0].name.toString(),
+                              "${state.user.firstName!} ${state.user.lastName!}",
                               style: TextStyle(
                                   fontSize: w * 0.08,
                                   fontWeight: FontWeight.bold,
@@ -150,80 +134,83 @@ class ProfilePage extends StatelessWidget {
                         ],
                       ),
                     ),
-
                     SizedBox(height: h * 0.001),
-
-                    // Add other profile information widgets here.
-                    //The carddesign is a separate dart file which returns the widget (here in main we only call the dunction and pass arguments)
                     cardDesign(
-                        "USERNAME",
-                        h,
-                        w,
-                        list[0].name,
-                        const Icon(
-                          Icons.person,
-                          color: Colors.white,
-                        )),
+                      "USERNAME",
+                      h,
+                      w,
+                      state.user.email!.split('@')[0],
+                      const Icon(
+                        Icons.person,
+                        color: Colors.white,
+                      ),
+                    ),
                     SizedBox(
                       height: h * 0.01,
                     ),
                     cardDesign(
-                        "EMAIL",
-                        h,
-                        w,
-                        list[0].emailId,
-                        const Icon(
-                          Icons.email,
-                          color: Colors.white,
-                        )),
-                    SizedBox(
-                      height: h * 0.01,
+                      "EMAIL",
+                      h,
+                      w,
+                      state.user.email!,
+                      const Icon(
+                        Icons.email,
+                        color: Colors.white,
+                      ),
                     ),
-
-                    cardDesign(
-                        "CONTACT NO.",
-                        h,
-                        w,
-                        list[0].contactNo,
-                        const Icon(
-                          Icons.phone,
-                          color: Colors.white,
-                        )),
                     SizedBox(
                       height: h * 0.01,
                     ),
                     cardDesign(
-                        "YEAR",
-                        h,
-                        w,
-                        list[0].year,
-                        const Icon(
-                          Icons.school,
-                          color: Colors.white,
-                        )),
+                      "CONTACT NO.",
+                      h,
+                      w,
+                      state.user.mobileNumber,
+                      const Icon(
+                        Icons.phone,
+                        color: Colors.white,
+                      ),
+                    ),
                     SizedBox(
                       height: h * 0.01,
                     ),
                     cardDesign(
-                        "COLLEGE",
-                        h,
-                        w,
-                        list[0].college,
-                        const Icon(
-                          Icons.book,
-                          color: Colors.white,
-                        )),
+                      "YEAR",
+                      h,
+                      w,
+                      state.user.year,
+                      const Icon(
+                        Icons.school,
+                        color: Colors.white,
+                      ),
+                    ),
+                    SizedBox(
+                      height: h * 0.01,
+                    ),
+                    cardDesign(
+                      "COLLEGE",
+                      h,
+                      w,
+                      state.user.college,
+                      const Icon(
+                        Icons.book,
+                        color: Colors.white,
+                      ),
+                    ),
                     SizedBox(
                       height: h * 0.01,
                     ),
                     // SizedBox(height: 0.0000001, width: double.infinity),
                   ],
-                ),
-              ),
-            ),
-          ]),
-        );
-      },
+                );
+              }
+              return const Center(
+                child: Loader(),
+              );
+            }),
+          ),
+        ),
+      ]),
     );
   }
 }

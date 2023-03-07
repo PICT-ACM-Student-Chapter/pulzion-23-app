@@ -53,19 +53,6 @@ class User {
   }
 }
 
-Future<User> getUser() async {
-  Map<String, String> header = {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer ${EndPoints.sampleToken}'
-  };
-  var response = await http.get(Uri.parse(EndPoints.user), headers: header);
-  var data = jsonDecode(response.body);
-  log(data.toString());
-  User user = User.fromJson(data['user']);
-  log(user.firstName! + user.lastName!);
-  return user;
-}
-
 // Creating a singleton class for user token
 class UserToken {
   String? token;

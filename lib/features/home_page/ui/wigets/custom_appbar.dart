@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../constants/images.dart';
-import '../../../login_page/cubit/check_login_cubit.dart';
+import '../../../profile_page/cubit/profile_cubit.dart';
 import '../../../profile_page/ui/profileui.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -23,8 +23,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => BlocProvider<ProfileCubit>(
-                    create: (BuildContext context) => ProfileCubit(),
-                    child: ProfilePage(),
+                    create: (BuildContext context) => ProfileCubit()..getUser(),
+                    child: const ProfilePage(),
                   ),
                 ),
               );
