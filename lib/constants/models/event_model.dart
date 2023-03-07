@@ -26,6 +26,7 @@ class Events {
   String? mode;
   bool? isActive;
   bool? play;
+  int? price;
   String? link;
   String? tagline;
   String? logo;
@@ -44,6 +45,7 @@ class Events {
       this.mode,
       this.isActive,
       this.play,
+      this.price,
       this.link,
       this.tagline,
       this.logo,
@@ -62,6 +64,7 @@ class Events {
     mode = json["mode"];
     isActive = json["is_active"];
     play = json["play"];
+    price = json["price"];
     link = json["link"];
     tagline = json["tagline"];
     logo = json["logo"];
@@ -82,6 +85,7 @@ class Events {
     data["mode"] = mode;
     data["is_active"] = isActive;
     data["play"] = play;
+    data["price"] = price;
     data["link"] = link;
     data["tagline"] = tagline;
     data["logo"] = logo;
