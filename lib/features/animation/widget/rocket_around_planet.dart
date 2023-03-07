@@ -4,19 +4,23 @@ import 'package:flutter/material.dart';
 import 'customcurve.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: CustomAnimationCurve(),
     );
   }
 }
 
 class CustomAnimationCurve extends StatefulWidget {
+  const CustomAnimationCurve({super.key});
+
   @override
   _CustomAnimationCurveState createState() => _CustomAnimationCurveState();
 }
@@ -31,7 +35,7 @@ class _CustomAnimationCurveState extends State<CustomAnimationCurve>
     super.initState();
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 5),
+      duration: const Duration(seconds: 5),
     );
     _animation =
         CurvedAnimation(parent: _animationController, curve: AnimationCurve());
@@ -42,14 +46,14 @@ class _CustomAnimationCurveState extends State<CustomAnimationCurve>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Container(
+      body: SizedBox(
         height: 300,
         width: 300,
         child: Center(
           child: Container(
             height: 100,
             width: 100,
-            decoration: BoxDecoration(gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [Colors.deepPurple,Colors.blue])
+            decoration: const BoxDecoration(gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [Colors.deepPurple,Colors.blue])
             ),
 
             child: AnimatedBuilder(
@@ -59,7 +63,7 @@ class _CustomAnimationCurveState extends State<CustomAnimationCurve>
                     offset: Offset(10 * _animation.value, (-20 * (_animation.value * _animation.value))),
                     child: Transform.rotate(
                       angle: pi/4,
-                      child: Align(
+                      child: const Align(
                         alignment: Alignment.bottomLeft,
                         child: Image(
                           width: 100,
