@@ -78,6 +78,14 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.1"
+  countup:
+    dependency: "direct main"
+    description:
+      name: countup
+      sha256: "3a7509b20170fd78ff9553848016465d34fdbc4ce8adb3d5361be80592b92675"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.4"
   crypto:
     dependency: transitive
     description:
@@ -286,6 +294,14 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.1.0"
+  flutter_staggered_animations:
+    dependency: "direct main"
+    description:
+      name: flutter_staggered_animations
+      sha256: "81d3c816c9bb0dca9e8a5d5454610e21ffb068aedb2bde49d2f8d04f75538351"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.1"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -303,13 +319,22 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  go_router:
+  font_awesome_flutter:
     dependency: "direct main"
     description:
-      name: go_router
-      url: "https://pub.dartlang.org"
+      name: font_awesome_flutter
+      sha256: "959ef4add147753f990b4a7c6cccb746d5792dbdc81b1cde99e62e7edb31b206"
+      url: "https://pub.dev"
     source: hosted
-    version: "5.2.4"
+    version: "10.4.0"
+  get_it:
+    dependency: "direct main"
+    description:
+      name: get_it
+      sha256: "290fde3a86072e4b37dbb03c07bec6126f0ecc28dad403c12ffe2e5a2d751ab7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "7.2.0"
   http:
     dependency: "direct main"
     description:
@@ -345,13 +370,14 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
-  logging:
-    dependency: transitive
+  logger:
+    dependency: "direct main"
     description:
-      name: logging
-      url: "https://pub.dartlang.org"
+      name: logger
+      sha256: c40f9ef51e5bffb4ce69ad2d8c8aad7bd47ec109c090521109b63a4e2bc27191
+      url: "https://pub.dev"
     source: hosted
-    version: "1.1.1"
+    version: "1.2.2"
   lottie:
     dependency: "direct main"
     description:
@@ -545,14 +571,86 @@ packages:
       name: universal_io
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.0"
+    version: "2.0.4"
+  url_launcher:
+    dependency: "direct main"
+    description:
+      name: url_launcher
+      sha256: e8f2efc804810c0f2f5b485f49e7942179f56eabcfe81dce3387fec4bb55876b
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.1.9"
+  url_launcher_android:
+    dependency: transitive
+    description:
+      name: url_launcher_android
+      sha256: "3e2f6dfd2c7d9cd123296cab8ef66cfc2c1a13f5845f42c7a0f365690a8a7dd1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.0.23"
+  url_launcher_ios:
+    dependency: transitive
+    description:
+      name: url_launcher_ios
+      sha256: "0a5af0aefdd8cf820dd739886efb1637f1f24489900204f50984634c07a54815"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.1.0"
+  url_launcher_linux:
+    dependency: transitive
+    description:
+      name: url_launcher_linux
+      sha256: "318c42cba924e18180c029be69caf0a1a710191b9ec49bb42b5998fdcccee3cc"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.2"
+  url_launcher_macos:
+    dependency: transitive
+    description:
+      name: url_launcher_macos
+      sha256: "41988b55570df53b3dd2a7fc90c76756a963de6a8c5f8e113330cb35992e2094"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.2"
+  url_launcher_platform_interface:
+    dependency: transitive
+    description:
+      name: url_launcher_platform_interface
+      sha256: "4eae912628763eb48fc214522e58e942fd16ce195407dbf45638239523c759a6"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.1"
+  url_launcher_web:
+    dependency: transitive
+    description:
+      name: url_launcher_web
+      sha256: "44d79408ce9f07052095ef1f9a693c258d6373dc3944249374e30eff7219ccb0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.14"
+  url_launcher_windows:
+    dependency: transitive
+    description:
+      name: url_launcher_windows
+      sha256: b6217370f8eb1fd85c8890c539f5a639a01ab209a36db82c921ebeacefc7a615
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.3"
   vector_math:
     dependency: transitive
     description:
       name: vector_math
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.2"
+    version: "2.1.4"
+  widget_circular_animator:
+    dependency: "direct main"
+    description:
+      name: widget_circular_animator
+      sha256: "3be8c05cfe32eceda237c7b68339e60940a84011df80c63bd4e71bd0daa7a770"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   xdg_directories:
     dependency: transitive
     description:
@@ -564,7 +662,8 @@ packages:
     dependency: transitive
     description:
       name: xml
-      url: "https://pub.dartlang.org"
+      sha256: ac0e3f4bf00ba2708c33fbabbbe766300e509f8c82dbd4ab6525039813f7e2fb
+      url: "https://pub.dev"
     source: hosted
     version: "6.1.0"
 sdks:

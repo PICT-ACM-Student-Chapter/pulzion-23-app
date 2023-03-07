@@ -1,9 +1,8 @@
-// A simple profile page with a profile image, name, and description.
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:pulzion23/constants/styles.dart';
-import 'package:pulzion23/project/routes/app_route_constant.dart';
+
+import '../../../constants/styles.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -16,7 +15,7 @@ class ProfilePage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              context.goNamed(RouteName.landing);
+              log("Go to Landing page");
             },
             icon: const Icon(Icons.home),
           ),

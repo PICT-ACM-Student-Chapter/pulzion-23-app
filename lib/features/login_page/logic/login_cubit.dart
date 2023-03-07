@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
 import 'package:pulzion23/constants/models/user_model.dart';
@@ -29,13 +30,17 @@ class LoginCubit extends Cubit<LoginState> {
           'password': password,
         }),
       );
+      var data = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        var data = jsonDecode(response.body);
+        // Save token in secure storage
+        const storage = FlutterSecureStorage();
+        await storage.write(key: 'token', value: data['token']);
+
         Singleton.userToken = data['token'];
         Singleton.user = User.fromJson(data['user']);
         emit(LoginSuccess());
       } else {
-        emit(LoginFailure(message: 'Invalid Credentials'));
+        emit(LoginFailure(message: data['error'] ?? 'Invalid Credentials'));
       }
     } catch (e) {
       emit(LoginError(message: e.toString()));
