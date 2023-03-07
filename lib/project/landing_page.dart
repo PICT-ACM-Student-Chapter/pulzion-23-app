@@ -71,15 +71,35 @@ class BottomNavBar extends StatelessWidget {
             child: CurvedNavigationBar(
               index: 2,
               height: MediaQuery.of(context).size.height * 0.07,
-              items: const <Widget>[
-                Icon(Icons.info, size: 30),
-                Icon(Icons.calendar_month, size: 30),
-                Icon(Icons.home_rounded, size: 30),
-                Icon(Icons.shopping_cart, size: 30),
-                Icon(Icons.more_horiz_rounded, size: 30),
+              items: <Widget>[
+                Icon(
+                  Icons.info,
+                  size: 30,
+                  color: Colors.white.withOpacity(0.7),
+                ),
+                Icon(
+                  Icons.calendar_month,
+                  size: 30,
+                  color: Colors.white.withOpacity(0.7),
+                ),
+                Icon(
+                  Icons.home_rounded,
+                  size: 30,
+                  color: Colors.white.withOpacity(0.7),
+                ),
+                Icon(
+                  Icons.shopping_cart,
+                  size: 30,
+                  color: Colors.white.withOpacity(0.7),
+                ),
+                Icon(
+                  Icons.more_horiz_rounded,
+                  size: 30,
+                  color: Colors.white.withOpacity(0.7),
+                ),
               ],
-              color: Colors.white,
-              buttonBackgroundColor: Colors.white,
+              color: Colors.grey.withOpacity(0.2),
+              buttonBackgroundColor: Colors.white.withOpacity(0.1),
               backgroundColor: Colors.transparent,
               animationCurve: Curves.easeInOut,
               animationDuration: const Duration(milliseconds: 400),
