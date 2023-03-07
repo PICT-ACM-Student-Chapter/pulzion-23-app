@@ -5,35 +5,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:panorama/panorama.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+class AboutUsPage extends StatelessWidget {
+  const AboutUsPage({super.key});
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'About us',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const About_us(title: 'About_us'),
-    );
-  }
-}
-
-class About_us extends StatefulWidget {
-  const About_us({super.key, required String title});
-
-  @override
-  State<About_us> createState() => _About_usState();
-}
-
-class _About_usState extends State<About_us> {
   final String aboutPulzion =
       "Pulzion is the annual technical fest organized by PICT ACM Student Chapter. Pulzion has hosted multiple events including coding competition ranging from amateur competitions two day-long as well as mock placements, business management based and quizzing events. It has become one of the most anticipated events taking place at PICT with participants from colleges all over Pune. With high aspirations, backed with sincerity and dedication, the PASC team aims to add value to the college and all the people in it.";
 
@@ -56,19 +30,19 @@ class _About_usState extends State<About_us> {
     size = MediaQuery.of(context).size;
     height = size.height;
     width = size.width;
-    final SensorControl sensorControl = SensorControl.AbsoluteOrientation;
     return Scaffold(
       // backgroundColor: Color.fromARGB(207, 114, 24, 183),
       // appBar: AppBar(
       //   title: Center(child: Text("ABOUT US")),
       // ),
+      backgroundColor: Colors.transparent,
       body: Stack(
         children: [
-          Panorama(
-            animSpeed: 0.5,
-            sensorControl: SensorControl.Orientation,
-            child: Image.asset('assets/images/space1.jpg', fit: BoxFit.cover),
-          ),
+          // Panorama(
+          //   animSpeed: 0.5,
+          //   sensorControl: SensorControl.Orientation,
+          //   child: Image.asset('assets/images/space_bg.jpg', fit: BoxFit.cover),
+          // ),
           SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.all(width / 20),
@@ -85,7 +59,7 @@ class _About_usState extends State<About_us> {
                               end: Alignment.bottomRight,
                               colors: [
                                 Colors.white.withOpacity(.7),
-                                Color.fromARGB(255, 126, 181, 205)
+                                const Color.fromARGB(255, 126, 181, 205)
                                     .withOpacity(.7),
                                 Colors.white.withOpacity(.7),
                               ],
@@ -96,7 +70,7 @@ class _About_usState extends State<About_us> {
                             "ABOUT US",
                             style: TextStyle(
                                 fontSize: width / 10,
-                                color: Color.fromARGB(255, 11, 38, 77),
+                                color: const Color.fromARGB(255, 11, 38, 77),
                                 fontWeight: FontWeight.bold),
                           ),
                         )),
@@ -124,7 +98,7 @@ class _About_usState extends State<About_us> {
                         child: WidgetCircularAnimator(
                           size: width / 2.6,
                           child: Container(
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Color.fromARGB(255, 239, 170, 150)),
                             child: Row(
@@ -136,7 +110,7 @@ class _About_usState extends State<About_us> {
                                     child: Countup(
                                       begin: 0,
                                       end: 16,
-                                      duration: Duration(seconds: 1),
+                                      duration: const Duration(seconds: 1),
                                       separator: ',',
                                       style: TextStyle(
                                           color: Colors.black,
@@ -178,7 +152,7 @@ class _About_usState extends State<About_us> {
                                     child: Countup(
                                       begin: 0,
                                       end: 600,
-                                      duration: Duration(seconds: 1),
+                                      duration: const Duration(seconds: 1),
                                       separator: ',',
                                       style: TextStyle(
                                           color: Colors.black,
