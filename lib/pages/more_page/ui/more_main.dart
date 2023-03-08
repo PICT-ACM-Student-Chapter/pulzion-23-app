@@ -65,171 +65,84 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
   }
 
   Widget titleBar(String img, String name, double ht) {
-    return BlocBuilder<CheckLoginCubit, CheckLoginState>(
-        builder: (context, state) {
-      if (state is CheckLoginSuccess) {
-        return Padding(
-          padding: EdgeInsets.only(
-              left: ht / 100, right: ht / 100, bottom: ht / 100),
-          child: Card(
-            color: Colors.transparent,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(ht / 25)),
-            child: Stack(children: [
-              BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 0.9, sigmaY: 0.9),
-                child: Container(),
+    return Padding(
+      padding:
+          EdgeInsets.only(left: ht / 100, right: ht / 100, bottom: ht / 100),
+      child: Card(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(ht / 25)),
+        color: Colors.transparent,
+        child: Stack(children: [
+          BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 0.9, sigmaY: 0.9),
+            child: Container(),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(ht / 25),
+              border: Border.all(color: Colors.white.withOpacity(0.1)),
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Colors.white.withOpacity(0.23),
+                  Colors.white.withOpacity(0.05),
+                ],
               ),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(ht / 25),
-                    border: Border.all(color: Colors.white.withOpacity(0.1)),
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        Colors.white.withOpacity(0.23),
-                        Colors.white.withOpacity(0.05),
-                      ],
-                    )),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                    top: ht / 25,
-                    left: ht / 50,
-                    right: ht / 100,
-                    bottom: ht / 50),
-                child: Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () => setState(() {
-                        imgC = !imgC;
-                      }),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(ht),
-                        child: Lottie.asset(
-                          imgC ? AppImages.spaceman : AppImages.spaceman2,
-                        ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+                top: ht / 25, left: ht / 40, right: ht / 100, bottom: ht / 40),
+            child: Row(
+              children: [
+                GestureDetector(
+                  onTap: () => setState(() {
+                    imgC = !imgC;
+                  }),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(ht),
+                    child: FittedBox(
+                      fit: BoxFit.fill,
+                      child: Lottie.asset(
+                        imgC ? AppImages.spaceman : AppImages.spaceman2,
                       ),
                     ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Welcome to Pulzion \'23',
-                          style: TextStyle(
-                              fontSize: ht / 50,
-                              fontWeight: FontWeight.bold,
-                              overflow: TextOverflow.ellipsis,
-                              color: Colors.white),
-                        ),
-                        FittedBox(
-                          fit: BoxFit.contain,
-                          child: Text(
-                            name,
-                            style: TextStyle(
-                              color: Colors.white54,
-                              overflow: TextOverflow.ellipsis,
-                              fontSize: ht / 50,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ]),
-          ),
-        );
-      } else if (state is CheckLoginFailure) {
-        return Padding(
-          padding: EdgeInsets.only(
-              left: ht / 100, right: ht / 100, bottom: ht / 100),
-          child: Card(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(ht / 25)),
-            color: Colors.transparent,
-            child: Stack(children: [
-              BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 0.9, sigmaY: 0.9),
-                child: Container(),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(ht / 25),
-                  border: Border.all(color: Colors.white.withOpacity(0.1)),
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      Colors.white.withOpacity(0.23),
-                      Colors.white.withOpacity(0.05),
-                    ],
                   ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                    top: ht / 25,
-                    left: ht / 40,
-                    right: ht / 100,
-                    bottom: ht / 40),
-                child: Row(
+                const SizedBox(
+                  width: 40,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    GestureDetector(
-                      onTap: () => setState(() {
-                        imgC = !imgC;
-                      }),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(ht),
-                        child: FittedBox(
-                          fit: BoxFit.fill,
-                          child: Lottie.asset(
-                            imgC ? AppImages.spaceman : AppImages.spaceman2,
-                          ),
+                    Text(
+                      'Welcome to Pulzion \'23',
+                      style: TextStyle(
+                          fontSize: ht / 50,
+                          fontWeight: FontWeight.bold,
+                          overflow: TextOverflow.ellipsis,
+                          color: Colors.white),
+                    ),
+                    FittedBox(
+                      fit: BoxFit.contain,
+                      child: Text(
+                        '16 Fun-filled Events',
+                        style: TextStyle(
+                          color: Colors.white54,
+                          overflow: TextOverflow.ellipsis,
+                          fontSize: ht / 50,
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 40,
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Welcome to Pulzion \'23',
-                          style: TextStyle(
-                              fontSize: ht / 50,
-                              fontWeight: FontWeight.bold,
-                              overflow: TextOverflow.ellipsis,
-                              color: Colors.white),
-                        ),
-                        FittedBox(
-                          fit: BoxFit.contain,
-                          child: Text(
-                            '16 Fun-filled Events',
-                            style: TextStyle(
-                              color: Colors.white54,
-                              overflow: TextOverflow.ellipsis,
-                              fontSize: ht / 50,
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
                   ],
-                ),
-              ),
-            ]),
+                )
+              ],
+            ),
           ),
-        );
-      }
-      return const CircularProgressIndicator();
-    });
+        ]),
+      ),
+    );
   }
 
   @override
@@ -319,8 +232,42 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
               ),
               BlocBuilder<CheckLoginCubit, CheckLoginState>(
                 builder: (context, state) {
+                  List<List<FrostedTile>> f = [
+                    [
+                      const FrostedTile(
+                        tilename: 'Sponsors',
+                        tileicon: Icons.monetization_on_outlined,
+                      ),
+                      const FrostedTile(
+                        tilename: 'About Us',
+                        tileicon: Icons.info_outline,
+                      ),
+                      const FrostedTile(
+                        tilename: 'Developers',
+                        tileicon: Icons.laptop,
+                      ),
+                    ],
+                    [
+                      FrostedTile(
+                        tilename: 'Privacy Policy',
+                        tileicon: Icons.privacy_tip_outlined,
+                        url: EndPoints.privacyPolicyURL,
+                      ),
+                      FrostedTile(
+                        tilename: 'Visit Website',
+                        tileicon: Icons.web_outlined,
+                        url: EndPoints.websiteURL,
+                      ),
+                      FrostedTile(
+                        tilename: 'Rate us on Play Store',
+                        tileicon: FontAwesomeIcons.googlePlay,
+                        url: EndPoints.playStoreURL,
+                      ),
+                    ],
+                  ];
                   if (state is CheckLoginSuccess) {
-                    List<List<FrostedTile>> f = [
+                    f.insert(
+                      0,
                       [
                         FrostedTile(
                           tilename: 'Logout',
@@ -328,73 +275,11 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                           onTap: _logout,
                         ),
                       ],
-                      [
-                        const FrostedTile(
-                          tilename: 'Sponsors',
-                          tileicon: Icons.monetization_on_outlined,
-                        ),
-                        const FrostedTile(
-                          tilename: 'About Us',
-                          tileicon: Icons.info_outline,
-                        ),
-                        const FrostedTile(
-                          tilename: 'Developers',
-                          tileicon: Icons.laptop,
-                        ),
-                      ],
-                      [
-                        FrostedTile(
-                          tilename: 'Privacy Policy',
-                          tileicon: Icons.privacy_tip_outlined,
-                          url: EndPoints.privacyPolicyURL,
-                        ),
-                        FrostedTile(
-                          tilename: 'Visit Website',
-                          tileicon: Icons.web_outlined,
-                          url: EndPoints.websiteURL,
-                        ),
-                        const FrostedTile(
-                          tilename: 'Rate us on Play Store',
-                          tileicon: FontAwesomeIcons.googlePlay,
-                        ),
-                      ],
-                    ];
-
-                    return Expanded(
-                      flex: 3,
-                      child: Container(
-                        // color: Colors.red,
-                        margin: EdgeInsets.only(top: height / 70),
-                        padding: EdgeInsets.only(
-                            left: height / 80, right: height / 80),
-                        child: AnimationLimiter(
-                            child: ListView.builder(
-                                itemCount: f.length,
-                                itemBuilder: (context, index) =>
-                                    AnimationConfiguration.staggeredList(
-                                      position: index,
-                                      duration:
-                                          const Duration(milliseconds: 1200),
-                                      child: SlideAnimation(
-                                        child: ScaleAnimation(
-                                          curve: Curves.easeInOut,
-                                          child: FadeInAnimation(
-                                            child: FrostedGlassBox(
-                                              cheight: height / 12.5,
-                                              cwidth: MediaQuery.of(context)
-                                                  .size
-                                                  .width,
-                                              childWid: f[index],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ))),
-                      ),
                     );
                   }
                   if (state is CheckLoginFailure) {
-                    List<List<FrostedTile>> f = [
+                    f.insert(
+                      0,
                       [
                         FrostedTile(
                           tilename: 'Sign Up',
@@ -409,73 +294,39 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                           },
                         ),
                       ],
-                      [
-                        const FrostedTile(
-                          tilename: 'Sponsors',
-                          tileicon: Icons.monetization_on_outlined,
-                        ),
-                        const FrostedTile(
-                          tilename: 'About Us',
-                          tileicon: Icons.info_outline,
-                        ),
-                        const FrostedTile(
-                          tilename: 'Developers',
-                          tileicon: Icons.laptop,
-                        ),
-                      ],
-                      [
-                        FrostedTile(
-                          tilename: 'Privacy Policy',
-                          tileicon: Icons.privacy_tip_outlined,
-                          url: EndPoints.privacyPolicyURL,
-                        ),
-                        FrostedTile(
-                          tilename: 'Visit Website',
-                          tileicon: Icons.web_outlined,
-                          url: EndPoints.websiteURL,
-                        ),
-                        FrostedTile(
-                          tilename: 'Rate us on Play Store',
-                          tileicon: FontAwesomeIcons.googlePlay,
-                          url: EndPoints.playStoreURL,
-                        ),
-                      ],
-                    ];
-
-                    return Expanded(
-                      flex: 3,
-                      child: Container(
-                        // color: Colors.red,
-                        margin: EdgeInsets.only(top: height / 70),
-                        padding: EdgeInsets.only(
-                            left: height / 80, right: height / 80),
-                        child: AnimationLimiter(
-                            child: ListView.builder(
-                                itemCount: f.length,
-                                itemBuilder: (context, index) =>
-                                    AnimationConfiguration.staggeredList(
-                                      position: index,
-                                      duration:
-                                          const Duration(milliseconds: 1200),
-                                      child: SlideAnimation(
-                                        child: ScaleAnimation(
-                                          curve: Curves.easeInOut,
-                                          child: FadeInAnimation(
-                                            child: FrostedGlassBox(
-                                              cheight: height / 12.5,
-                                              cwidth: MediaQuery.of(context)
-                                                  .size
-                                                  .width,
-                                              childWid: f[index],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ))),
-                      ),
                     );
                   }
-                  return const CircularProgressIndicator();
+                  return Expanded(
+                    flex: 3,
+                    child: Container(
+                      // color: Colors.red,
+                      margin: EdgeInsets.only(top: height / 70),
+                      padding: EdgeInsets.only(
+                          left: height / 80, right: height / 80),
+                      child: AnimationLimiter(
+                        child: ListView.builder(
+                          itemCount: f.length,
+                          itemBuilder: (context, index) =>
+                              AnimationConfiguration.staggeredList(
+                            position: index,
+                            duration: const Duration(milliseconds: 1200),
+                            child: SlideAnimation(
+                              child: ScaleAnimation(
+                                curve: Curves.easeInOut,
+                                child: FadeInAnimation(
+                                  child: FrostedGlassBox(
+                                    cheight: height / 12.5,
+                                    cwidth: MediaQuery.of(context).size.width,
+                                    childWid: f[index],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
                 },
               ),
             ],
