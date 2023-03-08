@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../constants/images.dart';
+import '../../../login_page/cubit/check_login_cubit.dart';
+import '../../../login_page/ui/login_signup_intro.dart';
 import '../../../profile_page/cubit/profile_cubit.dart';
 import '../../../profile_page/ui/profileui.dart';
 
@@ -14,24 +16,42 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: InkWell(
-            onTap: (() async {
-              // Logout button for now
-              // await context.read<CheckLoginCubit>().logout();
-              // await context.read<CheckLoginCubit>().checkLogin();
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => BlocProvider<ProfileCubit>(
-                    create: (BuildContext context) => ProfileCubit()..getUser(),
-                    child: const ProfilePage(),
+          child: BlocBuilder<CheckLoginCubit, CheckLoginState>(
+            builder: (context, state) {
+              if (state is CheckLoginFailure) {
+                return InkWell(
+                  onTap: (() {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoginSignUpIntro(),
+                      ),
+                    );
+                  }),
+                  child: const CircleAvatar(
+                    backgroundImage: AssetImage(AppImages.person),
                   ),
-                ),
-              );
-            }),
-            child: const CircleAvatar(
-              backgroundImage: AssetImage(AppImages.person),
-            ),
+                );
+              } else {
+                return InkWell(
+                  onTap: (() {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => BlocProvider<ProfileCubit>(
+                          create: (BuildContext context) =>
+                              ProfileCubit()..getUser(),
+                          child: const ProfilePage(),
+                        ),
+                      ),
+                    );
+                  }),
+                  child: const CircleAvatar(
+                    backgroundImage: AssetImage(AppImages.person),
+                  ),
+                );
+              }
+            },
           ),
         ),
       ],
