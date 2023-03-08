@@ -4,7 +4,8 @@ import 'package:pulzion23/constants/styles.dart';
 import '../../../../constants/colors.dart';
 
 class RoundedButton extends StatelessWidget {
-  const RoundedButton({super.key, required this.btnText, required this.onPressed});
+  const RoundedButton(
+      {super.key, required this.btnText, required this.onPressed});
 
   final String btnText;
   final VoidCallback onPressed;
@@ -32,7 +33,8 @@ class RoundedButton extends StatelessWidget {
         child: Center(
           child: Text(
             btnText,
-            style: AppStyles.bodyTextStyle3().copyWith(fontSize: 20, fontWeight: FontWeight.w600),
+            style: AppStyles.bodyTextStyle3()
+                .copyWith(fontSize: 20, fontWeight: FontWeight.w600),
           ),
         ),
       ),

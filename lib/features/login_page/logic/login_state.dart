@@ -11,10 +11,12 @@ class LoginSuccess extends LoginState {}
 
 class LoginFailure extends LoginState {
   final String message;
+
   LoginFailure({required this.message});
 }
 
 class LoginError extends LoginState {
   final String message;
+
   LoginError({required this.message});
 }

@@ -11,10 +11,12 @@ class SignUpSuccess extends SignUpState {}
 
 class SignUpFailure extends SignUpState {
   final String message;
+
   SignUpFailure({required this.message});
 }
 
 class SignUpError extends SignUpState {
   final String message;
+
   SignUpError({required this.message});
 }

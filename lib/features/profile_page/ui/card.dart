@@ -11,6 +11,28 @@ Widget cardDesign(
     child: Stack(
       children: [
         Container(
+          padding: EdgeInsets.only(top: h * 0.001),
+
+          margin: EdgeInsets.only(top: h * 0.008, bottom: h * 0.01),
+
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Colors.white.withOpacity(.2),
+                  const Color.fromARGB(255, 9, 45, 74).withOpacity(.1),
+                  Colors.white.withOpacity(.2),
+                ],
+              ),
+              borderRadius: BorderRadius.circular(h * 0.035),
+              border: Border.all(
+                color: Colors.white,
+                width: h * 0.001,
+              )),
+
+          height: h * 0.08,
+          width: w - w * 0.15,
           child: Row(
             children: [
               Padding(
@@ -33,28 +55,6 @@ Widget cardDesign(
               )
             ],
           ),
-          padding: EdgeInsets.only(top: h * 0.001),
-
-          margin: EdgeInsets.only(top: h * 0.008, bottom: h * 0.01),
-
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Colors.white.withOpacity(.2),
-                  Color.fromARGB(255, 9, 45, 74).withOpacity(.1),
-                  Colors.white.withOpacity(.2),
-                ],
-              ),
-              borderRadius: BorderRadius.circular(h * 0.035),
-              border: Border.all(
-                color: Colors.white,
-                width: h * 0.001,
-              )),
-
-          height: h * 0.08,
-          width: w - w * 0.15,
           // shadowColor: Colors.amber,
         ),
         Positioned(
@@ -63,10 +63,10 @@ Widget cardDesign(
             child: Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(h * 0.00),
-                  color: Color.fromARGB(255, 28, 52, 71)),
+                  color: const Color.fromARGB(255, 28, 52, 71)),
               child: Text(
                 data.toString(),
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
             )),
       ],

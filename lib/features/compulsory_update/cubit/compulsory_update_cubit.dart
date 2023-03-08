@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
-import 'package:pulzion23/constants/urls.dart';
+import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
+import 'package:pulzion23/constants/urls.dart';
 
 part 'compulsory_update_state.dart';
 
@@ -18,12 +18,16 @@ class CompulsoryUpdateCubit extends Cubit<CompulsoryUpdateState> {
 
   Future<void> needsUpdate() async {
     emit(CompulsoryUpdateLoading());
-    
+
     final PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    final List<int> currentVersion =
-        packageInfo.version.split('.').map((String number) => int.parse(number)).toList();
-    final List<int> enforcedVersion =
-        getEnforcedVersion().split('.').map((String number) => int.parse(number)).toList();
+    final List<int> currentVersion = packageInfo.version
+        .split('.')
+        .map((String number) => int.parse(number))
+        .toList();
+    final List<int> enforcedVersion = getEnforcedVersion()
+        .split('.')
+        .map((String number) => int.parse(number))
+        .toList();
     for (int i = 0; i < 3; i++) {
       if (enforcedVersion[i] > currentVersion[i]) {
         emit(CompulsoryUpdateNeeded());

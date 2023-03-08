@@ -1,20 +1,23 @@
-import 'dart:convert';
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:pulzion23/constants/images.dart';
-import 'frostedglass.dart';
-import 'childWid.dart';
-import 'rocket.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:panorama/panorama.dart';
-import 'package:url_launcher/url_launcher.dart';
-import '../../../features/login_page/cubit/check_login_cubit.dart';
 import 'package:lottie/lottie.dart';
-import '../../../constants/images.dart';
+import 'package:pulzion23/constants/images.dart';
+import 'package:pulzion23/constants/urls.dart';
+import 'package:pulzion23/features/login_page/ui/login_signup_intro.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../../../features/login_page/cubit/check_login_cubit.dart';
+import 'child_wild.dart';
+import 'frostedglass.dart';
+import 'rocket.dart';
 
 class FrostedGlassTile extends StatefulWidget {
+  const FrostedGlassTile({super.key});
+
   @override
   State<FrostedGlassTile> createState() => _FrostedGlassTileState();
 }
@@ -45,12 +48,19 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
     }
   }
 
-  Future<void> _launchInBrowser(Uri url) async {
-    if (!await launchUrl(
-      url,
-      mode: LaunchMode.externalApplication,
-    )) {
-      throw Exception('Could not launch $url');
+  // Future<void> _launchInBrowser(Uri url) async {
+  //   if (!await launchUrl(
+  //     url,
+  //     mode: LaunchMode.externalApplication,
+  //   )) {
+  //     throw Exception('Could not launch $url');
+  //   }
+  // }
+
+  Future<void> _logout() async {
+    await context.read<CheckLoginCubit>().logout();
+    if (context.mounted) {
+      await context.read<CheckLoginCubit>().checkLogin();
     }
   }
 
@@ -97,11 +107,8 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                       }),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(ht),
-                        child: FittedBox(
-                          fit: BoxFit.fill,
-                          child: Lottie.asset(
-                            imgC ? AppImages.spaceman : AppImages.spaceman2,
-                          ),
+                        child: Lottie.asset(
+                          imgC ? AppImages.spaceman : AppImages.spaceman2,
                         ),
                       ),
                     ),
@@ -204,7 +211,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                         FittedBox(
                           fit: BoxFit.contain,
                           child: Text(
-                            'Anonymous',
+                            '16 Fun-filled Events',
                             style: TextStyle(
                               color: Colors.white54,
                               overflow: TextOverflow.ellipsis,
@@ -232,242 +239,250 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
 
     return Stack(
       children: [
-        Container(
-          child: Padding(
-            padding: EdgeInsets.only(top: height / 40),
-            child: Column(
-              children: [
-                Expanded(
-                  child: titleBar('', 'Your Name', height),
-                ),
-                Container(
-                  margin: EdgeInsets.all(height / 55),
-                  padding: EdgeInsets.all(height / 120),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Colors.black.withOpacity(0.15),
-                          Colors.white.withOpacity(0.15),
-                        ],
-                      )),
-                  child: Padding(
-                    padding:
-                        EdgeInsets.only(left: height / 90, right: height / 90),
-                    child: Container(
-                      height: height / 11,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              _launchUniversalLinkApp(Uri.parse(
-                                  'https://www.instagram.com/acm.pict/'));
-                            },
-                            icon: const FaIcon(FontAwesomeIcons.instagram),
-                            color: Colors.white,
-                            iconSize: height / 22,
-                          ),
-                          const VerticalDivider(
-                            color: Colors.white54,
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              _launchUniversalLinkApp(Uri.parse(
-                                  'https://www.linkedin.com/in/pict-acm-student-chapter-09004a132/'));
-                            },
-                            color: Colors.white,
-                            iconSize: height / 22,
-                            icon: const FaIcon(FontAwesomeIcons.linkedin),
-                          ),
-                          const VerticalDivider(
-                            color: Colors.white54,
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              _launchUniversalLinkApp(Uri.parse(
-                                  'https://www.facebook.com/acmpict/'));
-                            },
-                            color: Colors.white,
-                            iconSize: height / 22,
-                            icon: const FaIcon(FontAwesomeIcons.facebook),
-                          ),
-                          const VerticalDivider(
-                            color: Colors.white54,
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              _launchUniversalLinkApp(Uri.parse(
-                                  'https://twitter.com/_pict_acm_?lang=en'));
-                            },
-                            color: Colors.white,
-                            iconSize: height / 22,
-                            icon: const FaIcon(FontAwesomeIcons.twitter),
-                          ),
-                        ],
-                      ),
+        Padding(
+          padding: EdgeInsets.only(top: height / 40),
+          child: Column(
+            children: [
+              Expanded(
+                child: titleBar('', '16 Fun-filled Events', height),
+              ),
+              Container(
+                margin: EdgeInsets.all(height / 55),
+                padding: EdgeInsets.all(height / 120),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.black.withOpacity(0.15),
+                        Colors.white.withOpacity(0.15),
+                      ],
+                    )),
+                child: Padding(
+                  padding:
+                      EdgeInsets.only(left: height / 90, right: height / 90),
+                  child: SizedBox(
+                    height: height / 11,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            _launchUniversalLinkApp(Uri.parse(
+                                'https://www.instagram.com/acm.pict/'));
+                          },
+                          icon: const FaIcon(FontAwesomeIcons.instagram),
+                          color: Colors.white,
+                          iconSize: height / 22,
+                        ),
+                        const VerticalDivider(
+                          color: Colors.white54,
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            _launchUniversalLinkApp(Uri.parse(
+                                'https://www.linkedin.com/in/pict-acm-student-chapter-09004a132/'));
+                          },
+                          color: Colors.white,
+                          iconSize: height / 22,
+                          icon: const FaIcon(FontAwesomeIcons.linkedin),
+                        ),
+                        const VerticalDivider(
+                          color: Colors.white54,
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            _launchUniversalLinkApp(
+                                Uri.parse('https://www.facebook.com/acmpict/'));
+                          },
+                          color: Colors.white,
+                          iconSize: height / 22,
+                          icon: const FaIcon(FontAwesomeIcons.facebook),
+                        ),
+                        const VerticalDivider(
+                          color: Colors.white54,
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            _launchUniversalLinkApp(Uri.parse(
+                                'https://twitter.com/_pict_acm_?lang=en'));
+                          },
+                          color: Colors.white,
+                          iconSize: height / 22,
+                          icon: const FaIcon(FontAwesomeIcons.twitter),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-                BlocBuilder<CheckLoginCubit, CheckLoginState>(
-                  builder: (context, state) {
-                    if (state is CheckLoginSuccess) {
-                      List<List<FrostedTile>> f = [
-                        [
-                          FrostedTile(
-                            tilename: 'Logout',
-                            tileicon: Icons.person_off_outlined,
-                          ),
-                        ],
-                        [
-                          FrostedTile(
-                            tilename: 'Sponsors',
-                            tileicon: Icons.monetization_on_outlined,
-                          ),
-                          FrostedTile(
-                            tilename: 'About Us',
-                            tileicon: Icons.info_outline,
-                          ),
-                          FrostedTile(
-                            tilename: 'Developers',
-                            tileicon: Icons.laptop,
-                          ),
-                        ],
-                        [
-                          FrostedTile(
-                            tilename: 'Privacy Policy',
-                            tileicon: Icons.privacy_tip_outlined,
-                            launchURL: _launchInBrowser,
-                          ),
-                          FrostedTile(
-                            tilename: 'Visit Website',
-                            tileicon: Icons.web_outlined,
-                            launchURL: _launchInBrowser,
-                          ),
-                          FrostedTile(
-                            tilename: 'Rate us on Play Store',
-                            tileicon: FontAwesomeIcons.googlePlay,
-                          ),
-                        ],
-                      ];
+              ),
+              BlocBuilder<CheckLoginCubit, CheckLoginState>(
+                builder: (context, state) {
+                  if (state is CheckLoginSuccess) {
+                    List<List<FrostedTile>> f = [
+                      [
+                        FrostedTile(
+                          tilename: 'Logout',
+                          tileicon: Icons.person_off_outlined,
+                          onTap: _logout,
+                        ),
+                      ],
+                      [
+                        const FrostedTile(
+                          tilename: 'Sponsors',
+                          tileicon: Icons.monetization_on_outlined,
+                        ),
+                        const FrostedTile(
+                          tilename: 'About Us',
+                          tileicon: Icons.info_outline,
+                        ),
+                        const FrostedTile(
+                          tilename: 'Developers',
+                          tileicon: Icons.laptop,
+                        ),
+                      ],
+                      [
+                        FrostedTile(
+                          tilename: 'Privacy Policy',
+                          tileicon: Icons.privacy_tip_outlined,
+                          url: EndPoints.privacyPolicyURL,
+                        ),
+                        FrostedTile(
+                          tilename: 'Visit Website',
+                          tileicon: Icons.web_outlined,
+                          url: EndPoints.websiteURL,
+                        ),
+                        const FrostedTile(
+                          tilename: 'Rate us on Play Store',
+                          tileicon: FontAwesomeIcons.googlePlay,
+                        ),
+                      ],
+                    ];
 
-                      return Expanded(
-                        flex: 3,
-                        child: Container(
-                          // color: Colors.red,
-                          margin: EdgeInsets.only(top: height / 70),
-                          padding: EdgeInsets.only(
-                              left: height / 80, right: height / 80),
-                          child: AnimationLimiter(
-                              child: ListView.builder(
-                                  itemCount: f.length,
-                                  itemBuilder: (context, index) =>
-                                      AnimationConfiguration.staggeredList(
-                                        position: index,
-                                        duration:
-                                            const Duration(milliseconds: 2400),
-                                        child: SlideAnimation(
-                                          child: ScaleAnimation(
-                                            curve: Curves.easeInOut,
-                                            child: FadeInAnimation(
-                                              child: FrostedGlassBox(
-                                                cheight: height / 12.5,
-                                                cwidth: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                childWid: f[index],
-                                              ),
+                    return Expanded(
+                      flex: 3,
+                      child: Container(
+                        // color: Colors.red,
+                        margin: EdgeInsets.only(top: height / 70),
+                        padding: EdgeInsets.only(
+                            left: height / 80, right: height / 80),
+                        child: AnimationLimiter(
+                            child: ListView.builder(
+                                itemCount: f.length,
+                                itemBuilder: (context, index) =>
+                                    AnimationConfiguration.staggeredList(
+                                      position: index,
+                                      duration:
+                                          const Duration(milliseconds: 1200),
+                                      child: SlideAnimation(
+                                        child: ScaleAnimation(
+                                          curve: Curves.easeInOut,
+                                          child: FadeInAnimation(
+                                            child: FrostedGlassBox(
+                                              cheight: height / 12.5,
+                                              cwidth: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              childWid: f[index],
                                             ),
                                           ),
                                         ),
-                                      ))),
+                                      ),
+                                    ))),
+                      ),
+                    );
+                  }
+                  if (state is CheckLoginFailure) {
+                    List<List<FrostedTile>> f = [
+                      [
+                        FrostedTile(
+                          tilename: 'Sign Up',
+                          tileicon: Icons.login,
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const LoginSignUpIntro(),
+                              ),
+                            );
+                          },
                         ),
-                      );
-                    }
-                    if (state is CheckLoginFailure) {
-                      List<List<FrostedTile>> f = [
-                        [
-                          FrostedTile(
-                            tilename: 'Sign Up',
-                            tileicon: Icons.login,
-                          ),
-                        ],
-                        [
-                          FrostedTile(
-                            tilename: 'Sponsors',
-                            tileicon: Icons.monetization_on_outlined,
-                          ),
-                          FrostedTile(
-                            tilename: 'About Us',
-                            tileicon: Icons.info_outline,
-                          ),
-                          FrostedTile(
-                            tilename: 'Developers',
-                            tileicon: Icons.laptop,
-                          ),
-                        ],
-                        [
-                          FrostedTile(
-                            tilename: 'Privacy Policy',
-                            tileicon: Icons.privacy_tip_outlined,
-                            launchURL: _launchInBrowser,
-                          ),
-                          FrostedTile(
-                            tilename: 'Visit Website',
-                            tileicon: Icons.web_outlined,
-                            launchURL: _launchInBrowser,
-                          ),
-                          FrostedTile(
-                            tilename: 'Rate us on Play Store',
-                            tileicon: FontAwesomeIcons.googlePlay,
-                          ),
-                        ],
-                      ];
+                      ],
+                      [
+                        const FrostedTile(
+                          tilename: 'Sponsors',
+                          tileicon: Icons.monetization_on_outlined,
+                        ),
+                        const FrostedTile(
+                          tilename: 'About Us',
+                          tileicon: Icons.info_outline,
+                        ),
+                        const FrostedTile(
+                          tilename: 'Developers',
+                          tileicon: Icons.laptop,
+                        ),
+                      ],
+                      [
+                        FrostedTile(
+                          tilename: 'Privacy Policy',
+                          tileicon: Icons.privacy_tip_outlined,
+                          url: EndPoints.privacyPolicyURL,
+                        ),
+                        FrostedTile(
+                          tilename: 'Visit Website',
+                          tileicon: Icons.web_outlined,
+                          url: EndPoints.websiteURL,
+                        ),
+                        FrostedTile(
+                          tilename: 'Rate us on Play Store',
+                          tileicon: FontAwesomeIcons.googlePlay,
+                          url: EndPoints.playStoreURL,
+                        ),
+                      ],
+                    ];
 
-                      return Expanded(
-                        flex: 3,
-                        child: Container(
-                          // color: Colors.red,
-                          margin: EdgeInsets.only(top: height / 70),
-                          padding: EdgeInsets.only(
-                              left: height / 80, right: height / 80),
-                          child: AnimationLimiter(
-                              child: ListView.builder(
-                                  itemCount: f.length,
-                                  itemBuilder: (context, index) =>
-                                      AnimationConfiguration.staggeredList(
-                                        position: index,
-                                        duration:
-                                            const Duration(milliseconds: 2400),
-                                        child: SlideAnimation(
-                                          child: ScaleAnimation(
-                                            curve: Curves.easeInOut,
-                                            child: FadeInAnimation(
-                                              child: FrostedGlassBox(
-                                                cheight: height / 12.5,
-                                                cwidth: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                childWid: f[index],
-                                              ),
+                    return Expanded(
+                      flex: 3,
+                      child: Container(
+                        // color: Colors.red,
+                        margin: EdgeInsets.only(top: height / 70),
+                        padding: EdgeInsets.only(
+                            left: height / 80, right: height / 80),
+                        child: AnimationLimiter(
+                            child: ListView.builder(
+                                itemCount: f.length,
+                                itemBuilder: (context, index) =>
+                                    AnimationConfiguration.staggeredList(
+                                      position: index,
+                                      duration:
+                                          const Duration(milliseconds: 1200),
+                                      child: SlideAnimation(
+                                        child: ScaleAnimation(
+                                          curve: Curves.easeInOut,
+                                          child: FadeInAnimation(
+                                            child: FrostedGlassBox(
+                                              cheight: height / 12.5,
+                                              cwidth: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              childWid: f[index],
                                             ),
                                           ),
                                         ),
-                                      ))),
-                        ),
-                      );
-                    }
-                    return const CircularProgressIndicator();
-                  },
-                ),
-              ],
-            ),
+                                      ),
+                                    ))),
+                      ),
+                    );
+                  }
+                  return const CircularProgressIndicator();
+                },
+              ),
+            ],
           ),
         ),
         AnimatedOpacity(
-          duration: const Duration(milliseconds: 500),
+          duration: const Duration(milliseconds: 300),
           opacity: _opacity,
           curve: Curves.decelerate,
           child: Rocket(

@@ -14,6 +14,7 @@ import 'widgets/text_field.dart';
 
 class SignUp extends StatelessWidget {
   const SignUp({super.key});
+
   final SensorControl sensorControl = SensorControl.AbsoluteOrientation;
 
   @override
@@ -53,7 +54,11 @@ class SignUp extends StatelessWidget {
                   ),
                 );
                 await context.read<CheckLoginCubit>().checkLogin();
-                Navigator.pop(context);
+                if (context.mounted) {
+                  while(Navigator.canPop(context)) {
+                    Navigator.pop(context);
+                  }
+                }
                 return;
               }
               if (state is SignUpFailure) {

@@ -1,8 +1,9 @@
-import 'package:sizer/sizer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:panorama/panorama.dart';
+import 'package:sizer/sizer.dart';
+
 import '../../../constants/colors.dart';
 import '../../../constants/images.dart';
 import '../../../constants/styles.dart';
@@ -22,6 +23,7 @@ class _HomePageContentState extends State<HomePageContent>
   int page = 2;
   final SensorControl sensorControl = SensorControl.AbsoluteOrientation;
   int a = 0;
+
   @override
   void initState() {
     super.initState();

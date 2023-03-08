@@ -5,6 +5,7 @@ class LoginSignUpTextField extends StatelessWidget {
   final String hintText;
   final IconData icon;
   final TextEditingController controller;
+
   const LoginSignUpTextField(this.hintText, this.icon,
       {super.key, required this.controller});
 

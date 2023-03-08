@@ -13,5 +13,6 @@ class CompulsoryUpdateNotNeeded extends CompulsoryUpdateState {}
 
 class CompulsoryUpdateError extends CompulsoryUpdateState {
   final String message;
+
   CompulsoryUpdateError(this.message);
 }

@@ -2,6 +2,10 @@ class EndPoints {
   static String? sampleToken;
   static String? baseUrl;
   static String? appLatestStableVersion;
+  static String? privacyPolicyURL;
+  static String? websiteURL;
+  static String? playStoreURL;
+
   static String events = '${baseUrl!}/events';
   static String user = '${baseUrl!}/user/me';
   static String login = '${baseUrl!}/user/signin';

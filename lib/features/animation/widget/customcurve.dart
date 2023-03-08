@@ -1,10 +1,9 @@
-
 import 'package:flutter/animation.dart';
 
 class AnimationCurve extends Curve {
   @override
   double transformInternal(double t) {
-    var myValue;
+    double myValue;
     if (t <= 0.5) {
       // t=0 => -(0.5 - 0.0)*2 = -1
       // t=0.1 => -(0.5 - 0.1)*2 = -0.8

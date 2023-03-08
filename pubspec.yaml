@@ -53,14 +53,12 @@ flutter:
 
     assets:
         - assets/images/
+        - assets/images/eventlogos/
 
     fonts:
         - family: Roboto
           fonts:
               - asset: assets/fonts/Roboto-Regular.ttf
-              - asset: assets/fonts/Poppins-Regular.ttf
-              - asset: assets/fonts/Poppins-SemiBold.ttf
-              - asset: assets/fonts/Poppins-Bold.ttf
         - family: Quicksand
           fonts:
               - asset: assets/fonts/Quicksand-Regular.ttf
