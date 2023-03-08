@@ -12,14 +12,14 @@ PODS:
   - Firebase/RemoteConfig (10.3.0):
     - Firebase/CoreOnly
     - FirebaseRemoteConfig (~> 10.3.0)
-  - firebase_core (2.7.0):
+  - firebase_core (2.7.1):
     - Firebase/CoreOnly (= 10.3.0)
     - Flutter
-  - firebase_messaging (14.2.5):
+  - firebase_messaging (14.2.6):
     - Firebase/Messaging (= 10.3.0)
     - firebase_core
     - Flutter
-  - firebase_remote_config (3.0.13):
+  - firebase_remote_config (3.0.14):
     - Firebase/RemoteConfig (= 10.3.0)
     - firebase_core
     - Flutter
@@ -202,9 +202,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Firebase: f92fc551ead69c94168d36c2b26188263860acd9
-  firebase_core: 128d8c43c3a453a4a67463314fc3761bedff860b
-  firebase_messaging: 8ac28baba96e69a58ad26b4bb5f9ee67c3e5efe2
-  firebase_remote_config: 4f27b3b5953fcdac0115a27138bbc8796f1e2c76
+  firebase_core: 1ae9f9aa76e6e1edc14fb181637ad466fd6c6fa4
+  firebase_messaging: f8c01f8b540feb4196e8dbe45ae17534747d779d
+  firebase_remote_config: 4788db7504c356174cbd09ffa3de344f928a8100
   FirebaseABTesting: 8cb5cc4e395c8dce8a2820a6a329020ead56fe2f
   FirebaseAnalytics: 036232b6a1e2918e5f67572417be1173576245f3
   FirebaseCore: 988754646ab3bd4bdcb740f1bfe26b9f6c0d5f2a
@@ -223,7 +223,7 @@ SPEC CHECKSUMS:
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
-  url_launcher_ios: fb12c43172927bb5cf75aeebd073f883801f1993
+  url_launcher_ios: 08a3dfac5fb39e8759aeb0abbd5d9480f30fc8b4
 
 PODFILE CHECKSUM: 050107a8eef03948e2a39f3be28d88434603ca58
 
