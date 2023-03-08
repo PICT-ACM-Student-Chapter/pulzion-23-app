@@ -100,7 +100,7 @@ class EventCard extends StatelessWidget {
               child: CircleAvatar(
                 radius: width / 8,
                 //backgroundImage: NetworkImage(event.logo!),
-                backgroundImage: const AssetImage('assets/images/image1.jpg'),
+                backgroundImage: AssetImage('assets/images${event.logo!}'),
               ),
             ),
           ),

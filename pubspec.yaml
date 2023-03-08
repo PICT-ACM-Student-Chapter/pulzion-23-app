@@ -53,6 +53,7 @@ flutter:
 
     assets:
         - assets/images/
+        - assets/images/eventlogos/
 
     fonts:
         - family: Roboto
