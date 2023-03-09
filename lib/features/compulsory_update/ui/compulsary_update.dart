@@ -51,20 +51,21 @@ class CompulsoryUpdatePage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: RoundedButton(
-                    btnText: 'Update Now',
-                    onPressed: () async {
-                      if (Platform.isAndroid || Platform.isIOS) {
-                        final url = Uri.parse(
-                          Platform.isAndroid
-                              ? "https://play.google.com/store/apps/details?id=com.pasc.pulzion2022"
-                              : "https://play.google.com/store/apps/details?id=com.pasc.pulzion2022",
-                        );
-                        launchUrl(
-                          url,
-                          mode: LaunchMode.externalApplication,
-                        );
-                      }
-                    }),
+                  btnText: 'Update Now',
+                  onPressed: () async {
+                    if (Platform.isAndroid || Platform.isIOS) {
+                      final url = Uri.parse(
+                        Platform.isAndroid
+                            ? 'https://play.google.com/store/apps/details?id=com.pasc.pulzion2022'
+                            : 'https://play.google.com/store/apps/details?id=com.pasc.pulzion2022 ',
+                      );
+                      launchUrl(
+                        url,
+                        mode: LaunchMode.externalApplication,
+                      );
+                    }
+                  },
+                ),
               ),
             ],
           ),

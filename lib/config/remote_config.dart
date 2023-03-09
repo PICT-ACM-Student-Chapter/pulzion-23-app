@@ -21,5 +21,6 @@ Future<void> remoteConfig() async {
   log(EndPoints.baseUrl as String);
   log(EndPoints.sampleToken as String);
   log(EndPoints.appLatestStableVersion as String);
+
   return;
 }

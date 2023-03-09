@@ -18,39 +18,37 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           padding: const EdgeInsets.all(8.0),
           child: BlocBuilder<CheckLoginCubit, CheckLoginState>(
             builder: (context, state) {
-              if (state is CheckLoginFailure) {
-                return InkWell(
-                  onTap: (() {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const LoginSignUpIntro(),
+              return state is CheckLoginFailure
+                  ? InkWell(
+                      onTap: (() {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginSignUpIntro(),
+                          ),
+                        );
+                      }),
+                      child: const CircleAvatar(
+                        backgroundImage: AssetImage(AppImages.person),
+                      ),
+                    )
+                  : InkWell(
+                      onTap: (() {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BlocProvider<ProfileCubit>(
+                              create: (BuildContext context) =>
+                                  ProfileCubit()..getUser(),
+                              child: const ProfilePage(),
+                            ),
+                          ),
+                        );
+                      }),
+                      child: const CircleAvatar(
+                        backgroundImage: AssetImage(AppImages.person),
                       ),
                     );
-                  }),
-                  child: const CircleAvatar(
-                    backgroundImage: AssetImage(AppImages.person),
-                  ),
-                );
-              } else {
-                return InkWell(
-                  onTap: (() {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => BlocProvider<ProfileCubit>(
-                          create: (BuildContext context) =>
-                              ProfileCubit()..getUser(),
-                          child: const ProfilePage(),
-                        ),
-                      ),
-                    );
-                  }),
-                  child: const CircleAvatar(
-                    backgroundImage: AssetImage(AppImages.person),
-                  ),
-                );
-              }
             },
           ),
         ),

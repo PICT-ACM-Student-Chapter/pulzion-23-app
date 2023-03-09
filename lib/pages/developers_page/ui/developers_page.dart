@@ -37,13 +37,14 @@ class _DevelopersPageState extends State<DevelopersPage> {
     "s6",
     "s7",
     "s8",
-    "s9"
+    "s9",
   ];
 
   @override
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(8),
@@ -63,8 +64,9 @@ class _DevelopersPageState extends State<DevelopersPage> {
                 child: Stack(
                   children: [
                     BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                        child: Container()),
+                      filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                      child: Container(),
+                    ),
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(h * 0.02),
@@ -85,8 +87,9 @@ class _DevelopersPageState extends State<DevelopersPage> {
                         height: h * 0.07,
                         width: w - w * 0.07,
                         decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(h * 0.03))),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(h * 0.03)),
+                        ),
                         child: Align(
                           alignment: Alignment.center,
                           child: Text(
@@ -95,7 +98,7 @@ class _DevelopersPageState extends State<DevelopersPage> {
                           ),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -111,8 +114,10 @@ class _DevelopersPageState extends State<DevelopersPage> {
                   child: SizedBox(
                     height: 40,
                     width: 100,
-                    child: Image.asset('assets/images/ufo_developer_page.gif',
-                        fit: BoxFit.cover),
+                    child: Image.asset(
+                      'assets/images/ufo_developer_page.gif',
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
@@ -132,15 +137,16 @@ class _DevelopersPageState extends State<DevelopersPage> {
                     return Container(
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              Colors.white.withOpacity(.4),
-                              Colors.white.withOpacity(.1)
-                            ],
-                          ),
-                          borderRadius: BorderRadius.circular(15)),
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.white.withOpacity(.4),
+                            Colors.white.withOpacity(.1),
+                          ],
+                        ),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
                       child: Padding(
                         padding: const EdgeInsets.all(7.0),
                         child: Column(
@@ -176,9 +182,11 @@ class _DevelopersPageState extends State<DevelopersPage> {
                               height: h * 0.05,
                               width: w * 0.4,
                               decoration: BoxDecoration(
-                                  color: Colors.black.withOpacity(0.7),
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(w * 0.04))),
+                                color: Colors.black.withOpacity(0.7),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(w * 0.04),
+                                ),
+                              ),
                               child: Align(
                                 alignment: Alignment.center,
                                 child: FittedBox(
@@ -241,7 +249,7 @@ class _DevelopersPageState extends State<DevelopersPage> {
                                   },
                                 ),
                               ],
-                            )
+                            ),
                           ],
                         ),
                       ),

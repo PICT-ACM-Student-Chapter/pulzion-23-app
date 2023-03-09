@@ -4,21 +4,6 @@ import 'package:flutter/material.dart';
 
 import 'customcurve.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: CustomAnimationCurve(),
-    );
-  }
-}
-
 class CustomAnimationCurve extends StatefulWidget {
   const CustomAnimationCurve({super.key});
 
@@ -44,6 +29,12 @@ class _CustomAnimationCurveState extends State<CustomAnimationCurve>
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _animationController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
@@ -55,29 +46,34 @@ class _CustomAnimationCurveState extends State<CustomAnimationCurve>
             height: 100,
             width: 100,
             decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Colors.deepPurple, Colors.blue])),
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Colors.deepPurple, Colors.blue],
+              ),
+            ),
             child: AnimatedBuilder(
-                animation: _animation,
-                builder: (BuildContext context, Widget? child) {
-                  return Transform.translate(
-                    offset: Offset(10 * _animation.value,
-                        (-20 * (_animation.value * _animation.value))),
-                    child: Transform.rotate(
-                      angle: pi / 4,
-                      child: const Align(
-                        alignment: Alignment.bottomLeft,
-                        child: Image(
-                          width: 100,
-                          height: 100,
-                          image: AssetImage('images/rocketmain.gif'),
-                        ),
+              animation: _animation,
+              builder: (BuildContext context, Widget? child) {
+                return Transform.translate(
+                  offset: Offset(
+                    10 * _animation.value,
+                    (-20 * (_animation.value * _animation.value)),
+                  ),
+                  child: Transform.rotate(
+                    angle: pi / 4,
+                    child: const Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Image(
+                        width: 100,
+                        height: 100,
+                        image: AssetImage('images/rocketmain.gif'),
                       ),
                     ),
-                  );
-                }),
+                  ),
+                );
+              },
+            ),
           ),
         ),
       ),

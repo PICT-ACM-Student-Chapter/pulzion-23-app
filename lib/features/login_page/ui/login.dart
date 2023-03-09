@@ -13,16 +13,29 @@ import 'widgets/go_back_button.dart';
 import 'widgets/roundedbutton.dart';
 import 'widgets/text_field.dart';
 
-class Login extends StatelessWidget {
-  Login({super.key});
+class Login extends StatefulWidget {
+  const Login({super.key});
 
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var padding = MediaQuery.of(context).padding;
+
     return Stack(
       children: [
         Panorama(
@@ -115,7 +128,9 @@ class Login extends StatelessWidget {
                         Align(
                           alignment: Alignment.centerRight,
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              null;
+                            },
                             child: const Text(
                               'Forgot Password?',
                               style:
@@ -167,6 +182,7 @@ class Login extends StatelessWidget {
               if (state is LoginLoading) {
                 return const Loader();
               }
+
               return const SizedBox();
             },
           ),

@@ -15,12 +15,13 @@ void main() {
     Map<String, dynamic> data = {};
     try {
       var response = await http.post(
-          // Paste the Signup endpoint here
-          Uri.parse('http://20.100.207.112:8000/user/signin'),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: jsonEncode({
+        // Paste the Signup endpoint here
+        Uri.parse('http://20.100.207.112:8000/user/signin'),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(
+          {
             'firstName': firstName,
             'lastName': lastName,
             'email': email,
@@ -28,7 +29,9 @@ void main() {
             'college': college,
             'year': year,
             'password': password,
-          }));
+          },
+        ),
+      );
       data = jsonDecode(response.body);
       if (response.statusCode == 200) {
         expect(data['token'], isNotNull);

@@ -10,7 +10,6 @@ class FrostedGlassBox extends StatelessWidget {
   final double cwidth, cheight;
   final List<FrostedTile> childWid;
 
-
   Future<void> _launchInBrowser(Uri url) async {
     if (!await launchUrl(
       url,
@@ -20,11 +19,12 @@ class FrostedGlassBox extends StatelessWidget {
     }
   }
 
-  const FrostedGlassBox(
-      {super.key,
-      required this.cheight,
-      required this.cwidth,
-      required this.childWid});
+  const FrostedGlassBox({
+    super.key,
+    required this.cheight,
+    required this.cwidth,
+    required this.childWid,
+  });
 
   Widget frostedItem(Widget w) {
     return Padding(
@@ -44,16 +44,17 @@ class FrostedGlassBox extends StatelessWidget {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(cheight / 3),
-                      border: Border.all(color: Colors.white.withOpacity(0.1)),
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Colors.black.withOpacity(0.23),
-                          Colors.black.withOpacity(0.05),
-                        ],
-                      )),
+                    borderRadius: BorderRadius.circular(cheight / 3),
+                    border: Border.all(color: Colors.white.withOpacity(0.1)),
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Colors.black.withOpacity(0.23),
+                        Colors.black.withOpacity(0.05),
+                      ],
+                    ),
+                  ),
                 ),
                 Center(
                   child: w,
@@ -112,11 +113,13 @@ class FrostedGlassBox extends StatelessWidget {
                     ),
                     Padding(
                       padding: EdgeInsets.only(
-                          left: cheight / 15, right: cheight / 15),
+                        left: cheight / 15,
+                        right: cheight / 15,
+                      ),
                       child: const Divider(
                         color: Colors.white54,
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),

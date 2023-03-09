@@ -27,7 +27,7 @@ class FirebaseNotifications {
           if (message != null)
             {
               LocalNotificationService.createanddisplaynotification(message),
-              log('Message data: ${message.notification!.title}')
+              log('Message data: ${message.notification!.title}'),
             },
         });
 
@@ -59,12 +59,7 @@ class FirebaseNotifications {
             'fcmToken': fcmToken,
           }),
         );
-        var data = jsonDecode(response.body);
-        if (response.statusCode == 201) {
-          log(data.toString());
-        } else {
-          log(data.toString());
-        }
+        jsonDecode(response.body);
       } catch (e) {
         log(e.toString());
       }

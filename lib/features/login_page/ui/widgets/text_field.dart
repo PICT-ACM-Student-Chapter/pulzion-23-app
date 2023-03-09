@@ -6,8 +6,12 @@ class LoginSignUpTextField extends StatelessWidget {
   final IconData icon;
   final TextEditingController controller;
 
-  const LoginSignUpTextField(this.hintText, this.icon,
-      {super.key, required this.controller});
+  const LoginSignUpTextField(
+    this.hintText,
+    this.icon, {
+    super.key,
+    required this.controller,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +40,6 @@ class LoginSignUpTextField extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(25.0)),
         ),
       ),
-      onChanged: (value) {},
       controller: controller,
     );
   }

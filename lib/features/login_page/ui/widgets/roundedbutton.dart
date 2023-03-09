@@ -4,8 +4,11 @@ import 'package:pulzion23/constants/styles.dart';
 import '../../../../constants/colors.dart';
 
 class RoundedButton extends StatelessWidget {
-  const RoundedButton(
-      {super.key, required this.btnText, required this.onPressed});
+  const RoundedButton({
+    super.key,
+    required this.btnText,
+    required this.onPressed,
+  });
 
   final String btnText;
   final VoidCallback onPressed;
@@ -13,6 +16,7 @@ class RoundedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+
     return InkWell(
       onTap: onPressed,
       child: Container(

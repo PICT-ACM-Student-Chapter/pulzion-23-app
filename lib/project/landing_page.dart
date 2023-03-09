@@ -35,29 +35,25 @@ class BottomNavBar extends StatelessWidget {
                   if (state is BottomBarAboutUs) {
                     return const AboutUsPage();
                   } else if (state is BottomBarRegisteredEvents) {
-                    if (loginState is CheckLoginSuccess) {
-                      return const Center(
-                        child: Text(
-                          "Registered Events",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      );
-                    } else {
-                      return const LoginSignUpIntro();
-                    }
+                    return loginState is CheckLoginSuccess
+                        ? const Center(
+                            child: Text(
+                              "Registered Events",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          )
+                        : const LoginSignUpIntro();
                   } else if (state is BottomBarHome) {
                     return const HomePageContent();
                   } else if (state is BottomBarCart) {
-                    if (loginState is CheckLoginSuccess) {
-                      return const Center(
-                        child: Text(
-                          "Cart",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      );
-                    } else {
-                      return const LoginSignUpIntro();
-                    }
+                    return loginState is CheckLoginSuccess
+                        ? const Center(
+                            child: Text(
+                              "Cart",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          )
+                        : const LoginSignUpIntro();
                   } else {
                     return const FrostedGlassTile();
                   }
@@ -69,7 +65,8 @@ class BottomNavBar extends StatelessWidget {
             margin:
                 EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
             child: CurvedNavigationBar(
-              index: 1, // Make it 1 for the final version
+              index: 1,
+              // Make it 1 for the final version
               height: MediaQuery.of(context).size.height * 0.07,
               items: <Widget>[
                 Icon(

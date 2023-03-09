@@ -30,6 +30,7 @@ class AboutUsPage extends StatelessWidget {
     size = MediaQuery.of(context).size;
     height = size.height;
     width = size.width;
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Stack(
@@ -42,29 +43,32 @@ class AboutUsPage extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(top: height / 40),
                     child: Container(
-                        height: height / 15,
-                        width: width / 1.2,
-                        decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: [
-                                Colors.white.withOpacity(.7),
-                                const Color.fromARGB(255, 126, 181, 205)
-                                    .withOpacity(.7),
-                                Colors.white.withOpacity(.7),
-                              ],
-                            ),
-                            borderRadius: BorderRadius.circular(width / 10)),
-                        child: Center(
-                          child: Text(
-                            "ABOUT US",
-                            style: TextStyle(
-                                fontSize: width / 10,
-                                color: const Color.fromARGB(255, 11, 38, 77),
-                                fontWeight: FontWeight.bold),
+                      height: height / 15,
+                      width: width / 1.2,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Colors.white.withOpacity(.7),
+                            const Color.fromARGB(255, 126, 181, 205)
+                                .withOpacity(.7),
+                            Colors.white.withOpacity(.7),
+                          ],
+                        ),
+                        borderRadius: BorderRadius.circular(width / 10),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "ABOUT US",
+                          style: TextStyle(
+                            fontSize: width / 10,
+                            color: const Color.fromARGB(255, 11, 38, 77),
+                            fontWeight: FontWeight.bold,
                           ),
-                        )),
+                        ),
+                      ),
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: height / 30),
@@ -98,7 +102,9 @@ class AboutUsPage extends StatelessWidget {
                                 Column(children: [
                                   Padding(
                                     padding: EdgeInsets.only(
-                                        top: width / 30, left: width / 20),
+                                      top: width / 30,
+                                      left: width / 20,
+                                    ),
                                     child: Countup(
                                       begin: 0,
                                       end: 16,
@@ -112,12 +118,15 @@ class AboutUsPage extends StatelessWidget {
                                   ),
                                   Padding(
                                     padding: EdgeInsets.only(
-                                        left: width / 17, top: width / 36),
+                                      left: width / 17,
+                                      top: width / 36,
+                                    ),
                                     child: Text(
                                       "EVENTS",
                                       style: TextStyle(
-                                          fontSize: width / 25,
-                                          color: Colors.white),
+                                        fontSize: width / 25,
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ),
                                 ]),
@@ -141,7 +150,9 @@ class AboutUsPage extends StatelessWidget {
                                 Column(children: [
                                   Padding(
                                     padding: EdgeInsets.only(
-                                        top: width / 30, left: width / 45),
+                                      top: width / 30,
+                                      left: width / 45,
+                                    ),
                                     child: Countup(
                                       begin: 0,
                                       end: 600,
@@ -155,12 +166,15 @@ class AboutUsPage extends StatelessWidget {
                                   ),
                                   Padding(
                                     padding: EdgeInsets.only(
-                                        top: width / 36, left: width / 40),
+                                      top: width / 36,
+                                      left: width / 40,
+                                    ),
                                     child: Text(
                                       "VOLUNTEERS",
                                       style: TextStyle(
-                                          fontSize: width / 27,
-                                          color: Colors.white),
+                                        fontSize: width / 27,
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ),
                                 ]),
@@ -176,9 +190,10 @@ class AboutUsPage extends StatelessWidget {
                     child: Text(
                       "ABOUT PULZION",
                       style: TextStyle(
-                          fontSize: width / 12,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
+                        fontSize: width / 12,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                   Padding(
@@ -198,16 +213,19 @@ class AboutUsPage extends StatelessWidget {
                       "CONTACT US",
                       textAlign: TextAlign.justify,
                       style: TextStyle(
-                          fontSize: width / 12,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
+                        fontSize: width / 12,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   Padding(
                     padding:
                         EdgeInsets.only(top: height / 35, left: width / 30),
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        null;
+                      },
                       icon: Icon(
                         FontAwesomeIcons.phone,
                         size: width / 12,
@@ -227,65 +245,70 @@ class AboutUsPage extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                      padding: EdgeInsets.only(top: height / 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(
+                    padding: EdgeInsets.only(top: height / 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          onPressed: () async {
+                            await _launchUniversalLinkApp(
+                              "https://www.facebook.com/acmpict/",
+                            );
+                          },
+                          icon: Icon(
+                            FontAwesomeIcons.facebook,
+                            size: width / 10,
+                            color: Colors.purpleAccent[100],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: width / 12),
+                          child: IconButton(
                             onPressed: () async {
                               await _launchUniversalLinkApp(
-                                  "https://www.facebook.com/acmpict/");
+                                'https://www.instagram.com/acm.pict/?hl=en',
+                              );
                             },
                             icon: Icon(
-                              FontAwesomeIcons.facebook,
+                              FontAwesomeIcons.instagram,
                               size: width / 10,
                               color: Colors.purpleAccent[100],
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(left: width / 12),
-                            child: IconButton(
-                              onPressed: () async {
-                                await _launchUniversalLinkApp(
-                                    'https://www.instagram.com/acm.pict/?hl=en');
-                              },
-                              icon: Icon(
-                                FontAwesomeIcons.instagram,
-                                size: width / 10,
-                                color: Colors.purpleAccent[100],
-                              ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: width / 12),
+                          child: IconButton(
+                            onPressed: () async {
+                              await _launchUniversalLinkApp(
+                                "https://in.linkedin.com/company/pict-acm-student-chapter",
+                              );
+                            },
+                            icon: Icon(
+                              FontAwesomeIcons.linkedin,
+                              size: width / 10,
+                              color: Colors.purpleAccent[100],
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(left: width / 12),
-                            child: IconButton(
-                              onPressed: () async {
-                                await _launchUniversalLinkApp(
-                                    "https://in.linkedin.com/company/pict-acm-student-chapter");
-                              },
-                              icon: Icon(
-                                FontAwesomeIcons.linkedin,
-                                size: width / 10,
-                                color: Colors.purpleAccent[100],
-                              ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: width / 12),
+                          child: IconButton(
+                            onPressed: () async {
+                              await _launchUniversalLinkApp(
+                                "https://twitter.com/_pict_acm_?lang=en",
+                              );
+                            },
+                            icon: Icon(
+                              FontAwesomeIcons.twitter,
+                              size: width / 10,
+                              color: Colors.purpleAccent[100],
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(left: width / 12),
-                            child: IconButton(
-                              onPressed: () async {
-                                await _launchUniversalLinkApp(
-                                    "https://twitter.com/_pict_acm_?lang=en");
-                              },
-                              icon: Icon(
-                                FontAwesomeIcons.twitter,
-                                size: width / 10,
-                                color: Colors.purpleAccent[100],
-                              ),
-                            ),
-                          ),
-                        ],
-                      )),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),

@@ -22,9 +22,7 @@ dependencies:
     lottie: ^2.2.0
     flutter_svg: ^2.0.2
     intl: ^0.18.0
-    animated_bottom_navigation_bar: ^1.1.0+1
     curved_navigation_bar: ^1.0.3
-    modal_progress_hud_nsn: ^0.3.0
     panorama: ^0.4.1
     sizer: ^2.0.15
     firebase_messaging: ^14.2.2
@@ -35,7 +33,6 @@ dependencies:
     flutter_staggered_animations: ^1.1.1
     countup: ^0.1.4
     url_launcher: ^6.1.9
-    get_it: ^7.2.0
     logger: ^1.2.2
     glowstone: ^0.0.2
     package_info: ^2.0.2
@@ -47,6 +44,7 @@ dev_dependencies:
         sdk: flutter
 
     flutter_lints: ^2.0.0
+    dart_code_metrics: ^5.6.0
 
 flutter:
     uses-material-design: true

@@ -14,6 +14,7 @@ class EventList {
     if (events != null) {
       data["events"] = events?.map((e) => e.toJson()).toList();
     }
+
     return data;
   }
 }
@@ -37,24 +38,25 @@ class Events {
   String? createdAt;
   String? updatedAt;
 
-  Events(
-      {this.id,
-      this.name,
-      this.description,
-      this.type,
-      this.mode,
-      this.isActive,
-      this.play,
-      this.price,
-      this.link,
-      this.tagline,
-      this.logo,
-      this.rules,
-      this.rounds,
-      this.teams,
-      this.notes,
-      this.createdAt,
-      this.updatedAt});
+  Events({
+    this.id,
+    this.name,
+    this.description,
+    this.type,
+    this.mode,
+    this.isActive,
+    this.play,
+    this.price,
+    this.link,
+    this.tagline,
+    this.logo,
+    this.rules,
+    this.rounds,
+    this.teams,
+    this.notes,
+    this.createdAt,
+    this.updatedAt,
+  });
 
   Events.fromJson(Map<String, dynamic> json) {
     id = json["id"];
@@ -95,6 +97,7 @@ class Events {
     data["notes"] = notes;
     data["created_at"] = createdAt;
     data["updated_at"] = updatedAt;
+
     return data;
   }
 }

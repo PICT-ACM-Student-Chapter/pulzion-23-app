@@ -6,14 +6,12 @@ import 'package:pulzion23/constants/urls.dart';
 part 'compulsory_update_state.dart';
 
 class CompulsoryUpdateCubit extends Cubit<CompulsoryUpdateState> {
-  CompulsoryUpdateCubit() : super(CompulsoryUpdateInitial());
+  CompulsoryUpdateCubit() : super(CompulsoryUpdateLoading());
 
   String getEnforcedVersion() {
-    if (EndPoints.appLatestStableVersion == null) {
-      return '1.0.0';
-    } else {
-      return EndPoints.appLatestStableVersion!;
-    }
+    return EndPoints.appLatestStableVersion == null
+        ? '1.0.0'
+        : EndPoints.appLatestStableVersion!;
   }
 
   Future<void> needsUpdate() async {
@@ -31,6 +29,7 @@ class CompulsoryUpdateCubit extends Cubit<CompulsoryUpdateState> {
     for (int i = 0; i < 3; i++) {
       if (enforcedVersion[i] > currentVersion[i]) {
         emit(CompulsoryUpdateNeeded());
+
         return;
       }
     }

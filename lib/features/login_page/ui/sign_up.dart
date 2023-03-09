@@ -12,22 +12,39 @@ import '../logic/sign_up_cubit.dart';
 import 'widgets/roundedbutton.dart';
 import 'widgets/text_field.dart';
 
-class SignUp extends StatelessWidget {
+class SignUp extends StatefulWidget {
   const SignUp({super.key});
 
+  @override
+  State<SignUp> createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
   final SensorControl sensorControl = SensorControl.AbsoluteOrientation;
+
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController passwordConfirmController =
+      TextEditingController();
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController collegeController = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    passwordConfirmController.dispose();
+    firstNameController.dispose();
+    lastNameController.dispose();
+    phoneController.dispose();
+    collegeController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController emailController = TextEditingController();
-    final TextEditingController passwordController = TextEditingController();
-    final TextEditingController passwordConfirmController =
-        TextEditingController();
-    final TextEditingController firstNameController = TextEditingController();
-    final TextEditingController lastNameController = TextEditingController();
-    final TextEditingController phoneController = TextEditingController();
-    final TextEditingController collegeController = TextEditingController();
-
     return Stack(
       children: [
         Panorama(
@@ -55,10 +72,11 @@ class SignUp extends StatelessWidget {
                 );
                 await context.read<CheckLoginCubit>().checkLogin();
                 if (context.mounted) {
-                  while(Navigator.canPop(context)) {
+                  while (Navigator.canPop(context)) {
                     Navigator.pop(context);
                   }
                 }
+
                 return;
               }
               if (state is SignUpFailure) {
@@ -68,6 +86,7 @@ class SignUp extends StatelessWidget {
                     backgroundColor: Colors.red,
                   ),
                 );
+
                 return;
               }
               if (state is SignUpError) {
@@ -77,167 +96,178 @@ class SignUp extends StatelessWidget {
                     backgroundColor: Colors.red,
                   ),
                 );
+
                 return;
               }
             },
             builder: (context, state) {
-              if (state is SignUpLoading) {
-                return const Loader();
-              } else {
-                return SingleChildScrollView(
-                  child: Container(
-                    margin: const EdgeInsets.only(
-                      top: 20,
-                      left: 20,
-                      right: 20,
-                      bottom: 20,
-                    ),
-                    height: MediaQuery.of(context).size.height,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Create Account',
-                          style:
-                              AppStyles.bodyTextStyle2().copyWith(fontSize: 30),
+              return state is SignUpLoading
+                  ? const Loader()
+                  : SingleChildScrollView(
+                      child: Container(
+                        margin: const EdgeInsets.only(
+                          top: 20,
+                          left: 20,
+                          right: 20,
+                          bottom: 20,
                         ),
-                        Text(
-                          'Please fill the your information below.',
-                          style: AppStyles.bodyTextStyle3(),
-                        ),
-                        LoginSignUpTextField(
-                          'First Name',
-                          Icons.mode_edit_rounded,
-                          controller: firstNameController,
-                        ),
-                        LoginSignUpTextField(
-                            'Last Name', Icons.mode_edit_rounded,
-                            controller: lastNameController),
-                        LoginSignUpTextField(
-                          'Contact Number',
-                          Icons.call,
-                          controller: phoneController,
-                        ),
-                        LoginSignUpTextField(
-                          'College Name',
-                          Icons.school,
-                          controller: collegeController,
-                        ),
-                        const YearSelectRadioTile(),
-                        LoginSignUpTextField(
-                          'Email',
-                          Icons.email_outlined,
-                          controller: emailController,
-                        ),
-                        LoginSignUpTextField(
-                          'Password',
-                          Icons.lock_outline,
-                          controller: passwordController,
-                        ),
-                        LoginSignUpTextField(
-                          'Confirm Password',
-                          Icons.lock_outline,
-                          controller: passwordConfirmController,
-                        ),
-                        Center(
-                          child: RoundedButton(
-                            btnText: 'SIGN UP',
-                            onPressed: () async {
-                              if (passwordController.text !=
-                                  passwordConfirmController.text) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text("Passwords do not match"),
-                                    backgroundColor: Colors.red,
-                                  ),
-                                );
-                                return;
-                              }
+                        height: MediaQuery.of(context).size.height,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Create Account',
+                              style: AppStyles.bodyTextStyle2()
+                                  .copyWith(fontSize: 30),
+                            ),
+                            Text(
+                              'Please fill the your information below.',
+                              style: AppStyles.bodyTextStyle3(),
+                            ),
+                            LoginSignUpTextField(
+                              'First Name',
+                              Icons.mode_edit_rounded,
+                              controller: firstNameController,
+                            ),
+                            LoginSignUpTextField(
+                              'Last Name',
+                              Icons.mode_edit_rounded,
+                              controller: lastNameController,
+                            ),
+                            LoginSignUpTextField(
+                              'Contact Number',
+                              Icons.call,
+                              controller: phoneController,
+                            ),
+                            LoginSignUpTextField(
+                              'College Name',
+                              Icons.school,
+                              controller: collegeController,
+                            ),
+                            const YearSelectRadioTile(),
+                            LoginSignUpTextField(
+                              'Email',
+                              Icons.email_outlined,
+                              controller: emailController,
+                            ),
+                            LoginSignUpTextField(
+                              'Password',
+                              Icons.lock_outline,
+                              controller: passwordController,
+                            ),
+                            LoginSignUpTextField(
+                              'Confirm Password',
+                              Icons.lock_outline,
+                              controller: passwordConfirmController,
+                            ),
+                            Center(
+                              child: RoundedButton(
+                                btnText: 'SIGN UP',
+                                onPressed: () async {
+                                  if (passwordController.text !=
+                                      passwordConfirmController.text) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text("Passwords do not match"),
+                                        backgroundColor: Colors.red,
+                                      ),
+                                    );
 
-                              if (firstNameController.text.isEmpty ||
-                                  lastNameController.text.isEmpty ||
-                                  phoneController.text.isEmpty ||
-                                  collegeController.text.isEmpty ||
-                                  emailController.text.isEmpty ||
-                                  passwordController.text.isEmpty ||
-                                  passwordConfirmController.text.isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text("Please fill all fields"),
-                                    backgroundColor: Colors.red,
-                                  ),
-                                );
-                                return;
-                              }
+                                    return;
+                                  }
+                                  if (firstNameController.text.isEmpty ||
+                                      lastNameController.text.isEmpty ||
+                                      phoneController.text.isEmpty ||
+                                      collegeController.text.isEmpty ||
+                                      emailController.text.isEmpty ||
+                                      passwordController.text.isEmpty ||
+                                      passwordConfirmController.text.isEmpty) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          "Please fill all fields",
+                                        ),
+                                        backgroundColor: Colors.red,
+                                      ),
+                                    );
 
-                              // Password length check
-                              if (passwordController.text.length < 8) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text(
-                                        "Password should be atleast 8 characters long"),
-                                    backgroundColor: Colors.red,
-                                  ),
-                                );
-                                return;
-                              }
+                                    return;
+                                  }
+                                  if (passwordController.text.length < 8) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          "Password should be atleast 8 characters long",
+                                        ),
+                                        backgroundColor: Colors.red,
+                                      ),
+                                    );
 
-                              // Phone number length check
-                              if (phoneController.text.length != 10) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text(
-                                        "Phone number should be 10 digits long"),
-                                    backgroundColor: Colors.red,
-                                  ),
-                                );
-                                return;
-                              }
+                                    return;
+                                  }
+                                  if (phoneController.text.length != 10) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          "Phone number should be 10 digits long",
+                                        ),
+                                        backgroundColor: Colors.red,
+                                      ),
+                                    );
 
-                              // Email validation regex
-                              final RegExp emailRegex = RegExp(
-                                  r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+');
-                              if (!emailRegex.hasMatch(emailController.text)) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text("Please enter a valid email"),
-                                    backgroundColor: Colors.red,
-                                  ),
-                                );
-                                return;
-                              }
-
-                              // Phone number validation regex
-                              final RegExp phoneRegex = RegExp(r'^[0-9]+$');
-                              if (!phoneRegex.hasMatch(phoneController.text)) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text(
-                                        "Please enter a valid phone number"),
-                                    backgroundColor: Colors.red,
-                                  ),
-                                );
-                                return;
-                              }
-
-                              await context.read<SignUpCubit>().signUp(
-                                    college: collegeController.text.trim(),
-                                    email: emailController.text.trim(),
-                                    firstName: firstNameController.text.trim(),
-                                    lastName: lastNameController.text.trim(),
-                                    password: passwordController.text.trim(),
-                                    phone: phoneController.text.trim(),
-                                    year: YearSelectRadioTile.yearOfStudyString,
+                                    return;
+                                  }
+                                  final RegExp emailRegex = RegExp(
+                                    r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+',
                                   );
-                            },
-                          ),
+                                  if (!emailRegex
+                                      .hasMatch(emailController.text)) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          "Please enter a valid email",
+                                        ),
+                                        backgroundColor: Colors.red,
+                                      ),
+                                    );
+
+                                    return;
+                                  }
+                                  final RegExp phoneRegex = RegExp(r'^[0-9]+$');
+                                  if (!phoneRegex
+                                      .hasMatch(phoneController.text)) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          "Please enter a valid phone number",
+                                        ),
+                                        backgroundColor: Colors.red,
+                                      ),
+                                    );
+
+                                    return;
+                                  }
+                                  await context.read<SignUpCubit>().signUp(
+                                        college: collegeController.text.trim(),
+                                        email: emailController.text.trim(),
+                                        firstName:
+                                            firstNameController.text.trim(),
+                                        lastName:
+                                            lastNameController.text.trim(),
+                                        password:
+                                            passwordController.text.trim(),
+                                        phone: phoneController.text.trim(),
+                                        year: YearSelectRadioTile
+                                            .yearOfStudyString,
+                                      );
+                                },
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ),
-                );
-              }
+                      ),
+                    );
             },
           ),
         ),

@@ -64,13 +64,14 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
     }
   }
 
-  Widget titleBar(String img, String name, double ht) {
+  Widget titleBar(double ht) {
     return Padding(
       padding:
           EdgeInsets.only(left: ht / 100, right: ht / 100, bottom: ht / 100),
       child: Card(
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(ht / 25)),
+          borderRadius: BorderRadius.circular(ht / 25),
+        ),
         color: Colors.transparent,
         child: Stack(children: [
           BackdropFilter(
@@ -93,7 +94,11 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
           ),
           Padding(
             padding: EdgeInsets.only(
-                top: ht / 25, left: ht / 40, right: ht / 100, bottom: ht / 40),
+              top: ht / 25,
+              left: ht / 40,
+              right: ht / 100,
+              bottom: ht / 40,
+            ),
             child: Row(
               children: [
                 GestureDetector(
@@ -119,10 +124,11 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                     Text(
                       'Welcome to Pulzion \'23',
                       style: TextStyle(
-                          fontSize: ht / 50,
-                          fontWeight: FontWeight.bold,
-                          overflow: TextOverflow.ellipsis,
-                          color: Colors.white),
+                        fontSize: ht / 50,
+                        fontWeight: FontWeight.bold,
+                        overflow: TextOverflow.ellipsis,
+                        color: Colors.white,
+                      ),
                     ),
                     FittedBox(
                       fit: BoxFit.contain,
@@ -136,7 +142,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                       ),
                     ),
                   ],
-                )
+                ),
               ],
             ),
           ),
@@ -157,21 +163,22 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
           child: Column(
             children: [
               Expanded(
-                child: titleBar('', '16 Fun-filled Events', height),
+                child: titleBar(height),
               ),
               Container(
                 margin: EdgeInsets.all(height / 55),
                 padding: EdgeInsets.all(height / 120),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Colors.black.withOpacity(0.15),
-                        Colors.white.withOpacity(0.15),
-                      ],
-                    )),
+                  borderRadius: BorderRadius.circular(15),
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.black.withOpacity(0.15),
+                      Colors.white.withOpacity(0.15),
+                    ],
+                  ),
+                ),
                 child: Padding(
                   padding:
                       EdgeInsets.only(left: height / 90, right: height / 90),
@@ -182,8 +189,9 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                       children: [
                         IconButton(
                           onPressed: () {
-                            _launchUniversalLinkApp(Uri.parse(
-                                'https://www.instagram.com/acm.pict/'));
+                            _launchUniversalLinkApp(
+                              Uri.parse('https://www.instagram.com/acm.pict/'),
+                            );
                           },
                           icon: const FaIcon(FontAwesomeIcons.instagram),
                           color: Colors.white,
@@ -194,8 +202,11 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                         ),
                         IconButton(
                           onPressed: () {
-                            _launchUniversalLinkApp(Uri.parse(
-                                'https://www.linkedin.com/in/pict-acm-student-chapter-09004a132/'));
+                            _launchUniversalLinkApp(
+                              Uri.parse(
+                                'https://www.linkedin.com/in/pict-acm-student-chapter-09004a132/',
+                              ),
+                            );
                           },
                           color: Colors.white,
                           iconSize: height / 22,
@@ -207,7 +218,8 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                         IconButton(
                           onPressed: () {
                             _launchUniversalLinkApp(
-                                Uri.parse('https://www.facebook.com/acmpict/'));
+                              Uri.parse('https://www.facebook.com/acmpict/'),
+                            );
                           },
                           color: Colors.white,
                           iconSize: height / 22,
@@ -218,8 +230,11 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                         ),
                         IconButton(
                           onPressed: () {
-                            _launchUniversalLinkApp(Uri.parse(
-                                'https://twitter.com/_pict_acm_?lang=en'));
+                            _launchUniversalLinkApp(
+                              Uri.parse(
+                                'https://twitter.com/_pict_acm_?lang=en',
+                              ),
+                            );
                           },
                           color: Colors.white,
                           iconSize: height / 22,
@@ -296,13 +311,16 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                       ],
                     );
                   }
+
                   return Expanded(
                     flex: 3,
                     child: Container(
                       // color: Colors.red,
                       margin: EdgeInsets.only(top: height / 70),
                       padding: EdgeInsets.only(
-                          left: height / 80, right: height / 80),
+                        left: height / 80,
+                        right: height / 80,
+                      ),
                       child: AnimationLimiter(
                         child: ListView.builder(
                           itemCount: f.length,
