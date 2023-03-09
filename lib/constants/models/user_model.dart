@@ -9,16 +9,17 @@ class User {
   String? createdAt;
   String? updatedAt;
 
-  User(
-      {this.id,
-      this.firstName,
-      this.lastName,
-      this.email,
-      this.mobileNumber,
-      this.college,
-      this.year,
-      this.createdAt,
-      this.updatedAt});
+  User({
+    this.id,
+    this.firstName,
+    this.lastName,
+    this.email,
+    this.mobileNumber,
+    this.college,
+    this.year,
+    this.createdAt,
+    this.updatedAt,
+  });
 
   User.fromJson(Map<String, dynamic> json) {
     id = json["id"];
@@ -43,6 +44,7 @@ class User {
     data["year"] = year;
     data["created_at"] = createdAt;
     data["updated_at"] = updatedAt;
+
     return data;
   }
 }

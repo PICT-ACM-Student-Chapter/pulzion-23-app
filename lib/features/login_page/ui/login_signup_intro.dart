@@ -20,6 +20,7 @@ class LoginSignUpIntro extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var padding = MediaQuery.of(context).padding;
+
     return Stack(
       children: [
         Panorama(
@@ -110,8 +111,9 @@ class LoginSignUpIntro extends StatelessWidget {
                             child: Text(
                               'Register',
                               style: AppStyles.bodyTextStyle3().copyWith(
-                                  fontSize: 15,
-                                  color: AppColors.cardTitleTextColor),
+                                fontSize: 15,
+                                color: AppColors.cardTitleTextColor,
+                              ),
                             ),
                           ),
                         ),
@@ -140,8 +142,9 @@ class LoginSignUpIntro extends StatelessWidget {
                             child: Text(
                               'Sign In',
                               style: AppStyles.bodyTextStyle3().copyWith(
-                                  fontSize: 15,
-                                  color: AppColors.cardTitleTextColor),
+                                fontSize: 15,
+                                color: AppColors.cardTitleTextColor,
+                              ),
                             ),
                           ),
                         ),

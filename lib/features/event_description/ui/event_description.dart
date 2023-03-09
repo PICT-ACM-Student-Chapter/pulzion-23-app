@@ -27,6 +27,7 @@ class _EventDescriptionState extends State<EventDescription>
     late final TabController tabBarController =
         TabController(length: 3, vsync: this);
     final fontSizeFactor = h / w;
+
     return Scaffold(
       backgroundColor: Colors.black,
       bottomNavigationBar: Container(
@@ -69,7 +70,7 @@ class _EventDescriptionState extends State<EventDescription>
                           style: AppStyles.bodyTextStyle3(),
                         ),
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -77,12 +78,14 @@ class _EventDescriptionState extends State<EventDescription>
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
-                    color: Colors.blueAccent,
-                    borderRadius: BorderRadius.circular(12),
-                    gradient: const LinearGradient(
-                        colors: [Color(0xff07f49e), Color(0xff42047e)],
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight)),
+                  color: Colors.blueAccent,
+                  borderRadius: BorderRadius.circular(12),
+                  gradient: const LinearGradient(
+                    colors: [Color(0xff07f49e), Color(0xff42047e)],
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                  ),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Row(
@@ -98,7 +101,7 @@ class _EventDescriptionState extends State<EventDescription>
                       const Icon(
                         Icons.shopping_cart,
                         color: Colors.white,
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -116,8 +119,10 @@ class _EventDescriptionState extends State<EventDescription>
                 children: [
                   SizedBox(
                     height: h / 3,
-                    child: Lottie.asset("assets/images/space.json",
-                        fit: BoxFit.fill),
+                    child: Lottie.asset(
+                      "assets/images/space.json",
+                      fit: BoxFit.fill,
+                    ),
                   ),
                   Container(
                     height: h / 2.8,
@@ -127,7 +132,7 @@ class _EventDescriptionState extends State<EventDescription>
                         end: Alignment.bottomCenter,
                         colors: [
                           Colors.deepPurple.withOpacity(0.3),
-                          Colors.black
+                          Colors.black,
                         ],
                       ),
                     ),
@@ -136,19 +141,23 @@ class _EventDescriptionState extends State<EventDescription>
                     alignment: Alignment.topLeft,
                     child: Padding(
                       padding: EdgeInsets.only(
-                          top: MediaQuery.of(context).padding.top),
+                        top: MediaQuery.of(context).padding.top,
+                      ),
                       child: InkWell(
                         onTap: (() {
                           Navigator.pop(context);
                         }),
                         child: Transform.rotate(
                           angle: -pi / 2,
-                          child: Lottie.asset(AppImages.rocketButton,
-                              height: 50, width: 50),
+                          child: Lottie.asset(
+                            AppImages.rocketButton,
+                            height: 50,
+                            width: 50,
+                          ),
                         ),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
               Center(
@@ -193,21 +202,29 @@ class _EventDescriptionState extends State<EventDescription>
                                 AppColors.cardSubtitleTextColor,
                             labelColor: AppColors.loginPageAccent,
                             tabs: const [
-                              Text("Description",
-                                  style: TextStyle(
-                                      fontFamily: 'Quicksand',
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500)),
-                              Text("Rounds",
-                                  style: TextStyle(
-                                      fontFamily: 'Quicksand',
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500)),
-                              Text("Rules",
-                                  style: TextStyle(
-                                      fontFamily: 'Quicksand',
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500)),
+                              Text(
+                                "Description",
+                                style: TextStyle(
+                                  fontFamily: 'Quicksand',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              Text(
+                                "Rounds",
+                                style: TextStyle(
+                                  fontFamily: 'Quicksand',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              Text(
+                                "Rules",
+                                style: TextStyle(
+                                  fontFamily: 'Quicksand',
+                                  fontSize: 16,
+                                ),
+                              ),
                             ],
                           ),
                         ),

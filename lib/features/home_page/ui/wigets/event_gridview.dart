@@ -11,6 +11,7 @@ class EventGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
+
     return GridView.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
@@ -19,6 +20,7 @@ class EventGridView extends StatelessWidget {
       itemCount: eventList.length,
       itemBuilder: ((context, index) {
         final event = eventList[index];
+
         return Padding(
           padding:
               EdgeInsets.symmetric(horizontal: mediaQuery.size.width * 0.02),

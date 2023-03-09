@@ -48,6 +48,7 @@ class _HomePageContentState extends State<HomePageContent>
     final width = mediaQuery.size.width;
     final height = mediaQuery.size.height;
     final fontSizeFactor = height / width;
+
     return BlocBuilder<EventDetailsCubitCubit, EventDetailsCubitState>(
       builder: (context, state) {
         if (state is EventDetailsCubitLoaded) {
@@ -74,8 +75,11 @@ class _HomePageContentState extends State<HomePageContent>
 
                           // child: Transform.rotate(
                           //   angle: pi,
-                          child: Lottie.asset(AppImages.ufo3,
-                              width: 70, height: 70),
+                          child: Lottie.asset(
+                            AppImages.ufo3,
+                            width: 70,
+                            height: 70,
+                          ),
                           // )
                         ),
                       ),
@@ -109,11 +113,13 @@ class _HomePageContentState extends State<HomePageContent>
                         },
                         tabs: [
                           EventType(
-                              eventType: "Tech Events",
-                              fontSizeFactor: fontSizeFactor),
+                            eventType: "Tech Events",
+                            fontSizeFactor: fontSizeFactor,
+                          ),
                           EventType(
-                              eventType: "Non-Tech Events",
-                              fontSizeFactor: fontSizeFactor),
+                            eventType: "Non-Tech Events",
+                            fontSizeFactor: fontSizeFactor,
+                          ),
                         ],
                       ),
                     ),

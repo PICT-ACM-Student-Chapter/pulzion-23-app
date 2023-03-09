@@ -19,6 +19,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     emit(ProfileLoading());
     if (Singleton.user != null) {
       emit(ProfileLoaded(Singleton.user!));
+
       return;
     } else {
       try {
@@ -26,11 +27,12 @@ class ProfileCubit extends Cubit<ProfileState> {
         final token = await storage.read(key: 'token');
         if (token == null) {
           emit(ProfileError('Logout and login again'));
+
           return;
         }
         Map<String, String> header = {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer $token'
+          'Authorization': 'Bearer $token',
         };
         var response =
             await http.get(Uri.parse(EndPoints.user), headers: header);
@@ -40,6 +42,7 @@ class ProfileCubit extends Cubit<ProfileState> {
         Singleton.user = user;
         log(user.firstName! + user.lastName!);
         emit(ProfileLoaded(user));
+
         return;
       } catch (e) {
         emit(ProfileError(e.toString()));

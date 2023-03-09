@@ -15,15 +15,18 @@ class CheckLoginCubit extends Cubit<CheckLoginState> {
       // Check if token is present in Singleton or not
       if (Singleton.userToken != null) {
         emit(CheckLoginSuccess());
+
         return;
       } else {
         const storage = FlutterSecureStorage();
         final token = await storage.read(key: 'token');
         if (token != null) {
           emit(CheckLoginSuccess());
+
           return;
         } else {
           emit(CheckLoginFailure('No token found'));
+
           return;
         }
       }
@@ -37,6 +40,7 @@ class CheckLoginCubit extends Cubit<CheckLoginState> {
     Singleton.user = null;
     const storage = FlutterSecureStorage();
     await storage.deleteAll();
+
     return Future.value();
   }
 }

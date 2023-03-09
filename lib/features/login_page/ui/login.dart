@@ -23,6 +23,7 @@ class Login extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var padding = MediaQuery.of(context).padding;
+
     return Stack(
       children: [
         Panorama(
@@ -115,7 +116,9 @@ class Login extends StatelessWidget {
                         Align(
                           alignment: Alignment.centerRight,
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              null;
+                            },
                             child: const Text(
                               'Forgot Password?',
                               style:
@@ -167,6 +170,7 @@ class Login extends StatelessWidget {
               if (state is LoginLoading) {
                 return const Loader();
               }
+
               return const SizedBox();
             },
           ),

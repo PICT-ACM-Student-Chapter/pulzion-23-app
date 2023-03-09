@@ -59,7 +59,7 @@ class Pulzion23App extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => CompulsoryUpdateCubit()..needsUpdate(),
-        )
+        ),
       ],
       child: MaterialApp(
         title: 'Pulzion 23',
@@ -76,14 +76,7 @@ class Pulzion23App extends StatelessWidget {
           ],
           child: BlocBuilder<CompulsoryUpdateCubit, CompulsoryUpdateState>(
             builder: (context, state) {
-              if (state is CompulsoryUpdateInitial) {
-                return Scaffold(
-                  body: Center(
-                    child:
-                        Center(child: Lottie.asset(AppImages.loadingAnimation)),
-                  ),
-                );
-              } else if (state is CompulsoryUpdateLoading) {
+              if (state is CompulsoryUpdateLoading) {
                 return Scaffold(
                   body: Center(
                     child:
@@ -94,12 +87,6 @@ class Pulzion23App extends StatelessWidget {
                 return const CompulsoryUpdatePage();
               } else if (state is CompulsoryUpdateNotNeeded) {
                 return const BottomNavBar();
-              } else if (state is CompulsoryUpdateError) {
-                return const Scaffold(
-                  body: Center(
-                    child: Text('Error'),
-                  ),
-                );
               } else {
                 return const Scaffold(
                   body: Center(

@@ -35,12 +35,15 @@ class Ticket extends StatelessWidget {
                 borderRadius: const BorderRadius.all(Radius.circular(30.0)),
                 color: Colors.purpleAccent[700],
                 image: DecorationImage(
-                    alignment: Alignment.topCenter,
-                    colorFilter: ColorFilter.mode(
-                        Colors.white.withOpacity(0.7), BlendMode.dstATop),
-                    image: const NetworkImage(
-                      "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8NHx8fGVufDB8fHx8&w=1000&q=80",
-                    )),
+                  alignment: Alignment.topCenter,
+                  colorFilter: ColorFilter.mode(
+                    Colors.white.withOpacity(0.7),
+                    BlendMode.dstATop,
+                  ),
+                  image: const NetworkImage(
+                    "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8NHx8fGVufDB8fHx8&w=1000&q=80",
+                  ),
+                ),
               ),
               height: (3 * height) / 4.5,
               width: (3 * width) / 5,
@@ -52,9 +55,10 @@ class Ticket extends StatelessWidget {
             child: const Text(
               "DATAQUEST",
               style: TextStyle(
-                  fontSize: 22,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w700),
+                fontSize: 22,
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ),
           Positioned(
@@ -114,24 +118,28 @@ class Ticket extends StatelessWidget {
             ),
           ),
           Positioned(
-              bottom: height / 24,
-              left: width / 2.6,
-              child: Container(
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  color: Colors.deepPurple,
-                ),
-                height: height / 17,
-                width: width / 4,
-                child: TextButton(
-                  child: const Center(
-                      child: Text(
+            bottom: height / 24,
+            left: width / 2.6,
+            child: Container(
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                color: Colors.deepPurple,
+              ),
+              height: height / 17,
+              width: width / 4,
+              child: TextButton(
+                child: const Center(
+                  child: Text(
                     "DONE",
                     style: TextStyle(color: Colors.white),
-                  )),
-                  onPressed: () {},
+                  ),
                 ),
-              )),
+                onPressed: () {
+                  null;
+                },
+              ),
+            ),
+          ),
         ],
       ),
     );

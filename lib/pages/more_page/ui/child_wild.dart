@@ -17,16 +17,18 @@ class FrostedTile extends StatelessWidget {
     }
   }
 
-  const FrostedTile(
-      {super.key,
-      required this.tilename,
-      required this.tileicon,
-      this.url,
-      this.onTap});
+  const FrostedTile({
+    super.key,
+    required this.tilename,
+    required this.tileicon,
+    this.url,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
+
     return GestureDetector(
       onTap: url != null
           ? () async {
