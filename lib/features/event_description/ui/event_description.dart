@@ -19,13 +19,20 @@ class EventDescription extends StatefulWidget {
 
 class _EventDescriptionState extends State<EventDescription>
     with TickerProviderStateMixin {
+  late final TabController tabBarController =
+      TabController(length: 3, vsync: this);
+
+  @override
+  void dispose() {
+    super.dispose();
+    tabBarController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final event = widget.event!;
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
-    late final TabController tabBarController =
-        TabController(length: 3, vsync: this);
     final fontSizeFactor = h / w;
 
     return Scaffold(

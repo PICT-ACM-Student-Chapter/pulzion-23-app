@@ -36,6 +36,12 @@ class _HomePageContentState extends State<HomePageContent>
     });
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    tabBarController.dispose();
+  }
+
   void changeAnimation(int index) {
     setState(() {
       a = index;

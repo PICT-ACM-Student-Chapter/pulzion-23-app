@@ -29,6 +29,12 @@ class _CustomAnimationCurveState extends State<CustomAnimationCurve>
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _animationController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
