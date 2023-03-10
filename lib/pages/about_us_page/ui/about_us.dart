@@ -111,7 +111,7 @@ class _About_usState extends State<About_us> {
                       height: height / 9,
                       width: width / 2,
                       child: Image.asset(
-                        "asset/pasc_logo.png",
+                        "assets/images/pasc_logo.png",
                         cacheHeight: (height / 6).toInt(),
                         cacheWidth: (width / 1.6).toInt(),
                         // fit: BoxFit.cover,
