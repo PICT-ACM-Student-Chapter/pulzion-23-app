@@ -133,7 +133,7 @@ class LoginSignUpIntro extends StatelessWidget {
                               MaterialPageRoute(
                                 builder: (context) => BlocProvider(
                                   create: (context) => LoginCubit(),
-                                  child: Login(),
+                                  child: const Login(),
                                 ),
                               ),
                             );
