@@ -22,11 +22,8 @@ class EventGridView extends StatelessWidget {
         final event = eventList[index];
 
         return Padding(
-          padding: EdgeInsets.only(
-            top: 10,
-            left: mediaQuery.size.width * 0.02,
-            right: mediaQuery.size.width * 0.02,
-          ),
+          padding:
+              EdgeInsets.symmetric(horizontal: mediaQuery.size.width * 0.02),
           child: EventCard(event),
         );
       }),

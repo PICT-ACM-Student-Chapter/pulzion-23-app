@@ -65,13 +65,11 @@ class EventCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    FittedBox(
-                      child: Text(
-                        event.name!,
-                        style: AppStyles.bodyTextStyle2(),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                      ),
+                    Text(
+                      event.name!,
+                      style: AppStyles.bodyTextStyle2(),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 3,
                     ),
                     Text(
                       event.description!,
@@ -80,7 +78,7 @@ class EventCard extends StatelessWidget {
                       maxLines: 3,
                     ),
                     Align(
-                      alignment: Alignment.centerRight,
+                      alignment: Alignment.bottomRight,
                       child: Transform.rotate(
                         angle: pi / 2,
                         child: Lottie.asset(
@@ -106,26 +104,10 @@ class EventCard extends StatelessWidget {
                   ),
                 ],
               ),
-              child: Hero(
-                tag: 'event${event.id}',
-                child: Container(
-                  width: width / 4,
-                  height: width / 4,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: AppColors.eventCardGradientList.elementAt(
-                        event.id! % AppColors.eventCardGradientList.length,
-                      ),
-                    ),
-                    image: DecorationImage(
-                      image: AssetImage('assets/images${event.logo!}'),
-                      fit: BoxFit.fitWidth,
-                    ),
-                  ),
-                ),
+              child: CircleAvatar(
+                radius: width / 8,
+                //backgroundImage: NetworkImage(event.logo!),
+                backgroundImage: AssetImage('assets/images${event.logo!}'),
               ),
             ),
           ),

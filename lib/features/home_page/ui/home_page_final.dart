@@ -17,7 +17,8 @@ class HomePageContent extends StatefulWidget {
   State<HomePageContent> createState() => _HomePageContentState();
 }
 
-class _HomePageContentState extends State<HomePageContent> with TickerProviderStateMixin {
+class _HomePageContentState extends State<HomePageContent>
+    with TickerProviderStateMixin {
   late TabController tabBarController;
   int page = 2;
   final SensorControl sensorControl = SensorControl.AbsoluteOrientation;
@@ -74,7 +75,9 @@ class _HomePageContentState extends State<HomePageContent> with TickerProviderSt
                         child: AnimatedAlign(
                           curve: Curves.easeInCubic,
                           duration: const Duration(milliseconds: 1000),
-                          alignment: a == 0 ? Alignment.centerLeft : Alignment.centerRight,
+                          alignment: a == 0
+                              ? Alignment.centerLeft
+                              : Alignment.centerRight,
 
                           // child: Transform.rotate(
                           //   angle: pi,
@@ -89,13 +92,14 @@ class _HomePageContentState extends State<HomePageContent> with TickerProviderSt
                       Center(
                         child: Text(
                           "Pulzion '23",
-                          style: AppStyles.bodyTextStyle2().copyWith(fontSize: 45),
+                          style:
+                              AppStyles.bodyTextStyle2().copyWith(fontSize: 45),
                         ),
                       ),
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: DefaultTabController(
                       length: 2,
                       child: TabBar(
