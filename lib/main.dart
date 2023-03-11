@@ -88,31 +88,7 @@ class Pulzion23App extends StatelessWidget {
               } else if (state is CompulsoryUpdateNeeded) {
                 return const CompulsoryUpdatePage();
               } else if (state is CompulsoryUpdateNotNeeded) {
-                return Stack(
-                  children: [
-                    Panorama(
-                      sensitivity: 0.4,
-                      animSpeed: 0.5,
-                      sensorControl: SensorControl.Orientation,
-                      child: Image.asset(AppImages.spaceBackground, fit: BoxFit.cover),
-                    ),
-                    const Scaffold(
-                      backgroundColor: Colors.transparent,
-                      body: Center(
-                        child: Loader(),
-                      ),
-                    ),
-                    // Scaffold(
-                    //   backgroundColor: Colors.transparent,
-                    //   body: Center(
-                    //     child: ErrorDialog(
-                    //       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-                    //       () {},
-                    //     ),
-                    //   ),
-                    // ),
-                  ],
-                );
+                return const BottomNavBar();
               } else {
                 return const Scaffold(
                   body: Center(
