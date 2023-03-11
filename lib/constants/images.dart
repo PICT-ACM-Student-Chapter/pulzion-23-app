@@ -10,4 +10,5 @@ class AppImages {
   static const astronautSayingNo = 'assets/images/astronaut_saying_no.json';
   static const spaceman = 'assets/images/space_man.json';
   static const spaceman2 = 'assets/images/space_man2.json';
+  static const eventDescriptionBackground = 'assets/images/event-description-bg.gif';
 }

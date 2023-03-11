@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:sizer/sizer.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,6 +21,7 @@ import 'features/login_page/cubit/check_login_cubit.dart';
 import 'services/bloc_observer.dart';
 import 'services/firebase_notifications.dart';
 import 'services/local_notifications.dart';
+import 'services/size_config.dart';
 
 // import 'constants/models/event_model.dart';
 
@@ -61,40 +63,41 @@ class Pulzion23App extends StatelessWidget {
           create: (context) => CompulsoryUpdateCubit()..needsUpdate(),
         ),
       ],
-      child: MaterialApp(
-        title: 'Pulzion 23',
-        theme: Themes.darkTheme,
-        debugShowCheckedModeBanner: false,
-        home: MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (BuildContext context) => BottomBarCubit(),
+      child: Sizer(
+        builder: (context, orientation, deviceType) => MaterialApp(
+          title: 'Pulzion 23',
+          theme: Themes.darkTheme,
+          debugShowCheckedModeBanner: false,
+          home: MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (BuildContext context) => BottomBarCubit(),
+              ),
+              BlocProvider(
+                create: (context) => EventDetailsCubitCubit()..getEventsDetails(),
+              ),
+            ],
+            child: BlocBuilder<CompulsoryUpdateCubit, CompulsoryUpdateState>(
+              builder: (context, state) {
+                if (state is CompulsoryUpdateLoading) {
+                  return Scaffold(
+                    body: Center(
+                      child: Center(child: Lottie.asset(AppImages.loadingAnimation)),
+                    ),
+                  );
+                } else if (state is CompulsoryUpdateNeeded) {
+                  return const CompulsoryUpdatePage();
+                } else if (state is CompulsoryUpdateNotNeeded) {
+                  return const BottomNavBar();
+                } else {
+                  return const Scaffold(
+                    body: Center(
+                      child: Text('Error'),
+                    ),
+                  );
+                }
+              },
             ),
-            BlocProvider(
-              create: (context) => EventDetailsCubitCubit()..getEventsDetails(),
-            ),
-          ],
-          child: BlocBuilder<CompulsoryUpdateCubit, CompulsoryUpdateState>(
-            builder: (context, state) {
-              if (state is CompulsoryUpdateLoading) {
-                return Scaffold(
-                  body: Center(
-                    child:
-                        Center(child: Lottie.asset(AppImages.loadingAnimation)),
-                  ),
-                );
-              } else if (state is CompulsoryUpdateNeeded) {
-                return const CompulsoryUpdatePage();
-              } else if (state is CompulsoryUpdateNotNeeded) {
-                return const BottomNavBar();
-              } else {
-                return const Scaffold(
-                  body: Center(
-                    child: Text('Error'),
-                  ),
-                );
-              }
-            },
           ),
         ),
       ),
