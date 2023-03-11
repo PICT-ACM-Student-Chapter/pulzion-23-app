@@ -8,6 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../constants/images.dart';
 import '../../../constants/styles.dart';
+import '../../../constants/urls.dart';
 
 class CompulsoryUpdatePage extends StatelessWidget {
   const CompulsoryUpdatePage({super.key});
@@ -55,9 +56,9 @@ class CompulsoryUpdatePage extends StatelessWidget {
                   onPressed: () async {
                     if (Platform.isAndroid || Platform.isIOS) {
                       final url = Uri.parse(
-                        Platform.isAndroid
-                            ? 'https://play.google.com/store/apps/details?id=com.pasc.pulzion2022'
-                            : 'https://play.google.com/store/apps/details?id=com.pasc.pulzion2022 ',
+                        EndPoints.playStoreURL == null
+                            ? 'https://play.google.com/store/apps/details?id=com.pasc.pulzion2022&hl=en_IN&gl=US'
+                            : EndPoints.playStoreURL!,
                       );
                       launchUrl(
                         url,

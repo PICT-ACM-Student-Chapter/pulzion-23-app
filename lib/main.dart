@@ -6,8 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import 'package:panorama/panorama.dart';
 import 'package:pulzion23/config/remote_config.dart';
 import 'package:pulzion23/constants/utils/theme.dart';
+import 'package:pulzion23/constants/widgets/error_dialog.dart';
+import 'package:pulzion23/constants/widgets/loader.dart';
 import 'package:pulzion23/features/compulsory_update/cubit/compulsory_update_cubit.dart';
 import 'package:pulzion23/features/compulsory_update/ui/compulsary_update.dart';
 import 'package:pulzion23/firebase_options.dart';
@@ -79,14 +82,37 @@ class Pulzion23App extends StatelessWidget {
               if (state is CompulsoryUpdateLoading) {
                 return Scaffold(
                   body: Center(
-                    child:
-                        Center(child: Lottie.asset(AppImages.loadingAnimation)),
+                    child: Center(child: Lottie.asset(AppImages.loadingAnimation)),
                   ),
                 );
               } else if (state is CompulsoryUpdateNeeded) {
                 return const CompulsoryUpdatePage();
               } else if (state is CompulsoryUpdateNotNeeded) {
-                return const BottomNavBar();
+                return Stack(
+                  children: [
+                    Panorama(
+                      sensitivity: 0.4,
+                      animSpeed: 0.5,
+                      sensorControl: SensorControl.Orientation,
+                      child: Image.asset(AppImages.spaceBackground, fit: BoxFit.cover),
+                    ),
+                    const Scaffold(
+                      backgroundColor: Colors.transparent,
+                      body: Center(
+                        child: Loader(),
+                      ),
+                    ),
+                    // Scaffold(
+                    //   backgroundColor: Colors.transparent,
+                    //   body: Center(
+                    //     child: ErrorDialog(
+                    //       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
+                    //       () {},
+                    //     ),
+                    //   ),
+                    // ),
+                  ],
+                );
               } else {
                 return const Scaffold(
                   body: Center(

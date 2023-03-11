@@ -38,4 +38,13 @@ class AppStyles {
       color: AppColors.cardTitleTextColor,
     );
   }
+
+  static TextStyle bodyTextStyle5() {
+    return const TextStyle(
+      fontSize: 15,
+      fontWeight: FontWeight.bold,
+      fontFamily: 'QuickSand',
+      color: AppColors.white,
+    );
+  }
 }
