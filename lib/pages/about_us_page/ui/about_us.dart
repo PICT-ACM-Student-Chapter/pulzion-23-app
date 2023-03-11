@@ -41,42 +41,8 @@ class AboutUsPage extends StatelessWidget {
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(top: height / 40),
-                    child: Container(
-                      height: height / 15,
-                      width: width / 1.2,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            Colors.white.withOpacity(.7),
-                            const Color.fromARGB(255, 126, 181, 205)
-                                .withOpacity(.7),
-                            Colors.white.withOpacity(.7),
-                          ],
-                        ),
-                        borderRadius: BorderRadius.circular(width / 10),
-                      ),
-                      child: Center(
-                        child: Text(
-                          "ABOUT US",
-                          style: TextStyle(
-                            fontSize: width / 10,
-                            color: const Color.fromARGB(255, 11, 38, 77),
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
                     padding: EdgeInsets.only(top: height / 30),
                     child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(width / 20),
-                        border: Border.all(width: 2.0, color: Colors.blue),
-                      ),
                       height: height / 10,
                       width: width / 2,
                       child: Image.asset(
