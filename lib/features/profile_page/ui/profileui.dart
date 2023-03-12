@@ -32,8 +32,8 @@ class ProfilePage extends StatelessWidget {
           child: Image.asset('assets/images/space_bg.jpg', fit: BoxFit.cover),
         ),
         Padding(
-          padding: const EdgeInsets.only(
-            top: kToolbarHeight,
+          padding: EdgeInsets.only(
+            top: MediaQuery.of(context).padding.top,
           ),
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:panorama/panorama.dart';
+import '../../../config/size_config.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/images.dart';
 import '../../../constants/styles.dart';
@@ -77,7 +78,9 @@ class LoginSignUpIntro extends StatelessWidget {
                   children: [
                     Text(
                       'Pulzion \'23',
-                      style: AppStyles.bodyTextStyle2().copyWith(fontSize: 50),
+                      style: AppStyles.bodyTextStyle2().copyWith(
+                        fontSize: SizeConfig.getProportionateScreenFontSize(35),
+                      ),
                     ),
                     const SizedBox(height: 10),
                     Text(

@@ -122,7 +122,8 @@ class _EventDescriptionState extends State<EventDescription>
               Stack(
                 children: [
                   SizedBox(
-                    width: w,
+                    height: h * 0.28,
+                    width: double.infinity,
                     child: Image.asset(
                       AppImages.eventDescriptionBackground,
                       fit: BoxFit.cover,
@@ -130,7 +131,7 @@ class _EventDescriptionState extends State<EventDescription>
                   ),
                   Container(
                     height: h * 0.28,
-                    // width: w,
+                    width: double.infinity,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
