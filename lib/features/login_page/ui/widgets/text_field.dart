@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pulzion23/constants/colors.dart';
+import '../../../../constants/colors.dart';
 
 class LoginSignUpTextField extends StatelessWidget {
   final String hintText;

@@ -1,8 +1,5 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
-import 'package:pulzion23/constants/models/event_model.dart';
+import '../../../constants/models/event_model.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/images.dart';
@@ -186,15 +183,16 @@ class _EventDescriptionState extends State<EventDescription>
                                   AppColors.eventCardGradientList.length,
                             ),
                           ),
-                          image: DecorationImage(
-                            image: AssetImage('assets/images${event.logo!}'),
-                            fit: BoxFit.fitWidth,
-                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Image.asset("assets/images${event.logo!}"),
                         ),
                       ),
                     ),
                     SizedBox(width: w / 10),
-                    FittedBox(
+                    SizedBox(
+                      width: w * 0.6,
                       child: Text(
                         event.name!,
                         style: AppStyles.bodyTextStyle2().copyWith(

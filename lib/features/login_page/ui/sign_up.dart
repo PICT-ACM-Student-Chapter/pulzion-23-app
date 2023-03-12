@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:panorama/panorama.dart';
-import 'package:pulzion23/constants/images.dart';
-import 'package:pulzion23/constants/styles.dart';
-import 'package:pulzion23/constants/widgets/loader.dart';
-import 'package:pulzion23/features/login_page/ui/widgets/go_back_button.dart';
+import '../../../constants/images.dart';
+import '../../../constants/styles.dart';
+import '../../../constants/widgets/loader.dart';
+import 'widgets/go_back_button.dart';
 
 import '../../../constants/colors.dart';
 import '../cubit/check_login_cubit.dart';

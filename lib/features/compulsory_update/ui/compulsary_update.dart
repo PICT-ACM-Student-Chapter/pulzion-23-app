@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:panorama/panorama.dart';
-import 'package:pulzion23/features/login_page/ui/widgets/roundedbutton.dart';
+import '../../login_page/ui/widgets/roundedbutton.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../constants/images.dart';

@@ -5,7 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
-import 'package:pulzion23/constants/static_objects.dart';
+import '../../../constants/static_objects.dart';
 
 import '../../../constants/models/user_model.dart';
 import '../../../constants/urls.dart';

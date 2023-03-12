@@ -65,13 +65,11 @@ class EventCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    FittedBox(
-                      child: Text(
-                        event.name!,
-                        style: AppStyles.bodyTextStyle2(),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                      ),
+                    Text(
+                      event.name!,
+                      style: AppStyles.bodyTextStyle2(),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
                     ),
                     Text(
                       event.description!,
