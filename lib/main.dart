@@ -45,7 +45,8 @@ Future<void> main() async {
 
   // Then initialize the local notification service
   LocalNotificationService.initialize();
-  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+  // FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+  await Firebase.initializeApp();
   await FirebaseNotifications.initialize();
 
   log("Starting app");

@@ -4,6 +4,7 @@ import '../../../constants/models/event_model.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/images.dart';
 import '../../../constants/styles.dart';
+import '../../../pages/more_page/ui/coming_soon.dart';
 
 class EventDescription extends StatefulWidget {
   final Events? event;
@@ -80,33 +81,43 @@ class _EventDescriptionState extends State<EventDescription>
               ),
             ),
             Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.blueAccent,
-                  borderRadius: BorderRadius.circular(12),
-                  gradient: const LinearGradient(
-                    colors: [Color(0xff07f49e), Color(0xff42047e)],
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
+              child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ComingSoonPage(),
+                    ),
+                  );
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.blueAccent,
+                    borderRadius: BorderRadius.circular(12),
+                    gradient: const LinearGradient(
+                      colors: [Color(0xff07f49e), Color(0xff42047e)],
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                    ),
                   ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Add to Cart  ",
-                        style: AppStyles.bodyTextStyle3().copyWith(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Add to Cart  ",
+                          style: AppStyles.bodyTextStyle3().copyWith(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      const Icon(
-                        Icons.shopping_cart,
-                        color: Colors.white,
-                      ),
-                    ],
+                        const Icon(
+                          Icons.shopping_cart,
+                          color: Colors.white,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
