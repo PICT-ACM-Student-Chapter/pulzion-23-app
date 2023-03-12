@@ -56,9 +56,8 @@ class CompulsoryUpdatePage extends StatelessWidget {
                   onPressed: () async {
                     if (Platform.isAndroid || Platform.isIOS) {
                       final url = Uri.parse(
-                        EndPoints.playStoreURL == null
-                            ? 'https://play.google.com/store/apps/details?id=com.pasc.pulzion2022&hl=en_IN&gl=US'
-                            : EndPoints.playStoreURL!,
+                        EndPoints.playStoreURL ??
+                            'https://play.google.com/store/apps/details?id=com.pasc.pulzion2022&hl=en_IN&gl=US',
                       );
                       launchUrl(
                         url,

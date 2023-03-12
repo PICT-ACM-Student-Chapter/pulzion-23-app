@@ -7,7 +7,7 @@ import '../styles.dart';
 
 class ErrorDialog extends StatelessWidget {
   final String errorMessage;
-  final Function refreshFunction;
+  final VoidCallback refreshFunction;
   const ErrorDialog(this.errorMessage, this.refreshFunction, {super.key});
 
   @override
@@ -61,10 +61,11 @@ class ErrorDialog extends StatelessWidget {
                       Icons.refresh_rounded,
                       color: AppColors.white,
                     ),
+                    const SizedBox(width: 7),
                     Text(
                       textAlign: TextAlign.center,
-                      'Refresh',
-                      style: AppStyles.bodyTextStyle3(),
+                      'Retry',
+                      style: AppStyles.bodyTextStyle3().copyWith(fontSize: 25),
                     ),
                   ],
                 ),
