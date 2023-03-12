@@ -183,7 +183,7 @@ class _LoginState extends State<Login> {
                 );
               }
               if (state is LoginLoading) {
-                return const Loader();
+                return const Center(child: Loader());
               }
 
               return const SizedBox();

@@ -102,7 +102,7 @@ class _SignUpState extends State<SignUp> {
             },
             builder: (context, state) {
               return state is SignUpLoading
-                  ? const Loader()
+                  ? const Center(child: Loader())
                   : SingleChildScrollView(
                       child: Container(
                         margin: const EdgeInsets.only(

@@ -12,9 +12,11 @@ class Loader extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
 
-    return Lottie.asset(
-      AppImages.loader,
-      width: size.width * 0.7,
+    return Center(
+      child: Lottie.asset(
+        AppImages.loader,
+        width: size.width * 0.7,
+      ),
     );
   }
 }
