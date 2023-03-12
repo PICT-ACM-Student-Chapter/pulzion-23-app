@@ -41,8 +41,8 @@ class AboutUsPage extends StatelessWidget {
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(top: height / 30),
-                    child: Container(
+                    padding: EdgeInsets.only(top: height / 50),
+                    child: SizedBox(
                       height: height / 10,
                       width: width / 2,
                       child: Image.asset(
