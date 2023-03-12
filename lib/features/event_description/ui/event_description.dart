@@ -125,14 +125,15 @@ class _EventDescriptionState extends State<EventDescription>
               Stack(
                 children: [
                   SizedBox(
-                    height: h / 3,
-                    child: Lottie.asset(
-                      "assets/images/space.json",
-                      fit: BoxFit.fill,
+                    width: w,
+                    child: Image.asset(
+                      AppImages.eventDescriptionBackground,
+                      fit: BoxFit.cover,
                     ),
                   ),
                   Container(
-                    height: h / 2.8,
+                    height: h * 0.28,
+                    // width: w,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
@@ -148,158 +149,175 @@ class _EventDescriptionState extends State<EventDescription>
                     alignment: Alignment.topLeft,
                     child: Padding(
                       padding: EdgeInsets.only(
-                        top: MediaQuery.of(context).padding.top,
+                        top: MediaQuery.of(context).padding.top * 1.5,
+                        left: MediaQuery.of(context).size.width / 20,
                       ),
                       child: InkWell(
                         onTap: (() {
                           Navigator.pop(context);
                         }),
-                        child: Transform.rotate(
-                          angle: -pi / 2,
-                          child: Lottie.asset(
-                            AppImages.rocketButton,
-                            height: 50,
-                            width: 50,
-                          ),
+                        child: const Icon(
+                          Icons.arrow_back_rounded,
+                          color: Colors.white,
                         ),
                       ),
                     ),
                   ),
                 ],
               ),
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              "assets/images/icon.png",
-                              scale: 6,
+              Padding(
+                padding: const EdgeInsets.only(left: 16),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Hero(
+                      tag: 'event${event.id}',
+                      child: Container(
+                        width: w / 5,
+                        height: w / 5,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: AppColors.eventCardGradientList.elementAt(
+                              event.id! %
+                                  AppColors.eventCardGradientList.length,
+                            ),
+                          ),
+                          image: DecorationImage(
+                            image: AssetImage('assets/images${event.logo!}'),
+                            fit: BoxFit.fitWidth,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: w / 10),
+                    FittedBox(
+                      child: Text(
+                        event.name!,
+                        style: AppStyles.bodyTextStyle2().copyWith(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 12.0),
+                      child: DefaultTabController(
+                        length: 2,
+                        child: TabBar(
+                          labelPadding: const EdgeInsets.all(12),
+                          controller: tabBarController,
+                          indicator: const BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                color: AppColors.loginPageAccent,
+                              ),
+                            ),
+                          ),
+                          unselectedLabelColor: AppColors.cardSubtitleTextColor,
+                          labelColor: AppColors.loginPageAccent,
+                          tabs: const [
+                            Text(
+                              "Description",
+                              style: TextStyle(
+                                fontFamily: 'Quicksand',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                             Text(
-                              event.name!,
-                              style: AppStyles.bodyTextStyle2().copyWith(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
+                              "Rounds",
+                              style: TextStyle(
+                                fontFamily: 'Quicksand',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            Text(
+                              "Rules",
+                              style: TextStyle(
+                                fontFamily: 'Quicksand',
+                                fontSize: 16,
                               ),
                             ),
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 12.0),
-                        child: DefaultTabController(
-                          length: 2,
-                          child: TabBar(
-                            labelPadding: const EdgeInsets.all(12),
-                            controller: tabBarController,
-                            indicator: const BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                  color: AppColors.loginPageAccent,
+                    ),
+                    SizedBox(
+                      height: h / 1.5,
+                      width: w,
+                      child: TabBarView(
+                        physics: const BouncingScrollPhysics(),
+                        controller: tabBarController,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  event.tagline!,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: fontSizeFactor * 8,
+                                    fontWeight: FontWeight.bold,
+                                    color: const Color(0xFFfafafa),
+                                    fontStyle: FontStyle.italic,
+                                  ),
                                 ),
                               ),
-                            ),
-                            unselectedLabelColor:
-                                AppColors.cardSubtitleTextColor,
-                            labelColor: AppColors.loginPageAccent,
-                            tabs: const [
-                              Text(
-                                "Description",
-                                style: TextStyle(
-                                  fontFamily: 'Quicksand',
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  event.description!,
+                                  style: AppStyles.bodyTextStyle3(),
                                 ),
                               ),
-                              Text(
-                                "Rounds",
-                                style: TextStyle(
-                                  fontFamily: 'Quicksand',
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'Team Details :',
+                                  style: AppStyles.bodyTextStyle3().copyWith(
+                                    color: AppColors.loginPageAccent,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
-                              Text(
-                                "Rules",
-                                style: TextStyle(
-                                  fontFamily: 'Quicksand',
-                                  fontSize: 16,
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  event.teams!,
+                                  style: AppStyles.bodyTextStyle3(),
                                 ),
                               ),
                             ],
                           ),
-                        ),
+                          Text(
+                            event.rounds!,
+                            style: AppStyles.bodyTextStyle3(),
+                          ),
+                          Text(
+                            event.rules!,
+                            style: AppStyles.bodyTextStyle3(),
+                          ),
+                        ],
                       ),
-                      SizedBox(
-                        height: h / 1.5,
-                        width: w,
-                        child: TabBarView(
-                          physics: const BouncingScrollPhysics(),
-                          controller: tabBarController,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    event.tagline!,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: fontSizeFactor * 8,
-                                      fontWeight: FontWeight.bold,
-                                      color: const Color(0xFFfafafa),
-                                      fontStyle: FontStyle.italic,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    event.description!,
-                                    style: AppStyles.bodyTextStyle3(),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    'Team Details :',
-                                    style: AppStyles.bodyTextStyle3().copyWith(
-                                      color: AppColors.loginPageAccent,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    event.teams!,
-                                    style: AppStyles.bodyTextStyle3(),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Text(
-                              event.rounds!,
-                              style: AppStyles.bodyTextStyle3(),
-                            ),
-                            Text(
-                              event.rules!,
-                              style: AppStyles.bodyTextStyle3(),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ],

@@ -30,10 +30,22 @@ class LoginSignUpIntro extends StatelessWidget {
           child: Image.asset(AppImages.spaceBackground, fit: BoxFit.cover),
         ),
         Scaffold(
+          appBar: AppBar(
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            leading: IconButton(
+              icon: const Icon(
+                Icons.arrow_back_rounded,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
           backgroundColor: Colors.transparent,
           body: Container(
             margin: EdgeInsets.only(
-              top: padding.top + 20,
               left: padding.top / 2,
               right: padding.top / 2,
               bottom: padding.top / 2 + 20,

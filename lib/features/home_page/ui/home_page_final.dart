@@ -99,7 +99,8 @@ class _HomePageContentState extends State<HomePageContent>
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding:
+                        const EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0),
                     child: DefaultTabController(
                       length: 2,
                       child: TabBar(

@@ -23,7 +23,7 @@ class AppStyles {
 
   static TextStyle bodyTextStyle3() {
     return const TextStyle(
-      fontSize: 15,
+      fontSize: 12,
       fontWeight: FontWeight.normal,
       fontFamily: 'QuickSand',
       color: AppColors.cardSubtitleTextColor,
