@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glowstone/glowstone.dart';
 import 'package:panorama/panorama.dart';
-import 'package:pulzion23/constants/widgets/loader.dart';
+import '../../../constants/widgets/loader.dart';
 
 import '../cubit/profile_cubit.dart';
 import 'card.dart';

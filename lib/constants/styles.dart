@@ -23,7 +23,7 @@ class AppStyles {
 
   static TextStyle bodyTextStyle3() {
     return const TextStyle(
-      fontSize: 15,
+      fontSize: 12,
       fontWeight: FontWeight.normal,
       fontFamily: 'QuickSand',
       color: AppColors.cardSubtitleTextColor,
@@ -36,6 +36,15 @@ class AppStyles {
       fontWeight: FontWeight.w500,
       fontFamily: 'Panther',
       color: AppColors.cardTitleTextColor,
+    );
+  }
+
+  static TextStyle bodyTextStyle5() {
+    return const TextStyle(
+      fontSize: 15,
+      fontWeight: FontWeight.bold,
+      fontFamily: 'QuickSand',
+      color: AppColors.white,
     );
   }
 }

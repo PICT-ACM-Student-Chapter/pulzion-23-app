@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pulzion23/constants/colors.dart';
+import '../colors.dart';
 
 class Themes {
   static ThemeData darkTheme = ThemeData(

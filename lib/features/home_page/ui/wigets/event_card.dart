@@ -69,7 +69,7 @@ class EventCard extends StatelessWidget {
                       event.name!,
                       style: AppStyles.bodyTextStyle2(),
                       overflow: TextOverflow.ellipsis,
-                      maxLines: 3,
+                      maxLines: 1,
                     ),
                     Text(
                       event.description!,
@@ -78,7 +78,7 @@ class EventCard extends StatelessWidget {
                       maxLines: 3,
                     ),
                     Align(
-                      alignment: Alignment.bottomRight,
+                      alignment: Alignment.centerRight,
                       child: Transform.rotate(
                         angle: pi / 2,
                         child: Lottie.asset(
@@ -104,10 +104,28 @@ class EventCard extends StatelessWidget {
                   ),
                 ],
               ),
-              child: CircleAvatar(
-                radius: width / 8,
-                //backgroundImage: NetworkImage(event.logo!),
-                backgroundImage: AssetImage('assets/images${event.logo!}'),
+              child: Hero(
+                tag: 'event${event.id}',
+                child: Container(
+                  width: width / 4,
+                  height: width / 4,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: AppColors.eventCardGradientList.elementAt(
+                        event.id! % AppColors.eventCardGradientList.length,
+                      ),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.asset(
+                      'assets/images${event.logo!}',
+                    ),
+                  ),
+                ),
               ),
             ),
           ),
