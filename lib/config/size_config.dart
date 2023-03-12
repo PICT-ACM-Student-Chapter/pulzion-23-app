@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 class SizeConfig {
@@ -12,19 +14,28 @@ class SizeConfig {
     screenHeight = _mediaQueryData!.size.height;
     screenWidth = _mediaQueryData!.size.width;
     orientation = _mediaQueryData!.orientation;
+
+    log("Screen Height: $screenHeight");
+    log("Screen Width: $screenWidth");
   }
 
   static double getProportionateScreenHeight(double inputHeight) {
     double? screenHeight = SizeConfig.screenHeight;
-    // 812 is the layout height that designer use
+    // 932 is the layout height that designer use
 
-    return (inputHeight / 812.0) * screenHeight!;
+    return (inputHeight / 932.0) * screenHeight!;
   }
 
-  static getProportionateScreenWidth(double inputWidth) {
+  static double getProportionateScreenWidth(double inputWidth) {
     double? screenWidth = SizeConfig.screenWidth;
-    // 375 is the layout Width that designer use
+    // 430 is the layout Width that designer use
 
-    return (inputWidth / 375.0) * screenWidth!;
+    return (inputWidth / 430.0) * screenWidth!;
+  }
+
+  static double getProportionateScreenFontSize(double inputFontSize) {
+    double? screenWidth = SizeConfig.screenWidth;
+
+    return (inputFontSize / 430.0) * screenWidth!;
   }
 }

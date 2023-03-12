@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:panorama/panorama.dart';
 
+import '../config/size_config.dart';
 import '../constants/images.dart';
 import '../features/home_page/ui/home_page_final.dart';
 import '../features/home_page/ui/wigets/custom_appbar.dart';
@@ -17,6 +18,9 @@ class BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Initilize the size config for responsive UI
+    SizeConfig.init(context);
+
     return Stack(
       children: [
         Panorama(

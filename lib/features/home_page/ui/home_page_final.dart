@@ -1,12 +1,16 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:panorama/panorama.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../config/size_config.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/images.dart';
 import '../../../constants/styles.dart';
+import '../../../constants/widgets/error_dialog.dart';
 import '../logic/event_details_cubit_cubit.dart';
 import 'wigets/event_gridview.dart';
 
@@ -92,8 +96,10 @@ class _HomePageContentState extends State<HomePageContent>
                       Center(
                         child: Text(
                           "Pulzion '23",
-                          style:
-                              AppStyles.bodyTextStyle2().copyWith(fontSize: 45),
+                          style: AppStyles.bodyTextStyle2().copyWith(
+                            fontSize:
+                                SizeConfig.getProportionateScreenFontSize(40),
+                          ),
                         ),
                       ),
                     ],
@@ -152,7 +158,15 @@ class _HomePageContentState extends State<HomePageContent>
         } else if (state is EventDetailsCubitLoading) {
           return Center(child: Lottie.asset(AppImages.loadingAnimation));
         } else {
-          return const Center(child: Text("Something went wrong"));
+          return Center(
+            child: ErrorDialog(
+              'Error while fetching data from server',
+              refreshFunction: () {
+                log("refreshing");
+                context.read<EventDetailsCubitCubit>().getEventsDetails();
+              },
+            ),
+          );
         }
       },
     );
