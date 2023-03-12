@@ -60,7 +60,7 @@ class EventCard extends StatelessWidget {
               ),
               child: Padding(
                 padding: EdgeInsets.only(
-                  top: SizeConfig.getProportionateScreenHeight(86),
+                  top: SizeConfig.getProportionateScreenHeight(80),
                   left: SizeConfig.getProportionateScreenWidth(10),
                   right: SizeConfig.getProportionateScreenWidth(10),
                   bottom: SizeConfig.getProportionateScreenHeight(10),
@@ -124,7 +124,9 @@ class EventCard extends StatelessWidget {
                     ),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(
+                      SizeConfig.getProportionateScreenWidth(10),
+                    ),
                     child: Image.asset(
                       'assets/images${event.logo!}',
                     ),

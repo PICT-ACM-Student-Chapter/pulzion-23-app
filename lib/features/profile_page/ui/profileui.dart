@@ -126,15 +126,18 @@ class ProfilePage extends StatelessWidget {
                             ),
                             SizedBox(height: h * 0.1, width: w * 0.1),
                             LimitedBox(
-                              maxWidth: w - w * 0.2,
-                              child: Text(
-                                "${state.user.firstName!} ${state.user.lastName!}",
-                                style: TextStyle(
-                                  fontSize: w * 0.08,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
+                              maxWidth: w - w * 0.4,
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  "${state.user.firstName!} ${state.user.lastName!}",
+                                  style: TextStyle(
+                                    fontSize: w * 0.08,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                  textAlign: TextAlign.center,
                                 ),
-                                textAlign: TextAlign.center,
                               ),
                             ),
                           ],
