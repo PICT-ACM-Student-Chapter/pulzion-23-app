@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glowstone/glowstone.dart';
 import 'package:panorama/panorama.dart';
+import '../../../constants/widgets/error_dialog.dart';
 import '../../../constants/widgets/loader.dart';
 
 import '../cubit/profile_cubit.dart';
@@ -208,10 +209,33 @@ class ProfilePage extends StatelessWidget {
                       // SizedBox(height: 0.0000001, width: double.infinity),
                     ],
                   );
+                } else if (state is ProfileError) {
+                  return Column(
+                    children: [
+                      SizedBox(
+                        height: h * 0.3,
+                      ),
+                      Center(
+                        child: ErrorDialog(
+                          state.message,
+                          refreshFunction: () {
+                            context.read<ProfileCubit>().getUser();
+                          },
+                        ),
+                      ),
+                    ],
+                  );
                 }
 
-                return const Center(
-                  child: Loader(),
+                return Center(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: h * 0.3,
+                      ),
+                      const Loader(),
+                    ],
+                  ),
                 );
               },
             ),
