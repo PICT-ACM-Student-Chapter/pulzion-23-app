@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lottie/lottie.dart';
-import 'package:panorama/panorama.dart';
 import 'package:pulzion23/constants/images.dart';
 import 'package:pulzion23/constants/urls.dart';
 import 'package:pulzion23/features/login_page/ui/login_signup_intro.dart';
@@ -258,7 +256,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ComingSoonPage(),
+                              builder: (context) => const ComingSoonPage(),
                             ),
                           );
                         },
@@ -270,7 +268,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ComingSoonPage(),
+                              builder: (context) => const ComingSoonPage(),
                             ),
                           );
                         },
@@ -282,7 +280,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ComingSoonPage(),
+                              builder: (context) => const ComingSoonPage(),
                             ),
                           );
                         },
