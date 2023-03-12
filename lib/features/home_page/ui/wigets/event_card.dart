@@ -74,6 +74,13 @@ class EventCard extends StatelessWidget {
                       style: AppStyles.bodyTextStyle2(),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
+                      // Note: This is issue in flutter -> https://github.com/flutter/flutter/issues/98975
+                      strutStyle: StrutStyle(
+                        height: 1.2,
+                        fontSize: SizeConfig.getProportionateScreenFontSize(15),
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Panther',
+                      ),
                     ),
                     Text(
                       event.description!,
