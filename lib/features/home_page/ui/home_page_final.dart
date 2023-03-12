@@ -98,7 +98,7 @@ class _HomePageContentState extends State<HomePageContent>
                           "Pulzion '23",
                           style: AppStyles.bodyTextStyle2().copyWith(
                             fontSize:
-                                SizeConfig.getProportionateScreenFontSize(40),
+                                SizeConfig.getProportionateScreenFontSize(30),
                           ),
                         ),
                       ),

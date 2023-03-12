@@ -36,6 +36,6 @@ class SizeConfig {
   static double getProportionateScreenFontSize(double inputFontSize) {
     double? screenWidth = SizeConfig.screenWidth;
 
-    return (inputFontSize / 430.0) * screenWidth!;
+    return inputFontSize * screenWidth! / screenHeight! * 2.5;
   }
 }
