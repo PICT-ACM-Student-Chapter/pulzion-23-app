@@ -1,7 +1,7 @@
 import 'package:countup/countup.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pulzion23/config/size_config.dart';
+import '../../../config/size_config.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:widget_circular_animator/widget_circular_animator.dart';
 

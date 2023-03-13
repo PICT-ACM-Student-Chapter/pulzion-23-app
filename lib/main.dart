@@ -1,23 +1,22 @@
 import 'dart:developer';
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+
 import 'config/remote_config.dart';
+import 'constants/images.dart';
 import 'constants/utils/theme.dart';
 import 'features/compulsory_update/cubit/compulsory_update_cubit.dart';
 import 'features/compulsory_update/ui/compulsary_update.dart';
+import 'features/home_page/logic/event_details_cubit_cubit.dart';
+import 'features/login_page/cubit/check_login_cubit.dart';
 import 'firebase_options.dart';
 import 'project/cubit/bottom_bar_cubit.dart';
 import 'project/landing_page.dart';
-
-import 'constants/images.dart';
-import 'features/home_page/logic/event_details_cubit_cubit.dart';
-import 'features/login_page/cubit/check_login_cubit.dart';
 import 'services/bloc_observer.dart';
 import 'services/firebase_notifications.dart';
 import 'services/local_notifications.dart';

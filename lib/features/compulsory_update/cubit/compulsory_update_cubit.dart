@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
+
 import '../../../constants/urls.dart';
 
 part 'compulsory_update_state.dart';

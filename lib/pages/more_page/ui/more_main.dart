@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pulzion23/constants/images.dart';
-import 'package:pulzion23/constants/urls.dart';
-import 'package:pulzion23/features/login_page/ui/login_signup_intro.dart';
+import '../../../constants/images.dart';
+import '../../../constants/urls.dart';
+import '../../../features/login_page/ui/login_signup_intro.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../features/login_page/cubit/check_login_cubit.dart';
