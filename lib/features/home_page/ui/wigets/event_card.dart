@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../../config/size_config.dart';
 import '../../../../constants/colors.dart';
 import '../../../../constants/images.dart';
 import '../../../../constants/models/event_model.dart';
@@ -35,10 +36,13 @@ class EventCard extends StatelessWidget {
         alignment: Alignment.topCenter,
         children: [
           Transform.translate(
-            offset: Offset(0, MediaQuery.of(context).size.width / 10),
+            offset: Offset(
+              0,
+              SizeConfig.getProportionateScreenHeight(43),
+            ),
             child: Container(
               margin: EdgeInsets.only(
-                bottom: MediaQuery.of(context).size.width / 8,
+                bottom: SizeConfig.getProportionateScreenWidth(53),
               ),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -56,10 +60,10 @@ class EventCard extends StatelessWidget {
               ),
               child: Padding(
                 padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.width / 5,
-                  left: 10,
-                  right: 10,
-                  bottom: 10,
+                  top: SizeConfig.getProportionateScreenHeight(80),
+                  left: SizeConfig.getProportionateScreenWidth(10),
+                  right: SizeConfig.getProportionateScreenWidth(10),
+                  bottom: SizeConfig.getProportionateScreenHeight(10),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -70,6 +74,13 @@ class EventCard extends StatelessWidget {
                       style: AppStyles.bodyTextStyle2(),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
+                      // Note: This is issue in flutter -> https://github.com/flutter/flutter/issues/98975
+                      strutStyle: StrutStyle(
+                        height: 1.2,
+                        fontSize: SizeConfig.getProportionateScreenFontSize(15),
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Panther',
+                      ),
                     ),
                     Text(
                       event.description!,
@@ -120,7 +131,9 @@ class EventCard extends StatelessWidget {
                     ),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(
+                      SizeConfig.getProportionateScreenWidth(10),
+                    ),
                     child: Image.asset(
                       'assets/images${event.logo!}',
                     ),

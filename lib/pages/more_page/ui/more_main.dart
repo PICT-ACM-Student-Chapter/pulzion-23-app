@@ -107,11 +107,8 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                   }),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(ht),
-                    child: FittedBox(
-                      fit: BoxFit.fill,
-                      child: Lottie.asset(
-                        imgC ? AppImages.spaceman : AppImages.spaceman2,
-                      ),
+                    child: Lottie.asset(
+                      imgC ? AppImages.spaceman : AppImages.spaceman2,
                     ),
                   ),
                 ),

@@ -7,8 +7,13 @@ import '../styles.dart';
 
 class ErrorDialog extends StatelessWidget {
   final String errorMessage;
-  final VoidCallback refreshFunction;
-  const ErrorDialog(this.errorMessage, this.refreshFunction, {super.key});
+  final VoidCallback? refreshFunction;
+
+  const ErrorDialog(
+    this.errorMessage, {
+    super.key,
+    this.refreshFunction,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +56,9 @@ class ErrorDialog extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
-                  refreshFunction();
+                  if (refreshFunction != null) {
+                    refreshFunction!();
+                  }
                 },
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,

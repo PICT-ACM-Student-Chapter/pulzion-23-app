@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glowstone/glowstone.dart';
 import 'package:panorama/panorama.dart';
+import '../../../constants/widgets/error_dialog.dart';
 import '../../../constants/widgets/loader.dart';
 
 import '../cubit/profile_cubit.dart';
@@ -31,8 +32,8 @@ class ProfilePage extends StatelessWidget {
           child: Image.asset('assets/images/space_bg.jpg', fit: BoxFit.cover),
         ),
         Padding(
-          padding: const EdgeInsets.only(
-            top: kToolbarHeight,
+          padding: EdgeInsets.only(
+            top: MediaQuery.of(context).padding.top,
           ),
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
@@ -125,15 +126,18 @@ class ProfilePage extends StatelessWidget {
                             ),
                             SizedBox(height: h * 0.1, width: w * 0.1),
                             LimitedBox(
-                              maxWidth: w - w * 0.2,
-                              child: Text(
-                                "${state.user.firstName!} ${state.user.lastName!}",
-                                style: TextStyle(
-                                  fontSize: w * 0.08,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
+                              maxWidth: w - w * 0.4,
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  "${state.user.firstName!} ${state.user.lastName!}",
+                                  style: TextStyle(
+                                    fontSize: w * 0.08,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                  textAlign: TextAlign.center,
                                 ),
-                                textAlign: TextAlign.center,
                               ),
                             ),
                           ],
@@ -208,10 +212,33 @@ class ProfilePage extends StatelessWidget {
                       // SizedBox(height: 0.0000001, width: double.infinity),
                     ],
                   );
+                } else if (state is ProfileError) {
+                  return Column(
+                    children: [
+                      SizedBox(
+                        height: h * 0.3,
+                      ),
+                      Center(
+                        child: ErrorDialog(
+                          state.message,
+                          refreshFunction: () {
+                            context.read<ProfileCubit>().getUser();
+                          },
+                        ),
+                      ),
+                    ],
+                  );
                 }
 
-                return const Center(
-                  child: Loader(),
+                return Center(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: h * 0.3,
+                      ),
+                      const Loader(),
+                    ],
+                  ),
                 );
               },
             ),
