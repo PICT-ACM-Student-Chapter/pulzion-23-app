@@ -73,9 +73,9 @@ class _HomePageContentState extends State<HomePageContent>
                     children: [
                       // ufo position
                       Positioned(
-                        top: height * 0.03,
-                        left: width * 0.05,
-                        width: width - width * 0.37,
+                        top: height * 0.03,git
+                        left: width * 0.038,
+                        width: width - width * 0.405,
                         child: AnimatedAlign(
                           curve: Curves.easeInCubic,
                           duration: const Duration(milliseconds: 1000),
@@ -87,8 +87,8 @@ class _HomePageContentState extends State<HomePageContent>
                           //   angle: pi,
                           child: Lottie.asset(
                             AppImages.ufo3,
-                            width: 70,
-                            height: 70,
+                            width: width*0.16,
+                            height: height*0.1,
                           ),
                           // )
                         ),
