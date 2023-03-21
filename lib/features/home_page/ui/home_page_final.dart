@@ -73,7 +73,7 @@ class _HomePageContentState extends State<HomePageContent>
                     children: [
                       // ufo position
                       Positioned(
-                        top: height * 0.03,git
+                        top: height * 0.03,
                         left: width * 0.038,
                         width: width - width * 0.405,
                         child: AnimatedAlign(
