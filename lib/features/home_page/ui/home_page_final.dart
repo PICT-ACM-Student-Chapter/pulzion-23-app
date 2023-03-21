@@ -87,8 +87,8 @@ class _HomePageContentState extends State<HomePageContent>
                           //   angle: pi,
                           child: Lottie.asset(
                             AppImages.ufo3,
-                            width: width*0.16,
-                            height: height*0.1,
+                            width: width * 0.16,
+                            height: height * 0.1,
                           ),
                           // )
                         ),
