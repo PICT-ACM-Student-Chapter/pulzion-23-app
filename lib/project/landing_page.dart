@@ -5,7 +5,6 @@ import 'package:panorama/panorama.dart';
 
 import '../config/size_config.dart';
 import '../constants/images.dart';
-import '../features/cart_page/ui/cart_content.dart';
 import '../features/cart_page/ui/cart_page_final.dart';
 import '../features/home_page/ui/home_page_final.dart';
 import '../features/home_page/ui/wigets/custom_appbar.dart';

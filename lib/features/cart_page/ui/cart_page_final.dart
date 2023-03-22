@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pulzion23/constants/widgets/error_dialog.dart';
-import 'package:pulzion23/features/cart_page/ui/cart_content.dart';
+import 'package:pulzion23/features/cart_page/ui/cart_page_body.dart';
 
 import '../../../constants/images.dart';
 import '../../../constants/models/event_model.dart';
@@ -18,18 +18,12 @@ class CartPageFinal extends StatelessWidget {
       child: BlocBuilder<CartPageCubit, CartPageState>(
         builder: (context, state) {
           if (state is CartPageLoading) {
-            Scaffold(
-              backgroundColor: Colors.transparent,
-              body: Center(
-                child: Center(child: Lottie.asset(AppImages.loadingAnimation)),
-              ),
+            return Center(
+              child: Center(child: Lottie.asset(AppImages.loadingAnimation)),
             );
           } else if (state is CartPageLoaded) {
             return CartPageContent(
-              [
-                Events(name: 'Dextrous', mode: 'Technical Events', price: 50),
-                Events(name: 'Fandom Quiz', mode: 'Non-Technical Events', price: 30),
-              ],
+              state.cartList,
             );
           } else if (state is CartPageError) {
             return const Center(
@@ -39,10 +33,8 @@ class CartPageFinal extends StatelessWidget {
             );
           }
 
-          return const Center(
-            child: ErrorDialog(
-              'Error in Cart Page initialization',
-            ),
+          return Center(
+            child: Center(child: Lottie.asset(AppImages.loadingAnimation)),
           );
         },
       ),
