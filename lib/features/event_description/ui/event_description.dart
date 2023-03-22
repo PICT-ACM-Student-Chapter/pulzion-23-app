@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../config/size_config.dart';
 import '../../../constants/models/event_model.dart';
 
 import '../../../constants/colors.dart';
@@ -15,10 +16,8 @@ class EventDescription extends StatefulWidget {
   State<EventDescription> createState() => _EventDescriptionState();
 }
 
-class _EventDescriptionState extends State<EventDescription>
-    with TickerProviderStateMixin {
-  late final TabController tabBarController =
-      TabController(length: 3, vsync: this);
+class _EventDescriptionState extends State<EventDescription> with TickerProviderStateMixin {
+  late final TabController tabBarController = TabController(length: 3, vsync: this);
 
   @override
   void dispose() {
@@ -191,14 +190,18 @@ class _EventDescriptionState extends State<EventDescription>
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                             colors: AppColors.eventCardGradientList.elementAt(
-                              event.id! %
-                                  AppColors.eventCardGradientList.length,
+                              event.id! % AppColors.eventCardGradientList.length,
                             ),
                           ),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Image.asset("assets/images${event.logo!}"),
+                          padding: EdgeInsets.all(
+                            SizeConfig.getProportionateScreenWidth(15),
+                          ),
+                          child: Image.network(
+                            event.logo!,
+                            fit: BoxFit.fitWidth,
+                          ),
                         ),
                       ),
                     ),

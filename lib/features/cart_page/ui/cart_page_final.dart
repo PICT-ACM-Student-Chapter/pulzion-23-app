@@ -5,7 +5,6 @@ import 'package:pulzion23/constants/widgets/error_dialog.dart';
 import 'package:pulzion23/features/cart_page/ui/cart_page_body.dart';
 
 import '../../../constants/images.dart';
-import '../../../constants/models/event_model.dart';
 import '../cubit/cart_page_cubit.dart';
 
 class CartPageFinal extends StatelessWidget {

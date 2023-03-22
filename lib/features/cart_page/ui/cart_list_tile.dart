@@ -9,37 +9,67 @@ class CartListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
+    double h = MediaQuery.of(context).size.height;
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: w * 0.025),
-      child: ListTile(
-        leading: Image.network(
-          event.logo!,
-          width: w * 0.15,
-        ),
-        title: Text(
-          event.name!,
-          style: AppStyles.bodyTextStyle3().copyWith(
-            color: Colors.white,
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
+      padding: EdgeInsets.symmetric(horizontal: w * 0.025, vertical: h * 0.0075),
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColors.primary.withAlpha(50),
+          borderRadius: const BorderRadius.all(
+            Radius.circular(20),
+          ),
+          border: const Border.fromBorderSide(
+            BorderSide(
+              color: AppColors.cardBorder,
+              width: 0.2,
+            ),
           ),
         ),
-        subtitle: Text(
-          "₹" + event.price!.toString(),
-          style: AppStyles.bodyTextStyle3().copyWith(
-            color: Colors.white,
-            fontSize: 14,
-          ),
-        ),
-        trailing: IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Icons.delete_outline_rounded,
-            color: Colors.red,
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Image.network(
+                event.logo!,
+                width: w * 0.15,
+                height: h * 0.1,
+              ),
+            ),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    event.name!,
+                    style: AppStyles.bodyTextStyle3().copyWith(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Text(
+                    "₹${event.price!}",
+                    style: AppStyles.bodyTextStyle3().copyWith(
+                      color: Colors.white,
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.delete_outline_rounded,
+                color: Colors.red,
+              ),
+            ),
+          ],
         ),
       ),
     );
