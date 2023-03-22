@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pulzion23/constants/models/event_model.dart';
 import 'package:pulzion23/features/cart_page/ui/card_list_tile.dart';
 
+import '../../../constants/images.dart';
 import '../../../constants/styles.dart';
 
 var eventList = <Events>[
@@ -61,6 +62,12 @@ class CartPage extends StatelessWidget {
                       decoration: BoxDecoration(
                           color: Color(
                             0xff124567,
+                          ),
+                          image: DecorationImage(
+                            image: AssetImage(
+                              AppImages.spaceBackground,
+                            ),
+                            fit: BoxFit.fill,
                           ),
                           boxShadow: [
                             BoxShadow(
