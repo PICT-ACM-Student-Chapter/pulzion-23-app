@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../constants/images.dart';
 
-
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key});
 

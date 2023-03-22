@@ -48,7 +48,8 @@ class LandingPage extends StatelessWidget {
             },
           ),
           bottomNavigationBar: Container(
-            margin: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+            margin:
+                EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
             child: CurvedNavigationBar(
               index: 2,
               height: MediaQuery.of(context).size.height * 0.07,

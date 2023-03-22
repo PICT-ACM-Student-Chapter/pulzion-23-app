@@ -12,6 +12,10 @@ class CartListTile extends StatelessWidget {
       leading: Image.asset('assets/images/image1.jpg'),
       title: Text(event.name!),
       subtitle: Text("Rs: " + event.price!.toString()),
+      trailing: Icon(
+        Icons.delete,
+        color: Color(0xff124567),
+      ),
     );
   }
 }
