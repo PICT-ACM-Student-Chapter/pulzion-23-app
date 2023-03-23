@@ -1,13 +1,13 @@
 import 'package:countup/countup.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../../config/size_config.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:widget_circular_animator/widget_circular_animator.dart';
+import 'package:panorama/panorama.dart';
+import '../../../constants/images.dart';
 
 class AboutUsPage extends StatelessWidget {
   const AboutUsPage({super.key});
-
   final String aboutPulzion =
       "Pulzion is the annual technical fest organized by PICT ACM Student Chapter. Pulzion has hosted multiple events including coding competition ranging from amateur competitions two day-long as well as mock placements, business management based and quizzing events. It has become one of the most anticipated events taking place at PICT with participants from colleges all over Pune. With high aspirations, backed with sincerity and dedication, the PASC team aims to add value to the college and all the people in it.";
 
@@ -36,19 +36,22 @@ class AboutUsPage extends StatelessWidget {
       backgroundColor: Colors.transparent,
       body: Stack(
         children: [
+          Panorama(
+            sensitivity: 0.4,
+            animSpeed: 0.5,
+            sensorControl: SensorControl.Orientation,
+            child: Image.asset(AppImages.spaceBackground, fit: BoxFit.cover),
+          ),
           SingleChildScrollView(
             child: Padding(
-              padding:
-                  EdgeInsets.all(SizeConfig.getProportionateScreenWidth(20)),
+              padding: EdgeInsets.all(width / 20),
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(
-                      top: SizeConfig.getProportionateScreenHeight(18),
-                    ),
+                    padding: EdgeInsets.only(top: height / 50),
                     child: SizedBox(
-                      height: SizeConfig.getProportionateScreenHeight(90),
-                      width: SizeConfig.getProportionateScreenWidth(215),
+                      height: height / 10,
+                      width: width / 2,
                       child: Image.asset(
                         "assets/images/pasc_logo.png",
                         fit: BoxFit.cover,
@@ -58,10 +61,8 @@ class AboutUsPage extends StatelessWidget {
                   Row(
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(
-                          left: SizeConfig.getProportionateScreenWidth(14),
-                          top: SizeConfig.getProportionateScreenHeight(46),
-                        ),
+                        padding:
+                            EdgeInsets.only(left: width / 30, top: height / 20),
                         child: WidgetCircularAnimator(
                           size: width / 2.6,
                           child: Container(
@@ -74,7 +75,7 @@ class AboutUsPage extends StatelessWidget {
                                 Column(children: [
                                   Padding(
                                     padding: EdgeInsets.only(
-                                      top: width / 30,
+                                      top: height / 65,
                                       left: width / 20,
                                     ),
                                     child: Countup(
@@ -91,7 +92,7 @@ class AboutUsPage extends StatelessWidget {
                                   Padding(
                                     padding: EdgeInsets.only(
                                       left: width / 17,
-                                      top: width / 36,
+                                      top: height / 78,
                                     ),
                                     child: Text(
                                       "EVENTS",
@@ -122,7 +123,7 @@ class AboutUsPage extends StatelessWidget {
                                 Column(children: [
                                   Padding(
                                     padding: EdgeInsets.only(
-                                      top: width / 30,
+                                      top: height / 65,
                                       left: width / 45,
                                     ),
                                     child: Countup(
@@ -138,7 +139,7 @@ class AboutUsPage extends StatelessWidget {
                                   ),
                                   Padding(
                                     padding: EdgeInsets.only(
-                                      top: width / 36,
+                                      top: height / 78,
                                       left: width / 40,
                                     ),
                                     child: Text(
@@ -192,29 +193,63 @@ class AboutUsPage extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding:
-                        EdgeInsets.only(top: height / 35, left: width / 30),
-                    child: IconButton(
-                      onPressed: () {
-                        null;
-                      },
-                      icon: Icon(
-                        FontAwesomeIcons.phone,
-                        size: width / 12,
-                        color: Colors.purpleAccent[100],
-                      ),
+                    padding: EdgeInsets.only(top: height / 30),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.phone,
+                          color: Colors.purpleAccent,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: width / 20),
+                          child: Text(
+                            "Ashutosh Shaha",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: width / 20,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Text(
+                          "  - 9156546280",
+                          // textAlign: TextAlign.justify,
+                          style: TextStyle(
+                            fontSize: width / 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: height / 30),
-                    child: Text(
-                      "Ashutosh Shaha - (+91) 9156546280\nSiddhi Wakchaure - (+91) 8329368540",
-                      textAlign: TextAlign.justify,
-                      style: TextStyle(
-                        fontSize: width / 20,
-                        color: Colors.white,
+                    child: Row(children: [
+                      const Icon(
+                        Icons.phone,
+                        color: Colors.purpleAccent,
                       ),
-                    ),
+                      Padding(
+                        padding: EdgeInsets.only(left: width / 20),
+                        child: Text(
+                          "Siddhi Wakchaure ",
+                          textAlign: TextAlign.justify,
+                          style: TextStyle(
+                            fontSize: width / 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      Text(
+                        " -  8329368540",
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(
+                          fontSize: width / 20,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ]),
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: height / 20),

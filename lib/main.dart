@@ -20,7 +20,7 @@ import 'project/landing_page.dart';
 import 'services/bloc_observer.dart';
 import 'services/firebase_notifications.dart';
 import 'services/local_notifications.dart';
-
+// import 'features/event_slots/logic/booked_slot_cubit.dart';
 // import 'constants/models/event_model.dart';
 
 Future<void> main() async {
