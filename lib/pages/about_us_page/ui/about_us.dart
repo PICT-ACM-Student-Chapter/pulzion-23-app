@@ -68,7 +68,7 @@ class AboutUsPage extends StatelessWidget {
                                 Column(children: [
                                   Padding(
                                     padding: EdgeInsets.only(
-                                      top: width / 30,
+                                      top: height / 65,
                                       left: width / 20,
                                     ),
                                     child: Countup(
@@ -85,7 +85,7 @@ class AboutUsPage extends StatelessWidget {
                                   Padding(
                                     padding: EdgeInsets.only(
                                       left: width / 17,
-                                      top: width / 36,
+                                      top: height / 78,
                                     ),
                                     child: Text(
                                       "EVENTS",
@@ -116,7 +116,7 @@ class AboutUsPage extends StatelessWidget {
                                 Column(children: [
                                   Padding(
                                     padding: EdgeInsets.only(
-                                      top: width / 30,
+                                      top: height / 65,
                                       left: width / 45,
                                     ),
                                     child: Countup(
@@ -132,7 +132,7 @@ class AboutUsPage extends StatelessWidget {
                                   ),
                                   Padding(
                                     padding: EdgeInsets.only(
-                                      top: width / 36,
+                                      top: height / 78,
                                       left: width / 40,
                                     ),
                                     child: Text(
@@ -186,29 +186,63 @@ class AboutUsPage extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding:
-                        EdgeInsets.only(top: height / 35, left: width / 30),
-                    child: IconButton(
-                      onPressed: () {
-                        null;
-                      },
-                      icon: Icon(
-                        FontAwesomeIcons.phone,
-                        size: width / 12,
-                        color: Colors.purpleAccent[100],
-                      ),
+                    padding: EdgeInsets.only(top: height / 30),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.phone,
+                          color: Colors.purpleAccent,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: width / 20),
+                          child: Text(
+                            "Ashutosh Shaha",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: width / 20,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Text(
+                          "  - 9156546280",
+                          // textAlign: TextAlign.justify,
+                          style: TextStyle(
+                            fontSize: width / 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: height / 30),
-                    child: Text(
-                      "Ashutosh Shaha - (+91) 9156546280\nSiddhi Wakchaure - (+91) 8329368540",
-                      textAlign: TextAlign.justify,
-                      style: TextStyle(
-                        fontSize: width / 20,
-                        color: Colors.white,
+                    child: Row(children: [
+                      const Icon(
+                        Icons.phone,
+                        color: Colors.purpleAccent,
                       ),
-                    ),
+                      Padding(
+                        padding: EdgeInsets.only(left: width / 20),
+                        child: Text(
+                          "Siddhi Wakchaure ",
+                          textAlign: TextAlign.justify,
+                          style: TextStyle(
+                            fontSize: width / 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      Text(
+                        " -  8329368540",
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(
+                          fontSize: width / 20,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ]),
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: height / 20),
