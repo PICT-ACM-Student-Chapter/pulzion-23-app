@@ -3,23 +3,32 @@ import 'package:lottie/lottie.dart';
 import 'package:pulzion23/constants/images.dart';
 import 'package:pulzion23/constants/models/event_model.dart';
 
+import '../../../constants/colors.dart';
+import '../../../constants/models/cart_model.dart';
 import '../../../constants/styles.dart';
 import 'cart_list_tile.dart';
 
 class CartPageContent extends StatelessWidget {
-  final EventList eventList;
-  late final List<Events> techEventsList;
-  late final List<Events> nonTechEventsList;
-  CartPageContent(this.eventList, {super.key}) {
-    techEventsList = eventList.events!.where((element) => element.type == 'Technical').toList();
-    nonTechEventsList =
-        eventList.events!.where((element) => element.type == 'Non Technical').toList();
-  }
+  final CartItemList? eventList;
+  const CartPageContent(this.eventList, {super.key});
 
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
+
+    if (eventList == null) {
+      return Center(
+        child: Text(
+          "Cart is empty.",
+          style: AppStyles.bodyTextStyle3().copyWith(
+            color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      );
+    }
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -54,7 +63,7 @@ class CartPageContent extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "TOTAL : ₹${eventList.events!.fold(0, (previousValue, element) => previousValue + element.price!)} ",
+                          "TOTAL : ₹${eventList!.cartItems!.fold(0, (previousValue, element) => previousValue + element.price!)} ",
                           style: AppStyles.bodyTextStyle3().copyWith(
                             color: Colors.white,
                             fontSize: 18,
@@ -62,7 +71,7 @@ class CartPageContent extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          "(${eventList.events!.length} items)",
+                          "(${eventList!.cartItems!.length} items)",
                           style: AppStyles.bodyTextStyle3().copyWith(
                             color: Colors.white,
                             fontSize: 12,
@@ -118,49 +127,24 @@ class CartPageContent extends StatelessWidget {
         Expanded(
           child: ListView.builder(
             itemBuilder: (context, index) {
-              if (index == 0) {
-                return Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 16.0),
-                      child: Text(
-                        "Technical Events",
-                        style: AppStyles.bodyTextStyle2().copyWith(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
+              return index == 0
+                  ? Column(children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16.0),
+                        child: Text(
+                          "Items",
+                          style: AppStyles.bodyTextStyle2().copyWith(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                       ),
-                    ),
-                    CartListTile(techEventsList[index]),
-                  ],
-                );
-              } else if (index < techEventsList.length) {
-                return CartListTile(techEventsList[index]);
-              } else if (index == techEventsList.length) {
-                return Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "Non Technical Events",
-                        style: AppStyles.bodyTextStyle2().copyWith(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-                    CartListTile(nonTechEventsList[index - techEventsList.length]),
-                  ],
-                );
-              } else if (index < techEventsList.length + nonTechEventsList.length) {
-                return CartListTile(nonTechEventsList[index - techEventsList.length]);
-              } else {
-                return Container();
-              }
+                      CartListTile(eventList!.cartItems![index]),
+                    ])
+                  : CartListTile(eventList!.cartItems![index]);
             },
-            itemCount: eventList.events!.length,
+            itemCount: eventList!.cartItems!.length,
           ),
         ),
       ],

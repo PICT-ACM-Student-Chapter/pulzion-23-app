@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import '../../../constants/colors.dart';
+import '../../../constants/models/cart_model.dart';
 import '../../../constants/models/event_model.dart';
 import '../../../constants/styles.dart';
 
 class CartListTile extends StatelessWidget {
-  final Events event;
+  final CartItem event;
   const CartListTile(this.event, {super.key});
 
   @override

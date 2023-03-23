@@ -5,6 +5,7 @@ import 'package:panorama/panorama.dart';
 
 import '../config/size_config.dart';
 import '../constants/images.dart';
+import '../features/cart_page/cubit/cart_page_cubit.dart';
 import '../features/cart_page/ui/cart_page_final.dart';
 import '../features/home_page/ui/home_page_final.dart';
 import '../features/home_page/ui/wigets/custom_appbar.dart';
@@ -51,8 +52,18 @@ class BottomNavBar extends StatelessWidget {
                   } else if (state is BottomBarHome) {
                     return const HomePageContent();
                   } else if (state is BottomBarCart) {
-                    return const Center(
-                      child: CartPageFinal(),
+                    return Center(
+                     child: MultiBlocProvider(
+                        providers: [
+                          BlocProvider(
+                            create: (context) => CartPageCubit()..loadCart(),
+                          ),
+                          BlocProvider.value(
+                           value: BlocProvider.of<CheckLoginCubit>(context),
+                          ),
+                        ],
+                        child: const CartPageFinal(),
+                      ),
                     );
                   } else {
                     return const FrostedGlassTile();

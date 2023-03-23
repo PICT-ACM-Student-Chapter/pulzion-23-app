@@ -6,7 +6,7 @@ abstract class CartPageState {}
 class CartPageLoading extends CartPageState {}
 
 class CartPageLoaded extends CartPageState {
-  final EventList cartList;
+  final CartItemList cartList;
   CartPageLoaded(this.cartList);
 }
 
