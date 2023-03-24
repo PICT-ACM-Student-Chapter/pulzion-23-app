@@ -9,6 +9,10 @@ import 'package:auto_animated/auto_animated.dart';
 import 'package:panorama/panorama.dart';
 import '../../../constants/images.dart';
 
+void main() {
+  runApp(DevelopersPage());
+}
+
 class DevelopersPage extends StatelessWidget {
   const DevelopersPage({super.key});
 
@@ -98,6 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                         child: FittedBox(
+                          clipBehavior: Clip.hardEdge,
                           fit: BoxFit.contain,
                           child: Text(
                             "DEVELOPERS PAGE",
@@ -165,9 +170,9 @@ class _MyHomePageState extends State<MyHomePage> {
                               Container(
                                 decoration: BoxDecoration(
                                   color: const Color.fromARGB(255, 27, 58, 83),
-                                  borderRadius: BorderRadius.circular(13),
+                                  borderRadius: BorderRadius.circular(17),
                                 ),
-                                padding: EdgeInsets.all(h * 0.01),
+                                padding: EdgeInsets.all(h * 0.005),
                                 // ignore: sort_child_properties_last
                                 child: WidgetCircularAnimator(
                                   innerAnimation: Curves.easeInCirc,
@@ -181,17 +186,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                   child: CircleAvatar(
                                     //Images of the developer need to be added  here
                                     // ignore: sort_child_properties_last
-                                    child: FittedBox(
-                                      fit: BoxFit.contain,
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(2000),
-                                        child: Image.network(
-                                          developersList[index].imageUrl,
-                                        ),
-                                      ),
-                                    ),
-                                    backgroundColor: Colors.white24,
+                                    radius: 20,
+                                    foregroundImage: NetworkImage(
+                                        developersList[index].imageUrl),
                                   ),
                                 ),
                                 alignment: Alignment.topCenter,
@@ -252,10 +249,19 @@ class _MyHomePageState extends State<MyHomePage> {
                                       color: Colors.white,
                                     ),
                                     onTap: () async {
-                                      final url = Uri.parse(
-                                          'mailto:${developersList[index].emailId}?subject=${'HELLO'}&body=${Uri.encodeComponent('hello developers')}');
-                                      if (await canLaunchUrl(url)) {
-                                        await launchUrl(url);
+                                      String email = Uri.encodeComponent(
+                                          developersList[index].emailId);
+                                      String subject =
+                                          Uri.encodeComponent("Hello Flutter");
+                                      String body = Uri.encodeComponent(
+                                          "Hi! I'm Flutter Developer");
+                                      print(subject); //output: Hello%20Flutter
+                                      Uri mail = Uri.parse(
+                                          "mailto:$email?subject=$subject&body=$body");
+                                      if (await launchUrl(mail)) {
+                                        //email app opened
+                                      } else {
+                                        //email app is not opened
                                       }
                                     },
                                   ),

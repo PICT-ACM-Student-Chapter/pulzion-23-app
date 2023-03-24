@@ -18,12 +18,6 @@ List<DeveloperData> data = [
       "https://www.linkedin.com/in/rohan-doshi21/",
       "https://firebasestorage.googleapis.com/v0/b/fcmtestserver-86214.appspot.com/o/1.jpg?alt=media"),
   DeveloperData(
-      "Mokshad Vaidya",
-      "mokshad.vaidya.1997@gmail.com",
-      "https://github.com/MokshadVaidya",
-      "https://www.linkedin.com/in/mokshadvaidya/",
-      "https://firebasestorage.googleapis.com/v0/b/fcmtestserver-86214.appspot.com/o/2.jpg?alt=media"),
-  DeveloperData(
       "Christine Stephen",
       "chrisysstephen@gmail.com",
       "https://github.com/rebelmisfit",
@@ -51,7 +45,7 @@ List<DeveloperData> data = [
       "Peeyush Kulgude",
       "peeyush.kulgude777@gmail.com",
       "https://github.com/PeeyushKulgude",
-      "www.linkedin.com/in/peeyush-kulgude",
+      "https://www.linkedin.com/in/peeyush-kulgude",
       "https://firebasestorage.googleapis.com/v0/b/fcmtestserver-86214.appspot.com/o/7.jpg?alt=media"),
   DeveloperData(
       "Aditi Date",
@@ -65,4 +59,10 @@ List<DeveloperData> data = [
       "https://github.com/ankitadarade",
       "https://www.linkedin.com/in/ankita-darade-a0371a239",
       "https://firebasestorage.googleapis.com/v0/b/fcmtestserver-86214.appspot.com/o/9.jpg?alt=media"),
+  DeveloperData(
+      "Mokshad Vaidya",
+      "mokshad.vaidya.1997@gmail.com",
+      "https://github.com/MokshadVaidya",
+      "https://www.linkedin.com/in/mokshadvaidya/",
+      "https://firebasestorage.googleapis.com/v0/b/fcmtestserver-86214.appspot.com/o/2.jpg?alt=media"),
 ];
