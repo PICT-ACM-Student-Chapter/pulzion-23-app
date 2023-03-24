@@ -11,6 +11,8 @@ import '../cubit/check_login_cubit.dart';
 import '../logic/sign_up_cubit.dart';
 import 'widgets/roundedbutton.dart';
 import 'widgets/text_field.dart';
+import 'package:country_code_picker/country_code_picker.dart';
+import 'package:csc_picker/csc_picker.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -43,8 +45,15 @@ class _SignUpState extends State<SignUp> {
     collegeController.dispose();
   }
 
+  bool isOpen = false;
+  String selectOption = 'Select College';
+  // late String? valueChoose;
+  List<String> colleges = ["PICT", "Other"];
+  String countryValue = "";
+  String address = "Country";
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Stack(
       children: [
         Panorama(
@@ -140,10 +149,116 @@ class _SignUpState extends State<SignUp> {
                               Icons.call,
                               controller: phoneController,
                             ),
-                            LoginSignUpTextField(
-                              'College Name',
-                              Icons.school,
-                              controller: collegeController,
+                            Column(
+                              children: [
+                                Container(
+                                  child: CSCPicker(
+                                    // onCountryChanged: (country) {},
+
+                                    selectedItemStyle: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w400),
+                                    onCountryChanged: (country) {
+                                      setState(() {
+                                        countryValue = country;
+                                        address = "$countryValue";
+                                      });
+                                    },
+                                    countryDropdownLabel: address,
+                                    countrySearchPlaceholder: address,
+
+                                    showCities: false,
+                                    showStates: false,
+                                    dropdownDecoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(25.0)),
+                                      color: AppColors.primary.withAlpha(100),
+                                      border: Border.all(
+                                        color: AppColors.primary.withAlpha(255),
+                                        width: 2.0,
+                                      ),
+                                    ),
+                                  ),
+                                  height: 60,
+                                ),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    isOpen = !isOpen;
+                                    setState(() {});
+                                  },
+                                  child: Container(
+                                    height: 60,
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(25.0)),
+                                      color: AppColors.primary.withAlpha(100),
+                                      border: Border.all(
+                                        color: AppColors.primary.withAlpha(255),
+                                        width: 2.0,
+                                      ),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 8.0, right: 8),
+                                          child: Text(
+                                            selectOption,
+                                            style: (const TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w400)),
+                                          ),
+                                        ),
+                                        Icon(isOpen
+                                            ? Icons.keyboard_arrow_up_sharp
+                                            : Icons.keyboard_arrow_down_sharp),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                if (isOpen)
+                                  ListView(
+                                    primary: true,
+                                    shrinkWrap: true,
+                                    children: colleges
+                                        .map((e) => Container(
+                                              decoration: BoxDecoration(
+                                                color: selectOption == e
+                                                    ? AppColors.primary
+                                                        .withAlpha(100)
+                                                    : Colors.white,
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(25.0)),
+                                                // color: AppColors.primary.withAlpha(100),
+                                                border: Border.all(
+                                                  color: AppColors.primary
+                                                      .withAlpha(255),
+                                                  width: 2.0,
+                                                ),
+                                              ),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: InkWell(
+                                                    onTap: () {
+                                                      selectOption = e;
+                                                      setState(() {
+                                                        isOpen = false;
+                                                      });
+                                                    },
+                                                    child: Text(e)),
+                                              ),
+                                            ))
+                                        .toList(),
+                                  ),
+                              ],
                             ),
                             const YearSelectRadioTile(),
                             LoginSignUpTextField(
