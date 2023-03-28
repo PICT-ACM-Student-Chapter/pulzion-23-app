@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/models/cart_model.dart';
 import '../../../constants/models/event_model.dart';
 import '../../../constants/styles.dart';
+import '../cubit/cart_page_cubit.dart';
 
 class CartListTile extends StatelessWidget {
   final CartItem event;
@@ -63,11 +65,35 @@ class CartListTile extends StatelessWidget {
                 ],
               ),
             ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.delete_outline_rounded,
-                color: Colors.red,
+            BlocProvider(
+              create: (context) => CartPageCubit(),
+              child: BlocConsumer<CartPageCubit, CartPageState>(
+                listener: (context, state) {
+                  if (state is CartItemDeleted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(state.message),
+                        backgroundColor: Colors.green,
+                      ),
+                    );
+                  } else if (state is CartItemNotDeleted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(state.message),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  }
+                },
+                builder: ((context, state) {
+                  return IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.delete_outline_rounded,
+                      color: Colors.red,
+                    ),
+                  );
+                }),
               ),
             ),
           ],

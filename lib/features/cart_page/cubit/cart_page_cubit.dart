@@ -16,23 +16,72 @@ class CartPageCubit extends Cubit<CartPageState> {
 
   Future<void> loadCart() async {
     emit(CartPageLoading());
+
+    const storage = FlutterSecureStorage();
+    var token = await storage.read(key: 'token');
+    if (token == null) {
+      loadCart();
+    } else {
+      try {
+        var response = await http.get(
+          Uri.parse(EndPoints.cart),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $token",
+          },
+        );
+        var data = jsonDecode(response.body);
+        CartItemList eventList = CartItemList.fromJson(data);
+        log(data.toString());
+        emit(CartPageLoaded(eventList));
+      } catch (e) {
+        log(e.toString());
+        emit(CartPageError(e.toString()));
+      }
+    }
+  }
+
+  Future<void> addCartItem(int id) async {
+    emit(CartPageLoading());
     try {
       const storage = FlutterSecureStorage();
       var token = await storage.read(key: 'token');
-      var response = await http.get(
+      var response = await http.post(
         Uri.parse(EndPoints.cart),
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer $token",
         },
+        body: jsonEncode({'event_id': id}),
       );
       var data = jsonDecode(response.body);
-      CartItemList eventList = CartItemList.fromJson(data);
-      log(eventList.cartItems.toString());
-      emit(CartPageLoaded(eventList));
+      if (response.statusCode == 400) {
+        emit(CartItemNotAdded(data['error']));
+      }
+      emit(CartItemAdded(jsonDecode(response.body)['msg']));
     } catch (e) {
       log(e.toString());
-      emit(CartPageError());
+      emit(CartItemNotAdded(e.toString()));
+    }
+  }
+
+  Future<void> deleteItem(int id) async {
+    emit(CartPageLoading());
+    try {
+      const storage = FlutterSecureStorage();
+      var token = await storage.read(key: 'token');
+      var response = await http.post(
+        Uri.parse('${EndPoints.cart}$id'),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $token",
+        },
+      );
+      log(response.body);
+      emit(CartItemDeleted('Item deleted from cart'));
+    } catch (e) {
+      log(e.toString());
+      emit(CartItemNotDeleted(e.toString()));
     }
   }
 }

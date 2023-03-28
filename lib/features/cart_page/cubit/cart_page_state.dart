@@ -10,4 +10,27 @@ class CartPageLoaded extends CartPageState {
   CartPageLoaded(this.cartList);
 }
 
-class CartPageError extends CartPageState {}
+class CartPageError extends CartPageState {
+  final String message;
+  CartPageError(this.message);
+}
+
+class CartItemAdded extends CartPageState {
+  final String message;
+  CartItemAdded(this.message);
+}
+
+class CartItemNotAdded extends CartPageState {
+  final String message;
+  CartItemNotAdded(this.message);
+}
+
+class CartItemDeleted extends CartPageState {
+  final String message;
+  CartItemDeleted(this.message);
+}
+
+class CartItemNotDeleted extends CartPageState {
+  final String message;
+  CartItemNotDeleted(this.message);
+}

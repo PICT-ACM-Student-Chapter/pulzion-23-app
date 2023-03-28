@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pulzion23/features/cart_page/cubit/cart_page_cubit.dart';
 import '../../../config/size_config.dart';
 import '../../../constants/models/event_model.dart';
 
@@ -80,44 +82,65 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
               ),
             ),
             Expanded(
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ComingSoonPage(),
-                    ),
-                  );
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.blueAccent,
-                    borderRadius: BorderRadius.circular(12),
-                    gradient: const LinearGradient(
-                      colors: [Color(0xff07f49e), Color(0xff42047e)],
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Add to Cart  ",
-                          style: AppStyles.bodyTextStyle3().copyWith(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+              child: BlocProvider(
+                create: (context) => CartPageCubit(),
+                child: BlocConsumer<CartPageCubit, CartPageState>(
+                  listener: (context, state) {
+                    if (state is CartItemAdded) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(state.message),
+                          backgroundColor: Colors.green,
+                        ),
+                      );
+                      Navigator.pop(context);
+                    } else if (state is CartItemNotAdded) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(state.message),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                      Navigator.pop(context);
+                    }
+                  },
+                  builder: (context, state) {
+                    return InkWell(
+                      onTap: () {
+                        BlocProvider.of<CartPageCubit>(context).addCartItem(event.id!);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.blueAccent,
+                          borderRadius: BorderRadius.circular(12),
+                          gradient: const LinearGradient(
+                            colors: [Color(0xff07f49e), Color(0xff42047e)],
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
                           ),
                         ),
-                        const Icon(
-                          Icons.shopping_cart,
-                          color: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Add to Cart  ",
+                                style: AppStyles.bodyTextStyle3().copyWith(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const Icon(
+                                Icons.shopping_cart,
+                                color: Colors.white,
+                              ),
+                            ],
+                          ),
                         ),
-                      ],
-                    ),
-                  ),
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
