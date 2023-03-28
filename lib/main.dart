@@ -10,6 +10,7 @@ import 'package:lottie/lottie.dart';
 import 'config/remote_config.dart';
 import 'constants/images.dart';
 import 'constants/utils/theme.dart';
+import 'features/cart_page/cubit/cart_page_cubit.dart';
 import 'features/compulsory_update/cubit/compulsory_update_cubit.dart';
 import 'features/compulsory_update/ui/compulsary_update.dart';
 import 'features/home_page/logic/event_details_cubit_cubit.dart';
@@ -69,6 +70,9 @@ class Pulzion23App extends StatelessWidget {
         BlocProvider(
           create: (context) => CompulsoryUpdateCubit()..needsUpdate(),
         ),
+        BlocProvider(
+          create: (context) => CartPageCubit()..loadCart(),
+        ),
       ],
       child: MaterialApp(
         title: 'Pulzion 23',
@@ -88,8 +92,7 @@ class Pulzion23App extends StatelessWidget {
               if (state is CompulsoryUpdateLoading) {
                 return Scaffold(
                   body: Center(
-                    child:
-                        Center(child: Lottie.asset(AppImages.loadingAnimation)),
+                    child: Center(child: Lottie.asset(AppImages.loadingAnimation)),
                   ),
                 );
               } else if (state is CompulsoryUpdateNeeded) {

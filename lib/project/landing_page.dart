@@ -52,18 +52,8 @@ class BottomNavBar extends StatelessWidget {
                   } else if (state is BottomBarHome) {
                     return const HomePageContent();
                   } else if (state is BottomBarCart) {
-                    return Center(
-                     child: MultiBlocProvider(
-                        providers: [
-                          BlocProvider(
-                            create: (context) => CartPageCubit()..loadCart(),
-                          ),
-                          BlocProvider.value(
-                           value: BlocProvider.of<CheckLoginCubit>(context),
-                          ),
-                        ],
-                        child: const CartPageFinal(),
-                      ),
+                    return const Center(
+                     child: CartPageFinal(),
                     );
                   } else {
                     return const FrostedGlassTile();

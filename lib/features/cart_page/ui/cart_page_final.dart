@@ -2,163 +2,50 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pulzion23/constants/widgets/error_dialog.dart';
-import 'package:pulzion23/features/cart_page/ui/cart_page_body.dart';
+import 'package:pulzion23/features/cart_page/ui/widgets/cart_page_content.dart';
 
-import '../../../constants/colors.dart';
 import '../../../constants/images.dart';
-import '../../../constants/styles.dart';
 import '../../login_page/cubit/check_login_cubit.dart';
-import '../../login_page/logic/login_cubit.dart';
-import '../../login_page/logic/sign_up_cubit.dart';
-import '../../login_page/ui/login.dart';
-import '../../login_page/ui/login_signup_intro.dart';
-import '../../login_page/ui/sign_up.dart';
 import '../cubit/cart_page_cubit.dart';
+import 'widgets/needs_login_page.dart';
 
 class CartPageFinal extends StatelessWidget {
   const CartPageFinal({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
+    return BlocProvider.value(
+      value: BlocProvider.of<CartPageCubit>(context),
+      child: BlocBuilder<CheckLoginCubit, CheckLoginState>(
+        builder: (context, loginState) {
+          return loginState is CheckLoginSuccess
+              ? BlocBuilder<CartPageCubit, CartPageState>(
+                  builder: (context, state) {
+                    if (state is CartPageLoading) {
+                      return Center(child: Center(child: Lottie.asset(AppImages.loadingAnimation)));
+                    } else if (state is CartPageLoaded) {
+                      return CartPageContent(state.cartList);
+                    } else if (state is CartPageError) {
+                      return Center(
+                        child: ErrorDialog(
+                          state.message,
+                          refreshFunction: () => BlocProvider.of<CartPageCubit>(context).loadCart(),
+                        ),
+                      );
+                    }
 
-    return BlocBuilder<CheckLoginCubit, CheckLoginState>(
-      builder: (context, loginState) {
-        return BlocBuilder<CartPageCubit, CartPageState>(
-          builder: (context, state) {
-            if (loginState is CheckLoginSuccess) {
-              if (state is CartPageLoading) {
-                return Center(
-                  child: Center(child: Lottie.asset(AppImages.loadingAnimation)),
-                );
-              } else if (state is CartPageLoaded) {
-                return CartPageContent(
-                  state.cartList,
-                );
-              } else if (state is CartPageError) {
-                return Center(
-                  child: ErrorDialog(
-                    'Error in Cart Page initialization',
-                    refreshFunction: () => CartPageCubit()..loadCart(),
-                  ),
-                );
-              }
-
-              return Center(
-                child: Center(child: Lottie.asset(AppImages.loadingAnimation)),
-              );
-            } else {
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text(
-                        "You haven't logged in!",
-                        style: AppStyles.bodyTextStyle3().copyWith(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
+                    return Center(
+                      child: Center(
+                        child: Lottie.asset(
+                          AppImages.loadingAnimation,
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text(
-                        "Please login to continue.",
-                        style: AppStyles.bodyTextStyle3().copyWith(
-                          color: Colors.white,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(16.0),
-                      height: size.height * 0.075,
-                      width: size.width * 0.6,
-                      decoration: BoxDecoration(
-                        color: AppColors.primary.withAlpha(200),
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(20),
-                        ),
-                        border: const Border.fromBorderSide(
-                          BorderSide(
-                            color: AppColors.cardBorder,
-                            width: 1.5,
-                          ),
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => BlocProvider(
-                                      create: (context) => SignUpCubit(),
-                                      child: const SignUp(),
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Center(
-                                child: Text(
-                                  'Register',
-                                  style: AppStyles.bodyTextStyle3().copyWith(
-                                    fontSize: 15,
-                                    color: AppColors.cardTitleTextColor,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          const VerticalDivider(
-                            color: AppColors.cardBorder,
-                            width: 2,
-                            thickness: 2,
-                            indent: 8.0,
-                            endIndent: 8.0,
-                          ),
-                          Expanded(
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => BlocProvider(
-                                      create: (context) => LoginCubit(),
-                                      child: const Login(),
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Center(
-                                child: Text(
-                                  'Sign In',
-                                  style: AppStyles.bodyTextStyle3().copyWith(
-                                    fontSize: 15,
-                                    color: AppColors.cardTitleTextColor,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            }
-          },
-        );
-      },
+                    );
+                  },
+                )
+              : const NeedsLoginPage();
+        },
+      ),
     );
   }
 }

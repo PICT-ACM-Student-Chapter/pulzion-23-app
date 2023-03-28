@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pulzion23/constants/images.dart';
-import 'package:pulzion23/constants/models/event_model.dart';
 
-import '../../../constants/colors.dart';
-import '../../../constants/models/cart_model.dart';
-import '../../../constants/styles.dart';
+import '../../../../constants/models/cart_model.dart';
+import '../../../../constants/styles.dart';
+import '../../cubit/cart_page_cubit.dart';
 import 'cart_list_tile.dart';
 
 class CartPageContent extends StatelessWidget {
@@ -16,19 +16,6 @@ class CartPageContent extends StatelessWidget {
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
-
-    if (eventList == null) {
-      return Center(
-        child: Text(
-          "Cart is empty.",
-          style: AppStyles.bodyTextStyle3().copyWith(
-            color: Colors.white,
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-      );
-    }
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -63,7 +50,7 @@ class CartPageContent extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "TOTAL : ₹${eventList!.cartItems!.fold(0, (previousValue, element) => previousValue + element.price!)} ",
+                          "TOTAL : ₹${eventList == null || eventList!.cartItems == null ? 0 : eventList!.cartItems!.fold(0, (previousValue, element) => previousValue + element.price!)} ",
                           style: AppStyles.bodyTextStyle3().copyWith(
                             color: Colors.white,
                             fontSize: 18,
@@ -71,7 +58,7 @@ class CartPageContent extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          "(${eventList!.cartItems!.length} items)",
+                          "(${eventList == null || eventList!.cartItems == null ? 0 : eventList!.cartItems!.length} items)",
                           style: AppStyles.bodyTextStyle3().copyWith(
                             color: Colors.white,
                             fontSize: 12,
@@ -125,27 +112,53 @@ class CartPageContent extends StatelessWidget {
           ],
         ),
         Expanded(
-          child: ListView.builder(
-            itemBuilder: (context, index) {
-              return index == 0
-                  ? Column(children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 16.0),
-                        child: Text(
-                          "Items",
-                          style: AppStyles.bodyTextStyle2().copyWith(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
-                      CartListTile(eventList!.cartItems![index]),
-                    ])
-                  : CartListTile(eventList!.cartItems![index]);
-            },
-            itemCount: eventList!.cartItems!.length,
-          ),
+          child: eventList == null || eventList!.cartItems == null
+              ? Center(
+                  child: Text(
+                    "Cart is empty.",
+                    style: AppStyles.bodyTextStyle3().copyWith(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                )
+              : BlocBuilder<CartPageCubit, CartPageState>(
+                  buildWhen: (previous, current) {
+                    if (previous is CartItemDeleted) {
+                      return true;
+                    }
+
+                    return false;
+                  },
+                  builder: (context, state) {
+                    return ListView.builder(
+                      itemBuilder: (context, index) {
+                        return index == 0
+                            ? Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 16.0),
+                                    child: Text(
+                                      "Items",
+                                      style: AppStyles.bodyTextStyle2().copyWith(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ),
+                                  CartListTile(eventList!.cartItems![index]),
+                                ],
+                              )
+                            : CartListTile(
+                                eventList!.cartItems![index],
+                              );
+                      },
+                      itemCount: eventList!.cartItems!.length,
+                    );
+                  },
+                ),
         ),
       ],
     );

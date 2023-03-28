@@ -1,13 +1,16 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pulzion23/constants/models/cart_model.dart';
 import 'package:pulzion23/features/cart_page/cubit/cart_page_cubit.dart';
+import 'package:pulzion23/features/event_description/ui/widgets/button.dart';
 import '../../../config/size_config.dart';
 import '../../../constants/models/event_model.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/images.dart';
 import '../../../constants/styles.dart';
-import '../../../pages/more_page/ui/coming_soon.dart';
 
 class EventDescription extends StatefulWidget {
   final Events? event;
@@ -82,8 +85,8 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
               ),
             ),
             Expanded(
-              child: BlocProvider(
-                create: (context) => CartPageCubit(),
+              child: BlocProvider.value(
+                value: BlocProvider.of<CartPageCubit>(context),
                 child: BlocConsumer<CartPageCubit, CartPageState>(
                   listener: (context, state) {
                     if (state is CartItemAdded) {
@@ -93,7 +96,7 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                           backgroundColor: Colors.green,
                         ),
                       );
-                      Navigator.pop(context);
+                      BlocProvider.of<CartPageCubit>(context).loadCart();
                     } else if (state is CartItemNotAdded) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -101,44 +104,99 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                           backgroundColor: Colors.red,
                         ),
                       );
-                      Navigator.pop(context);
+                      BlocProvider.of<CartPageCubit>(context).loadCart();
+                    } else if (state is CartItemDeleted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(state.message),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                      BlocProvider.of<CartPageCubit>(context).loadCart();
+                    } else if (state is CartItemNotDeleted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(state.message),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                      BlocProvider.of<CartPageCubit>(context).loadCart();
                     }
                   },
                   builder: (context, state) {
-                    return InkWell(
-                      onTap: () {
-                        BlocProvider.of<CartPageCubit>(context).addCartItem(event.id!);
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.blueAccent,
-                          borderRadius: BorderRadius.circular(12),
-                          gradient: const LinearGradient(
-                            colors: [Color(0xff07f49e), Color(0xff42047e)],
-                            begin: Alignment.centerLeft,
-                            end: Alignment.centerRight,
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Add to Cart  ",
-                                style: AppStyles.bodyTextStyle3().copyWith(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const Icon(
-                                Icons.shopping_cart,
+                    if (state is CartPageLoaded) {
+                      var cartItems;
+                      cartItems = state.cartList.cartItems == null
+                          ? []
+                          : List.generate(state.cartList.cartItems!.length,
+                              (index) => state.cartList.cartItems![index].id);
+                      if (cartItems.contains(event.id)) {
+                        return EventDescriptionPageButton(
+                          'Added to Cart',
+                          Icons.check_rounded,
+                          () {
+                            BlocProvider.of<CartPageCubit>(context).deleteItem(
+                              event.id!,
+                            );
+                          },
+                        );
+                      } else if (event.price == 0) {
+                        return EventDescriptionPageButton(
+                          'Register Now',
+                          Icons.edit_rounded,
+                          () {
+                            log('Register');
+                          },
+                        );
+                      } else {
+                        return EventDescriptionPageButton(
+                          'Add to Cart',
+                          Icons.shopping_cart,
+                          () {
+                            BlocProvider.of<CartPageCubit>(context).addCartItem(
+                              event.id!,
+                            );
+                          },
+                        );
+                      }
+                    }
+
+                    return EventDescriptionPageButton(
+                      'Add to Cart',
+                      Icons.shopping_cart,
+                      () {
+                        showDialog(
+                          context: context,
+                          builder: (context)=>AlertDialog(
+                            backgroundColor: Colors.black,
+                            title: const Text(
+                              'Error',
+                              style: TextStyle(
                                 color: Colors.white,
+                              ),
+                            ),
+                            content: const Text(
+                              'You need to login to add items to cart',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Text(
+                                  'OK',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
                               ),
                             ],
                           ),
-                        ),
-                      ),
+                        );
+                      },
                     );
                   },
                 ),

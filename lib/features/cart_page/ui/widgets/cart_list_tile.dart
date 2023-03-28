@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../constants/colors.dart';
-import '../../../constants/models/cart_model.dart';
-import '../../../constants/models/event_model.dart';
-import '../../../constants/styles.dart';
-import '../cubit/cart_page_cubit.dart';
+import '../../../../constants/colors.dart';
+import '../../../../constants/models/cart_model.dart';
+import '../../../../constants/styles.dart';
+import '../../cubit/cart_page_cubit.dart';
 
 class CartListTile extends StatelessWidget {
   final CartItem event;
@@ -19,7 +18,13 @@ class CartListTile extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: w * 0.025, vertical: h * 0.0075),
       child: Container(
         decoration: BoxDecoration(
-          color: AppColors.primary.withAlpha(50),
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: AppColors.eventCardGradientList.elementAt(
+              event.id! % AppColors.eventCardGradientList.length,
+            ),
+          ),
           borderRadius: const BorderRadius.all(
             Radius.circular(20),
           ),
@@ -87,7 +92,9 @@ class CartListTile extends StatelessWidget {
                 },
                 builder: ((context, state) {
                   return IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      BlocProvider.of<CartPageCubit>(context).deleteItem(event.id!);
+                    },
                     icon: const Icon(
                       Icons.delete_outline_rounded,
                       color: Colors.red,

@@ -1,12 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:pulzion23/constants/models/event_model.dart';
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../../../constants/models/cart_model.dart';
-import '../../../constants/static_objects.dart';
 import '../../../constants/urls.dart';
 
 part 'cart_page_state.dart';
@@ -19,9 +17,7 @@ class CartPageCubit extends Cubit<CartPageState> {
 
     const storage = FlutterSecureStorage();
     var token = await storage.read(key: 'token');
-    if (token == null) {
-      loadCart();
-    } else {
+    if (token != null) {
       try {
         var response = await http.get(
           Uri.parse(EndPoints.cart),
@@ -30,12 +26,25 @@ class CartPageCubit extends Cubit<CartPageState> {
             "Authorization": "Bearer $token",
           },
         );
+
         var data = jsonDecode(response.body);
-        CartItemList eventList = CartItemList.fromJson(data);
-        log(data.toString());
-        emit(CartPageLoaded(eventList));
+
+        if ((response.statusCode / 100).floor() == 2) {
+          log('Load cart response status code: ${response.statusCode}');
+          log('Load cart response data: $data');
+          CartItemList eventList = CartItemList.fromJson(data);
+          emit(CartPageLoaded(eventList));
+        } else if (response.statusCode == 404) {
+          log('Load cart response status code: ${response.statusCode}');
+          log('Load cart response error: ${data['error']}');
+          emit(CartPageLoaded(CartItemList()));
+        } else {
+          log('Load cart response status code: ${response.statusCode}');
+          log('Load cart response error: ${data['error']}');
+          emit(CartPageError(data['error'].toString()));
+        }
       } catch (e) {
-        log(e.toString());
+        log('Load cart exception: $e');
         emit(CartPageError(e.toString()));
       }
     }
@@ -54,11 +63,18 @@ class CartPageCubit extends Cubit<CartPageState> {
         },
         body: jsonEncode({'event_id': id}),
       );
+
       var data = jsonDecode(response.body);
-      if (response.statusCode == 400) {
-        emit(CartItemNotAdded(data['error']));
+
+      if ((response.statusCode / 100).floor() == 2) {
+        log('Add item response status code: ${response.statusCode}');
+        log('Add item response data message: ${data['msg']}');
+        emit(CartItemAdded(data['msg'].toString()));
+      } else {
+        log('Add item response status code: ${response.statusCode}');
+        log('Add item response error: ${data['error']}');
+        emit(CartItemNotAdded(data['error'].toString()));
       }
-      emit(CartItemAdded(jsonDecode(response.body)['msg']));
     } catch (e) {
       log(e.toString());
       emit(CartItemNotAdded(e.toString()));
@@ -70,18 +86,29 @@ class CartPageCubit extends Cubit<CartPageState> {
     try {
       const storage = FlutterSecureStorage();
       var token = await storage.read(key: 'token');
-      var response = await http.post(
+      var response = await http.delete(
         Uri.parse('${EndPoints.cart}$id'),
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer $token",
         },
       );
-      log(response.body);
-      emit(CartItemDeleted('Item deleted from cart'));
+
+      var data = jsonDecode(response.body);
+
+      if ((response.statusCode / 100).floor() == 2) {
+        log('Delete response status code: ${response.statusCode}');
+        log('Delete response data message: ${data['msg']}');
+        emit(CartItemDeleted(data['msg'].toString()));
+      } else {
+        log('Delete response status code: ${response.statusCode}');
+        log('Delete response error: ${data['error']}');
+        emit(CartItemNotDeleted(data['error'].toString()));
+      }
     } catch (e) {
       log(e.toString());
       emit(CartItemNotDeleted(e.toString()));
     }
+    loadCart();
   }
 }
