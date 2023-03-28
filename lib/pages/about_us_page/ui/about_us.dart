@@ -63,39 +63,27 @@ class AboutUsPage extends StatelessWidget {
                               shape: BoxShape.circle,
                               color: Color.fromARGB(255, 21, 68, 102),
                             ),
-                            child: Row(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Column(children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      top: height / 65,
-                                      left: width / 20,
-                                    ),
-                                    child: Countup(
-                                      begin: 0,
-                                      end: 16,
-                                      duration: const Duration(seconds: 1),
-                                      separator: ',',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: width / 13,
-                                      ),
-                                    ),
+                                Countup(
+                                  begin: 0,
+                                  end: 16,
+                                  duration: const Duration(seconds: 1),
+                                  separator: ',',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: width / 13,
                                   ),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      left: width / 17,
-                                      top: height / 78,
-                                    ),
-                                    child: Text(
-                                      "EVENTS",
-                                      style: TextStyle(
-                                        fontSize: width / 25,
-                                        color: Colors.white,
-                                      ),
-                                    ),
+                                ),
+                                Text(
+                                  "EVENTS",
+                                  style: TextStyle(
+                                    fontSize: width / 25,
+                                    color: Colors.white,
                                   ),
-                                ]),
+                                ),
                               ],
                             ),
                           ),
@@ -111,39 +99,27 @@ class AboutUsPage extends StatelessWidget {
                               shape: BoxShape.circle,
                               color: Color.fromARGB(255, 21, 68, 102),
                             ),
-                            child: Row(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Column(children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      top: height / 65,
-                                      left: width / 45,
-                                    ),
-                                    child: Countup(
-                                      begin: 0,
-                                      end: 600,
-                                      duration: const Duration(seconds: 1),
-                                      separator: ',',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: width / 13,
-                                      ),
-                                    ),
+                                Countup(
+                                  begin: 0,
+                                  end: 600,
+                                  duration: const Duration(seconds: 1),
+                                  separator: ',',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: width / 13,
                                   ),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      top: height / 78,
-                                      left: width / 40,
-                                    ),
-                                    child: Text(
-                                      "VOLUNTEERS",
-                                      style: TextStyle(
-                                        fontSize: width / 27,
-                                        color: Colors.white,
-                                      ),
-                                    ),
+                                ),
+                                Text(
+                                  "VOLUNTEERS",
+                                  style: TextStyle(
+                                    fontSize: width / 27,
+                                    color: Colors.white,
                                   ),
-                                ]),
+                                ),
                               ],
                             ),
                           ),
