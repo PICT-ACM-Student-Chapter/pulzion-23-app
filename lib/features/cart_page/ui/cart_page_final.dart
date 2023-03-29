@@ -1,3 +1,6 @@
+
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
@@ -14,38 +17,60 @@ class CartPageFinal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: BlocProvider.of<CartPageCubit>(context),
-      child: BlocBuilder<CheckLoginCubit, CheckLoginState>(
-        builder: (context, loginState) {
-          return loginState is CheckLoginSuccess
-              ? BlocBuilder<CartPageCubit, CartPageState>(
-                  builder: (context, state) {
-                    if (state is CartPageLoading) {
-                      return Center(child: Center(child: Lottie.asset(AppImages.loadingAnimation)));
-                    } else if (state is CartPageLoaded) {
-                      return CartPageContent(state.cartList);
-                    } else if (state is CartPageError) {
-                      return Center(
-                        child: ErrorDialog(
-                          state.message,
-                          refreshFunction: () => BlocProvider.of<CartPageCubit>(context).loadCart(),
-                        ),
-                      );
-                    }
-
+    return BlocBuilder<CheckLoginCubit, CheckLoginState>(
+      builder: (context, loginState) {
+        return loginState is CheckLoginSuccess
+            ? BlocConsumer<CartPageCubit, CartPageState>(
+                listener: (context, state) {
+                  if (state is CartPageReload) {
+                    log("kjyiu");
+                  }
+                },
+                listenWhen: (previous, current) {
+                  if (current is CartPageReload) return true;
+                  return false;
+                },
+                buildWhen: (previous, current) {
+                  if (current is CartPageLoading ||
+                      current is CartPageReload ||
+                      current is CartPageLoaded ||
+                      current is CartPageError) return true;
+                  return false;
+                },
+                builder: (context, state) {
+                  if (state is CartPageLoading) {
+                    return Center(child: Center(child: Lottie.asset(AppImages.loadingAnimation)));
+                  } else if (state is CartEmpty) {
                     return Center(
-                      child: Center(
-                        child: Lottie.asset(
-                          AppImages.loadingAnimation,
-                        ),
+                      child: ErrorDialog(
+                        'Cart is Empty',
+                        refreshFunction: () {
+                          BlocProvider.of<CartPageCubit>(context).loadCart();
+                        },
                       ),
                     );
-                  },
-                )
-              : const NeedsLoginPage();
-        },
-      ),
+                  } else if (state is CartPageLoaded) {
+                    return CartPageContent(state.cartList);
+                  } else if (state is CartPageError) {
+                    return Center(
+                      child: ErrorDialog(
+                        state.message,
+                        refreshFunction: () => BlocProvider.of<CartPageCubit>(context).loadCart(),
+                      ),
+                    );
+                  }
+
+                  return Center(
+                    child: Center(
+                      child: Lottie.asset(
+                        AppImages.loadingAnimation,
+                      ),
+                    ),
+                  );
+                },
+              )
+            : const NeedsLoginPage();
+      },
     );
   }
 }

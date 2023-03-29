@@ -18,17 +18,16 @@ class CartPageCubit extends Cubit<CartPageState> {
     const storage = FlutterSecureStorage();
     var token = await storage.read(key: 'token');
     if (token != null) {
+      var response;
       try {
-        var response = await http.get(
+        response = await http.get(
           Uri.parse(EndPoints.cart),
           headers: {
             "Content-Type": "application/json",
             "Authorization": "Bearer $token",
           },
         );
-
         var data = jsonDecode(response.body);
-
         if ((response.statusCode / 100).floor() == 2) {
           log('Load cart response status code: ${response.statusCode}');
           log('Load cart response data: $data');
@@ -37,25 +36,31 @@ class CartPageCubit extends Cubit<CartPageState> {
         } else if (response.statusCode == 404) {
           log('Load cart response status code: ${response.statusCode}');
           log('Load cart response error: ${data['error']}');
-          emit(CartPageLoaded(CartItemList()));
+          emit(CartEmpty());
         } else {
           log('Load cart response status code: ${response.statusCode}');
           log('Load cart response error: ${data['error']}');
           emit(CartPageError(data['error'].toString()));
         }
       } catch (e) {
-        log('Load cart exception: $e');
-        emit(CartPageError(e.toString()));
+        if (response == null) {
+          log('Load cart exception: $e');
+          emit(CartPageError('Failed host lookup.'));
+        } else {
+          log('Load cart exception: $e');
+          emit(CartPageError(e.toString()));
+        }
       }
     }
   }
 
   Future<void> addCartItem(int id) async {
     emit(CartPageLoading());
+    var response;
     try {
       const storage = FlutterSecureStorage();
       var token = await storage.read(key: 'token');
-      var response = await http.post(
+      response = await http.post(
         Uri.parse(EndPoints.cart),
         headers: {
           "Content-Type": "application/json",
@@ -76,17 +81,24 @@ class CartPageCubit extends Cubit<CartPageState> {
         emit(CartItemNotAdded(data['error'].toString()));
       }
     } catch (e) {
-      log(e.toString());
-      emit(CartItemNotAdded(e.toString()));
+      if (response == null) {
+        log('Load cart exception: $e');
+        emit(CartPageError('Failed host lookup.'));
+      } else {
+        log('Load cart exception: $e');
+        emit(CartPageError(e.toString()));
+      }
     }
+    loadCart();
   }
 
   Future<void> deleteItem(int id) async {
     emit(CartPageLoading());
+    var response;
     try {
       const storage = FlutterSecureStorage();
       var token = await storage.read(key: 'token');
-      var response = await http.delete(
+      response = await http.delete(
         Uri.parse('${EndPoints.cart}$id'),
         headers: {
           "Content-Type": "application/json",
@@ -100,15 +112,23 @@ class CartPageCubit extends Cubit<CartPageState> {
         log('Delete response status code: ${response.statusCode}');
         log('Delete response data message: ${data['msg']}');
         emit(CartItemDeleted(data['msg'].toString()));
+        await loadCart();
       } else {
         log('Delete response status code: ${response.statusCode}');
         log('Delete response error: ${data['error']}');
         emit(CartItemNotDeleted(data['error'].toString()));
+        await loadCart();
       }
+      emit(CartPageReload());
+      log("emited state");
     } catch (e) {
-      log(e.toString());
-      emit(CartItemNotDeleted(e.toString()));
+      if (response == null) {
+        log('Load cart exception: $e');
+        emit(CartPageError('Failed host lookup.'));
+      } else {
+        log('Load cart exception: $e');
+        emit(CartPageError(e.toString()));
+      }
     }
-    loadCart();
   }
 }

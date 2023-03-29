@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:pulzion23/constants/models/cart_model.dart';
 import 'package:pulzion23/features/cart_page/cubit/cart_page_cubit.dart';
 import 'package:pulzion23/features/event_description/ui/widgets/button.dart';
@@ -11,6 +12,7 @@ import '../../../constants/models/event_model.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/images.dart';
 import '../../../constants/styles.dart';
+import '../../login_page/cubit/check_login_cubit.dart';
 
 class EventDescription extends StatefulWidget {
   final Events? event;
@@ -85,89 +87,129 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
               ),
             ),
             Expanded(
-              child: BlocProvider.value(
-                value: BlocProvider.of<CartPageCubit>(context),
-                child: BlocConsumer<CartPageCubit, CartPageState>(
-                  listener: (context, state) {
-                    if (state is CartItemAdded) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(state.message),
-                          backgroundColor: Colors.green,
-                        ),
-                      );
-                      BlocProvider.of<CartPageCubit>(context).loadCart();
-                    } else if (state is CartItemNotAdded) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(state.message),
-                          backgroundColor: Colors.red,
-                        ),
-                      );
-                      BlocProvider.of<CartPageCubit>(context).loadCart();
-                    } else if (state is CartItemDeleted) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(state.message),
-                          backgroundColor: Colors.red,
-                        ),
-                      );
-                      BlocProvider.of<CartPageCubit>(context).loadCart();
-                    } else if (state is CartItemNotDeleted) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(state.message),
-                          backgroundColor: Colors.red,
-                        ),
-                      );
-                      BlocProvider.of<CartPageCubit>(context).loadCart();
-                    }
-                  },
-                  builder: (context, state) {
-                    if (state is CartPageLoaded) {
-                      var cartItems;
-                      cartItems = state.cartList.cartItems == null
-                          ? []
-                          : List.generate(state.cartList.cartItems!.length,
-                              (index) => state.cartList.cartItems![index].id);
-                      if (cartItems.contains(event.id)) {
-                        return EventDescriptionPageButton(
-                          'Added to Cart',
-                          Icons.check_rounded,
-                          () {
-                            BlocProvider.of<CartPageCubit>(context).deleteItem(
-                              event.id!,
+              child: BlocBuilder<CheckLoginCubit, CheckLoginState>(
+                builder: (context, state) {
+                  if (state is CheckLoginLoading) {
+                    return Center(child: Center(child: Lottie.asset(AppImages.loadingAnimation)));
+                  } else if (state is CheckLoginSuccess) {
+                    return BlocConsumer<CartPageCubit, CartPageState>(
+                      listener: (context, state) {
+                        if (state is CartItemAdded) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(state.message),
+                              backgroundColor: Colors.green,
+                            ),
+                          );
+                          // BlocProvider.of<CartPageCubit>(context).loadCart();
+                        } else if (state is CartItemNotAdded) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(state.message),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                          // BlocProvider.of<CartPageCubit>(context).loadCart();
+                        } else if (state is CartItemDeleted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(state.message),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                          // BlocProvider.of<CartPageCubit>(context).loadCart();
+                        } else if (state is CartItemNotDeleted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(state.message),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                          // BlocProvider.of<CartPageCubit>(context).loadCart();
+                        }
+                      },
+                      builder: (context, state) {
+                        if (state is CartPageLoading) {
+                          return SizedBox(
+                            height: h / 12,
+                            child: const Center(
+                              child: Padding(
+                                padding: EdgeInsets.all(12.0),
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          );
+                        } else if (state is CartPageLoaded) {
+                          var cartItems = state.cartList.cartItems == null
+                              ? []
+                              : List.generate(
+                                  state.cartList.cartItems!.length,
+                                  (index) => state.cartList.cartItems![index].id,
+                                );
+                          if (cartItems.contains(event.id)) {
+                            return EventDescriptionPageButton(
+                              'Delete from Cart',
+                              Icons.delete_rounded,
+                              () {
+                                BlocProvider.of<CartPageCubit>(context).deleteItem(
+                                  event.id!,
+                                );
+                              },
                             );
-                          },
-                        );
-                      } else if (event.price == 0) {
-                        return EventDescriptionPageButton(
-                          'Register Now',
-                          Icons.edit_rounded,
-                          () {
-                            log('Register');
-                          },
-                        );
-                      } else {
+                          } else if (event.price == 0) {
+                            return EventDescriptionPageButton(
+                              'Register Now',
+                              Icons.edit_rounded,
+                              () {
+                                log('Register');
+                              },
+                            );
+                          } else {
+                            return EventDescriptionPageButton(
+                              'Add to Cart',
+                              Icons.shopping_cart,
+                              () {
+                                BlocProvider.of<CartPageCubit>(context).addCartItem(
+                                  event.id!,
+                                );
+                              },
+                            );
+                          }
+                        } else if (state is CartEmpty) {
+                          return event.price == 0
+                              ? EventDescriptionPageButton(
+                                  'Register Now',
+                                  Icons.edit_rounded,
+                                  () {
+                                    log('Register');
+                                  },
+                                )
+                              : EventDescriptionPageButton(
+                                  'Add to Cart',
+                                  Icons.shopping_cart,
+                                  () {
+                                    BlocProvider.of<CartPageCubit>(context).addCartItem(event.id!);
+                                  },
+                                );
+                        }
+
                         return EventDescriptionPageButton(
                           'Add to Cart',
                           Icons.shopping_cart,
-                          () {
-                            BlocProvider.of<CartPageCubit>(context).addCartItem(
-                              event.id!,
-                            );
-                          },
+                          () {},
                         );
-                      }
-                    }
-
+                      },
+                    );
+                  } else {
                     return EventDescriptionPageButton(
                       'Add to Cart',
                       Icons.shopping_cart,
                       () {
                         showDialog(
                           context: context,
-                          builder: (context)=>AlertDialog(
+                          builder: (context) => AlertDialog(
                             backgroundColor: Colors.black,
                             title: const Text(
                               'Error',
@@ -198,8 +240,8 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                         );
                       },
                     );
-                  },
-                ),
+                  }
+                },
               ),
             ),
           ],
