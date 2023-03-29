@@ -11,4 +11,5 @@ class EndPoints {
   static String login = '${baseUrl!}/user/signin';
   static String signup = '${baseUrl!}/user/signup';
   static String addFCMToken = '${baseUrl!}/fcm_token/';
+  static String eventslots = '${baseUrl!}/user_events';
 }
