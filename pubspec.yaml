@@ -36,7 +36,8 @@ dependencies:
     logger: ^1.2.2
     glowstone: ^0.0.2
     package_info: ^2.0.2
-
+    ticket_widget: ^0.0.1
+    dotted_line: ^3.1.0
 
 
 dev_dependencies:
