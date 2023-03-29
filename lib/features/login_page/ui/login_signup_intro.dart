@@ -19,9 +19,6 @@ class LoginSignUpIntro extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    var padding = MediaQuery.of(context).padding;
-
     return Stack(
       children: [
         Panorama(
@@ -45,133 +42,147 @@ class LoginSignUpIntro extends StatelessWidget {
             ),
           ),
           backgroundColor: Colors.transparent,
-          body: Container(
-            margin: EdgeInsets.only(
-              left: padding.top / 2,
-              right: padding.top / 2,
-              bottom: padding.top / 2 + 20,
+          body: const LoginSignupBody(),
+        ),
+      ],
+    );
+  }
+}
+
+class LoginSignupBody extends StatelessWidget {
+  const LoginSignupBody({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    var padding = MediaQuery.of(context).padding;
+
+    return Container(
+      margin: EdgeInsets.only(
+        left: padding.top / 2,
+        right: padding.top / 2,
+        bottom: padding.top / 2 + 20,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            height: size.height * 0.5,
+            width: size.height * 0.5,
+            decoration: BoxDecoration(
+              color: AppColors.primary.withAlpha(150),
+              borderRadius: const BorderRadius.all(
+                Radius.circular(20),
+              ),
+              border: const Border.fromBorderSide(
+                BorderSide(
+                  color: AppColors.cardBorder,
+                  width: 0.2,
+                ),
+              ),
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+            child: Lottie.asset(AppImages.djAstronaut),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                'Pulzion \'23',
+                style: AppStyles.bodyTextStyle2().copyWith(
+                  fontSize: SizeConfig.getProportionateScreenFontSize(35),
+                ),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                textAlign: TextAlign.center,
+                'A 3-day event that includes a plethora of events and workshops, and is a platform for students to showcase their talents and skills.',
+                style: AppStyles.bodyTextStyle3(),
+              ),
+            ],
+          ),
+          Container(
+            height: size.height * 0.075,
+            width: size.width * 0.6,
+            decoration: BoxDecoration(
+              color: AppColors.primary.withAlpha(200),
+              borderRadius: const BorderRadius.all(
+                Radius.circular(20),
+              ),
+              border: const Border.fromBorderSide(
+                BorderSide(
+                  color: AppColors.cardBorder,
+                  width: 1.5,
+                ),
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(
-                  height: size.height * 0.5,
-                  width: size.height * 0.5,
-                  decoration: BoxDecoration(
-                    color: AppColors.primary.withAlpha(150),
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(20),
-                    ),
-                    border: const Border.fromBorderSide(
-                      BorderSide(
-                        color: AppColors.cardBorder,
-                        width: 0.2,
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BlocProvider(
+                            create: (context) => SignUpCubit(),
+                            child: const SignUp(),
+                          ),
+                        ),
+                      );
+                    },
+                    child: Center(
+                      child: Text(
+                        'Register',
+                        style: AppStyles.bodyTextStyle3().copyWith(
+                          fontSize: 15,
+                          color: AppColors.cardTitleTextColor,
+                        ),
                       ),
                     ),
                   ),
-                  child: Lottie.asset(AppImages.djAstronaut),
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Pulzion \'23',
-                      style: AppStyles.bodyTextStyle2().copyWith(
-                        fontSize: SizeConfig.getProportionateScreenFontSize(35),
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      textAlign: TextAlign.center,
-                      'A 3-day event that includes a plethora of events and workshops, and is a platform for students to showcase their talents and skills.',
-                      style: AppStyles.bodyTextStyle3(),
-                    ),
-                  ],
+                const VerticalDivider(
+                  color: AppColors.cardBorder,
+                  width: 2,
+                  thickness: 2,
+                  indent: 8.0,
+                  endIndent: 8.0,
                 ),
-                Container(
-                  height: size.height * 0.075,
-                  width: size.width * 0.6,
-                  decoration: BoxDecoration(
-                    color: AppColors.primary.withAlpha(200),
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(20),
-                    ),
-                    border: const Border.fromBorderSide(
-                      BorderSide(
-                        color: AppColors.cardBorder,
-                        width: 1.5,
-                      ),
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => BlocProvider(
-                                  create: (context) => SignUpCubit(),
-                                  child: const SignUp(),
-                                ),
-                              ),
-                            );
-                          },
-                          child: Center(
-                            child: Text(
-                              'Register',
-                              style: AppStyles.bodyTextStyle3().copyWith(
-                                fontSize: 15,
-                                color: AppColors.cardTitleTextColor,
-                              ),
-                            ),
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BlocProvider(
+                            create: (context) => LoginCubit(),
+                            child: const Login(),
                           ),
                         ),
-                      ),
-                      const VerticalDivider(
-                        color: AppColors.cardBorder,
-                        width: 2,
-                        thickness: 2,
-                        indent: 8.0,
-                        endIndent: 8.0,
-                      ),
-                      Expanded(
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => BlocProvider(
-                                  create: (context) => LoginCubit(),
-                                  child: const Login(),
-                                ),
-                              ),
-                            );
-                          },
-                          child: Center(
-                            child: Text(
-                              'Sign In',
-                              style: AppStyles.bodyTextStyle3().copyWith(
-                                fontSize: 15,
-                                color: AppColors.cardTitleTextColor,
-                              ),
-                            ),
-                          ),
+                      );
+                    },
+                    child: Center(
+                      child: Text(
+                        'Sign In',
+                        style: AppStyles.bodyTextStyle3().copyWith(
+                          fontSize: 15,
+                          color: AppColors.cardTitleTextColor,
                         ),
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ],
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

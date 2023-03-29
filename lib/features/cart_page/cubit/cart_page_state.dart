@@ -1,9 +1,7 @@
 part of 'cart_page_cubit.dart';
 
 @immutable
-abstract class CartPageState {
-  
-}
+abstract class CartPageState {}
 
 class CartPageLoading extends CartPageState {}
 
@@ -12,9 +10,7 @@ class CartPageLoaded extends CartPageState {
   CartPageLoaded(this.cartList);
 }
 
-class CartEmpty extends CartPageState{
-  
-}
+class CartEmpty extends CartPageState {}
 
 class CartPageError extends CartPageState {
   final String message;

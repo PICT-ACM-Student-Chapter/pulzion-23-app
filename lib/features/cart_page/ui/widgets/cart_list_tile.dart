@@ -15,7 +15,8 @@ class CartListTile extends StatelessWidget {
     double h = MediaQuery.of(context).size.height;
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: w * 0.025, vertical: h * 0.0075),
+      padding:
+          EdgeInsets.symmetric(horizontal: w * 0.025, vertical: h * 0.0075),
       child: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -70,38 +71,14 @@ class CartListTile extends StatelessWidget {
                 ],
               ),
             ),
-            BlocProvider(
-              create: (context) => CartPageCubit(),
-              child: BlocConsumer<CartPageCubit, CartPageState>(
-                listener: (context, state) {
-                  if (state is CartItemDeleted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(state.message),
-                        backgroundColor: Colors.green,
-                      ),
-                    );
-                  } else if (state is CartItemNotDeleted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(state.message),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
-                  }
-                },
-                builder: ((context, state) {
-                  return IconButton(
-                    onPressed: () {
-                      BlocProvider.of<CartPageCubit>(context).deleteItem(event.id!);
-                    },
-                    icon: const Icon(
-                      Icons.delete_outline_rounded,
-                      color: Colors.red,
-                    ),
-                  );
-                }),
+            IconButton(
+              icon: const Icon(
+                Icons.delete_outline_rounded,
+                color: Colors.red,
               ),
+              onPressed: () {
+                BlocProvider.of<CartPageCubit>(context).deleteItem(event.id!);
+              },
             ),
           ],
         ),

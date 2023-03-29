@@ -31,8 +31,7 @@ class BottomBarCubit extends Cubit<BottomBarState> {
       emit(BottomBarHome());
     } else if (index == 2) {
       emit(BottomBarCart());
-    }
-    else if (index == 3) {
+    } else if (index == 3) {
       emit(BottomBarMore());
     }
   }

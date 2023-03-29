@@ -1,6 +1,3 @@
-
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
@@ -22,24 +19,33 @@ class CartPageFinal extends StatelessWidget {
         return loginState is CheckLoginSuccess
             ? BlocConsumer<CartPageCubit, CartPageState>(
                 listener: (context, state) {
-                  if (state is CartPageReload) {
-                    log("kjyiu");
+                  if (state is CartItemDeleted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(state.message),
+                        backgroundColor: Colors.green,
+                      ),
+                    );
+
+                    BlocProvider.of<CartPageCubit>(context).loadCart();
+                  } else if (state is CartItemNotDeleted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(state.message),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+
+                    BlocProvider.of<CartPageCubit>(context).loadCart();
                   }
-                },
-                listenWhen: (previous, current) {
-                  if (current is CartPageReload) return true;
-                  return false;
-                },
-                buildWhen: (previous, current) {
-                  if (current is CartPageLoading ||
-                      current is CartPageReload ||
-                      current is CartPageLoaded ||
-                      current is CartPageError) return true;
-                  return false;
                 },
                 builder: (context, state) {
                   if (state is CartPageLoading) {
-                    return Center(child: Center(child: Lottie.asset(AppImages.loadingAnimation)));
+                    return Center(
+                      child: Center(
+                        child: Lottie.asset(AppImages.loadingAnimation),
+                      ),
+                    );
                   } else if (state is CartEmpty) {
                     return Center(
                       child: ErrorDialog(
@@ -55,7 +61,8 @@ class CartPageFinal extends StatelessWidget {
                     return Center(
                       child: ErrorDialog(
                         state.message,
-                        refreshFunction: () => BlocProvider.of<CartPageCubit>(context).loadCart(),
+                        refreshFunction: () =>
+                            BlocProvider.of<CartPageCubit>(context).loadCart(),
                       ),
                     );
                   }

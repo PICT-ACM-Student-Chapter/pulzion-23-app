@@ -71,7 +71,7 @@ class Pulzion23App extends StatelessWidget {
           create: (context) => CompulsoryUpdateCubit()..needsUpdate(),
         ),
         BlocProvider(
-          create: (context) => CartPageCubit()..loadCart(),
+          create: (context) => CartPageCubit(),
         ),
       ],
       child: MaterialApp(
@@ -92,7 +92,8 @@ class Pulzion23App extends StatelessWidget {
               if (state is CompulsoryUpdateLoading) {
                 return Scaffold(
                   body: Center(
-                    child: Center(child: Lottie.asset(AppImages.loadingAnimation)),
+                    child:
+                        Center(child: Lottie.asset(AppImages.loadingAnimation)),
                   ),
                 );
               } else if (state is CompulsoryUpdateNeeded) {

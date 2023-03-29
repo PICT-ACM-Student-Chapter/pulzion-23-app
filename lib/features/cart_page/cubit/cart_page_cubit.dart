@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import '../../../constants/models/cart_model.dart';
 import '../../../constants/urls.dart';
 
@@ -18,7 +19,7 @@ class CartPageCubit extends Cubit<CartPageState> {
     const storage = FlutterSecureStorage();
     var token = await storage.read(key: 'token');
     if (token != null) {
-      var response;
+      Response? response;
       try {
         response = await http.get(
           Uri.parse(EndPoints.cart),
@@ -51,12 +52,14 @@ class CartPageCubit extends Cubit<CartPageState> {
           emit(CartPageError(e.toString()));
         }
       }
+    } else {
+      emit(CartPageError('Logout and login again.'));
     }
   }
 
   Future<void> addCartItem(int id) async {
     emit(CartPageLoading());
-    var response;
+    Response? response;
     try {
       const storage = FlutterSecureStorage();
       var token = await storage.read(key: 'token');
@@ -89,12 +92,11 @@ class CartPageCubit extends Cubit<CartPageState> {
         emit(CartPageError(e.toString()));
       }
     }
-    loadCart();
   }
 
   Future<void> deleteItem(int id) async {
     emit(CartPageLoading());
-    var response;
+    Response? response;
     try {
       const storage = FlutterSecureStorage();
       var token = await storage.read(key: 'token');
@@ -112,15 +114,11 @@ class CartPageCubit extends Cubit<CartPageState> {
         log('Delete response status code: ${response.statusCode}');
         log('Delete response data message: ${data['msg']}');
         emit(CartItemDeleted(data['msg'].toString()));
-        await loadCart();
       } else {
         log('Delete response status code: ${response.statusCode}');
         log('Delete response error: ${data['error']}');
         emit(CartItemNotDeleted(data['error'].toString()));
-        await loadCart();
       }
-      emit(CartPageReload());
-      log("emited state");
     } catch (e) {
       if (response == null) {
         log('Load cart exception: $e');

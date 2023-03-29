@@ -52,9 +52,13 @@ class BottomNavBar extends StatelessWidget {
                   } else if (state is BottomBarHome) {
                     return const HomePageContent();
                   } else if (state is BottomBarCart) {
-                    return const Center(
-                     child: CartPageFinal(),
-                    );
+                    BlocProvider.of<CartPageCubit>(context).loadCart();
+
+                    return loginState is CheckLoginSuccess
+                        ? const Center(
+                            child: CartPageFinal(),
+                          )
+                        : const LoginSignupBody();
                   } else {
                     return const FrostedGlassTile();
                   }
@@ -63,7 +67,8 @@ class BottomNavBar extends StatelessWidget {
             },
           ),
           bottomNavigationBar: Container(
-            margin: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+            margin:
+                EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
             child: CurvedNavigationBar(
               index: 1,
               // Make it 1 for the final version

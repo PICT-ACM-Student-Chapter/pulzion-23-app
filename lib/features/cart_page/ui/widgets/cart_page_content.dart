@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pulzion23/constants/images.dart';
 
 import '../../../../constants/models/cart_model.dart';
 import '../../../../constants/styles.dart';
-import '../../cubit/cart_page_cubit.dart';
 import 'cart_list_tile.dart';
 
 class CartPageContent extends StatelessWidget {
@@ -123,41 +121,30 @@ class CartPageContent extends StatelessWidget {
                     ),
                   ),
                 )
-              : BlocBuilder<CartPageCubit, CartPageState>(
-                  buildWhen: (previous, current) {
-                    if (previous is CartItemDeleted) {
-                      return true;
-                    }
-
-                    return false;
-                  },
-                  builder: (context, state) {
-                    return ListView.builder(
-                      itemBuilder: (context, index) {
-                        return index == 0
-                            ? Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 16.0),
-                                    child: Text(
-                                      "Items",
-                                      style: AppStyles.bodyTextStyle2().copyWith(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
+              : ListView.builder(
+                  itemBuilder: (context, index) {
+                    return index == 0
+                        ? Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 16.0),
+                                child: Text(
+                                  "Items",
+                                  style: AppStyles.bodyTextStyle2().copyWith(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w700,
                                   ),
-                                  CartListTile(eventList!.cartItems![index]),
-                                ],
-                              )
-                            : CartListTile(
-                                eventList!.cartItems![index],
-                              );
-                      },
-                      itemCount: eventList!.cartItems!.length,
-                    );
+                                ),
+                              ),
+                              CartListTile(eventList!.cartItems![index]),
+                            ],
+                          )
+                        : CartListTile(
+                            eventList!.cartItems![index],
+                          );
                   },
+                  itemCount: eventList!.cartItems!.length,
                 ),
         ),
       ],
