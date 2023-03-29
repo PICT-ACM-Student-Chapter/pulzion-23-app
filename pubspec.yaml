@@ -36,6 +36,8 @@ dependencies:
     logger: ^1.2.2
     glowstone: ^0.0.2
     package_info: ^2.0.2
+    easy_upi_payment: ^0.1.0
+    qr_flutter: ^4.0.0
 
 
 

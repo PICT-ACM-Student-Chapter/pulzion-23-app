@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import 'package:pulzion23/features/payment_page/paymentPage.dart';
 
 import 'config/remote_config.dart';
 import 'constants/images.dart';
@@ -95,7 +96,7 @@ class Pulzion23App extends StatelessWidget {
               } else if (state is CompulsoryUpdateNeeded) {
                 return const CompulsoryUpdatePage();
               } else if (state is CompulsoryUpdateNotNeeded) {
-                return const BottomNavBar();
+                return const Payment();
               } else {
                 return const Scaffold(
                   body: Center(
