@@ -1,19 +1,19 @@
 import 'dart:ui';
-
+import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lottie/lottie.dart';
-import 'package:pulzion23/constants/images.dart';
-import 'package:pulzion23/constants/urls.dart';
-import 'package:pulzion23/features/login_page/ui/login_signup_intro.dart';
+import '../../../constants/images.dart';
+import '../../../constants/urls.dart';
+import '../../../features/login_page/ui/login_signup_intro.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../features/login_page/cubit/check_login_cubit.dart';
 import 'child_wild.dart';
 import 'frostedglass.dart';
 import 'rocket.dart';
+import 'coming_soon.dart';
 
 class FrostedGlassTile extends StatefulWidget {
   const FrostedGlassTile({super.key});
@@ -107,11 +107,8 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                   }),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(ht),
-                    child: FittedBox(
-                      fit: BoxFit.fill,
-                      child: Lottie.asset(
-                        imgC ? AppImages.spaceman : AppImages.spaceman2,
-                      ),
+                    child: Lottie.asset(
+                      imgC ? AppImages.spaceman : AppImages.spaceman2,
                     ),
                   ),
                 ),
@@ -249,17 +246,41 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                 builder: (context, state) {
                   List<List<FrostedTile>> f = [
                     [
-                      const FrostedTile(
+                      FrostedTile(
                         tilename: 'Sponsors',
                         tileicon: Icons.monetization_on_outlined,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ComingSoonPage(),
+                            ),
+                          );
+                        },
                       ),
-                      const FrostedTile(
+                      FrostedTile(
                         tilename: 'About Us',
                         tileicon: Icons.info_outline,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ComingSoonPage(),
+                            ),
+                          );
+                        },
                       ),
-                      const FrostedTile(
+                      FrostedTile(
                         tilename: 'Developers',
                         tileicon: Icons.laptop,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ComingSoonPage(),
+                            ),
+                          );
+                        },
                       ),
                     ],
                     [

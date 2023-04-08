@@ -149,6 +149,9 @@ class _LoginState extends State<Login> {
                             },
                           ),
                         ),
+                        const SizedBox(
+                          height: 13,
+                        ),
                         // TODO: Figure out bloc logic then add this!
                         // Row(
                         //   mainAxisAlignment: MainAxisAlignment.center,
@@ -180,7 +183,7 @@ class _LoginState extends State<Login> {
                 );
               }
               if (state is LoginLoading) {
-                return const Loader();
+                return const Center(child: Loader());
               }
 
               return const SizedBox();

@@ -1,6 +1,7 @@
 import 'package:countup/countup.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../../../config/size_config.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:widget_circular_animator/widget_circular_animator.dart';
 
@@ -37,7 +38,8 @@ class AboutUsPage extends StatelessWidget {
         children: [
           SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.all(width / 20),
+              padding:
+                  EdgeInsets.all(SizeConfig.getProportionateScreenWidth(20)),
               child: Column(
                 children: [
                   Padding(
@@ -54,8 +56,10 @@ class AboutUsPage extends StatelessWidget {
                   Row(
                     children: [
                       Padding(
-                        padding:
-                            EdgeInsets.only(left: width / 30, top: height / 20),
+                        padding: EdgeInsets.only(
+                          left: SizeConfig.getProportionateScreenWidth(14),
+                          top: SizeConfig.getProportionateScreenHeight(46),
+                        ),
                         child: WidgetCircularAnimator(
                           size: width / 2.6,
                           child: Container(

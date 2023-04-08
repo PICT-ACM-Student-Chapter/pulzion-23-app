@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:pulzion23/constants/colors.dart';
+import 'package:lottie/lottie.dart';
+
+import '../images.dart';
 
 class Loader extends StatelessWidget {
   const Loader({
@@ -9,9 +10,13 @@ class Loader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SpinKitFadingCircle(
-      color: AppColors.primary,
-      size: 50.0,
+    var size = MediaQuery.of(context).size;
+
+    return Center(
+      child: Lottie.asset(
+        AppImages.loader,
+        width: size.width * 0.7,
+      ),
     );
   }
 }

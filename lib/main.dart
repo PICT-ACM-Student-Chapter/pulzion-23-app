@@ -1,22 +1,22 @@
 import 'dart:developer';
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
-import 'package:pulzion23/config/remote_config.dart';
-import 'package:pulzion23/constants/utils/theme.dart';
-import 'package:pulzion23/features/compulsory_update/cubit/compulsory_update_cubit.dart';
-import 'package:pulzion23/features/compulsory_update/ui/compulsary_update.dart';
-import 'package:pulzion23/firebase_options.dart';
-import 'package:pulzion23/project/cubit/bottom_bar_cubit.dart';
-import 'package:pulzion23/project/landing_page.dart';
 
+import 'config/remote_config.dart';
 import 'constants/images.dart';
+import 'constants/utils/theme.dart';
+import 'features/compulsory_update/cubit/compulsory_update_cubit.dart';
+import 'features/compulsory_update/ui/compulsary_update.dart';
 import 'features/home_page/logic/event_details_cubit_cubit.dart';
 import 'features/login_page/cubit/check_login_cubit.dart';
+import 'firebase_options.dart';
+import 'project/cubit/bottom_bar_cubit.dart';
+import 'project/landing_page.dart';
 import 'services/bloc_observer.dart';
 import 'services/firebase_notifications.dart';
 import 'services/local_notifications.dart';
@@ -25,6 +25,11 @@ import 'services/local_notifications.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  SystemChrome.setPreferredOrientations(
+    [DeviceOrientation.portraitUp],
+  );
+
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
@@ -39,11 +44,15 @@ Future<void> main() async {
 
   // Then initialize the local notification service
   LocalNotificationService.initialize();
-  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+  // FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+  await Firebase.initializeApp();
   await FirebaseNotifications.initialize();
 
   log("Starting app");
-  Bloc.observer = PulzionBlocObserver();
+  if (kDebugMode) {
+    Bloc.observer = PulzionBlocObserver();
+  }
+
   runApp(const Pulzion23App());
 }
 

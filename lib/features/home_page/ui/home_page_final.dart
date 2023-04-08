@@ -1,12 +1,16 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:panorama/panorama.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../config/size_config.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/images.dart';
 import '../../../constants/styles.dart';
+import '../../../constants/widgets/error_dialog.dart';
 import '../logic/event_details_cubit_cubit.dart';
 import 'wigets/event_gridview.dart';
 
@@ -70,8 +74,8 @@ class _HomePageContentState extends State<HomePageContent>
                       // ufo position
                       Positioned(
                         top: height * 0.03,
-                        left: width * 0.05,
-                        width: width - width * 0.37,
+                        left: width * 0.038,
+                        width: width - width * 0.405,
                         child: AnimatedAlign(
                           curve: Curves.easeInCubic,
                           duration: const Duration(milliseconds: 1000),
@@ -83,8 +87,8 @@ class _HomePageContentState extends State<HomePageContent>
                           //   angle: pi,
                           child: Lottie.asset(
                             AppImages.ufo3,
-                            width: 70,
-                            height: 70,
+                            width: width * 0.16,
+                            height: height * 0.1,
                           ),
                           // )
                         ),
@@ -92,14 +96,17 @@ class _HomePageContentState extends State<HomePageContent>
                       Center(
                         child: Text(
                           "Pulzion '23",
-                          style:
-                              AppStyles.bodyTextStyle2().copyWith(fontSize: 45),
+                          style: AppStyles.bodyTextStyle2().copyWith(
+                            fontSize:
+                                SizeConfig.getProportionateScreenFontSize(30),
+                          ),
                         ),
                       ),
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding:
+                        const EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0),
                     child: DefaultTabController(
                       length: 2,
                       child: TabBar(
@@ -151,7 +158,15 @@ class _HomePageContentState extends State<HomePageContent>
         } else if (state is EventDetailsCubitLoading) {
           return Center(child: Lottie.asset(AppImages.loadingAnimation));
         } else {
-          return const Center(child: Text("Something went wrong"));
+          return Center(
+            child: ErrorDialog(
+              'Error while fetching data from server',
+              refreshFunction: () {
+                log("refreshing");
+                context.read<EventDetailsCubitCubit>().getEventsDetails();
+              },
+            ),
+          );
         }
       },
     );

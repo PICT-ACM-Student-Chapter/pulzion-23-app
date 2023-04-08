@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:panorama/panorama.dart';
-import 'package:pulzion23/constants/images.dart';
+import '../../../constants/images.dart';
 import 'package:widget_circular_animator/widget_circular_animator.dart';
 
 class DevelopersPage extends StatefulWidget {

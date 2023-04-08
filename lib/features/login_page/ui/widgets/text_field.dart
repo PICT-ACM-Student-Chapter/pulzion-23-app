@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pulzion23/constants/colors.dart';
+import '../../../../constants/colors.dart';
 
 class LoginSignUpTextField extends StatelessWidget {
   final String hintText;
@@ -16,6 +16,7 @@ class LoginSignUpTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      textInputAction: TextInputAction.next,
       style:
           (const TextStyle(color: Colors.white, fontWeight: FontWeight.w400)),
       cursorColor: Colors.white,

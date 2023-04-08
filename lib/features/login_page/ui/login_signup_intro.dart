@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:panorama/panorama.dart';
-import 'package:pulzion23/constants/colors.dart';
-import 'package:pulzion23/constants/images.dart';
-import 'package:pulzion23/constants/styles.dart';
+import '../../../config/size_config.dart';
+import '../../../constants/colors.dart';
+import '../../../constants/images.dart';
+import '../../../constants/styles.dart';
 
 import '../logic/login_cubit.dart';
 import '../logic/sign_up_cubit.dart';
@@ -30,10 +31,22 @@ class LoginSignUpIntro extends StatelessWidget {
           child: Image.asset(AppImages.spaceBackground, fit: BoxFit.cover),
         ),
         Scaffold(
+          appBar: AppBar(
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            leading: IconButton(
+              icon: const Icon(
+                Icons.arrow_back_rounded,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
           backgroundColor: Colors.transparent,
           body: Container(
             margin: EdgeInsets.only(
-              top: padding.top + 20,
               left: padding.top / 2,
               right: padding.top / 2,
               bottom: padding.top / 2 + 20,
@@ -65,7 +78,9 @@ class LoginSignUpIntro extends StatelessWidget {
                   children: [
                     Text(
                       'Pulzion \'23',
-                      style: AppStyles.bodyTextStyle2().copyWith(fontSize: 50),
+                      style: AppStyles.bodyTextStyle2().copyWith(
+                        fontSize: SizeConfig.getProportionateScreenFontSize(35),
+                      ),
                     ),
                     const SizedBox(height: 10),
                     Text(
