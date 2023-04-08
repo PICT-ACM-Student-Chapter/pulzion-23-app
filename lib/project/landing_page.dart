@@ -5,6 +5,8 @@ import 'package:panorama/panorama.dart';
 
 import '../config/size_config.dart';
 import '../constants/images.dart';
+import '../features/cart_page/cubit/cart_page_cubit.dart';
+import '../features/cart_page/ui/cart_page_final.dart';
 import '../features/home_page/ui/home_page_final.dart';
 import '../features/home_page/ui/wigets/custom_appbar.dart';
 import '../features/login_page/cubit/check_login_cubit.dart';
@@ -50,14 +52,13 @@ class BottomNavBar extends StatelessWidget {
                   } else if (state is BottomBarHome) {
                     return const HomePageContent();
                   } else if (state is BottomBarCart) {
+                    BlocProvider.of<CartPageCubit>(context).loadCart();
+
                     return loginState is CheckLoginSuccess
                         ? const Center(
-                            child: Text(
-                              "Cart",
-                              style: TextStyle(color: Colors.white),
-                            ),
+                            child: CartPageFinal(),
                           )
-                        : const LoginSignUpIntro();
+                        : const LoginSignupBody();
                   } else {
                     return const FrostedGlassTile();
                   }
@@ -88,11 +89,11 @@ class BottomNavBar extends StatelessWidget {
                   size: 30,
                   color: Colors.white.withOpacity(0.7),
                 ),
-                // Icon(
-                //   Icons.shopping_cart,
-                //   size: 30,
-                //   color: Colors.white.withOpacity(0.7),
-                // ),
+                Icon(
+                  Icons.shopping_cart,
+                  size: 30,
+                  color: Colors.white.withOpacity(0.7),
+                ),
                 Icon(
                   Icons.more_horiz_rounded,
                   size: 30,

@@ -30,6 +30,8 @@ class BottomBarCubit extends Cubit<BottomBarState> {
     } else if (index == 1) {
       emit(BottomBarHome());
     } else if (index == 2) {
+      emit(BottomBarCart());
+    } else if (index == 3) {
       emit(BottomBarMore());
     }
   }
