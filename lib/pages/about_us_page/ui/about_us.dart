@@ -43,12 +43,10 @@ class AboutUsPage extends StatelessWidget {
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(
-                      top: SizeConfig.getProportionateScreenHeight(18),
-                    ),
+                    padding: EdgeInsets.only(top: height / 50),
                     child: SizedBox(
-                      height: SizeConfig.getProportionateScreenHeight(90),
-                      width: SizeConfig.getProportionateScreenWidth(215),
+                      height: height / 10,
+                      width: width / 2,
                       child: Image.asset(
                         "assets/images/pasc_logo.png",
                         fit: BoxFit.cover,
@@ -69,39 +67,27 @@ class AboutUsPage extends StatelessWidget {
                               shape: BoxShape.circle,
                               color: Color.fromARGB(255, 21, 68, 102),
                             ),
-                            child: Row(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Column(children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      top: width / 30,
-                                      left: width / 20,
-                                    ),
-                                    child: Countup(
-                                      begin: 0,
-                                      end: 16,
-                                      duration: const Duration(seconds: 1),
-                                      separator: ',',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: width / 13,
-                                      ),
-                                    ),
+                                Countup(
+                                  begin: 0,
+                                  end: 16,
+                                  duration: const Duration(seconds: 1),
+                                  separator: ',',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: width / 13,
                                   ),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      left: width / 17,
-                                      top: width / 36,
-                                    ),
-                                    child: Text(
-                                      "EVENTS",
-                                      style: TextStyle(
-                                        fontSize: width / 25,
-                                        color: Colors.white,
-                                      ),
-                                    ),
+                                ),
+                                Text(
+                                  "EVENTS",
+                                  style: TextStyle(
+                                    fontSize: width / 25,
+                                    color: Colors.white,
                                   ),
-                                ]),
+                                ),
                               ],
                             ),
                           ),
@@ -117,39 +103,27 @@ class AboutUsPage extends StatelessWidget {
                               shape: BoxShape.circle,
                               color: Color.fromARGB(255, 21, 68, 102),
                             ),
-                            child: Row(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Column(children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      top: width / 30,
-                                      left: width / 45,
-                                    ),
-                                    child: Countup(
-                                      begin: 0,
-                                      end: 600,
-                                      duration: const Duration(seconds: 1),
-                                      separator: ',',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: width / 13,
-                                      ),
-                                    ),
+                                Countup(
+                                  begin: 0,
+                                  end: 600,
+                                  duration: const Duration(seconds: 1),
+                                  separator: ',',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: width / 13,
                                   ),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      top: width / 36,
-                                      left: width / 40,
-                                    ),
-                                    child: Text(
-                                      "VOLUNTEERS",
-                                      style: TextStyle(
-                                        fontSize: width / 27,
-                                        color: Colors.white,
-                                      ),
-                                    ),
+                                ),
+                                Text(
+                                  "VOLUNTEERS",
+                                  style: TextStyle(
+                                    fontSize: width / 27,
+                                    color: Colors.white,
                                   ),
-                                ]),
+                                ),
                               ],
                             ),
                           ),
@@ -192,29 +166,63 @@ class AboutUsPage extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding:
-                        EdgeInsets.only(top: height / 35, left: width / 30),
-                    child: IconButton(
-                      onPressed: () {
-                        null;
-                      },
-                      icon: Icon(
-                        FontAwesomeIcons.phone,
-                        size: width / 12,
-                        color: Colors.purpleAccent[100],
-                      ),
+                    padding: EdgeInsets.only(top: height / 30),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.phone,
+                          color: Colors.purpleAccent,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: width / 20),
+                          child: Text(
+                            "Ashutosh Shaha",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: width / 20,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Text(
+                          "  - 9156546280",
+                          // textAlign: TextAlign.justify,
+                          style: TextStyle(
+                            fontSize: width / 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: height / 30),
-                    child: Text(
-                      "Ashutosh Shaha - (+91) 9156546280\nSiddhi Wakchaure - (+91) 8329368540",
-                      textAlign: TextAlign.justify,
-                      style: TextStyle(
-                        fontSize: width / 20,
-                        color: Colors.white,
+                    child: Row(children: [
+                      const Icon(
+                        Icons.phone,
+                        color: Colors.purpleAccent,
                       ),
-                    ),
+                      Padding(
+                        padding: EdgeInsets.only(left: width / 20),
+                        child: Text(
+                          "Siddhi Wakchaure ",
+                          textAlign: TextAlign.justify,
+                          style: TextStyle(
+                            fontSize: width / 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      Text(
+                        " -  8329368540",
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(
+                          fontSize: width / 20,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ]),
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: height / 20),
