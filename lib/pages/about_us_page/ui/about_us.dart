@@ -1,13 +1,13 @@
 import 'package:countup/countup.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../../config/size_config.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:widget_circular_animator/widget_circular_animator.dart';
+import 'package:panorama/panorama.dart';
+import '../../../constants/images.dart';
 
 class AboutUsPage extends StatelessWidget {
   const AboutUsPage({super.key});
-
   final String aboutPulzion =
       "Pulzion is the annual technical fest organized by PICT ACM Student Chapter. Pulzion has hosted multiple events including coding competition ranging from amateur competitions two day-long as well as mock placements, business management based and quizzing events. It has become one of the most anticipated events taking place at PICT with participants from colleges all over Pune. With high aspirations, backed with sincerity and dedication, the PASC team aims to add value to the college and all the people in it.";
 
@@ -36,10 +36,15 @@ class AboutUsPage extends StatelessWidget {
       backgroundColor: Colors.transparent,
       body: Stack(
         children: [
+          Panorama(
+            sensitivity: 0.4,
+            animSpeed: 0.5,
+            sensorControl: SensorControl.Orientation,
+            child: Image.asset(AppImages.spaceBackground, fit: BoxFit.cover),
+          ),
           SingleChildScrollView(
             child: Padding(
-              padding:
-                  EdgeInsets.all(SizeConfig.getProportionateScreenWidth(20)),
+              padding: EdgeInsets.all(width / 20),
               child: Column(
                 children: [
                   Padding(
@@ -56,10 +61,8 @@ class AboutUsPage extends StatelessWidget {
                   Row(
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(
-                          left: SizeConfig.getProportionateScreenWidth(14),
-                          top: SizeConfig.getProportionateScreenHeight(46),
-                        ),
+                        padding:
+                            EdgeInsets.only(left: width / 30, top: height / 20),
                         child: WidgetCircularAnimator(
                           size: width / 2.6,
                           child: Container(

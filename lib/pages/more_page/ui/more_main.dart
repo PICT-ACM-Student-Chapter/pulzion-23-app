@@ -4,16 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pulzion23/features/event_slots/ui/event_slot_main.dart';
+import 'package:pulzion23/pages/about_us_page/ui/about_us.dart';
 import '../../../constants/images.dart';
 import '../../../constants/urls.dart';
 import '../../../features/login_page/ui/login_signup_intro.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 import '../../../features/login_page/cubit/check_login_cubit.dart';
 import 'child_wild.dart';
 import 'frostedglass.dart';
 import 'rocket.dart';
 import 'coming_soon.dart';
+import '../../../features/event_slots/logic/booked_slot_cubit.dart';
+import '../../../features/event_slots/ui/event_slot_main.dart';
+import '../../developers_page/ui/developers_page.dart';
 
 class FrostedGlassTile extends StatefulWidget {
   const FrostedGlassTile({super.key});
@@ -118,25 +124,50 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(
-                      'Welcome to Pulzion \'23',
-                      style: TextStyle(
-                        fontSize: ht / 50,
-                        fontWeight: FontWeight.bold,
-                        overflow: TextOverflow.ellipsis,
-                        color: Colors.white,
-                      ),
-                    ),
-                    FittedBox(
-                      fit: BoxFit.contain,
-                      child: Text(
-                        '16 Fun-filled Events',
-                        style: TextStyle(
-                          color: Colors.white54,
-                          overflow: TextOverflow.ellipsis,
-                          fontSize: ht / 50,
+                    AnimatedTextKit(
+                      animatedTexts: [
+                        ColorizeAnimatedText(
+                          "Welcome to Pulzion '23",
+                          textStyle: TextStyle(
+                            fontSize: ht / 45,
+                            fontWeight: FontWeight.bold,
+                            overflow: TextOverflow.ellipsis,
+                            color: Colors.white,
+                          ),
+                          // speed: const Duration(seconds: 2),
+                          colors: [
+                            Colors.white.withOpacity(0.1),
+                            Colors.white.withOpacity(1),
+                            Colors.white.withOpacity(1),
+                            Colors.white.withOpacity(0.1),
+                            // Colors.deepPurple,
+                          ],
+                          speed: const Duration(
+                            milliseconds: 300,
+                          ),
                         ),
-                      ),
+                      ],
+                      repeatForever: true,
+                      pause: Duration.zero,
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.005,
+                    ),
+                    AnimatedTextKit(
+                      animatedTexts: [
+                        TypewriterAnimatedText(
+                          '16 Fun-filled Events',
+                          textStyle: TextStyle(
+                            color: Colors.white54,
+                            overflow: TextOverflow.ellipsis,
+                            fontSize: ht / 55,
+                          ),
+                          speed: const Duration(
+                            milliseconds: 100,
+                          ),
+                        ),
+                      ],
+                      totalRepeatCount: 3,
                     ),
                   ],
                 ),
@@ -249,14 +280,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                       FrostedTile(
                         tilename: 'Sponsors',
                         tileicon: Icons.monetization_on_outlined,
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const ComingSoonPage(),
-                            ),
-                          );
-                        },
+                        onTap: () {},
                       ),
                       FrostedTile(
                         tilename: 'About Us',
@@ -265,7 +289,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const ComingSoonPage(),
+                              builder: (context) => const AboutUsPage(),
                             ),
                           );
                         },
@@ -277,7 +301,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const ComingSoonPage(),
+                              builder: (context) => const DevelopersPage(),
                             ),
                           );
                         },
@@ -354,7 +378,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                                 curve: Curves.easeInOut,
                                 child: FadeInAnimation(
                                   child: FrostedGlassBox(
-                                    cheight: height / 12.5,
+                                    cheight: height / 11.8,
                                     cwidth: MediaQuery.of(context).size.width,
                                     childWid: f[index],
                                   ),

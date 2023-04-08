@@ -5,7 +5,7 @@ class AppImages {
   static const loadingAnimation = 'assets/images/loading-animation.json';
   static const astronautWithPlanet = 'assets/images/astronaut_with_planet.json';
   static const ufo3 = 'assets/images/ufo3.json';
-  static const person = 'assets/images/person.jpg';
+  static const person = 'assets/images/person2.jpg';
   static const rocketButton = 'assets/images/rocket_button.json';
   static const astronautSayingNo = 'assets/images/astronaut_saying_no.json';
   static const spaceman = 'assets/images/space_man.json';

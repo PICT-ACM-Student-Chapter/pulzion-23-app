@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pulzion23/features/event_slots/ui/booked_main.dart';
+import 'package:pulzion23/features/event_slots/ui/booked_window.dart';
+
+import '../logic/booked_slot_cubit.dart';
+import '../ui/booked_main.dart';
 
 class Ticket extends StatelessWidget {
   const Ticket({super.key, required String title});
@@ -20,13 +26,15 @@ class Ticket extends StatelessWidget {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.fromLTRB(100, 60, 10, 0),
-            child: Row(
-              children: const [
-                Text(
-                  "YOUR EVENT IS BOOKED!!",
-                  style: TextStyle(fontSize: 25, color: Colors.white),
-                ),
-              ],
+            child: Expanded(
+              child: Row(
+                children: const [
+                  Text(
+                    "YOUR EVENT IS BOOKED!!",
+                    style: TextStyle(fontSize: 25, color: Colors.white),
+                  ),
+                ],
+              ),
             ),
           ),
           Center(
@@ -135,7 +143,8 @@ class Ticket extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  null;
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => EventBookingPage()));
                 },
               ),
             ),

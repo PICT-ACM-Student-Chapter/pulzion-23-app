@@ -42,15 +42,23 @@ class FrostedTile extends StatelessWidget {
       child: Row(
         children: [
           Padding(
-            padding: EdgeInsets.only(left: height / 70),
+            padding: EdgeInsets.only(
+              left: height / 90,
+            ),
             child: CircleAvatar(
+              maxRadius: height * 0.025,
               backgroundColor: Colors.white.withOpacity(0.7),
               foregroundColor: Colors.black,
-              child: Icon(tileicon),
+              child: Center(
+                child: Icon(
+                  tileicon,
+                  size: height * 0.0255,
+                ),
+              ),
             ),
           ),
-          const SizedBox(
-            width: 30,
+          SizedBox(
+            width: height / 40,
           ),
           Text(
             tilename,
