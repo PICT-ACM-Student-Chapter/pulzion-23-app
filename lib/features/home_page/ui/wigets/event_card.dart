@@ -132,10 +132,11 @@ class EventCard extends StatelessWidget {
                   ),
                   child: Padding(
                     padding: EdgeInsets.all(
-                      SizeConfig.getProportionateScreenWidth(10),
+                      SizeConfig.getProportionateScreenWidth(15),
                     ),
-                    child: Image.asset(
-                      'assets/images${event.logo!}',
+                    child: Image.network(
+                      event.logo!,
+                      fit: BoxFit.fitWidth,
                     ),
                   ),
                 ),
