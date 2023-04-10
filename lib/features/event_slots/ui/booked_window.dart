@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:panorama/panorama.dart';
 import '../../../constants/images.dart';
+
 
 class BookedWindow extends StatefulWidget {
   @override
@@ -11,14 +13,17 @@ class _BookedWindowState extends State<BookedWindow>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   List<Color> notselected = [
+
     Colors.white.withOpacity(0.2),
     Colors.black.withOpacity(0.3),
+
   ];
   List<Color> selected = [
     Colors.white.withOpacity(0.3),
     Colors.white.withOpacity(0.6),
   ];
   List<bool> c = [false, false, false, false];
+
   void initState() {
     _controller = AnimationController(
       vsync: this,
@@ -60,8 +65,10 @@ class _BookedWindowState extends State<BookedWindow>
                   fontWeight: c[i] ? FontWeight.bold : FontWeight.w100),
             ),
           ),
+
           height: h * 0.09,
           width: w * 0.2,
+
         ),
       ),
       onTap: () {
@@ -78,7 +85,9 @@ class _BookedWindowState extends State<BookedWindow>
     );
   }
 
+
   Widget EventDate(double h, double w, String event_date, String event_day) {
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
