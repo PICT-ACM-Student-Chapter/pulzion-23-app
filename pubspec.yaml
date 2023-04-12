@@ -39,6 +39,8 @@ dependencies:
     auto_animated: ^3.1.0
     animated_text_kit: ^4.2.2
     glassmorphism: ^3.0.0
+    ticket_widget: ^0.0.1
+    dotted_line: ^3.1.0
 
 dev_dependencies:
     flutter_test:

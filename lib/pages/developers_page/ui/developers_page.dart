@@ -9,12 +9,16 @@ import 'package:auto_animated/auto_animated.dart';
 import 'package:panorama/panorama.dart';
 import '../../../constants/images.dart';
 
+void main() {
+  runApp((DevelopersPage()));
+}
+
 class DevelopersPage extends StatelessWidget {
   const DevelopersPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MyHomePage();
+    return MaterialApp(home: MyHomePage());
   }
 }
 
@@ -214,12 +218,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                         color: Colors.white,
                                       ),
                                     ),
-                                    backgroundColor: Colors.white24,
                                   ),
                                 ),
-                                alignment: Alignment.topCenter,
-                                height: h * 0.25,
-                                // child: Image.asset(name),
                               ),
                               SizedBox(
                                 height: h * 0.015,
@@ -258,11 +258,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                       print(subject); //output: Hello%20Flutter
                                       Uri mail = Uri.parse(
                                           "mailto:$email?subject=$subject&body=$body");
-                                      if (await launchUrl(mail)) {
-                                        //email app opened
-                                      } else {
-                                        //email app is not opened
-                                      }
+                                      // if (await launchUrl(mail)) {
+                                      //   //email app opened
+                                      // } else {
+                                      //   //email app is not opened
+                                      // }
                                     },
                                   ),
                                   SizedBox(

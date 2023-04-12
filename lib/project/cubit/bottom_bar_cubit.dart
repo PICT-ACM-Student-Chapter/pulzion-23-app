@@ -28,10 +28,12 @@ class BottomBarCubit extends Cubit<BottomBarState> {
     if (index == 0) {
       emit(BottomBarAboutUs());
     } else if (index == 1) {
-      emit(BottomBarHome());
+      emit(BottomBarRegisteredEvents());
     } else if (index == 2) {
-      emit(BottomBarCart());
+      emit(BottomBarHome());
     } else if (index == 3) {
+      emit(BottomBarCart());
+    } else if (index == 4) {
       emit(BottomBarMore());
     }
   }

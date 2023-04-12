@@ -8,7 +8,7 @@ class EventDescriptionPageButton extends StatelessWidget {
   final Function onPressed;
   const EventDescriptionPageButton(
       this.buttonText, this.buttonIcon, this.onPressed,
-      {super.key});
+      {super.key,});
 
   @override
   Widget build(BuildContext context) {

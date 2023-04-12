@@ -16,19 +16,19 @@ List<DeveloperData> data = [
       "rohan.doshi02@gmail.com",
       "https://github.com/RohanDoshi21",
       "https://www.linkedin.com/in/rohan-doshi21/",
-      "https://firebasestorage.googleapis.com/v0/b/fcmtestserver-86214.appspot.com/o/1.jpg?alt=media"),
+      "https://firebasestorage.googleapis.com/v0/b/fcmtestserver-86214.appspot.com/o/1.jpg?alt=media",),
   DeveloperData(
       "Christine Stephen",
       "chrisysstephen@gmail.com",
       "https://github.com/rebelmisfit",
       "https://www.linkedin.com/in/christine-stephen-88312b229/",
-      "https://firebasestorage.googleapis.com/v0/b/fcmtestserver-86214.appspot.com/o/3.jpg?alt=media"),
+      "https://firebasestorage.googleapis.com/v0/b/fcmtestserver-86214.appspot.com/o/3.jpg?alt=media",),
   DeveloperData(
       "Soumya Garg",
       "soumyagarg2905@gmail.com",
       "https://github.com/Soumyagarg29",
       "https://www.linkedin.com/in/soumya-garg-3a7453166",
-      "https://firebasestorage.googleapis.com/v0/b/fcmtestserver-86214.appspot.com/o/4.jpg?alt=media"),
+      "https://firebasestorage.googleapis.com/v0/b/fcmtestserver-86214.appspot.com/o/4.jpg?alt=media",),
   DeveloperData(
       "Awadhoot Khutwad",
       "awadhootk6@gmail.com",

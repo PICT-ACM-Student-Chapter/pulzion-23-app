@@ -1,9 +1,6 @@
-import 'dart:convert';
-import 'dart:developer';
 import 'package:bloc/bloc.dart';
+// ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
-import 'package:http/http.dart' as http;
-import 'package:pulzion23/features/home_page/logic/event_details_cubit_cubit.dart';
 
 part 'booked_slot_state.dart';
 
