@@ -38,6 +38,7 @@ dependencies:
     package_info: ^2.0.2
     easy_upi_payment: ^0.1.0
     qr_flutter: ^4.0.0
+    upi_india: ^3.0.1
 
 
 
