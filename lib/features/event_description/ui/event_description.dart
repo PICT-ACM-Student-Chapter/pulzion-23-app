@@ -10,6 +10,8 @@ import '../../../constants/images.dart';
 import '../../../constants/styles.dart';
 import '../../login_page/cubit/check_login_cubit.dart';
 import '../../login_page/ui/login_signup_intro.dart';
+import "package:share_plus/share_plus.dart";
+import '../../../constants/urls.dart';
 
 class EventDescription extends StatefulWidget {
   final Events? event;
@@ -232,6 +234,28 @@ class _EventDescriptionState extends State<EventDescription>
                           }),
                           child: const Icon(
                             Icons.arrow_back_rounded,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).padding.top * 1.5,
+                          right: MediaQuery.of(context).size.width / 20,
+                        ),
+                        child: InkWell(
+                          onTap: (() {
+                            Share.share(
+                              '${event.description}\n\nPulzion 23 App: ${EndPoints.playStoreURL}',
+                              subject: 'Check out this awesome message!',
+                              sharePositionOrigin: Rect.fromLTWH(0, 0, 10, 10),
+                            );
+                          }),
+                          child: const Icon(
+                            Icons.share,
                             color: Colors.white,
                           ),
                         ),

@@ -9,12 +9,16 @@ import 'package:auto_animated/auto_animated.dart';
 import 'package:panorama/panorama.dart';
 import '../../../constants/images.dart';
 
+void main() {
+  runApp((DevelopersPage()));
+}
+
 class DevelopersPage extends StatelessWidget {
   const DevelopersPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MyHomePage();
+    return MaterialApp(home: MyHomePage());
   }
 }
 
@@ -146,144 +150,148 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     itemCount: developersList.length,
                     itemBuilder: (BuildContext ctx, index) {
-                      return Container(
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              Colors.white.withOpacity(.4),
-                              Colors.white.withOpacity(.1),
-                            ],
+                      return ConstrainedBox(
+                        constraints: BoxConstraints.tight(Size.zero),
+                        child: Container(
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colors.white.withOpacity(.4),
+                                Colors.white.withOpacity(.1),
+                              ],
+                            ),
+                            borderRadius: BorderRadius.circular(15),
                           ),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(7.0),
-                          child: Column(
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: const Color.fromARGB(255, 27, 58, 83),
-                                  borderRadius: BorderRadius.circular(17),
-                                ),
-                                padding: EdgeInsets.all(h * 0.005),
-                                // ignore: sort_child_properties_last
-                                child: WidgetCircularAnimator(
-                                  innerAnimation: Curves.easeInCirc,
-                                  outerAnimation: Curves.linear,
-                                  innerAnimationSeconds: 5,
-                                  outerAnimationSeconds: 7,
-                                  singleRing: false,
-                                  innerColor: Colors.white,
-                                  outerColor: Colors.amber,
-                                  size: h * 0.170,
-                                  child: CircleAvatar(
-                                    //Images of the developer need to be added  here
+                          child: Padding(
+                            padding: const EdgeInsets.all(7.0),
+                            child: FittedBox(
+                              fit: BoxFit.contain,
+                              child: Column(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color:
+                                          const Color.fromARGB(255, 27, 58, 83),
+                                      borderRadius: BorderRadius.circular(17),
+                                    ),
+                                    padding: EdgeInsets.all(h * 0.005),
                                     // ignore: sort_child_properties_last
-                                    radius: 20,
-                                    foregroundImage: NetworkImage(
-                                        developersList[index].imageUrl),
-                                  ),
-                                ),
-                                alignment: Alignment.topCenter,
-                                height: h * 0.25,
-                                // child: Image.asset(name),
-                              ),
-                              SizedBox(
-                                height: h * 0.02,
-                              ),
-                              Container(
-                                height: h * 0.05,
-                                width: w * 0.4,
-                                decoration: BoxDecoration(
-                                  color: Colors.black.withOpacity(0.7),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(w * 0.04),
-                                  ),
-                                ),
-                                child: Align(
-                                  alignment: Alignment.center,
-                                  child: FittedBox(
-                                    fit: BoxFit.fitWidth,
-                                    child: Text(
-                                      developersList[index]
-                                          .name, // the names of the users are to be entered here in the child
-                                      style: const TextStyle(
-                                        color: Colors.white,
+                                    child: WidgetCircularAnimator(
+                                      innerAnimation: Curves.easeInCirc,
+                                      outerAnimation: Curves.linear,
+                                      innerAnimationSeconds: 5,
+                                      outerAnimationSeconds: 7,
+                                      singleRing: false,
+                                      innerColor: Colors.white,
+                                      outerColor: Colors.amber,
+                                      size: h * 0.170,
+                                      child: CircleAvatar(
+                                        //Images of the developer need to be added  here
+                                        // ignore: sort_child_properties_last
+                                        radius: 20,
+                                        foregroundImage: NetworkImage(
+                                            developersList[index].imageUrl),
                                       ),
                                     ),
-                                    backgroundColor: Colors.white24,
-                                  ),
-                                ),
-                                alignment: Alignment.topCenter,
-                                height: h * 0.25,
-                                // child: Image.asset(name),
-                              ),
-                              SizedBox(
-                                height: h * 0.015,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  InkWell(
-                                    child: const Icon(
-                                      FontAwesomeIcons.linkedin,
-                                      color: Colors.white,
-                                    ),
-                                    onTap: () {
-                                      _launchUniversalLinkApp(
-                                        Uri.parse(
-                                          developersList[index].linkedInId,
-                                        ),
-                                      );
-                                    },
+                                    alignment: Alignment.topCenter,
+                                    height: h * 0.25,
+                                    // child: Image.asset(name),
                                   ),
                                   SizedBox(
-                                    width: w * 0.10,
+                                    height: h * 0.02,
                                   ),
-                                  InkWell(
-                                    child: const Icon(
-                                      Icons.mail,
-                                      color: Colors.white,
+                                  Container(
+                                    height: h * 0.05,
+                                    width: w * 0.4,
+                                    decoration: BoxDecoration(
+                                      color: Colors.black.withOpacity(0.7),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(w * 0.04),
+                                      ),
                                     ),
-                                    onTap: () async {
-                                      String email = Uri.encodeComponent(
-                                          developersList[index].emailId);
-                                      String subject =
-                                          Uri.encodeComponent("Hello Flutter");
-                                      String body = Uri.encodeComponent(
-                                          "Hi! I'm Flutter Developer");
-                                      print(subject); //output: Hello%20Flutter
-                                      Uri mail = Uri.parse(
-                                          "mailto:$email?subject=$subject&body=$body");
-                                      if (await launchUrl(mail)) {
-                                        //email app opened
-                                      } else {
-                                        //email app is not opened
-                                      }
-                                    },
+                                    child: Align(
+                                      alignment: Alignment.center,
+                                      child: FittedBox(
+                                        fit: BoxFit.fitWidth,
+                                        child: Text(
+                                          developersList[index]
+                                              .name, // the names of the users are to be entered here in the child
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                   SizedBox(
-                                    width: w * 0.10,
+                                    height: h * 0.015,
                                   ),
-                                  InkWell(
-                                    child: const Icon(
-                                      FontAwesomeIcons.github,
-                                      color: Colors.white,
-                                    ),
-                                    onTap: () {
-                                      _launchUniversalLinkApp(
-                                        Uri.parse(
-                                          developersList[index].gitHubId,
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      InkWell(
+                                        child: const Icon(
+                                          FontAwesomeIcons.linkedin,
+                                          color: Colors.white,
                                         ),
-                                      );
-                                    },
+                                        onTap: () {
+                                          _launchUniversalLinkApp(
+                                            Uri.parse(
+                                              developersList[index].linkedInId,
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                      SizedBox(
+                                        width: w * 0.10,
+                                      ),
+                                      InkWell(
+                                        child: const Icon(
+                                          Icons.mail,
+                                          color: Colors.white,
+                                        ),
+                                        onTap: () async {
+                                          String email = Uri.encodeComponent(
+                                              developersList[index].emailId);
+                                          String subject = Uri.encodeComponent(
+                                              "Hello Flutter");
+                                          String body = Uri.encodeComponent(
+                                              "Hi! I'm Flutter Developer");
+                                          print(
+                                              subject); //output: Hello%20Flutter
+                                          Uri mail = Uri.parse(
+                                              "mailto:$email?subject=$subject&body=$body");
+                                          if (await launchUrl(mail)) {
+                                            //email app opened
+                                          } else {
+                                            //email app is not opened
+                                          }
+                                        },
+                                      ),
+                                      SizedBox(
+                                        width: w * 0.10,
+                                      ),
+                                      InkWell(
+                                        child: const Icon(
+                                          FontAwesomeIcons.github,
+                                          color: Colors.white,
+                                        ),
+                                        onTap: () {
+                                          _launchUniversalLinkApp(
+                                            Uri.parse(
+                                              developersList[index].gitHubId,
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
-                            ],
+                            ),
                           ),
                         ),
                       );
