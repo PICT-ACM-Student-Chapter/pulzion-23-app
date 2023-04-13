@@ -17,6 +17,7 @@ class PaymentPageCubitSuccess extends PaymentPageCubitState {
   void _checkTxnStatus(String status) {
     switch (status) {
       case UpiPaymentStatus.SUCCESS:
+        
         print('Transaction Successful');
         break;
       case UpiPaymentStatus.SUBMITTED:
