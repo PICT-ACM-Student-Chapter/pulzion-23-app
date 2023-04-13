@@ -32,6 +32,7 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController collegeController = TextEditingController();
+  final TextEditingController othercollegeController = TextEditingController();
 
   @override
   void dispose() {
@@ -144,44 +145,56 @@ class _SignUpState extends State<SignUp> {
                               Icons.mode_edit_rounded,
                               controller: lastNameController,
                             ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Center(
+                                  child: Container(
+                                    height: 60,
+                                    child: Center(
+                                      child: CSCPicker(
+                                        // onCountryChanged: (country) {},
+
+                                        selectedItemStyle: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400),
+                                        onCountryChanged: (country) {
+                                          setState(() {
+                                            countryValue = country;
+                                            address = "$countryValue";
+                                          });
+                                        },
+                                        countryDropdownLabel: address,
+                                        countrySearchPlaceholder: address,
+                                        dropdownHeadingStyle: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 50,
+                                        ),
+
+                                        showCities: false,
+                                        showStates: false,
+                                        dropdownDecoration: BoxDecoration(
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(25.0)),
+                                          color:
+                                              AppColors.primary.withAlpha(100),
+                                          border: Border.all(
+                                            color: Colors.black26,
+                                            width: 2.0,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                             LoginSignUpTextField(
                               'Contact Number',
                               Icons.call,
                               controller: phoneController,
-                            ),
-                            Column(
-                              children: [
-                                Container(
-                                  child: CSCPicker(
-                                    // onCountryChanged: (country) {},
-
-                                    selectedItemStyle: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w400),
-                                    onCountryChanged: (country) {
-                                      setState(() {
-                                        countryValue = country;
-                                        address = "$countryValue";
-                                      });
-                                    },
-                                    countryDropdownLabel: address,
-                                    countrySearchPlaceholder: address,
-
-                                    showCities: false,
-                                    showStates: false,
-                                    dropdownDecoration: BoxDecoration(
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(25.0)),
-                                      color: AppColors.primary.withAlpha(100),
-                                      border: Border.all(
-                                        color: AppColors.primary.withAlpha(255),
-                                        width: 2.0,
-                                      ),
-                                    ),
-                                  ),
-                                  height: 60,
-                                ),
-                              ],
                             ),
                             Column(
                               children: [
@@ -197,23 +210,34 @@ class _SignUpState extends State<SignUp> {
                                           Radius.circular(25.0)),
                                       color: AppColors.primary.withAlpha(100),
                                       border: Border.all(
-                                        color: AppColors.primary.withAlpha(255),
+                                        color: Colors.black26,
                                         width: 2.0,
                                       ),
                                     ),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      // mainAxisAlignment:
+                                      //     MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 8.0, right: 8),
-                                          child: Text(
-                                            selectOption,
-                                            style: (const TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.w400)),
-                                          ),
+                                        SizedBox(
+                                          width: 8,
+                                        ),
+                                        Icon(
+                                          Icons.school_outlined,
+                                          color: Colors
+                                              .white, // add custom icons also
+                                        ),
+                                        SizedBox(
+                                          width: 15,
+                                        ),
+                                        Text(
+                                          selectOption,
+                                          style: (const TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 16)),
+                                        ),
+                                        SizedBox(
+                                          width: 168,
                                         ),
                                         Icon(isOpen
                                             ? Icons.keyboard_arrow_up_sharp
@@ -238,8 +262,7 @@ class _SignUpState extends State<SignUp> {
                                                         Radius.circular(25.0)),
                                                 // color: AppColors.primary.withAlpha(100),
                                                 border: Border.all(
-                                                  color: AppColors.primary
-                                                      .withAlpha(255),
+                                                  color: Colors.black26,
                                                   width: 2.0,
                                                 ),
                                               ),
@@ -257,6 +280,15 @@ class _SignUpState extends State<SignUp> {
                                               ),
                                             ))
                                         .toList(),
+                                  ),
+                                if (selectOption == 'Other')
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                    child: LoginSignUpTextField(
+                                      'enter college name',
+                                      Icons.school,
+                                      controller: othercollegeController,
+                                    ),
                                   ),
                               ],
                             ),
