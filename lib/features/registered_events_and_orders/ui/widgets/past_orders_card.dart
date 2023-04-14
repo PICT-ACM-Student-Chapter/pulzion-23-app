@@ -3,6 +3,7 @@ import '../../../../constants/models/registered_event.dart';
 import 'package:intl/intl.dart';
 import '../../../../constants/colors.dart';
 import '../../../../constants/styles.dart';
+import '../../../../constants/widgets/empty_page.dart';
 
 class PastOrdersCards extends StatelessWidget {
   final List<RegisteredEvent> orders;
@@ -14,9 +15,13 @@ class PastOrdersCards extends StatelessWidget {
     double h = MediaQuery.of(context).size.height;
 
     return orders.isEmpty
-        ? const Text(
-            "You haven't placed any orders yet.",
-            style: TextStyle(color: Colors.white),
+        ? const Expanded(
+            child: Center(
+              child: EmptyPage(
+                errorMessage: 'No pending / Rejected orders',
+                title: 'No Previous Orders',
+              ),
+            ),
           )
         : ListView.builder(
             itemCount: orders.length,

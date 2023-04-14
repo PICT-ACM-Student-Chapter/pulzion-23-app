@@ -45,7 +45,7 @@ class BottomNavBar extends StatelessWidget {
                   } else if (state is BottomBarRegisteredEvents) {
                     return loginState is CheckLoginSuccess
                         ? const RegisteredEventsAndOrders()
-                        : const NeedsLoginPage();
+                        : const LoginSignupBody();
                   } else if (state is BottomBarHome) {
                     return const HomePageContent();
                   } else if (state is BottomBarCart) {
