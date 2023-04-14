@@ -1,6 +1,6 @@
+import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:ticket_widget/ticket_widget.dart';
-import 'package:dotted_line/dotted_line.dart';
 
 class MyTicketView extends StatelessWidget {
   final String name;
@@ -49,7 +49,11 @@ class MyTicketView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(top: th / 28, left: tw / 25, right: tw / 15),
+                    padding: EdgeInsets.only(
+                      top: th / 28,
+                      left: tw / 25,
+                      right: tw / 15,
+                    ),
                     child: Text(
                       name,
                       style: TextStyle(

@@ -7,7 +7,6 @@ import '../config/size_config.dart';
 import '../constants/images.dart';
 import '../features/cart_page/cubit/cart_page_cubit.dart';
 import '../features/cart_page/ui/cart_page_final.dart';
-import '../features/cart_page/ui/widgets/needs_login_page.dart';
 import '../features/home_page/ui/home_page_final.dart';
 import '../features/home_page/ui/wigets/custom_appbar.dart';
 import '../features/login_page/cubit/check_login_cubit.dart';
@@ -45,7 +44,7 @@ class BottomNavBar extends StatelessWidget {
                   } else if (state is BottomBarRegisteredEvents) {
                     return loginState is CheckLoginSuccess
                         ? const RegisteredEventsAndOrders()
-                        : const NeedsLoginPage();
+                        : const LoginSignupBody();
                   } else if (state is BottomBarHome) {
                     return const HomePageContent();
                   } else if (state is BottomBarCart) {

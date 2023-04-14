@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:pulzion23/constants/images.dart';
 
+import '../../../../constants/images.dart';
 import '../../../../constants/models/cart_model.dart';
 import '../../../../constants/styles.dart';
 import 'cart_list_tile.dart';

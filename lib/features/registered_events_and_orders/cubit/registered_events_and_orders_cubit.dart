@@ -10,7 +10,8 @@ import '../../../constants/urls.dart';
 
 part 'registered_events_and_orders_state.dart';
 
-class RegisteredEventsAndOrdersCubit extends Cubit<RegisteredEventsAndOrdersState> {
+class RegisteredEventsAndOrdersCubit
+    extends Cubit<RegisteredEventsAndOrdersState> {
   RegisteredEventsAndOrdersCubit() : super(RegisteredEventsAndOrdersLoading());
 
   Future<void> getRegisteredEventsAndOrders() async {
@@ -29,8 +30,9 @@ class RegisteredEventsAndOrdersCubit extends Cubit<RegisteredEventsAndOrdersStat
           },
         );
         var data = jsonDecode(response.body);
-        List<RegisteredEvent> registeredEvents =
-            data['transactions'].map<RegisteredEvent>((e) => RegisteredEvent.fromJson(e)).toList();
+        List<RegisteredEvent> registeredEvents = data['transactions']
+            .map<RegisteredEvent>((e) => RegisteredEvent.fromJson(e))
+            .toList();
         log(response.body);
         emit(RegisteredEventsAndOrdersLoaded(registeredEvents));
       } catch (e) {

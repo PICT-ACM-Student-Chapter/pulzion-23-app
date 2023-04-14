@@ -15,29 +15,31 @@ class NotBookedWindow extends StatelessWidget {
         //backgroundColor: Color(),
         scaffoldBackgroundColor: const Color(0XFF000067),
       ),
-      home: const ticket(),
+      home: const Ticket(),
     );
   }
 }
 
-class ticket extends StatefulWidget {
-  const ticket({Key? key}) : super(key: key);
+class Ticket extends StatefulWidget {
+  const Ticket({Key? key}) : super(key: key);
 
   @override
-  State<ticket> createState() => _ticketState();
+  State<Ticket> createState() => _TicketState();
 }
 
-class _ticketState extends State<ticket> {
+class _TicketState extends State<Ticket> {
   @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
     double screenheight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: NetworkImage(
-                'https://getwallpapers.com/wallpaper/full/8/f/8/317601.jpg'),
+              'https://getwallpapers.com/wallpaper/full/8/f/8/317601.jpg',
+            ),
             fit: BoxFit.cover,
           ),
         ),
@@ -58,22 +60,23 @@ class _ticketState extends State<ticket> {
             ],
           ),
           linearGradient: LinearGradient(
-              begin: Alignment.bottomCenter,
-              end: Alignment.topCenter,
-              colors: [
-                const Color(0xFFffffff).withOpacity(0.08),
-                const Color(0xFFffffff).withOpacity(0.08),
-              ],
-              stops: const [
-                0.1,
-                1,
-              ]),
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+            colors: [
+              const Color(0xFFffffff).withOpacity(0.08),
+              const Color(0xFFffffff).withOpacity(0.08),
+            ],
+            stops: const [
+              0.1,
+              1,
+            ],
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               // const Expanded(child: Text(''),
               // flex: 2,),
-              Container(
+              SizedBox(
                 height: screenheight * 0.38,
                 child: const Image(
                   image: AssetImage('assets/images/not_booked.jpeg'),
@@ -135,7 +138,7 @@ class _ticketState extends State<ticket> {
                               fontSize: 28,
                               fontWeight: FontWeight.w500,
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -153,13 +156,14 @@ class _ticketState extends State<ticket> {
                             width: screenwidth * 0.01,
                           ),
                           const Expanded(
-                              child: Text(
-                            'Date',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 16,
+                            child: Text(
+                              'Date',
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 16,
+                              ),
                             ),
-                          )),
+                          ),
                           const Icon(
                             Icons.access_time,
                             color: Colors.grey,
@@ -169,13 +173,14 @@ class _ticketState extends State<ticket> {
                             width: screenwidth * 0.01,
                           ),
                           const Expanded(
-                              child: Text(
-                            'Time',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 16,
+                            child: Text(
+                              'Time',
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 16,
+                              ),
                             ),
-                          ))
+                          ),
                         ],
                       ),
                     ),
@@ -187,31 +192,34 @@ class _ticketState extends State<ticket> {
                       child: Row(
                         children: const [
                           Expanded(
-                              child: Text(
-                            '11-04-2023',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
+                            child: Text(
+                              '11-04-2023',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                              ),
                             ),
-                          )),
+                          ),
                           Expanded(
-                              child: Text(
-                            '9:30-11:30',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
+                            child: Text(
+                              '9:30-11:30',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                              ),
                             ),
-                          ))
+                          ),
                         ],
                       ),
                     ),
                     SizedBox(height: screenheight * 0.02),
                     Container(
                       decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.grey,
-                          ),
-                          borderRadius: BorderRadius.circular(15.0)),
+                        border: Border.all(
+                          color: Colors.grey,
+                        ),
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Column(

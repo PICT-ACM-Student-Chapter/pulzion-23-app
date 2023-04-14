@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
-import 'package:pulzion23/constants/widgets/error_dialog.dart';
-import 'package:pulzion23/features/cart_page/ui/widgets/cart_page_content.dart';
+import '../../../constants/widgets/empty_page.dart';
+import '../../../constants/widgets/error_dialog.dart';
+import 'widgets/cart_page_content.dart';
 
 import '../../../constants/images.dart';
 import '../../login_page/cubit/check_login_cubit.dart';
@@ -48,11 +49,12 @@ class CartPageFinal extends StatelessWidget {
                     );
                   } else if (state is CartEmpty) {
                     return Center(
-                      child: ErrorDialog(
-                        'Cart is Empty',
+                      child: EmptyPage(
+                        errorMessage: 'Add some events to your Cart',
                         refreshFunction: () {
                           BlocProvider.of<CartPageCubit>(context).loadCart();
                         },
+                        title: 'Your Cart is Empty',
                       ),
                     );
                   } else if (state is CartPageLoaded) {

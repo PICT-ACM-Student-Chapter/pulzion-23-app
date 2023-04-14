@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../constants/widgets/empty_page.dart';
 import 'ticket_widget.dart';
 
 class RegisteredEventsCards extends StatelessWidget {
@@ -8,11 +9,21 @@ class RegisteredEventsCards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: (context, index) => MyTicketView(
-        name: registeredEvents[index],
-      ),
-      itemCount: registeredEvents.length,
-    );
+    return registeredEvents.isEmpty
+        ? const Expanded(
+            child: Center(
+              child: EmptyPage(
+                errorMessage:
+                    'Go ahead and purchase some events and enjoy Pulzion\'23',
+                title: 'No event registered',
+              ),
+            ),
+          )
+        : ListView.builder(
+            itemBuilder: (context, index) => MyTicketView(
+              name: registeredEvents[index],
+            ),
+            itemCount: registeredEvents.length,
+          );
   }
 }

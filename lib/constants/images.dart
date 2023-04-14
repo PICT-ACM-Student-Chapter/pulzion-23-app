@@ -15,4 +15,5 @@ class AppImages {
   static const eventDescriptionBackground =
       'assets/images/event-description-bg.gif';
   static const orangeRocket = 'assets/images/orange_rocket.json';
+  static const emptyMan = "assets/images/empty_spaceman.json";
 }
