@@ -9,12 +9,19 @@ import 'package:auto_animated/auto_animated.dart';
 import 'package:panorama/panorama.dart';
 import '../../../constants/images.dart';
 
+void main() {
+  runApp((DevelopersPage()));
+}
+
 class DevelopersPage extends StatelessWidget {
   const DevelopersPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MyHomePage();
+    return MaterialApp(
+      home: MyHomePage(),
+      debugShowCheckedModeBanner: false,
+    );
   }
 }
 
@@ -114,8 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 AnimatedAlign(
-                  alignment:
-                      _move ? Alignment.centerLeft : Alignment.centerRight,
+                  alignment: _move ? Alignment.centerLeft : Alignment.centerRight,
                   onEnd: () => setState(() {
                     _move = !_move;
                   }),
@@ -136,10 +142,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 Expanded(
                   child: GridView.builder(
                     gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: MediaQuery.of(context).orientation ==
-                              Orientation.landscape
-                          ? w * 0.25
-                          : w * 0.5,
+                      maxCrossAxisExtent:
+                          MediaQuery.of(context).orientation == Orientation.landscape
+                              ? w * 0.25
+                              : w * 0.5,
                       childAspectRatio: 1 / h * 450,
                       crossAxisSpacing: h * 0.015,
                       mainAxisSpacing: h * 0.015,
@@ -162,6 +168,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: Padding(
                           padding: const EdgeInsets.all(7.0),
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
                                 decoration: BoxDecoration(
@@ -169,7 +176,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                   borderRadius: BorderRadius.circular(17),
                                 ),
                                 padding: EdgeInsets.all(h * 0.005),
-                                // ignore: sort_child_properties_last
+                                alignment: Alignment.topCenter,
+                                height: h * 0.25,
                                 child: WidgetCircularAnimator(
                                   innerAnimation: Curves.easeInCirc,
                                   outerAnimation: Curves.linear,
@@ -183,16 +191,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                     //Images of the developer need to be added  here
                                     // ignore: sort_child_properties_last
                                     radius: 20,
-                                    foregroundImage: NetworkImage(
-                                        developersList[index].imageUrl),
+                                    foregroundImage: NetworkImage(developersList[index].imageUrl),
                                   ),
                                 ),
-                                alignment: Alignment.topCenter,
-                                height: h * 0.25,
-                                // child: Image.asset(name),
-                              ),
-                              SizedBox(
-                                height: h * 0.02,
                               ),
                               Container(
                                 height: h * 0.05,
@@ -214,18 +215,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                         color: Colors.white,
                                       ),
                                     ),
-                                    backgroundColor: Colors.white24,
                                   ),
                                 ),
-                                alignment: Alignment.topCenter,
-                                height: h * 0.25,
-                                // child: Image.asset(name),
-                              ),
-                              SizedBox(
-                                height: h * 0.015,
                               ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   InkWell(
                                     child: const Icon(
@@ -240,33 +235,21 @@ class _MyHomePageState extends State<MyHomePage> {
                                       );
                                     },
                                   ),
-                                  SizedBox(
-                                    width: w * 0.10,
-                                  ),
                                   InkWell(
                                     child: const Icon(
                                       Icons.mail,
                                       color: Colors.white,
                                     ),
                                     onTap: () async {
-                                      String email = Uri.encodeComponent(
-                                          developersList[index].emailId);
-                                      String subject =
-                                          Uri.encodeComponent("Hello Flutter");
-                                      String body = Uri.encodeComponent(
-                                          "Hi! I'm Flutter Developer");
+                                      String email =
+                                          Uri.encodeComponent(developersList[index].emailId);
+                                      String subject = Uri.encodeComponent("Hello Flutter");
+                                      String body =
+                                          Uri.encodeComponent("Hi! I'm Flutter Developer");
                                       print(subject); //output: Hello%20Flutter
-                                      Uri mail = Uri.parse(
-                                          "mailto:$email?subject=$subject&body=$body");
-                                      if (await launchUrl(mail)) {
-                                        //email app opened
-                                      } else {
-                                        //email app is not opened
-                                      }
+                                      Uri mail =
+                                          Uri.parse("mailto:$email?subject=$subject&body=$body");
                                     },
-                                  ),
-                                  SizedBox(
-                                    width: w * 0.10,
                                   ),
                                   InkWell(
                                     child: const Icon(

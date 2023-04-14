@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pulzion23/features/event_slots/ui/event_slot_main.dart';
 import 'package:pulzion23/pages/about_us_page/ui/about_us.dart';
 import '../../../constants/images.dart';
 import '../../../constants/urls.dart';
@@ -16,9 +15,6 @@ import '../../../features/login_page/cubit/check_login_cubit.dart';
 import 'child_wild.dart';
 import 'frostedglass.dart';
 import 'rocket.dart';
-import 'coming_soon.dart';
-import '../../../features/event_slots/logic/booked_slot_cubit.dart';
-import '../../../features/event_slots/ui/event_slot_main.dart';
 import '../../developers_page/ui/developers_page.dart';
 
 class FrostedGlassTile extends StatefulWidget {

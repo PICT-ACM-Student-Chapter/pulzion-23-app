@@ -14,12 +14,12 @@ class EventBookingPage extends StatelessWidget {
     return BlocBuilder<EventSlotsCubit, EventSlotStateCubit>(
       bloc: EventSlotsCubit()..getBookingDetails(),
       builder: (context, state) {
-        print(state.toString());
         if (state is BookedSlotState) {
-          return BookedWindow();
+          return const BookedWindow();
         } else if (state is NotBookedSlotState) {
-          return NotBookedWindow();
+          return const NotBookedWindow();
         }
+
         return const Center(
           child: CircularProgressIndicator(),
         );

@@ -5,6 +5,8 @@ import '../../../constants/images.dart';
 
 
 class BookedWindow extends StatefulWidget {
+  const BookedWindow({super.key});
+
   @override
   State<BookedWindow> createState() => _BookedWindowState();
 }
@@ -24,6 +26,7 @@ class _BookedWindowState extends State<BookedWindow>
   ];
   List<bool> c = [false, false, false, false];
 
+  @override
   void initState() {
     _controller = AnimationController(
       vsync: this,
@@ -32,8 +35,8 @@ class _BookedWindowState extends State<BookedWindow>
     super.initState();
   }
 
+  @override
   void dispose() {
-    // TODO: implement dispose
     _controller.dispose();
     super.dispose();
   }
@@ -86,7 +89,7 @@ class _BookedWindowState extends State<BookedWindow>
   }
 
 
-  Widget EventDate(double h, double w, String event_date, String event_day) {
+  Widget EventDate(double h, double w, String eventDate, String eventDay) {
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -100,7 +103,7 @@ class _BookedWindowState extends State<BookedWindow>
               Padding(
                 padding: EdgeInsets.all(h * 0.005),
                 child: Text(
-                  event_day,
+                  eventDay,
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w700,
@@ -111,7 +114,7 @@ class _BookedWindowState extends State<BookedWindow>
               Padding(
                 padding: EdgeInsets.all(h * 0.002),
                 child: Text(
-                  event_date,
+                  eventDate,
                   style: TextStyle(fontSize: h * 0.025),
                 ),
               ),

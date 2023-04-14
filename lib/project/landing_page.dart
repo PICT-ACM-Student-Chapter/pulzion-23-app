@@ -7,10 +7,12 @@ import '../config/size_config.dart';
 import '../constants/images.dart';
 import '../features/cart_page/cubit/cart_page_cubit.dart';
 import '../features/cart_page/ui/cart_page_final.dart';
+import '../features/cart_page/ui/widgets/needs_login_page.dart';
 import '../features/home_page/ui/home_page_final.dart';
 import '../features/home_page/ui/wigets/custom_appbar.dart';
 import '../features/login_page/cubit/check_login_cubit.dart';
 import '../features/login_page/ui/login_signup_intro.dart';
+import '../features/registered_events_and_orders/ui/registered_events_and_orders.dart';
 import '../pages/about_us_page/ui/about_us.dart';
 import '../pages/more_page/ui/more_main.dart';
 import 'cubit/bottom_bar_cubit.dart';
@@ -42,13 +44,8 @@ class BottomNavBar extends StatelessWidget {
                     return const AboutUsPage();
                   } else if (state is BottomBarRegisteredEvents) {
                     return loginState is CheckLoginSuccess
-                        ? const Center(
-                            child: Text(
-                              "Registered Events",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          )
-                        : const LoginSignUpIntro();
+                        ? const RegisteredEventsAndOrders()
+                        : const NeedsLoginPage();
                   } else if (state is BottomBarHome) {
                     return const HomePageContent();
                   } else if (state is BottomBarCart) {
@@ -70,8 +67,7 @@ class BottomNavBar extends StatelessWidget {
             margin:
                 EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
             child: CurvedNavigationBar(
-              index: 1,
-              // Make it 1 for the final version
+              index: 2,
               height: MediaQuery.of(context).size.height * 0.07,
               items: <Widget>[
                 Icon(
@@ -79,11 +75,11 @@ class BottomNavBar extends StatelessWidget {
                   size: 30,
                   color: Colors.white.withOpacity(0.7),
                 ),
-                // Icon(
-                //   Icons.calendar_month,
-                //   size: 30,
-                //   color: Colors.white.withOpacity(0.7),
-                // ),
+                Icon(
+                  Icons.calendar_month,
+                  size: 30,
+                  color: Colors.white.withOpacity(0.7),
+                ),
                 Icon(
                   Icons.home_rounded,
                   size: 30,

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import "package:share_plus/share_plus.dart";
+import '../../../constants/urls.dart';
 import 'package:pulzion23/features/cart_page/cubit/cart_page_cubit.dart';
 import 'package:pulzion23/features/event_description/ui/widgets/button.dart';
 import '../../../config/size_config.dart';
@@ -20,10 +22,8 @@ class EventDescription extends StatefulWidget {
   State<EventDescription> createState() => _EventDescriptionState();
 }
 
-class _EventDescriptionState extends State<EventDescription>
-    with TickerProviderStateMixin {
-  late final TabController tabBarController =
-      TabController(length: 3, vsync: this);
+class _EventDescriptionState extends State<EventDescription> with TickerProviderStateMixin {
+  late final TabController tabBarController = TabController(length: 3, vsync: this);
 
   @override
   void dispose() {
@@ -88,8 +88,7 @@ class _EventDescriptionState extends State<EventDescription>
             Expanded(
               child: BlocBuilder<CheckLoginCubit, CheckLoginState>(
                 builder: (context, state) {
-                  if (state is CheckLoginFailure ||
-                      state is CheckLoginLoading) {
+                  if (state is CheckLoginFailure || state is CheckLoginLoading) {
                     return event.price == 0
                         ? EventDescriptionPageButton(
                             'Register Now',
@@ -99,8 +98,7 @@ class _EventDescriptionState extends State<EventDescription>
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      const LoginSignUpIntro(),
+                                  builder: (context) => const LoginSignUpIntro(),
                                 ),
                               );
                             },
@@ -112,8 +110,7 @@ class _EventDescriptionState extends State<EventDescription>
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      const LoginSignUpIntro(),
+                                  builder: (context) => const LoginSignUpIntro(),
                                 ),
                               );
                             },
@@ -138,8 +135,7 @@ class _EventDescriptionState extends State<EventDescription>
                             'Add to Cart',
                             Icons.shopping_cart,
                             () {
-                              BlocProvider.of<CartPageCubit>(context)
-                                  .addCartItem(event.id!);
+                              BlocProvider.of<CartPageCubit>(context).addCartItem(event.id!);
                             },
                           ),
                   );
@@ -237,6 +233,28 @@ class _EventDescriptionState extends State<EventDescription>
                         ),
                       ),
                     ),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).padding.top * 1.5,
+                          right: MediaQuery.of(context).size.width / 20,
+                        ),
+                        child: InkWell(
+                          onTap: (() {
+                            Share.share(
+                              '${event.description}\n\nPulzion 23 App: ${EndPoints.playStoreURL}',
+                              subject: 'Pulzion 2023',
+                              sharePositionOrigin: Rect.fromLTWH(0, 0, 10, 10),
+                            );
+                          }),
+                          child: const Icon(
+                            Icons.share,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
                 Padding(
@@ -256,8 +274,7 @@ class _EventDescriptionState extends State<EventDescription>
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
                               colors: AppColors.eventCardGradientList.elementAt(
-                                event.id! %
-                                    AppColors.eventCardGradientList.length,
+                                event.id! % AppColors.eventCardGradientList.length,
                               ),
                             ),
                           ),
@@ -305,8 +322,7 @@ class _EventDescriptionState extends State<EventDescription>
                                 ),
                               ),
                             ),
-                            unselectedLabelColor:
-                                AppColors.cardSubtitleTextColor,
+                            unselectedLabelColor: AppColors.cardSubtitleTextColor,
                             labelColor: AppColors.loginPageAccent,
                             tabs: const [
                               Text(
