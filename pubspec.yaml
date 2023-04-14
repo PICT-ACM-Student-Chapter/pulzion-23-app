@@ -41,6 +41,7 @@ dependencies:
     glassmorphism: ^3.0.0
     ticket_widget: ^0.0.1
     dotted_line: ^3.1.0
+    share_plus: ^6.3.2
 
 dev_dependencies:
     flutter_test:
