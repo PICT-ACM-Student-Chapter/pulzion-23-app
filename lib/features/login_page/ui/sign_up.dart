@@ -11,7 +11,6 @@ import '../cubit/check_login_cubit.dart';
 import '../logic/sign_up_cubit.dart';
 import 'widgets/roundedbutton.dart';
 import 'widgets/text_field.dart';
-import 'package:country_code_picker/country_code_picker.dart';
 import 'package:csc_picker/csc_picker.dart';
 
 class SignUp extends StatefulWidget {
@@ -54,7 +53,6 @@ class _SignUpState extends State<SignUp> {
   String address = "Country";
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
     return Stack(
       children: [
         Panorama(
@@ -149,35 +147,35 @@ class _SignUpState extends State<SignUp> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Center(
-                                  child: Container(
+                                  child: SizedBox(
                                     height: 60,
                                     child: Center(
                                       child: CSCPicker(
-                                        // onCountryChanged: (country) {},
-
-                                        selectedItemStyle: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w400),
+                                        defaultCountry: CscCountry.India,
+                                        selectedItemStyle: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400,
+                                        ),
                                         onCountryChanged: (country) {
                                           setState(() {
                                             countryValue = country;
-                                            address = "$countryValue";
+                                            address = countryValue;
                                           });
                                         },
                                         countryDropdownLabel: address,
                                         countrySearchPlaceholder: address,
-                                        dropdownHeadingStyle: TextStyle(
+                                        dropdownHeadingStyle: const TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.w400,
                                           fontSize: 50,
                                         ),
-
                                         showCities: false,
                                         showStates: false,
                                         dropdownDecoration: BoxDecoration(
                                           borderRadius: const BorderRadius.all(
-                                              Radius.circular(25.0)),
+                                            Radius.circular(25.0),
+                                          ),
                                           color:
                                               AppColors.primary.withAlpha(100),
                                           border: Border.all(
@@ -199,15 +197,17 @@ class _SignUpState extends State<SignUp> {
                             Column(
                               children: [
                                 InkWell(
-                                  onTap: () {
-                                    isOpen = !isOpen;
-                                    setState(() {});
+                                  onTap: () => {
+                                    setState(() {
+                                      isOpen = !isOpen;
+                                    }),
                                   },
                                   child: Container(
                                     height: 60,
                                     decoration: BoxDecoration(
                                       borderRadius: const BorderRadius.all(
-                                          Radius.circular(25.0)),
+                                        Radius.circular(25.0),
+                                      ),
                                       color: AppColors.primary.withAlpha(100),
                                       border: Border.all(
                                         color: Colors.black26,
@@ -218,25 +218,26 @@ class _SignUpState extends State<SignUp> {
                                       // mainAxisAlignment:
                                       //     MainAxisAlignment.spaceBetween,
                                       children: [
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 8,
                                         ),
-                                        Icon(
+                                        const Icon(
                                           Icons.school_outlined,
                                           color: Colors
                                               .white, // add custom icons also
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 15,
                                         ),
                                         Text(
                                           selectOption,
                                           style: (const TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 16)),
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 16,
+                                          )),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 168,
                                         ),
                                         Icon(isOpen
@@ -259,7 +260,8 @@ class _SignUpState extends State<SignUp> {
                                                     : Colors.white,
                                                 borderRadius:
                                                     const BorderRadius.all(
-                                                        Radius.circular(25.0)),
+                                                  Radius.circular(25.0),
+                                                ),
                                                 // color: AppColors.primary.withAlpha(100),
                                                 border: Border.all(
                                                   color: Colors.black26,
@@ -270,13 +272,14 @@ class _SignUpState extends State<SignUp> {
                                                 padding:
                                                     const EdgeInsets.all(8.0),
                                                 child: InkWell(
-                                                    onTap: () {
-                                                      selectOption = e;
-                                                      setState(() {
-                                                        isOpen = false;
-                                                      });
-                                                    },
-                                                    child: Text(e)),
+                                                  onTap: () {
+                                                    selectOption = e;
+                                                    setState(() {
+                                                      isOpen = false;
+                                                    });
+                                                  },
+                                                  child: Text(e),
+                                                ),
                                               ),
                                             ))
                                         .toList(),
@@ -323,6 +326,12 @@ class _SignUpState extends State<SignUp> {
 
                                     return;
                                   }
+
+                                  collegeController.text =
+                                      selectOption == 'Other'
+                                          ? othercollegeController.text
+                                          : "PICT";
+
                                   if (firstNameController.text.isEmpty ||
                                       lastNameController.text.isEmpty ||
                                       phoneController.text.isEmpty ||
