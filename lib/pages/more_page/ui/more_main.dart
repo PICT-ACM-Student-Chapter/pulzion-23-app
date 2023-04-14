@@ -276,7 +276,12 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                       FrostedTile(
                         tilename: 'Sponsors',
                         tileicon: Icons.monetization_on_outlined,
-                        onTap: () {},
+                        onTap: () {
+                          launchUrl(
+                            Uri.parse(EndPoints.sponsorsUrl ?? ''),
+                            mode: LaunchMode.inAppWebView,
+                          );
+                        },
                       ),
                       FrostedTile(
                         tilename: 'About Us',

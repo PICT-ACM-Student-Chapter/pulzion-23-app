@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../../constants/styles.dart';
+import '../../../features/home_page/ui/wigets/custom_appbar.dart';
 import 'package:widget_circular_animator/widget_circular_animator.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:panorama/panorama.dart';
@@ -53,51 +55,47 @@ class _DevelopersPageState extends State<DevelopersPage> {
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      body: Stack(
-        children: [
-          Panorama(
-            sensitivity: 0.4,
-            animSpeed: 0.5,
-            sensorControl: SensorControl.Orientation,
-            child: Image.asset(AppImages.spaceBackground, fit: BoxFit.cover),
-          ),
-          Padding(
+    return Stack(
+      children: [
+        Panorama(
+          sensitivity: 0.4,
+          animSpeed: 0.5,
+          sensorControl: SensorControl.Orientation,
+          child: Image.asset(AppImages.spaceBackground, fit: BoxFit.cover),
+        ),
+        Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: const CustomAppBar(),
+          body: Padding(
             padding: const EdgeInsets.all(10),
             child: Column(
               children: [
-                Padding(
-                  padding: EdgeInsets.only(top: h * 0.03),
-                  child: Center(
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Container(
-                        padding: EdgeInsets.only(
-                          left: h * 0.05,
-                          right: h * 0.05,
-                          top: h * 0.02,
-                          bottom: h * 0.015,
+                Center(
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      padding: EdgeInsets.only(
+                        left: h * 0.05,
+                        right: h * 0.05,
+                        top: h * 0.02,
+                        bottom: h * 0.015,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(h * 0.03),
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.white.withOpacity(0.3),
+                            Colors.white.withOpacity(0.1),
+                          ],
                         ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(h * 0.03),
-                          gradient: LinearGradient(
-                            colors: [
-                              Colors.white.withOpacity(0.3),
-                              Colors.white.withOpacity(0.1),
-                            ],
-                          ),
-                        ),
-                        child: FittedBox(
-                          clipBehavior: Clip.hardEdge,
-                          fit: BoxFit.contain,
-                          child: Text(
-                            "DEVELOPERS PAGE",
-                            style: TextStyle(
-                              fontSize: h * 0.04,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                      ),
+                      child: FittedBox(
+                        clipBehavior: Clip.hardEdge,
+                        fit: BoxFit.contain,
+                        child: Text(
+                          "Developers Page",
+                          style:
+                              AppStyles.bodyTextStyle2().copyWith(fontSize: 25),
                         ),
                       ),
                     ),
@@ -267,8 +265,8 @@ class _DevelopersPageState extends State<DevelopersPage> {
               ],
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

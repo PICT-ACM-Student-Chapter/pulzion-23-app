@@ -128,6 +128,7 @@ class _EventDescriptionState extends State<EventDescription>
                             'Register Now',
                             Icons.edit_rounded,
                             () {
+                              // TODO: Call API for registration 0 money
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                   content: Text('Registered Successfully'),

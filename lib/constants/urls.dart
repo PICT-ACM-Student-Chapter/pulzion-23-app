@@ -5,6 +5,7 @@ class EndPoints {
   static String? privacyPolicyURL;
   static String? websiteURL;
   static String? playStoreURL;
+  static String? sponsorsUrl;
 
   static String events = '${baseUrl!}/events';
   static String user = '${baseUrl!}/user/me';

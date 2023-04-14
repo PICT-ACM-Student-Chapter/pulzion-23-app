@@ -3,14 +3,14 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
-import '../../../constants/models/registered_event.dart';
-import '../cubit/registered_events_and_orders_cubit.dart';
 
 import '../../../config/size_config.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/images.dart';
+import '../../../constants/models/registered_event.dart';
 import '../../../constants/styles.dart';
 import '../../../constants/widgets/error_dialog.dart';
+import '../cubit/registered_events_and_orders_cubit.dart';
 import 'widgets/past_orders_card.dart';
 import 'widgets/registered_events_cards.dart';
 

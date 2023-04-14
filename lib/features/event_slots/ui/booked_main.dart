@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../event_slots/logic/booked_slot_cubit.dart';
 
+import '../../event_slots/logic/booked_slot_cubit.dart';
 import 'booked_window.dart';
 import 'not_booked_window.dart';
 

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 
 import '../constants/urls.dart';
@@ -18,9 +16,7 @@ Future<void> remoteConfig() async {
   EndPoints.privacyPolicyURL = remoteConfig.getString('privacyPolicy');
   EndPoints.websiteURL = remoteConfig.getString('websiteUrl');
   EndPoints.playStoreURL = remoteConfig.getString('playstoreUrl');
-  log(EndPoints.baseUrl as String);
-  log(EndPoints.sampleToken as String);
-  log(EndPoints.appLatestStableVersion as String);
+  EndPoints.sponsorsUrl = remoteConfig.getString('sponsorsUrl');
 
   return;
 }

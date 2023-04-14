@@ -1,6 +1,6 @@
+import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:ticket_widget/ticket_widget.dart';
-import 'package:dotted_line/dotted_line.dart';
 
 class MyTicketView extends StatelessWidget {
   final String name;
