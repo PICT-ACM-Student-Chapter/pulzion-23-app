@@ -49,7 +49,11 @@ class MyTicketView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(top: th / 28, left: tw / 25, right: tw / 15),
+                    padding: EdgeInsets.only(
+                      top: th / 28,
+                      left: tw / 25,
+                      right: tw / 15,
+                    ),
                     child: Text(
                       name,
                       style: TextStyle(

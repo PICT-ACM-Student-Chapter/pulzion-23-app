@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pulzion23/constants/models/registered_event.dart';
+import '../../../../constants/models/registered_event.dart';
 import 'package:intl/intl.dart';
 import '../../../../constants/colors.dart';
 import '../../../../constants/styles.dart';
@@ -21,18 +21,26 @@ class PastOrdersCards extends StatelessWidget {
         : ListView.builder(
             itemCount: orders.length,
             itemBuilder: (context, index) {
-              Color statusColor =
-                  orders[index].status == "rejected" ? Colors.red : Colors.yellow;
+              Color statusColor = orders[index].status == "rejected"
+                  ? Colors.red
+                  : Colors.yellow;
 
               return Container(
-                margin: EdgeInsets.symmetric(horizontal: w * 0.025, vertical: h * 0.0075),
-                padding: EdgeInsets.symmetric(horizontal: w * 0.025, vertical: h * 0.015),
+                margin: EdgeInsets.symmetric(
+                  horizontal: w * 0.025,
+                  vertical: h * 0.0075,
+                ),
+                padding: EdgeInsets.symmetric(
+                  horizontal: w * 0.025,
+                  vertical: h * 0.015,
+                ),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: AppColors.eventCardGradientList.elementAt(
-                      orders[index].id! % AppColors.eventCardGradientList.length,
+                      orders[index].id! %
+                          AppColors.eventCardGradientList.length,
                     ),
                   ),
                   borderRadius: const BorderRadius.all(
@@ -55,7 +63,10 @@ class PastOrdersCards extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                               Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8.0,
+                                  vertical: 2.0,
+                                ),
                                 child: Text(
                                   'Transaction ID: ${orders[index].transactionId}',
                                   style: AppStyles.bodyTextStyle3().copyWith(
@@ -65,7 +76,10 @@ class PastOrdersCards extends StatelessWidget {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8.0,
+                                  vertical: 2.0,
+                                ),
                                 child: Text(
                                   DateFormat("hh:mm, dd MMMM yyyy")
                                       .format(orders[index].createdAt!),
@@ -79,7 +93,10 @@ class PastOrdersCards extends StatelessWidget {
                             List.generate(
                               orders[index].events!.length,
                               (index1) => Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8.0,
+                                  vertical: 2.0,
+                                ),
                                 child: Text(
                                   orders[index].events![index1],
                                   style: AppStyles.bodyTextStyle3().copyWith(

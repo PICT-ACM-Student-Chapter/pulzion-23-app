@@ -182,9 +182,10 @@ class AboutUsPage extends StatelessWidget {
                             "Ashutosh Shaha",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                fontSize: width / 20,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
+                              fontSize: width / 20,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                         Text(

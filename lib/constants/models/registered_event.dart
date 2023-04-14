@@ -13,7 +13,6 @@ class RegisteredEvent {
     this.createdAt,
     this.events,
     this.status,
-  
   });
 
   RegisteredEvent.fromJson(Map<String, dynamic> json) {

@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pulzion23/features/event_slots/ui/booked_main.dart';
-import 'package:pulzion23/features/event_slots/ui/booked_window.dart';
-
-import '../logic/booked_slot_cubit.dart';
-import '../ui/booked_main.dart';
+import 'booked_main.dart';
 
 class Ticket extends StatelessWidget {
   const Ticket({super.key, required String title});
@@ -144,7 +139,8 @@ class Ticket extends StatelessWidget {
                 ),
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => EventBookingPage()));
+                    builder: (context) => const EventBookingPage(),
+                  ));
                 },
               ),
             ),

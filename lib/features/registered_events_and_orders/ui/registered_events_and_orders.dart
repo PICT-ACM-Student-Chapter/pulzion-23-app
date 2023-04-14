@@ -3,8 +3,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
-import 'package:pulzion23/constants/models/registered_event.dart';
-import 'package:pulzion23/features/registered_events_and_orders/cubit/registered_events_and_orders_cubit.dart';
+import '../../../constants/models/registered_event.dart';
+import '../cubit/registered_events_and_orders_cubit.dart';
 
 import '../../../config/size_config.dart';
 import '../../../constants/colors.dart';
@@ -18,7 +18,8 @@ class RegisteredEventsAndOrders extends StatefulWidget {
   const RegisteredEventsAndOrders({super.key});
 
   @override
-  State<RegisteredEventsAndOrders> createState() => _RegisteredEventsAndOrdersState();
+  State<RegisteredEventsAndOrders> createState() =>
+      _RegisteredEventsAndOrdersState();
 }
 
 class _RegisteredEventsAndOrdersState extends State<RegisteredEventsAndOrders>
@@ -44,15 +45,17 @@ class _RegisteredEventsAndOrdersState extends State<RegisteredEventsAndOrders>
         eventNames += event.events ?? [];
       }
     }
-    
+
     return eventNames;
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => RegisteredEventsAndOrdersCubit()..getRegisteredEventsAndOrders(),
-      child: BlocBuilder<RegisteredEventsAndOrdersCubit, RegisteredEventsAndOrdersState>(
+      create: (context) =>
+          RegisteredEventsAndOrdersCubit()..getRegisteredEventsAndOrders(),
+      child: BlocBuilder<RegisteredEventsAndOrdersCubit,
+          RegisteredEventsAndOrdersState>(
         builder: (context, state) {
           switch (state.runtimeType) {
             case RegisteredEventsAndOrdersLoading:
@@ -69,12 +72,17 @@ class _RegisteredEventsAndOrdersState extends State<RegisteredEventsAndOrders>
                       child: Text(
                         "Your Events",
                         style: AppStyles.bodyTextStyle2().copyWith(
-                          fontSize: SizeConfig.getProportionateScreenFontSize(30),
+                          fontSize:
+                              SizeConfig.getProportionateScreenFontSize(30),
                         ),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0),
+                      padding: const EdgeInsets.only(
+                        top: 8.0,
+                        left: 8.0,
+                        right: 8.0,
+                      ),
                       child: DefaultTabController(
                         length: 2,
                         child: TabBar(
@@ -93,13 +101,19 @@ class _RegisteredEventsAndOrdersState extends State<RegisteredEventsAndOrders>
                             Text(
                               'Registered Events',
                               style: TextStyle(
-                                fontSize: SizeConfig.getProportionateScreenFontSize(12),
+                                fontSize:
+                                    SizeConfig.getProportionateScreenFontSize(
+                                  12,
+                                ),
                               ),
                             ),
                             Text(
                               'Past Orders',
                               style: TextStyle(
-                                fontSize: SizeConfig.getProportionateScreenFontSize(12),
+                                fontSize:
+                                    SizeConfig.getProportionateScreenFontSize(
+                                  12,
+                                ),
                               ),
                             ),
                           ],
@@ -113,7 +127,8 @@ class _RegisteredEventsAndOrdersState extends State<RegisteredEventsAndOrders>
                         children: [
                           RegisteredEventsCards(
                             registeredEvents: getEventNames(
-                              (state as RegisteredEventsAndOrdersLoaded).registeredEvents,
+                              (state as RegisteredEventsAndOrdersLoaded)
+                                  .registeredEvents,
                             ),
                           ),
                           PastOrdersCards((state)
@@ -132,7 +147,9 @@ class _RegisteredEventsAndOrdersState extends State<RegisteredEventsAndOrders>
                   (state as RegisteredEventsAndOrdersError).errorMessage,
                   refreshFunction: () {
                     log("refreshing");
-                    context.read<RegisteredEventsAndOrdersCubit>().getRegisteredEventsAndOrders();
+                    context
+                        .read<RegisteredEventsAndOrdersCubit>()
+                        .getRegisteredEventsAndOrders();
                   },
                 );
               }

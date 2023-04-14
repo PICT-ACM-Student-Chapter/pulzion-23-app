@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pulzion23/pages/about_us_page/ui/about_us.dart';
+import '../../about_us_page/ui/about_us.dart';
 import '../../../constants/images.dart';
 import '../../../constants/urls.dart';
 import '../../../features/login_page/ui/login_signup_intro.dart';

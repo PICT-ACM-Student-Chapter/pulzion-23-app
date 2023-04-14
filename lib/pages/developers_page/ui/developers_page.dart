@@ -1,36 +1,19 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:widget_circular_animator/widget_circular_animator.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:panorama/panorama.dart';
 import 'info.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:auto_animated/auto_animated.dart';
-import 'package:panorama/panorama.dart';
 import '../../../constants/images.dart';
 
-void main() {
-  runApp((DevelopersPage()));
-}
-
-class DevelopersPage extends StatelessWidget {
+class DevelopersPage extends StatefulWidget {
   const DevelopersPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: MyHomePage(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
+  State<DevelopersPage> createState() => _DevelopersPageState();
 }
 
-class MyHomePage extends StatefulWidget {
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class _DevelopersPageState extends State<DevelopersPage> {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
@@ -56,14 +39,14 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  Future<void> _launchInBrowser(Uri url) async {
-    if (!await launchUrl(
-      url,
-      mode: LaunchMode.externalApplication,
-    )) {
-      throw Exception('Could not launch $url');
-    }
-  }
+  // Future<void> _launchInBrowser(Uri url) async {
+  //   if (!await launchUrl(
+  //     url,
+  //     mode: LaunchMode.externalApplication,
+  //   )) {
+  //     throw Exception('Could not launch $url');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +104,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 AnimatedAlign(
-                  alignment: _move ? Alignment.centerLeft : Alignment.centerRight,
+                  alignment:
+                      _move ? Alignment.centerLeft : Alignment.centerRight,
                   onEnd: () => setState(() {
                     _move = !_move;
                   }),
@@ -129,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   curve: Curves.easeInOut,
                   child: Padding(
                     padding: const EdgeInsets.only(top: 10.0),
-                    child: Container(
+                    child: SizedBox(
                       height: h * 0.04,
                       width: h * 0.1,
                       child: Image.asset(
@@ -142,10 +126,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 Expanded(
                   child: GridView.builder(
                     gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent:
-                          MediaQuery.of(context).orientation == Orientation.landscape
-                              ? w * 0.25
-                              : w * 0.5,
+                      maxCrossAxisExtent: MediaQuery.of(context).orientation ==
+                              Orientation.landscape
+                          ? w * 0.25
+                          : w * 0.5,
                       childAspectRatio: 1 / h * 450,
                       crossAxisSpacing: h * 0.015,
                       mainAxisSpacing: h * 0.015,
@@ -191,7 +175,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                     //Images of the developer need to be added  here
                                     // ignore: sort_child_properties_last
                                     radius: 20,
-                                    foregroundImage: NetworkImage(developersList[index].imageUrl),
+                                    foregroundImage: NetworkImage(
+                                      developersList[index].imageUrl,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -219,7 +205,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ),
                               ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   InkWell(
@@ -241,14 +228,18 @@ class _MyHomePageState extends State<MyHomePage> {
                                       color: Colors.white,
                                     ),
                                     onTap: () async {
-                                      String email =
-                                          Uri.encodeComponent(developersList[index].emailId);
-                                      String subject = Uri.encodeComponent("Hello Flutter");
-                                      String body =
-                                          Uri.encodeComponent("Hi! I'm Flutter Developer");
-                                      print(subject); //output: Hello%20Flutter
-                                      Uri mail =
-                                          Uri.parse("mailto:$email?subject=$subject&body=$body");
+                                      String email = Uri.encodeComponent(
+                                        developersList[index].emailId,
+                                      );
+                                      String subject =
+                                          Uri.encodeComponent("Hello Flutter");
+                                      String body = Uri.encodeComponent(
+                                        "Hi! I'm Flutter Developer",
+                                      );
+                                      Uri mail = Uri.parse(
+                                        "mailto:$email?subject=$subject&body=$body",
+                                      );
+                                      launchUrl(mail);
                                     },
                                   ),
                                   InkWell(
