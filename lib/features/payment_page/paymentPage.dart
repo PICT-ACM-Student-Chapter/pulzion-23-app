@@ -161,6 +161,7 @@ String _upiErrorHandler(error) {
         break;
       case UpiPaymentStatus.FAILURE:
         print('Transaction Failed');
+        
         break;
       default:
         print('Received an Unknown transaction status');

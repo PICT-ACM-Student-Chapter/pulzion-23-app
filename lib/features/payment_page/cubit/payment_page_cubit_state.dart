@@ -17,7 +17,7 @@ class PaymentPageCubitSuccess extends PaymentPageCubitState {
   void _checkTxnStatus(String status) {
     switch (status) {
       case UpiPaymentStatus.SUCCESS:
-        
+        // here status code is to be added...
         print('Transaction Successful');
         break;
       case UpiPaymentStatus.SUBMITTED:
@@ -41,6 +41,7 @@ class PaymentPageCubitError extends PaymentPageCubitState{
       case UpiIndiaUserCancelledException:
         return 'You cancelled the transaction';
       case UpiIndiaNullResponseException:
+      
         return 'Requested app didn\'t return any response';
       case UpiIndiaInvalidParametersException:
         return 'Requested app cannot handle the transaction';

@@ -186,6 +186,7 @@ class _PaymentState extends State<Payment> {
               style: value,
             )),
           ],
+          
         ),
       );
     }
