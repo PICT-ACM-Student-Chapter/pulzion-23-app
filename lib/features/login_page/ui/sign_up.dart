@@ -11,6 +11,7 @@ import '../cubit/check_login_cubit.dart';
 import '../logic/sign_up_cubit.dart';
 import 'widgets/roundedbutton.dart';
 import 'widgets/text_field.dart';
+import 'package:csc_picker/csc_picker.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -30,6 +31,7 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController collegeController = TextEditingController();
+  final TextEditingController othercollegeController = TextEditingController();
 
   @override
   void dispose() {
@@ -43,6 +45,12 @@ class _SignUpState extends State<SignUp> {
     collegeController.dispose();
   }
 
+  bool isOpen = false;
+  String selectOption = 'Select College';
+  // late String? valueChoose;
+  List<String> colleges = ["PICT", "Other"];
+  String countryValue = "";
+  String address = "Country";
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -135,15 +143,157 @@ class _SignUpState extends State<SignUp> {
                               Icons.mode_edit_rounded,
                               controller: lastNameController,
                             ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Center(
+                                  child: SizedBox(
+                                    height: 60,
+                                    child: Center(
+                                      child: CSCPicker(
+                                        defaultCountry: CscCountry.India,
+                                        selectedItemStyle: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                        onCountryChanged: (country) {
+                                          setState(() {
+                                            countryValue = country;
+                                            address = countryValue;
+                                          });
+                                        },
+                                        countryDropdownLabel: address,
+                                        countrySearchPlaceholder: address,
+                                        dropdownHeadingStyle: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 50,
+                                        ),
+                                        showCities: false,
+                                        showStates: false,
+                                        dropdownDecoration: BoxDecoration(
+                                          borderRadius: const BorderRadius.all(
+                                            Radius.circular(25.0),
+                                          ),
+                                          color:
+                                              AppColors.primary.withAlpha(100),
+                                          border: Border.all(
+                                            color: Colors.black26,
+                                            width: 2.0,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                             LoginSignUpTextField(
                               'Contact Number',
                               Icons.call,
                               controller: phoneController,
                             ),
-                            LoginSignUpTextField(
-                              'College Name',
-                              Icons.school,
-                              controller: collegeController,
+                            Column(
+                              children: [
+                                InkWell(
+                                  onTap: () => {
+                                    setState(() {
+                                      isOpen = !isOpen;
+                                    }),
+                                  },
+                                  child: Container(
+                                    height: 60,
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(25.0),
+                                      ),
+                                      color: AppColors.primary.withAlpha(100),
+                                      border: Border.all(
+                                        color: Colors.black26,
+                                        width: 2.0,
+                                      ),
+                                    ),
+                                    child: Row(
+                                      // mainAxisAlignment:
+                                      //     MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        const SizedBox(
+                                          width: 8,
+                                        ),
+                                        const Icon(
+                                          Icons.school_outlined,
+                                          color: Colors
+                                              .white, // add custom icons also
+                                        ),
+                                        const SizedBox(
+                                          width: 15,
+                                        ),
+                                        Text(
+                                          selectOption,
+                                          style: (const TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 16,
+                                          )),
+                                        ),
+                                        const SizedBox(
+                                          width: 168,
+                                        ),
+                                        Icon(isOpen
+                                            ? Icons.keyboard_arrow_up_sharp
+                                            : Icons.keyboard_arrow_down_sharp),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                if (isOpen)
+                                  ListView(
+                                    primary: true,
+                                    shrinkWrap: true,
+                                    children: colleges
+                                        .map((e) => Container(
+                                              decoration: BoxDecoration(
+                                                color: selectOption == e
+                                                    ? AppColors.primary
+                                                        .withAlpha(100)
+                                                    : Colors.white,
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                  Radius.circular(25.0),
+                                                ),
+                                                // color: AppColors.primary.withAlpha(100),
+                                                border: Border.all(
+                                                  color: Colors.black26,
+                                                  width: 2.0,
+                                                ),
+                                              ),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    selectOption = e;
+                                                    setState(() {
+                                                      isOpen = false;
+                                                    });
+                                                  },
+                                                  child: Text(e),
+                                                ),
+                                              ),
+                                            ))
+                                        .toList(),
+                                  ),
+                                if (selectOption == 'Other')
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                    child: LoginSignUpTextField(
+                                      'enter college name',
+                                      Icons.school,
+                                      controller: othercollegeController,
+                                    ),
+                                  ),
+                              ],
                             ),
                             const YearSelectRadioTile(),
                             LoginSignUpTextField(
@@ -176,6 +326,12 @@ class _SignUpState extends State<SignUp> {
 
                                     return;
                                   }
+
+                                  collegeController.text =
+                                      selectOption == 'Other'
+                                          ? othercollegeController.text
+                                          : "PICT";
+
                                   if (firstNameController.text.isEmpty ||
                                       lastNameController.text.isEmpty ||
                                       phoneController.text.isEmpty ||
@@ -260,6 +416,7 @@ class _SignUpState extends State<SignUp> {
                                         phone: phoneController.text.trim(),
                                         year: YearSelectRadioTile
                                             .yearOfStudyString,
+                                        country: address,
                                       );
                                 },
                               ),
@@ -297,34 +454,44 @@ class _YearSelectRadioTileState extends State<YearSelectRadioTile> {
           children: [
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.3,
-              child: RadioListTile(
-                contentPadding: EdgeInsets.zero,
-                activeColor: AppColors.secondary,
-                title: Text('FE', style: AppStyles.bodyTextStyle2()),
-                value: 1,
-                groupValue: YearSelectRadioTile.yearOfStudy,
-                onChanged: (value) {
-                  setState(() {
-                    YearSelectRadioTile.yearOfStudy = value!;
-                    YearSelectRadioTile.yearOfStudyString = 'FE';
-                  });
-                },
+              child: Theme(
+                data: ThemeData(
+                  unselectedWidgetColor: Colors.white,
+                ),
+                child: RadioListTile(
+                  contentPadding: EdgeInsets.zero,
+                  activeColor: AppColors.secondary,
+                  title: Text('FE', style: AppStyles.bodyTextStyle2()),
+                  value: 1,
+                  groupValue: YearSelectRadioTile.yearOfStudy,
+                  onChanged: (value) {
+                    setState(() {
+                      YearSelectRadioTile.yearOfStudy = value!;
+                      YearSelectRadioTile.yearOfStudyString = 'FE';
+                    });
+                  },
+                ),
               ),
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.3,
-              child: RadioListTile(
-                contentPadding: EdgeInsets.zero,
-                activeColor: AppColors.secondary,
-                title: Text('SE', style: AppStyles.bodyTextStyle2()),
-                value: 2,
-                groupValue: YearSelectRadioTile.yearOfStudy,
-                onChanged: (value) {
-                  setState(() {
-                    YearSelectRadioTile.yearOfStudy = value!;
-                    YearSelectRadioTile.yearOfStudyString = 'SE';
-                  });
-                },
+              child: Theme(
+                data: ThemeData(
+                  unselectedWidgetColor: Colors.white,
+                ),
+                child: RadioListTile(
+                  contentPadding: EdgeInsets.zero,
+                  activeColor: AppColors.secondary,
+                  title: Text('SE', style: AppStyles.bodyTextStyle2()),
+                  value: 2,
+                  groupValue: YearSelectRadioTile.yearOfStudy,
+                  onChanged: (value) {
+                    setState(() {
+                      YearSelectRadioTile.yearOfStudy = value!;
+                      YearSelectRadioTile.yearOfStudyString = 'SE';
+                    });
+                  },
+                ),
               ),
             ),
           ],
@@ -334,34 +501,44 @@ class _YearSelectRadioTileState extends State<YearSelectRadioTile> {
           children: [
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.3,
-              child: RadioListTile(
-                contentPadding: EdgeInsets.zero,
-                activeColor: AppColors.secondary,
-                title: Text('TE', style: AppStyles.bodyTextStyle2()),
-                value: 3,
-                groupValue: YearSelectRadioTile.yearOfStudy,
-                onChanged: (value) {
-                  setState(() {
-                    YearSelectRadioTile.yearOfStudy = value!;
-                    YearSelectRadioTile.yearOfStudyString = 'TE';
-                  });
-                },
+              child: Theme(
+                data: ThemeData(
+                  unselectedWidgetColor: Colors.white,
+                ),
+                child: RadioListTile(
+                  contentPadding: EdgeInsets.zero,
+                  activeColor: AppColors.secondary,
+                  title: Text('TE', style: AppStyles.bodyTextStyle2()),
+                  value: 3,
+                  groupValue: YearSelectRadioTile.yearOfStudy,
+                  onChanged: (value) {
+                    setState(() {
+                      YearSelectRadioTile.yearOfStudy = value!;
+                      YearSelectRadioTile.yearOfStudyString = 'TE';
+                    });
+                  },
+                ),
               ),
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.3,
-              child: RadioListTile(
-                contentPadding: EdgeInsets.zero,
-                activeColor: AppColors.secondary,
-                title: Text('BE', style: AppStyles.bodyTextStyle2()),
-                value: 4,
-                groupValue: YearSelectRadioTile.yearOfStudy,
-                onChanged: (value) {
-                  setState(() {
-                    YearSelectRadioTile.yearOfStudy = value!;
-                    YearSelectRadioTile.yearOfStudyString = 'BE';
-                  });
-                },
+              child: Theme(
+                data: ThemeData(
+                  unselectedWidgetColor: Colors.white,
+                ),
+                child: RadioListTile(
+                  contentPadding: EdgeInsets.zero,
+                  activeColor: AppColors.secondary,
+                  title: Text('BE', style: AppStyles.bodyTextStyle2()),
+                  value: 4,
+                  groupValue: YearSelectRadioTile.yearOfStudy,
+                  onChanged: (value) {
+                    setState(() {
+                      YearSelectRadioTile.yearOfStudy = value!;
+                      YearSelectRadioTile.yearOfStudyString = 'BE';
+                    });
+                  },
+                ),
               ),
             ),
           ],

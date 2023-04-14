@@ -21,6 +21,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     required String phone,
     required String college,
     required String year,
+    required String country,
     required String password,
   }) async {
     emit(SignUpLoading());
@@ -39,6 +40,7 @@ class SignUpCubit extends Cubit<SignUpState> {
           'college': college,
           'year': year,
           'password': password,
+          'country': country,
         }),
       );
       data = jsonDecode(response.body);
