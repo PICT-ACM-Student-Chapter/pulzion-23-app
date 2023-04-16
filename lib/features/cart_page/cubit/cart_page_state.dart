@@ -38,3 +38,15 @@ class CartItemNotDeleted extends CartPageState {
 }
 
 class CartPageReload extends CartPageState {}
+
+class SendingTransaction extends CartPageState {}
+
+class SentTransaction extends CartPageState {
+  final String message;
+  SentTransaction(this.message);
+}
+
+class TransactionError extends CartPageState {
+  final String message;
+  TransactionError(this.message);
+}
