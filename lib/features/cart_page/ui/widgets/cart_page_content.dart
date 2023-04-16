@@ -6,6 +6,8 @@ import 'package:lottie/lottie.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 import 'package:bloc/bloc.dart';
 import 'package:pulzion23/features/cart_page/cubit/cart_page_cubit.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../../../constants/images.dart';
 import '../../../../constants/models/cart_model.dart';
@@ -13,11 +15,37 @@ import '../../../../constants/styles.dart';
 import 'cart_list_tile.dart';
 import '../../../../constants/widgets/empty_page.dart';
 
-class CartPageContent extends StatelessWidget {
+class CartPageContent extends StatefulWidget {
   final CartItemList? eventList;
+
+  CartPageContent(this.eventList, {super.key});
+
+  @override
+  State<CartPageContent> createState() => _CartPageContentState();
+}
+
+class _CartPageContentState extends State<CartPageContent> {
   String _transactionId = '';
   final _formKey = GlobalKey<FormState>();
-  CartPageContent(this.eventList, {super.key});
+
+  Future<void> _launchPaymentURL() async {
+    final cost = widget.eventList!.cartItems!
+        .fold(0, (previousValue, element) => previousValue + element.price!);
+    Uri paymentURL = Uri.parse(
+      'upi://pay?pa=pictscholarship@jsb&pn=PICT&am=$cost&tn=Pasc&cu=INR',
+    );
+    final bool nativeAppLaunchSucceeded = await launchUrl(
+      paymentURL,
+      mode: LaunchMode.externalNonBrowserApplication,
+    );
+    // print(nativeAppLaunchSucceeded);
+    if (!nativeAppLaunchSucceeded) {
+      await launchUrl(
+        paymentURL,
+        mode: LaunchMode.inAppWebView,
+      );
+    }
+  }
 
   void _showBottomSheet(BuildContext ctx) {
     showModalBottomSheet(
@@ -111,6 +139,7 @@ class CartPageContent extends StatelessWidget {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter a transaction ID';
                               }
+
                               return null;
                             },
                             onSaved: (newValue) {
@@ -145,34 +174,132 @@ class CartPageContent extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 24),
-                    ElevatedButton(
-                      onPressed: () {
-                        if (!_formKey.currentState!.validate()) {
-                          return;
-                        }
-                        _formKey.currentState!.save();
-
-                        // redirect to Gpay...
-
-                        try {
-                          BlocProvider.of<CartPageCubit>(context)
-                              .sendTransactionID(
-                            _transactionId,
-                          );
-                        } catch (e) {
-                          print(e.toString());
-                        }
-                        Navigator.of(context).pop();
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        textStyle: const TextStyle(fontSize: 18),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              if (!_formKey.currentState!.validate()) {
+                                return;
+                              }
+                              _formKey.currentState!.save();
+                              try {
+                                BlocProvider.of<CartPageCubit>(context)
+                                    .sendTransactionID(
+                                  _transactionId,
+                                );
+                              } catch (e) {
+                                print(e.toString());
+                              }
+                              Navigator.of(context).pop();
+                            },
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(vertical: 16),
+                              textStyle: const TextStyle(fontSize: 18),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              backgroundColor: Colors.blue.withOpacity(0.5),
+                            ),
+                            child: const Text(
+                              'Submit',
+                              style: TextStyle(
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
                         ),
-                        backgroundColor: Colors.blue[900],
-                      ),
-                      child: const Text('Submit'),
+                        const Flexible(
+                          flex: 1,
+                          child: Spacer(),
+                        ),
+                        Expanded(
+                          flex: 3,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    backgroundColor: Colors.transparent,
+                                    title: const Text(
+                                      'QR Code',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    content: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(16),
+                                        border: Border.all(
+                                          color: Colors.white,
+                                          width: 2,
+                                        ),
+                                        gradient: LinearGradient(
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
+                                          colors: [
+                                            Colors.black.withOpacity(0.3),
+                                            Colors.black.withOpacity(0.2),
+                                            Colors.black.withOpacity(0.1),
+                                          ],
+                                        ),
+                                      ),
+                                      width: MediaQuery.of(context).size.width,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.3,
+                                      child: Align(
+                                        alignment: Alignment.center,
+                                        child: QrImage(
+                                          data:
+                                              'upi://pay?pa=pictscholarship@jsb&pn=PICT&am=${widget.eventList!.cartItems!.fold(0, (previousValue, element) => previousValue + element.price!)}&tn=Pasc&cu=INR',
+                                          version: QrVersions.auto,
+                                          foregroundColor: Colors.white,
+                                          size: 320,
+                                        ),
+                                      ),
+                                    ),
+                                    actions: [
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text(
+                                            'Close',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(vertical: 16),
+                              textStyle: const TextStyle(fontSize: 18),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              backgroundColor: Colors.blue.withOpacity(0.5),
+                            ),
+                            child: const Text(
+                              'Generate QR Code',
+                              style: TextStyle(
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -256,7 +383,7 @@ class CartPageContent extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "TOTAL : ₹${eventList == null || eventList!.cartItems == null ? 0 : eventList!.cartItems!.fold(0, (previousValue, element) => previousValue + element.price!)} ",
+                                "TOTAL : ₹${widget.eventList == null || widget.eventList!.cartItems == null ? 0 : widget.eventList!.cartItems!.fold(0, (previousValue, element) => previousValue + element.price!)} ",
                                 style: AppStyles.bodyTextStyle3().copyWith(
                                   color: Colors.white,
                                   fontSize: 18,
@@ -264,7 +391,7 @@ class CartPageContent extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                "(${eventList == null || eventList!.cartItems == null ? 0 : eventList!.cartItems!.length} items)",
+                                "(${widget.eventList == null || widget.eventList!.cartItems == null ? 0 : widget.eventList!.cartItems!.length} items)",
                                 style: AppStyles.bodyTextStyle3().copyWith(
                                   color: Colors.white,
                                   fontSize: 12,
@@ -281,7 +408,7 @@ class CartPageContent extends StatelessWidget {
                                 gradient: const LinearGradient(
                                   colors: [
                                     Color(0xff07f49e),
-                                    Color(0xff42047e)
+                                    Color(0xff42047e),
                                   ],
                                   begin: Alignment.centerLeft,
                                   end: Alignment.centerRight,
@@ -290,8 +417,25 @@ class CartPageContent extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.all(12.0),
                                 child: InkWell(
-                                  onTap: () {
-                                    _showBottomSheet(context);
+                                  onTap: () async {
+                                    if (BlocProvider.of<CartPageCubit>(context)
+                                        .accepting_payment) {
+                                      await _launchPaymentURL().then((value) {
+                                        _showBottomSheet(context);
+                                      });
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .hideCurrentSnackBar();
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          content: Text(
+                                            "We are currently not accepting payments...",
+                                          ),
+                                          backgroundColor: Colors.red,
+                                        ),
+                                      );
+                                    }
                                   },
                                   child: Row(
                                     mainAxisAlignment:
@@ -314,20 +458,6 @@ class CartPageContent extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            // BlocBuilder<CartPageCubit, CartPageState>(
-                            //   builder: (ctx, state) {
-                            //     if (state is SendingTransaction) {
-                            //       return IconButton(
-                            //         icon: const Icon(Icons.refresh),
-                            //         onPressed: () {
-                            //           _showBottomSheet(context);
-                            //         },
-                            //       );
-                            //     }
-
-                            //     return Container();
-                            //   },
-                            // ),
                           ],
                         ),
                       ],
@@ -346,7 +476,8 @@ class CartPageContent extends StatelessWidget {
                 ],
               ),
               Expanded(
-                child: eventList == null || eventList!.cartItems == null
+                child: widget.eventList == null ||
+                        widget.eventList!.cartItems == null
                     ? Center(
                         child: Text(
                           "Cart is empty.",
@@ -357,31 +488,49 @@ class CartPageContent extends StatelessWidget {
                           ),
                         ),
                       )
-                    : ListView.builder(
-                        itemBuilder: (context, index) {
-                          return index == 0
-                              ? Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 16.0),
-                                      child: Text(
-                                        "Items",
-                                        style:
-                                            AppStyles.bodyTextStyle2().copyWith(
-                                          color: Colors.white,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w700,
+                    : Stack(
+                        children: [
+                          ListView.builder(
+                            itemBuilder: (context, index) {
+                              return index == 0
+                                  ? Column(
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 16.0),
+                                          child: Text(
+                                            "Items",
+                                            style: AppStyles.bodyTextStyle2()
+                                                .copyWith(
+                                              color: Colors.white,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                    CartListTile(eventList!.cartItems![index]),
-                                  ],
-                                )
-                              : CartListTile(
-                                  eventList!.cartItems![index],
-                                );
-                        },
-                        itemCount: eventList!.cartItems!.length,
+                                        CartListTile(widget
+                                            .eventList!.cartItems![index]),
+                                      ],
+                                    )
+                                  : CartListTile(
+                                      widget.eventList!.cartItems![index],
+                                    );
+                            },
+                            itemCount: widget.eventList!.cartItems!.length,
+                          ),
+                          Positioned(
+                            bottom: MediaQuery.of(context).size.height * 0.02,
+                            right: MediaQuery.of(context).size.width * 0.03,
+                            child: FloatingActionButton(
+                              onPressed: () => _showBottomSheet(context),
+                              backgroundColor: Colors.white12,
+                              child: const Icon(
+                                Icons.payment,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
               ),
             ],

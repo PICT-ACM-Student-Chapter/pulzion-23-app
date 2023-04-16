@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pulzion23/project/cubit/animation_toggle_cubit.dart';
 import '../../about_us_page/ui/about_us.dart';
 import '../../../constants/images.dart';
 import '../../../constants/urls.dart';
@@ -29,6 +30,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
   bool isRocket = true;
   double _opacity = 1.0;
   bool imgC = true;
+  bool _animationstoggle = true;
 
   void setRocket() {
     setState(() {
@@ -187,7 +189,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
           child: Column(
             children: [
               Expanded(
-                child: titleBar(height),
+                child: titleBar(height - height * 0.05),
               ),
               Container(
                 margin: EdgeInsets.all(height / 55),
@@ -267,6 +269,50 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                       ],
                     ),
                   ),
+                ),
+              ),
+              Container(
+                height: height / 13,
+                margin: EdgeInsets.all(height / 60),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.black.withOpacity(0.15),
+                      Colors.white.withOpacity(0.15),
+                    ],
+                  ),
+                ),
+                child: SwitchListTile(
+                  secondary: CircleAvatar(
+                    backgroundColor: Colors.white54,
+                    child: Icon(
+                      Icons.animation_outlined,
+                      color: Colors.black,
+                      size: height / 43,
+                    ),
+                  ),
+                  title: Text(
+                    'Toggle Animations',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white70,
+                      fontSize: height / 47,
+                    ),
+                  ),
+                  activeColor: Colors.white,
+                  inactiveThumbColor: Colors.white,
+                  inactiveTrackColor: Colors.white54,
+                  value: _animationstoggle,
+                  onChanged: (value) {
+                    setState(() {
+                      BlocProvider.of<GlobalParameterCubit>(context)
+                          .toggleParameter();
+                      _animationstoggle = value;
+                    });
+                  },
                 ),
               ),
               BlocBuilder<CheckLoginCubit, CheckLoginState>(

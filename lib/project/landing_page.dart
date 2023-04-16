@@ -15,6 +15,7 @@ import '../features/registered_events_and_orders/ui/registered_events_and_orders
 import '../pages/about_us_page/ui/about_us.dart';
 import '../pages/more_page/ui/more_main.dart';
 import 'cubit/bottom_bar_cubit.dart';
+import 'cubit/animation_toggle_cubit.dart';
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({super.key});
@@ -26,11 +27,30 @@ class BottomNavBar extends StatelessWidget {
 
     return Stack(
       children: [
-        Panorama(
-          sensitivity: 0.4,
-          animSpeed: 0.5,
-          sensorControl: SensorControl.Orientation,
-          child: Image.asset(AppImages.spaceBackground, fit: BoxFit.cover),
+        BlocConsumer<GlobalParameterCubit, bool>(
+          listener: (context, state) {},
+          buildWhen: (previous, current) {
+            // print(previous.toString());
+            // print(current.toString());
+            if (previous != current) {
+              return true;
+            }
+
+            return false;
+          },
+          builder: (context, state) {
+
+            return Panorama(
+              sensitivity: 0.4,
+              animSpeed: 0.5,
+              sensorControl:
+                  state ? SensorControl.Orientation : SensorControl.None,
+              child: Image.asset(
+                AppImages.spaceBackground,
+                fit: BoxFit.cover,
+              ),
+            );
+          },
         ),
         Scaffold(
           appBar: const CustomAppBar(),

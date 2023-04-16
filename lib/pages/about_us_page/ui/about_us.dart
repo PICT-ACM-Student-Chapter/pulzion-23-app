@@ -1,10 +1,14 @@
 import 'package:countup/countup.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pulzion23/constants/styles.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:widget_circular_animator/widget_circular_animator.dart';
 import 'package:panorama/panorama.dart';
 import '../../../constants/images.dart';
+import 'package:bloc/bloc.dart';
+import '../../../project/cubit/animation_toggle_cubit.dart';
 
 class AboutUsPage extends StatelessWidget {
   const AboutUsPage({super.key});
@@ -36,11 +40,27 @@ class AboutUsPage extends StatelessWidget {
       backgroundColor: Colors.transparent,
       body: Stack(
         children: [
-          Panorama(
-            sensitivity: 0.4,
-            animSpeed: 0.5,
-            sensorControl: SensorControl.Orientation,
-            child: Image.asset(AppImages.spaceBackground, fit: BoxFit.cover),
+          BlocConsumer<GlobalParameterCubit, bool>(
+            listener: (context, state) {},
+            buildWhen: (previous, current) {
+              if (previous != current) {
+                return true;
+              }
+
+              return false;
+            },
+            builder: (context, state) {
+              return Panorama(
+                sensitivity: 0.4,
+                animSpeed: 0.5,
+                sensorControl:
+                    state ? SensorControl.Orientation : SensorControl.None,
+                child: Image.asset(
+                  AppImages.spaceBackground,
+                  fit: BoxFit.cover,
+                ),
+              );
+            },
           ),
           SingleChildScrollView(
             child: Padding(
@@ -80,6 +100,7 @@ class AboutUsPage extends StatelessWidget {
                                   duration: const Duration(seconds: 1),
                                   separator: ',',
                                   style: TextStyle(
+                                    fontFamily: 'Quicksand',
                                     color: Colors.white,
                                     fontSize: width / 13,
                                   ),
@@ -87,7 +108,7 @@ class AboutUsPage extends StatelessWidget {
                                 Text(
                                   "EVENTS",
                                   style: TextStyle(
-                                    fontSize: width / 25,
+                                    fontSize: width / 26,
                                     color: Colors.white,
                                   ),
                                 ),
@@ -123,7 +144,8 @@ class AboutUsPage extends StatelessWidget {
                                 Text(
                                   "VOLUNTEERS",
                                   style: TextStyle(
-                                    fontSize: width / 27,
+                                    fontFamily: 'Quicksand',
+                                    fontSize: width / 28,
                                     color: Colors.white,
                                   ),
                                 ),
@@ -140,6 +162,7 @@ class AboutUsPage extends StatelessWidget {
                       "ABOUT PULZION",
                       style: TextStyle(
                         fontSize: width / 12,
+                        fontFamily: 'Panther',
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
@@ -151,6 +174,7 @@ class AboutUsPage extends StatelessWidget {
                       aboutPulzion,
                       textAlign: TextAlign.justify,
                       style: TextStyle(
+                        fontFamily: 'Quicksand',
                         fontSize: width / 19,
                         color: Colors.white,
                       ),
@@ -162,7 +186,8 @@ class AboutUsPage extends StatelessWidget {
                       "CONTACT US",
                       textAlign: TextAlign.justify,
                       style: TextStyle(
-                        fontSize: width / 12,
+                        fontFamily: 'Panther',
+                        fontSize: width / 13,
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
@@ -179,9 +204,10 @@ class AboutUsPage extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.only(left: width / 20),
                           child: Text(
-                            "Ashutosh Shaha",
+                            "Aditi Chavan",
                             textAlign: TextAlign.center,
                             style: TextStyle(
+                              fontFamily: 'Quicksand',
                               fontSize: width / 20,
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -189,9 +215,10 @@ class AboutUsPage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          "  - 9156546280",
+                          " :  +91 91726 82087",
                           // textAlign: TextAlign.justify,
                           style: TextStyle(
+                            fontFamily: 'Quicksand',
                             fontSize: width / 20,
                             color: Colors.white,
                           ),
@@ -209,19 +236,21 @@ class AboutUsPage extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.only(left: width / 20),
                         child: Text(
-                          "Siddhi Wakchaure ",
+                          "Tejas Padhiyar ",
                           textAlign: TextAlign.justify,
                           style: TextStyle(
-                            fontSize: width / 20,
+                            fontFamily: 'Quicksand',
+                            fontSize: width / 22,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
                         ),
                       ),
                       Text(
-                        " -  8329368540",
+                        ":  +91 97656 08601",
                         textAlign: TextAlign.justify,
                         style: TextStyle(
+                          fontFamily: 'Quicksand',
                           fontSize: width / 20,
                           color: Colors.white,
                         ),

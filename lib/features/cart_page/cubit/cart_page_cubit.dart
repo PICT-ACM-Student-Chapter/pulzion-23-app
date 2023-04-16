@@ -15,6 +15,7 @@ part 'cart_page_state.dart';
 class CartPageCubit extends Cubit<CartPageState> {
   late CartItemList eventList;
   CartPageCubit() : super(CartPageLoading());
+  bool accepting_payment = true; // to be fetch from firebase config...
 
   Future<void> loadCart() async {
     emit(CartPageLoading());
@@ -110,19 +111,28 @@ class CartPageCubit extends Cubit<CartPageState> {
   }
 
   Future<void> sendTransactionID(String tr_id) async {
-    // emit(CartEmpty());
     emit(SendingTransaction());
     try {
+      const storage = FlutterSecureStorage();
+      var token = await storage.read(key: 'token');
       final response = await http.post(
         Uri.parse(EndPoints.transaction),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $token",
+        },
         body: jsonEncode({
           'event_id': getTransactionID(),
           'transaction_id': tr_id,
         }),
       );
       var data = jsonDecode(response.body);
-      
-      print("ERROR IS " + data['error']);
+      // var data = {
+      //   'message': "Form submitted successfully",
+      //   'error': null,
+      // };
+      // print("DATA IS:" + data);
+      // print("ERROR IS " + data['error']);
       if (data['error'] != null) {
         emit(TransactionError(data['error'].toString()));
       }

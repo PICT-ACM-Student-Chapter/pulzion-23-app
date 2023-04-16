@@ -19,7 +19,7 @@ class FrostedGlassBox extends StatelessWidget {
     }
   }
 
-  const FrostedGlassBox({
+  FrostedGlassBox({
     super.key,
     required this.cheight,
     required this.cwidth,

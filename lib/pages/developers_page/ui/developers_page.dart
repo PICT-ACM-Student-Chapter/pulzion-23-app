@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../constants/styles.dart';
 import '../../../features/home_page/ui/wigets/custom_appbar.dart';
 import 'package:widget_circular_animator/widget_circular_animator.dart';
@@ -7,6 +8,8 @@ import 'package:panorama/panorama.dart';
 import 'info.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../constants/images.dart';
+import 'package:bloc/bloc.dart';
+import '../../../project/cubit/animation_toggle_cubit.dart';
 
 class DevelopersPage extends StatefulWidget {
   const DevelopersPage({super.key});
@@ -57,11 +60,27 @@ class _DevelopersPageState extends State<DevelopersPage> {
 
     return Stack(
       children: [
-        Panorama(
-          sensitivity: 0.4,
-          animSpeed: 0.5,
-          sensorControl: SensorControl.Orientation,
-          child: Image.asset(AppImages.spaceBackground, fit: BoxFit.cover),
+        BlocConsumer<GlobalParameterCubit, bool>(
+          listener: (context, state) {},
+          buildWhen: (previous, current) {
+            if (previous != current) {
+              return true;
+            }
+
+            return false;
+          },
+          builder: (context, state) {
+            return Panorama(
+              sensitivity: 0.4,
+              animSpeed: 0.5,
+              sensorControl:
+                  state ? SensorControl.Orientation : SensorControl.None,
+              child: Image.asset(
+                AppImages.spaceBackground,
+                fit: BoxFit.cover,
+              ),
+            );
+          },
         ),
         Scaffold(
           backgroundColor: Colors.transparent,
