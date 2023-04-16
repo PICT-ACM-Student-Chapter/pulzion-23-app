@@ -50,13 +50,16 @@ class MyTicketView extends StatelessWidget {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(top: th / 28, left: tw / 25, right: tw / 15),
-                    child: Text(
-                      name,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: tw / 6.5,
-                        overflow: TextOverflow.ellipsis,
-                        fontWeight: FontWeight.bold,
+                    child: FittedBox(
+                      fit: BoxFit.contain,
+                      child: Text(
+                        name,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: tw / 6.5,
+                          overflow: TextOverflow.ellipsis,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
