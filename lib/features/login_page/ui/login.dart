@@ -119,11 +119,13 @@ class _LoginState extends State<Login> {
                           'Email',
                           Icons.email,
                           controller: emailController,
+                          obscureText: false,
                         ),
                         LoginSignUpTextField(
                           'Password',
                           Icons.lock,
                           controller: passwordController,
+                          obscureText: true,
                         ),
                         Align(
                           alignment: Alignment.centerRight,
