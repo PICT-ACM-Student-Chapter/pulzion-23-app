@@ -61,6 +61,48 @@ class CartPageCubit extends Cubit<CartPageState> {
     }
   }
 
+  Future<void> registerFreeEvent(int id, BuildContext context) async {
+    Response? response;
+    try {
+      const storage = FlutterSecureStorage();
+      var token = await storage.read(key: 'token');
+      response = await http.post(
+        Uri.parse(EndPoints.userEvents),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $token",
+        },
+        body: jsonEncode({'event_id': id}),
+      );
+      log(response.body.toString());
+      var data = jsonDecode(response.body);
+
+      if ((response.statusCode / 100).floor() == 2) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Registered Successfully'),
+            backgroundColor: Colors.green,
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(data['msg']),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } catch (e) {
+      log(e.toString());
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Registration Failed'),
+            backgroundColor: Colors.red,
+          ),
+        );
+    }
+  }
+
   Future<void> addCartItem(int id) async {
     emit(CartPageLoading());
     Response? response;

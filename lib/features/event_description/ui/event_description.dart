@@ -22,10 +22,8 @@ class EventDescription extends StatefulWidget {
   State<EventDescription> createState() => _EventDescriptionState();
 }
 
-class _EventDescriptionState extends State<EventDescription>
-    with TickerProviderStateMixin {
-  late final TabController tabBarController =
-      TabController(length: 3, vsync: this);
+class _EventDescriptionState extends State<EventDescription> with TickerProviderStateMixin {
+  late final TabController tabBarController = TabController(length: 3, vsync: this);
 
   @override
   void dispose() {
@@ -87,13 +85,12 @@ class _EventDescriptionState extends State<EventDescription>
                 ),
               ),
             ),
-            Expanded(
-              child: BlocBuilder<CheckLoginCubit, CheckLoginState>(
-                builder: (context, state) {
-                  if (state is CheckLoginFailure ||
-                      state is CheckLoginLoading) {
-                    return event.price == 0
-                        ? EventDescriptionPageButton(
+            BlocBuilder<CheckLoginCubit, CheckLoginState>(
+              builder: (context, state) {
+                if (state is CheckLoginFailure || state is CheckLoginLoading) {
+                  return event.price == 0
+                      ? Expanded(
+                          child: EventDescriptionPageButton(
                             'Register Now',
                             Icons.edit_rounded,
                             () {
@@ -101,53 +98,99 @@ class _EventDescriptionState extends State<EventDescription>
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      const LoginSignUpIntro(),
+                                  builder: (context) => const LoginSignUpIntro(),
                                 ),
                               );
                             },
-                          )
-                        : EventDescriptionPageButton(
+                          ),
+                        )
+                      : Expanded(
+                          child: EventDescriptionPageButton(
                             'Add to Cart',
                             Icons.shopping_cart,
                             () {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      const LoginSignUpIntro(),
+                                  builder: (context) => const LoginSignUpIntro(),
                                 ),
                               );
-                            },
-                          );
-                  }
-
-                  return Container(
-                    child: event.price == 0
-                        ? EventDescriptionPageButton(
-                            'Register Now',
-                            Icons.edit_rounded,
-                            () {
-                              // TODO: Call API for registration 0 money
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Registered Successfully'),
-                                  backgroundColor: Colors.red,
-                                ),
-                              );
-                            },
-                          )
-                        : EventDescriptionPageButton(
-                            'Add to Cart',
-                            Icons.shopping_cart,
-                            () {
-                              BlocProvider.of<CartPageCubit>(context)
-                                  .addCartItem(event.id!);
                             },
                           ),
-                  );
-                },
-              ),
+                        );
+                }
+
+                return Container(
+                  child: event.price == 0
+                      ? BlocBuilder<CartPageCubit, CartPageState>(
+                          builder: (context, state) {
+                            return Expanded(
+                              child: EventDescriptionPageButton(
+                                'Register Now',
+                                Icons.edit_rounded,
+                                ()async {
+                                  BlocProvider.of<CartPageCubit>(context)
+                                      .registerFreeEvent(event.id!, context);
+      
+                                },
+                              ),
+                            );
+                          },
+                        )
+                      : BlocBuilder<CartPageCubit, CartPageState>(
+                          builder: ((context, cartPageState) {
+                            if (cartPageState is CartPageLoaded) {
+                              return cartPageState.cartList.getIds().contains(event.id)
+                                  ? Expanded(
+                                      child: EventDescriptionPageButton(
+                                        'Remove from Cart',
+                                        Icons.close_rounded,
+                                        () {
+                                          if (event.id != null) {
+                                            BlocProvider.of<CartPageCubit>(context)
+                                                .deleteItem(event.id!);
+                                          }
+                                        },
+                                      ),
+                                    )
+                                  : Expanded(
+                                      child: EventDescriptionPageButton(
+                                        'Add to Cart',
+                                        Icons.shopping_cart,
+                                        () {
+                                          if (event.id != null) {
+                                            BlocProvider.of<CartPageCubit>(context)
+                                                .addCartItem(event.id!);
+                                          }
+                                        },
+                                      ),
+                                    );
+                            } else if (cartPageState is CartEmpty) {
+                              return Expanded(
+                                child: EventDescriptionPageButton(
+                                  'Add to Cart',
+                                  Icons.shopping_cart,
+                                  () {
+                                    if (event.id != null) {
+                                      BlocProvider.of<CartPageCubit>(context)
+                                          .addCartItem(event.id!);
+                                    }
+                                  },
+                                ),
+                              );
+                            } else {
+                              return const SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                ),
+                              );
+                            }
+                          }),
+                        ),
+                );
+              },
             ),
           ],
         ),
@@ -252,8 +295,7 @@ class _EventDescriptionState extends State<EventDescription>
                             Share.share(
                               '${event.description}\n\nPulzion 23 App: ${EndPoints.playStoreURL}',
                               subject: 'Pulzion 2023',
-                              sharePositionOrigin:
-                                  const Rect.fromLTWH(0, 0, 10, 10),
+                              sharePositionOrigin: const Rect.fromLTWH(0, 0, 10, 10),
                             );
                           }),
                           child: const Icon(
@@ -282,8 +324,7 @@ class _EventDescriptionState extends State<EventDescription>
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
                               colors: AppColors.eventCardGradientList.elementAt(
-                                event.id! %
-                                    AppColors.eventCardGradientList.length,
+                                event.id! % AppColors.eventCardGradientList.length,
                               ),
                             ),
                           ),
@@ -331,8 +372,7 @@ class _EventDescriptionState extends State<EventDescription>
                                 ),
                               ),
                             ),
-                            unselectedLabelColor:
-                                AppColors.cardSubtitleTextColor,
+                            unselectedLabelColor: AppColors.cardSubtitleTextColor,
                             labelColor: AppColors.loginPageAccent,
                             tabs: const [
                               Text(
