@@ -9,6 +9,12 @@ class RegisteredEventsCards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    var height = size.height;
+    var width = size.width;
+    var th = height / 2.4;
+    var tw = width / 1.2;
+
     return registeredEvents.isEmpty
         ? const Expanded(
             child: Center(
@@ -19,11 +25,22 @@ class RegisteredEventsCards extends StatelessWidget {
               ),
             ),
           )
-        : ListView.builder(
-            itemBuilder: (context, index) => MyTicketView(
-              name: registeredEvents[index],
+        // : ListView.builder(
+        //     itemBuilder: (context, index) =>
+        //         MyTicketView(name: 'Wed and App Dev'),
+        //     itemCount: 5,
+        //   );
+        : ListWheelScrollView.useDelegate(
+            itemExtent: th,
+            physics: const FixedExtentScrollPhysics(),
+            perspective: 0.0012,
+            diameterRatio: 1.2,
+            childDelegate: ListWheelChildBuilderDelegate(
+              childCount: 5,
+              builder: (context, index) => MyTicketView(
+                name: registeredEvents[index],
+              ),
             ),
-            itemCount: registeredEvents.length,
           );
   }
 }

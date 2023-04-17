@@ -87,13 +87,12 @@ class _EventDescriptionState extends State<EventDescription>
                 ),
               ),
             ),
-            Expanded(
-              child: BlocBuilder<CheckLoginCubit, CheckLoginState>(
-                builder: (context, state) {
-                  if (state is CheckLoginFailure ||
-                      state is CheckLoginLoading) {
-                    return event.price == 0
-                        ? EventDescriptionPageButton(
+            BlocBuilder<CheckLoginCubit, CheckLoginState>(
+              builder: (context, state) {
+                if (state is CheckLoginFailure || state is CheckLoginLoading) {
+                  return event.price == 0
+                      ? Expanded(
+                          child: EventDescriptionPageButton(
                             'Register Now',
                             Icons.edit_rounded,
                             () {
@@ -106,8 +105,10 @@ class _EventDescriptionState extends State<EventDescription>
                                 ),
                               );
                             },
-                          )
-                        : EventDescriptionPageButton(
+                          ),
+                        )
+                      : Expanded(
+                          child: EventDescriptionPageButton(
                             'Add to Cart',
                             Icons.shopping_cart,
                             () {
@@ -119,35 +120,84 @@ class _EventDescriptionState extends State<EventDescription>
                                 ),
                               );
                             },
-                          );
-                  }
+                          ),
+                        );
+                }
 
-                  return Container(
-                    child: event.price == 0
-                        ? EventDescriptionPageButton(
-                            'Register Now',
-                            Icons.edit_rounded,
-                            () {
-                              // TODO: Call API for registration 0 money
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Registered Successfully'),
-                                  backgroundColor: Colors.red,
+                return Container(
+                  child: event.price == 0
+                      ? BlocBuilder<CartPageCubit, CartPageState>(
+                          builder: (context, state) {
+                            return Expanded(
+                              child: EventDescriptionPageButton(
+                                'Register Now',
+                                Icons.edit_rounded,
+                                () async {
+                                  BlocProvider.of<CartPageCubit>(context)
+                                      .registerFreeEvent(event.id!, context);
+                                },
+                              ),
+                            );
+                          },
+                        )
+                      : BlocBuilder<CartPageCubit, CartPageState>(
+                          builder: ((context, cartPageState) {
+                            if (cartPageState is CartPageLoaded) {
+                              return cartPageState.cartList
+                                      .getIds()
+                                      .contains(event.id)
+                                  ? Expanded(
+                                      child: EventDescriptionPageButton(
+                                        'Remove from Cart',
+                                        Icons.close_rounded,
+                                        () {
+                                          if (event.id != null) {
+                                            BlocProvider.of<CartPageCubit>(
+                                                    context)
+                                                .deleteItem(event.id!);
+                                          }
+                                        },
+                                      ),
+                                    )
+                                  : Expanded(
+                                      child: EventDescriptionPageButton(
+                                        'Add to Cart',
+                                        Icons.shopping_cart,
+                                        () {
+                                          if (event.id != null) {
+                                            BlocProvider.of<CartPageCubit>(
+                                                    context)
+                                                .addCartItem(event.id!);
+                                          }
+                                        },
+                                      ),
+                                    );
+                            } else if (cartPageState is CartEmpty) {
+                              return Expanded(
+                                child: EventDescriptionPageButton(
+                                  'Add to Cart',
+                                  Icons.shopping_cart,
+                                  () {
+                                    if (event.id != null) {
+                                      BlocProvider.of<CartPageCubit>(context)
+                                          .addCartItem(event.id!);
+                                    }
+                                  },
                                 ),
                               );
-                            },
-                          )
-                        : EventDescriptionPageButton(
-                            'Add to Cart',
-                            Icons.shopping_cart,
-                            () {
-                              BlocProvider.of<CartPageCubit>(context)
-                                  .addCartItem(event.id!);
-                            },
-                          ),
-                  );
-                },
-              ),
+                            } else {
+                              return const SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                ),
+                              );
+                            }
+                          }),
+                        ),
+                );
+              },
             ),
           ],
         ),
@@ -160,6 +210,7 @@ class _EventDescriptionState extends State<EventDescription>
             current is CartItemNotDeleted,
         listener: (context, state) {
           if (state is CartItemAdded) {
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.message),
@@ -168,6 +219,7 @@ class _EventDescriptionState extends State<EventDescription>
             );
             BlocProvider.of<CartPageCubit>(context).loadCart();
           } else if (state is CartItemNotAdded) {
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.message),
@@ -176,6 +228,7 @@ class _EventDescriptionState extends State<EventDescription>
             );
             // BlocProvider.of<CartPageCubit>(context).loadCart();
           } else if (state is CartItemDeleted) {
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.message),
@@ -184,6 +237,7 @@ class _EventDescriptionState extends State<EventDescription>
             );
             BlocProvider.of<CartPageCubit>(context).loadCart();
           } else if (state is CartItemNotDeleted) {
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.message),

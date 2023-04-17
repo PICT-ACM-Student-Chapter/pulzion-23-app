@@ -30,8 +30,6 @@ class BottomNavBar extends StatelessWidget {
         BlocConsumer<GlobalParameterCubit, bool>(
           listener: (context, state) {},
           buildWhen: (previous, current) {
-            // print(previous.toString());
-            // print(current.toString());
             if (previous != current) {
               return true;
             }
@@ -39,7 +37,6 @@ class BottomNavBar extends StatelessWidget {
             return false;
           },
           builder: (context, state) {
-
             return Panorama(
               sensitivity: 0.4,
               animSpeed: 0.5,
@@ -53,6 +50,7 @@ class BottomNavBar extends StatelessWidget {
           },
         ),
         Scaffold(
+          resizeToAvoidBottomInset: false,
           appBar: const CustomAppBar(),
           backgroundColor: Colors.transparent,
           body: BlocBuilder<CheckLoginCubit, CheckLoginState>(

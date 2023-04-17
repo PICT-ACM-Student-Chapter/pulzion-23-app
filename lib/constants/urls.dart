@@ -14,4 +14,7 @@ class EndPoints {
   static String addFCMToken = '${baseUrl!}/fcm_token/';
   static String cart = '${baseUrl!}/cart/';
   static String transaction = '${baseUrl!}/transaction';
+  static String otp = '${baseUrl!}/user/otp';
+  static String forget = '${baseUrl!}/user/forget';
+  static String userEvents = '${baseUrl!}/user_events';
 }

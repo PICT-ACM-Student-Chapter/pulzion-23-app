@@ -46,6 +46,7 @@ dependencies:
     dotted_line: ^3.1.0
     share_plus: ^6.3.2
     qr_flutter: ^4.0.0
+    country_code_picker: ^3.0.0
 
 dev_dependencies:
     flutter_test:

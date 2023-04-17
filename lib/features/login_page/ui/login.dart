@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:panorama/panorama.dart';
+import 'package:pulzion23/features/login_page/ui/widgets/enter_email.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/images.dart';
@@ -12,6 +13,7 @@ import '../logic/login_cubit.dart';
 import 'widgets/go_back_button.dart';
 import 'widgets/roundedbutton.dart';
 import 'widgets/text_field.dart';
+import '../../../project/cubit/animation_toggle_cubit.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -38,11 +40,27 @@ class _LoginState extends State<Login> {
 
     return Stack(
       children: [
-        Panorama(
-          sensitivity: 0.4,
-          animSpeed: 0.5,
-          sensorControl: SensorControl.Orientation,
-          child: Image.asset(AppImages.spaceBackground, fit: BoxFit.cover),
+        BlocConsumer<GlobalParameterCubit, bool>(
+          listener: (context, state) {},
+          buildWhen: (previous, current) {
+            if (previous != current) {
+              return true;
+            }
+
+            return false;
+          },
+          builder: (context, state) {
+            return Panorama(
+              sensitivity: 0.4,
+              animSpeed: 0.5,
+              sensorControl:
+                  state ? SensorControl.Orientation : SensorControl.None,
+              child: Image.asset(
+                AppImages.spaceBackground,
+                fit: BoxFit.cover,
+              ),
+            );
+          },
         ),
         Scaffold(
           appBar: AppBar(
@@ -119,17 +137,27 @@ class _LoginState extends State<Login> {
                           'Email',
                           Icons.email,
                           controller: emailController,
+                          obscureText: false,
                         ),
                         LoginSignUpTextField(
                           'Password',
                           Icons.lock,
                           controller: passwordController,
+                          obscureText: true,
                         ),
                         Align(
                           alignment: Alignment.centerRight,
                           child: InkWell(
                             onTap: () {
-                              null;
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => BlocProvider(
+                                    create: (context) => LoginCubit(),
+                                    child: const GetUserEmail(),
+                                  ),
+                                ),
+                              );
                             },
                             child: const Text(
                               'Forgot Password?',

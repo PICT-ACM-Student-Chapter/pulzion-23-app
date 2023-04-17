@@ -46,4 +46,61 @@ class LoginCubit extends Cubit<LoginState> {
       emit(LoginError(message: e.toString()));
     }
   }
+
+  Future<void> sendOTP(String email) async {
+    emit(LoginLoading());
+    try {
+      var response = await http.post(
+        Uri.parse(EndPoints.otp),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          'email': email,
+        }),
+      );
+      var data = jsonDecode(response.body);
+      if (data['error'] == 'User Not Found') {
+        emit(UserNotFound());
+      } else if (data['error'] != null) {
+        emit(LoginFailure(message: data['error']));
+      } else {
+        // OTP sent successfully
+        emit(OTPSent());
+      }
+    } catch (e) {
+      emit(LoginError(message: e.toString()));
+    }
+  }
+
+  Future<void> resetPassword(String otp, String new_pwd, String email) async {
+    emit(LoginLoading());
+    try {
+      var response = await http.post(
+        Uri.parse(EndPoints.forget),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          'email': email,
+          'password': new_pwd,
+          'otp': int.parse(otp),
+        }),
+      );
+      var data = jsonDecode(response.body);
+      print(data);
+      if (data['error'] == 'User Not Found') {
+        emit(UserNotFound());
+      } else if (data['error'] == 'Invalid Otp') {
+        emit(InvalidOTP());
+      } else if (data['error'] != null) {
+        emit(LoginFailure(message: data['error']));
+      } else {
+        // Password changed successfully
+        emit(PasswordChangedSuccess());
+      }
+    } catch (e) {
+      emit(LoginError(message: e.toString()));
+    }
+  }
 }

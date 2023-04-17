@@ -30,7 +30,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
   bool isRocket = true;
   double _opacity = 1.0;
   bool imgC = true;
-  bool _animationstoggle = true;
+  late bool _animationstoggle;
 
   void setRocket() {
     setState(() {
@@ -181,6 +181,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     // final SensorControl sensorControl = SensorControl.AbsoluteOrientation;
+    _animationstoggle = BlocProvider.of<GlobalParameterCubit>(context).state;
 
     return Stack(
       children: [

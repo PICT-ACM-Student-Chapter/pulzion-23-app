@@ -17,6 +17,15 @@ class CartItemList {
 
     return data;
   }
+
+  List<int> getIds() {
+    final List<int> ids = <int>[];
+    cartItems?.forEach((element) {
+      ids.add(element.id!);
+    });
+    
+    return ids;
+  }
 }
 
 class CartItem {

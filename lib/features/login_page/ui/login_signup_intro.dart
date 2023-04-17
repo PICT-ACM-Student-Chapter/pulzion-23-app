@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:panorama/panorama.dart';
+import '../../../project/cubit/animation_toggle_cubit.dart';
 
 import '../../../config/size_config.dart';
 import '../../../constants/colors.dart';
@@ -21,11 +22,27 @@ class LoginSignUpIntro extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Panorama(
-          sensitivity: 0.4,
-          animSpeed: 0.5,
-          sensorControl: SensorControl.Orientation,
-          child: Image.asset(AppImages.spaceBackground, fit: BoxFit.cover),
+        BlocConsumer<GlobalParameterCubit, bool>(
+          listener: (context, state) {},
+          buildWhen: (previous, current) {
+            if (previous != current) {
+              return true;
+            }
+
+            return false;
+          },
+          builder: (context, state) {
+            return Panorama(
+              sensitivity: 0.4,
+              animSpeed: 0.5,
+              sensorControl:
+                  state ? SensorControl.Orientation : SensorControl.None,
+              child: Image.asset(
+                AppImages.spaceBackground,
+                fit: BoxFit.cover,
+              ),
+            );
+          },
         ),
         Scaffold(
           appBar: AppBar(

@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 part 'booked_slot_state.dart';
 
 class EventSlotsCubit extends Cubit<EventSlotStateCubit> {
-  EventSlotsCubit() : super(EventSlotInitialState());
+  EventSlotsCubit() : super(BookedSlotState());
 
   Future<void> getBookingDetails() async {
     emit(BookedSlotState());

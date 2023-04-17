@@ -219,6 +219,12 @@ class _CartPageContentState extends State<CartPageContent> {
                           flex: 3,
                           child: ElevatedButton(
                             onPressed: () {
+                              final cost = widget.eventList!.cartItems!.fold(
+                                0,
+                                (previousValue, element) =>
+                                    previousValue + element.price!,
+                              );
+
                               showDialog(
                                 context: context,
                                 builder: (context) {
@@ -228,6 +234,8 @@ class _CartPageContentState extends State<CartPageContent> {
                                       'QR Code',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
+                                        fontFamily: 'Panther',
+                                        fontWeight: FontWeight.bold,
                                         color: Colors.white,
                                       ),
                                     ),
@@ -256,7 +264,7 @@ class _CartPageContentState extends State<CartPageContent> {
                                         alignment: Alignment.center,
                                         child: QrImage(
                                           data:
-                                              'upi://pay?pa=pictscholarship@jsb&pn=PICT&am=${widget.eventList!.cartItems!.fold(0, (previousValue, element) => previousValue + element.price!)}&tn=Pasc&cu=INR',
+                                              'upi://pay?pa=pictscholarship@jsb&pn=PICT&am=$cost&tn=Pasc&cu=INR',
                                           version: QrVersions.auto,
                                           foregroundColor: Colors.white,
                                           size: 320,
@@ -273,9 +281,10 @@ class _CartPageContentState extends State<CartPageContent> {
                                           child: const Text(
                                             'Close',
                                             style: TextStyle(
+                                              fontFamily: 'QuickSand',
                                               color: Colors.white,
                                             ),
-                                          ),
+                                          ), 
                                         ),
                                       ),
                                     ],

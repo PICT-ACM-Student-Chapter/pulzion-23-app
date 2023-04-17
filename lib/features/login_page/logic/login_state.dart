@@ -20,3 +20,13 @@ class LoginError extends LoginState {
 
   LoginError({required this.message});
 }
+
+class OTPSent extends LoginState {}
+
+class UserNotFound extends LoginState {}
+
+class InvalidOTP extends LoginState {}
+
+class PasswordChangedSuccess extends LoginState {}
+
+
