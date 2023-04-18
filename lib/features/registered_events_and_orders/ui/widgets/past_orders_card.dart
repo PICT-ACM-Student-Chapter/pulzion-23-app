@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import '../../../../constants/models/registered_event.dart';
 import 'package:intl/intl.dart';
@@ -11,24 +13,21 @@ class PastOrdersCards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log(orders.toString());
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
 
     return orders.isEmpty
-        ? const Expanded(
-            child: Center(
-              child: EmptyPage(
-                errorMessage: 'No pending / Rejected orders',
-                title: 'No Previous Orders',
-              ),
-            ),
-          )
+        ? const Center(
+          child: EmptyPage(
+            errorMessage: 'No pending / Rejected orders',
+            title: 'No Previous Orders',
+          ),
+        )
         : ListView.builder(
             itemCount: orders.length,
             itemBuilder: (context, index) {
-              Color statusColor = orders[index].status == "rejected"
-                  ? Colors.red
-                  : Colors.yellow;
+              Color statusColor = orders[index].status == "rejected" ? Colors.red : Colors.yellow;
 
               return Container(
                 margin: EdgeInsets.symmetric(
@@ -44,8 +43,7 @@ class PastOrdersCards extends StatelessWidget {
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: AppColors.eventCardGradientList.elementAt(
-                      orders[index].id! %
-                          AppColors.eventCardGradientList.length,
+                      orders[index].id! % AppColors.eventCardGradientList.length,
                     ),
                   ),
                   borderRadius: const BorderRadius.all(

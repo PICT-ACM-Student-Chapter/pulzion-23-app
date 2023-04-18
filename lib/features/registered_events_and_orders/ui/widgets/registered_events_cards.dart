@@ -17,13 +17,10 @@ class RegisteredEventsCards extends StatelessWidget {
     var tw = width / 1.2;
 
     return registeredEvents.isEmpty
-        ? const Expanded(
-            child: Center(
-              child: EmptyPage(
-                errorMessage:
-                    'Go ahead and purchase some events and enjoy Pulzion\'23',
-                title: 'No event registered',
-              ),
+        ? const Center(
+            child: EmptyPage(
+              errorMessage: 'Go ahead and purchase some events and enjoy Pulzion\'23',
+              title: 'No event registered',
             ),
           )
         // : ListView.builder(

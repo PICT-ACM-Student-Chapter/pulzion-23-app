@@ -186,11 +186,16 @@ class _EventDescriptionState extends State<EventDescription>
                                 ),
                               );
                             } else {
-                              return const SizedBox(
-                                height: 20,
-                                width: 20,
-                                child: CircularProgressIndicator(
-                                  color: Colors.white,
+                              return Expanded(
+                                child: EventDescriptionPageButton(
+                                  'Add to Cart',
+                                  Icons.shopping_cart,
+                                  () {
+                                    if (event.id != null) {
+                                      BlocProvider.of<CartPageCubit>(context)
+                                          .addCartItem(event.id!);
+                                    }
+                                  },
                                 ),
                               );
                             }
