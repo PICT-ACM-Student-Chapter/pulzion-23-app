@@ -6,7 +6,7 @@ publish_to: "none"
 version: 1.1.0+1
 
 environment:
-    sdk: ">=2.18.4 <3.0.0"
+    sdk: ">=2.18.2 <3.0.0"
 
 dependencies:
     csc_picker: ^0.2.7
@@ -23,7 +23,7 @@ dependencies:
     firebase_remote_config: ^4.0.0
     firebase_core: ^2.4.1
     lottie: ^2.2.0
-    flutter_svg: ^2.0.2
+    flutter_svg: any
     intl: ^0.18.0
     curved_navigation_bar: ^1.0.3
     panorama: ^0.4.1
