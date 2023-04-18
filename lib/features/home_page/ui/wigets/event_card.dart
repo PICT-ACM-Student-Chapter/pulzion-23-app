@@ -1,7 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 import '../../../../config/size_config.dart';
 import '../../../../constants/colors.dart';
@@ -19,6 +22,11 @@ class EventCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final width = mediaQuery.size.width;
+    final _cacheManager = CacheManager(Config(
+      'my_custom_cache_key',
+      stalePeriod: const Duration(days: 7),
+      maxNrOfCacheObjects: 100,
+    ));
 
     return InkWell(
       onTap: (() {
@@ -134,9 +142,14 @@ class EventCard extends StatelessWidget {
                     padding: EdgeInsets.all(
                       SizeConfig.getProportionateScreenWidth(15),
                     ),
-                    child: Image.network(
-                      event.logo!,
+                    child: CachedNetworkImage(
+                      imageUrl: event.logo!,
+                      placeholder: (context, url) => Container(),
+                      errorWidget: (context, url, error) => Container(),
+                      cacheManager: _cacheManager,
+                      fadeInDuration: const Duration(milliseconds: 100),
                       fit: BoxFit.fitWidth,
+                      key: UniqueKey(),
                     ),
                   ),
                 ),

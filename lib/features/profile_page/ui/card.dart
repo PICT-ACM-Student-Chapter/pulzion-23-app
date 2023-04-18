@@ -48,8 +48,11 @@ Widget cardDesign(
                   child: Center(
                     child: Text(
                       value.toString(),
-                      style:
-                          TextStyle(fontSize: h * 0.025, color: Colors.white),
+                      style: TextStyle(
+                        fontSize: h * 0.025,
+                        color: Colors.white,
+                        fontFamily: 'QuickSand',
+                      ),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -69,7 +72,10 @@ Widget cardDesign(
             ),
             child: Text(
               data.toString(),
-              style: const TextStyle(color: Colors.white),
+              style: const TextStyle(
+                color: Colors.white,
+                fontFamily: 'QuickSand',
+              ),
             ),
           ),
         ),

@@ -310,12 +310,14 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                   inactiveThumbColor: Colors.white,
                   inactiveTrackColor: Colors.white54,
                   value: _animationstoggle,
-                  onChanged: (value) {
-                    setState(() {
-                      BlocProvider.of<GlobalParameterCubit>(context)
-                          .toggleParameter();
-                      _animationstoggle = value;
-                    });
+                  onChanged: (val) {
+                    BlocProvider.of<GlobalParameterCubit>(context)
+                        .toggleParameter()
+                        .then((value) => {
+                              setState(() {
+                                _animationstoggle = val;
+                              }),
+                            });
                   },
                 ),
               ),

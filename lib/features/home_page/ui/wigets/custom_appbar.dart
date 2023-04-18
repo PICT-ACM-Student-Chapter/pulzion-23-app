@@ -13,6 +13,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      iconTheme: const IconThemeData(
+        color: Colors.white,
+      ),
       actions: [
         Padding(
           padding: const EdgeInsets.all(8.0),

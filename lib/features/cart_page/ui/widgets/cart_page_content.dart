@@ -256,10 +256,11 @@ class _CartPageContentState extends State<CartPageContent> {
                                           ],
                                         ),
                                       ),
-                                      width: MediaQuery.of(context).size.width,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.62,
                                       height:
-                                          MediaQuery.of(context).size.height *
-                                              0.3,
+                                          MediaQuery.of(context).size.width *
+                                              0.62,
                                       child: Align(
                                         alignment: Alignment.center,
                                         child: QrImage(
@@ -267,7 +268,10 @@ class _CartPageContentState extends State<CartPageContent> {
                                               'upi://pay?pa=pictscholarship@jsb&pn=PICT&am=$cost&tn=Pulzion&cu=INR',
                                           version: QrVersions.auto,
                                           foregroundColor: Colors.white,
-                                          size: 320,
+                                          size: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.6,
                                         ),
                                       ),
                                     ),

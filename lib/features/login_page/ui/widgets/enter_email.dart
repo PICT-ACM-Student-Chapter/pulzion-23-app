@@ -91,16 +91,6 @@ class _GetUserEmailState extends State<GetUserEmail> {
                 ),
               );
             } else if (state is PasswordChangedSuccess) {
-              // Navigator.pushReplacement(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => BlocProvider(
-              //       create: (context) => LoginCubit(),
-              //       child: const Login(),
-              //     ),
-              //   ),
-              // );
-              Navigator.of(context).pop();
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
@@ -108,6 +98,15 @@ class _GetUserEmailState extends State<GetUserEmail> {
                     "Password Changed Successfully!",
                   ),
                   backgroundColor: Colors.green,
+                ),
+              );
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BlocProvider(
+                    create: (context) => LoginCubit(),
+                    child: const Login(),
+                  ),
                 ),
               );
             }

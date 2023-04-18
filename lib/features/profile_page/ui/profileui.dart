@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glowstone/glowstone.dart';
 import 'package:panorama/panorama.dart';
+
+import '../../../constants/images.dart';
+import '../../../project/cubit/animation_toggle_cubit.dart';
 import '../../../constants/widgets/error_dialog.dart';
 import '../../../constants/widgets/loader.dart';
 
@@ -26,10 +29,27 @@ class ProfilePage extends StatelessWidget {
       ),
       extendBodyBehindAppBar: true,
       body: Stack(children: [
-        Panorama(
-          animSpeed: 0.5,
-          sensorControl: SensorControl.Orientation,
-          child: Image.asset('assets/images/space_bg.jpg', fit: BoxFit.cover),
+        BlocConsumer<GlobalParameterCubit, bool>(
+          listener: (context, state) {},
+          buildWhen: (previous, current) {
+            if (previous != current) {
+              return true;
+            }
+
+            return false;
+          },
+          builder: (context, state) {
+            return Panorama(
+              sensitivity: 0.4,
+              animSpeed: 0.5,
+              sensorControl:
+                  state ? SensorControl.Orientation : SensorControl.None,
+              child: Image.asset(
+                AppImages.spaceBackground,
+                fit: BoxFit.cover,
+              ),
+            );
+          },
         ),
         Padding(
           padding: EdgeInsets.only(
@@ -93,6 +113,7 @@ class ProfilePage extends StatelessWidget {
                                     child: Text(
                                       'WELCOME TO YOUR PROFILE',
                                       style: TextStyle(
+                                        fontFamily: 'QuickSand',
                                         fontSize: h * 0.025,
                                         color: Colors.white,
                                       ),
@@ -135,6 +156,7 @@ class ProfilePage extends StatelessWidget {
                                     fontSize: w * 0.08,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
+                                    fontFamily: 'QuickSand',
                                   ),
                                   textAlign: TextAlign.center,
                                 ),

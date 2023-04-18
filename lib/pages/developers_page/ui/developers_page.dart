@@ -10,6 +10,8 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../constants/images.dart';
 import 'package:bloc/bloc.dart';
 import '../../../project/cubit/animation_toggle_cubit.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 class DevelopersPage extends StatefulWidget {
   const DevelopersPage({super.key});
@@ -29,6 +31,11 @@ class _DevelopersPageState extends State<DevelopersPage> {
 
   var count = 20;
   bool _move = true;
+  final _cacheManager = CacheManager(Config(
+    'my_custom_cache_key',
+    stalePeriod: const Duration(days: 7),
+    maxNrOfCacheObjects: 100,
+  ));
 
   var developersList = data;
   Future<void> _launchUniversalLinkApp(Uri url) async {
@@ -191,12 +198,24 @@ class _DevelopersPageState extends State<DevelopersPage> {
                                     innerColor: Colors.white,
                                     outerColor: Colors.amber,
                                     size: h * 0.170,
-                                    child: CircleAvatar(
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(100),
                                       //Images of the developer need to be added  here
                                       // ignore: sort_child_properties_last
-                                      radius: 20,
-                                      foregroundImage: NetworkImage(
-                                        developersList[index].imageUrl,
+                                      child: CachedNetworkImage(
+                                        imageUrl:
+                                            developersList[index].imageUrl,
+                                        placeholder: (context, url) =>
+                                            Image.asset(
+                                          'assets/images/placeholder_person.png',
+                                        ),
+                                        errorWidget: (context, url, error) =>
+                                            Container(),
+                                        cacheManager: _cacheManager,
+                                        fadeInDuration:
+                                            const Duration(milliseconds: 100),
+                                        fit: BoxFit.fitWidth,
+                                        key: UniqueKey(),
                                       ),
                                     ),
                                   ),
@@ -252,7 +271,8 @@ class _DevelopersPageState extends State<DevelopersPage> {
                                           developersList[index].emailId,
                                         );
                                         String subject = Uri.encodeComponent(
-                                            "Hello Flutter");
+                                          "Hello Flutter",
+                                        );
                                         String body = Uri.encodeComponent(
                                           "Hi! I'm Flutter Developer",
                                         );
