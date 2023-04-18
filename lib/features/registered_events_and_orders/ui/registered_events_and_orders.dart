@@ -52,8 +52,10 @@ class _RegisteredEventsAndOrdersState extends State<RegisteredEventsAndOrders>
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          RegisteredEventsAndOrdersCubit()..getRegisteredEventsAndOrders(),
+      create: (context) {
+        print("helo");
+        return RegisteredEventsAndOrdersCubit()..getRegisteredEventsAndOrders();
+      },
       child: BlocBuilder<RegisteredEventsAndOrdersCubit,
           RegisteredEventsAndOrdersState>(
         builder: (context, state) {
@@ -126,15 +128,12 @@ class _RegisteredEventsAndOrdersState extends State<RegisteredEventsAndOrders>
                         controller: tabBarController,
                         children: [
                           RegisteredEventsCards(
-                            registeredEvents: getEventNames(
-                              (state as RegisteredEventsAndOrdersLoaded)
-                                  .registeredEvents,
-                            ),
+                            registeredEvents:
+                                (state as RegisteredEventsAndOrdersLoaded)
+                                    .registeredEvents
+                                    .toList(),
                           ),
-                          PastOrdersCards((state)
-                              .registeredEvents
-                              .where((element) => element.status != "accepted")
-                              .toList()),
+                          PastOrdersCards((state).registeredOrders.toList()),
                         ],
                       ),
                     ),

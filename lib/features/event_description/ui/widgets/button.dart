@@ -34,6 +34,7 @@ class EventDescriptionPageButton extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               FittedBox(
+                fit: BoxFit.cover,
                 child: Text(
                   buttonText,
                   style: AppStyles.bodyTextStyle3().copyWith(
@@ -41,11 +42,9 @@ class EventDescriptionPageButton extends StatelessWidget {
                   ),
                 ),
               ),
-              FittedBox(
-                child: Icon(
-                  buttonIcon,
-                  color: Colors.white,
-                ),
+              Icon(
+                buttonIcon,
+                color: Colors.white,
               ),
             ],
           ),

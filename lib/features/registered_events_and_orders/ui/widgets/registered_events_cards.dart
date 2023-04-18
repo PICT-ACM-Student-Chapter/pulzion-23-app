@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:pulzion23/constants/models/event_model.dart';
 
 import '../../../../constants/widgets/empty_page.dart';
 import 'ticket_widget.dart';
 
 class RegisteredEventsCards extends StatelessWidget {
-  final List registeredEvents;
+  final List<Events> registeredEvents;
   const RegisteredEventsCards({super.key, required this.registeredEvents});
 
   @override
@@ -36,9 +37,11 @@ class RegisteredEventsCards extends StatelessWidget {
             perspective: 0.0012,
             diameterRatio: 1.2,
             childDelegate: ListWheelChildBuilderDelegate(
-              childCount: 5,
+              childCount: registeredEvents.length,
               builder: (context, index) => MyTicketView(
-                name: registeredEvents[index],
+                name: registeredEvents[index].name!,
+                description: registeredEvents[index].description!,
+                eventType: registeredEvents[index].type!,
               ),
             ),
           );

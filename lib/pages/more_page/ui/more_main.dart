@@ -70,8 +70,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
 
   Widget titleBar(double ht) {
     return Padding(
-      padding:
-          EdgeInsets.only(left: ht / 100, right: ht / 100, bottom: ht / 100),
+      padding: EdgeInsets.only(left: ht / 100, right: ht / 100),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(ht / 25),
@@ -119,55 +118,57 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                 const SizedBox(
                   width: 40,
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    AnimatedTextKit(
-                      animatedTexts: [
-                        ColorizeAnimatedText(
-                          "Welcome to Pulzion '23",
-                          textStyle: TextStyle(
-                            fontSize: ht / 45,
-                            fontWeight: FontWeight.bold,
-                            overflow: TextOverflow.ellipsis,
-                            color: Colors.white,
+                Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      AnimatedTextKit(
+                        animatedTexts: [
+                          ColorizeAnimatedText(
+                            "Welcome to Pulzion '23",
+                            textStyle: TextStyle(
+                              fontSize: ht / 45,
+                              fontWeight: FontWeight.bold,
+                              overflow: TextOverflow.ellipsis,
+                              color: Colors.white,
+                            ),
+                            // speed: const Duration(seconds: 2),
+                            colors: [
+                              Colors.white.withOpacity(0.1),
+                              Colors.white.withOpacity(1),
+                              Colors.white.withOpacity(1),
+                              Colors.white.withOpacity(0.1),
+                              // Colors.deepPurple,
+                            ],
+                            speed: const Duration(
+                              milliseconds: 300,
+                            ),
                           ),
-                          // speed: const Duration(seconds: 2),
-                          colors: [
-                            Colors.white.withOpacity(0.1),
-                            Colors.white.withOpacity(1),
-                            Colors.white.withOpacity(1),
-                            Colors.white.withOpacity(0.1),
-                            // Colors.deepPurple,
-                          ],
-                          speed: const Duration(
-                            milliseconds: 300,
+                        ],
+                        repeatForever: true,
+                        pause: Duration.zero,
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.005,
+                      ),
+                      AnimatedTextKit(
+                        animatedTexts: [
+                          TypewriterAnimatedText(
+                            '17 Fun-filled Events',
+                            textStyle: TextStyle(
+                              color: Colors.white54,
+                              overflow: TextOverflow.ellipsis,
+                              fontSize: ht / 55,
+                            ),
+                            speed: const Duration(
+                              milliseconds: 100,
+                            ),
                           ),
-                        ),
-                      ],
-                      repeatForever: true,
-                      pause: Duration.zero,
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.005,
-                    ),
-                    AnimatedTextKit(
-                      animatedTexts: [
-                        TypewriterAnimatedText(
-                          '16 Fun-filled Events',
-                          textStyle: TextStyle(
-                            color: Colors.white54,
-                            overflow: TextOverflow.ellipsis,
-                            fontSize: ht / 55,
-                          ),
-                          speed: const Duration(
-                            milliseconds: 100,
-                          ),
-                        ),
-                      ],
-                      totalRepeatCount: 3,
-                    ),
-                  ],
+                        ],
+                        totalRepeatCount: 3,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -190,7 +191,9 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
           child: Column(
             children: [
               Expanded(
-                child: titleBar(height - height * 0.05),
+                child: titleBar(
+                  height - height * 0.05,
+                ),
               ),
               Container(
                 margin: EdgeInsets.all(height / 55),

@@ -77,10 +77,10 @@ class _EventDescriptionState extends State<EventDescription>
                           "Rs. ${event.price}",
                           style: AppStyles.bodyTextStyle3(),
                         ),
-                        Text(
-                          "/person",
-                          style: AppStyles.bodyTextStyle3(),
-                        ),
+                        // Text(
+                        //   "/person",
+                        //   style: AppStyles.bodyTextStyle3(),
+                        // ),
                       ],
                     ),
                   ],

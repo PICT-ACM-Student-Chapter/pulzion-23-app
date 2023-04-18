@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pulzion23/features/home_page/logic/event_details_cubit_cubit.dart';
 import '../../../event_slots/logic/booked_slot_cubit.dart';
 import 'package:ticket_widget/ticket_widget.dart';
 import 'package:dotted_line/dotted_line.dart';
@@ -8,10 +9,12 @@ class MyTicketView extends StatelessWidget {
   final String name;
   final String description;
   final String isBooked;
+  final String eventType;
   const MyTicketView({
     super.key,
     required this.name,
-    this.description = "",
+    required this.description,
+    required this.eventType,
     this.isBooked = "",
   });
 
@@ -27,6 +30,8 @@ class MyTicketView extends StatelessWidget {
         ),
         color: Colors.white38,
       ),
+      height: h * 0.14,
+      width: w * 0.4,
       child: Center(
         child: Text(
           slot,
@@ -36,8 +41,6 @@ class MyTicketView extends StatelessWidget {
           ),
         ),
       ),
-      height: h * 0.14,
-      width: w * 0.4,
     );
   }
 
@@ -102,7 +105,7 @@ class MyTicketView extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(top: th / 50, left: tw / 25),
                     child: Text(
-                      "TECH",
+                      eventType,
                       style: TextStyle(
                         color: Colors.white70,
                         fontSize: tw / 18,
@@ -141,7 +144,7 @@ class MyTicketView extends StatelessWidget {
 
                               return state is BookedSlotState
                                   ? Text(
-                                      "Date: ....... Time: ........",
+                                      "Slot Booking not yet started",
                                       style: TextStyle(
                                         fontSize: tw / 25,
                                         color: Colors.white,
@@ -159,46 +162,46 @@ class MyTicketView extends StatelessWidget {
                             },
                           ),
                         ),
-                        Center(
-                          child: Card(
-                            shadowColor: Colors.black,
-                            color: Colors.black26,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: BlocConsumer<EventSlotsCubit,
-                                EventSlotStateCubit>(
-                              listener: (context, state) {},
-                              builder: (context, state) {
-                                return state is BookedSlotState
-                                    ? TextButton(
-                                        onPressed: () {
-                                          // nav to aditi's page
-                                        },
-                                        child: const Text(
-                                          'View Details',
-                                          style: TextStyle(
-                                            fontFamily: 'QuickSand',
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      )
-                                    : TextButton(
-                                        onPressed: () {
-                                          // nav to soumya's page
-                                        },
-                                        child: const Text(
-                                          'Book Slot',
-                                          style: TextStyle(
-                                            fontFamily: 'QuickSand',
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      );
-                              },
-                            ),
-                          ),
-                        ),
+                        // Center(
+                        //   child: Card(
+                        //     shadowColor: Colors.black,
+                        //     color: Colors.black26,
+                        //     shape: RoundedRectangleBorder(
+                        //       borderRadius: BorderRadius.circular(15),
+                        //     ),
+                        //     child: BlocConsumer<EventSlotsCubit,
+                        //         EventSlotStateCubit>(
+                        //       listener: (context, state) {},
+                        //       builder: (context, state) {
+                        //         return state is BookedSlotState
+                        //             ? TextButton(
+                        //                 onPressed: () {
+                        //                   // nav to aditi's page
+                        //                 },
+                        //                 child: const Text(
+                        //                   'View Details',
+                        //                   style: TextStyle(
+                        //                     fontFamily: 'QuickSand',
+                        //                     color: Colors.white,
+                        //                   ),
+                        //                 ),
+                        //               )
+                        //             : TextButton(
+                        //                 onPressed: () {
+                        //                   // nav to soumya's page
+                        //                 },
+                        //                 child: const Text(
+                        //                   'Book Slot',
+                        //                   style: TextStyle(
+                        //                     fontFamily: 'QuickSand',
+                        //                     color: Colors.white,
+                        //                   ),
+                        //                 ),
+                        //               );
+                        //       },
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),

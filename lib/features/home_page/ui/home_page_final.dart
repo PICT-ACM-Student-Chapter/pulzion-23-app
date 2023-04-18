@@ -188,7 +188,8 @@ class EventType extends StatelessWidget {
     return Text(
       eventType,
       style: TextStyle(
-        fontSize: fontSizeFactor * 8,
+        fontSize: fontSizeFactor * 7.3,
+        fontFamily: 'QuickSand',
       ),
     );
   }

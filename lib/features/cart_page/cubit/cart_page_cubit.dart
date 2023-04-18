@@ -299,7 +299,7 @@ class CartPageCubit extends Cubit<CartPageState> {
       );
       log(response.body.toString());
       var data = jsonDecode(response.body);
-      print(data);
+
 
       if ((response.statusCode / 100).floor() == 2) {
         sc.showSnackBar(

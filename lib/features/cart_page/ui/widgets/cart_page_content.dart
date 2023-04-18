@@ -32,7 +32,7 @@ class _CartPageContentState extends State<CartPageContent> {
     final cost = widget.eventList!.cartItems!
         .fold(0, (previousValue, element) => previousValue + element.price!);
     Uri paymentURL = Uri.parse(
-      'upi://pay?pa=pictscholarship@jsb&pn=PICT&am=$cost&tn=Pasc&cu=INR',
+      'upi://pay?pa=pictscholarship@jsb&pn=PICT&am=$cost&tn=Pulzion&cu=INR',
     );
     final bool nativeAppLaunchSucceeded = await launchUrl(
       paymentURL,
@@ -264,7 +264,7 @@ class _CartPageContentState extends State<CartPageContent> {
                                         alignment: Alignment.center,
                                         child: QrImage(
                                           data:
-                                              'upi://pay?pa=pictscholarship@jsb&pn=PICT&am=$cost&tn=Pasc&cu=INR',
+                                              'upi://pay?pa=pictscholarship@jsb&pn=PICT&am=$cost&tn=Pulzion&cu=INR',
                                           version: QrVersions.auto,
                                           foregroundColor: Colors.white,
                                           size: 320,
@@ -284,7 +284,7 @@ class _CartPageContentState extends State<CartPageContent> {
                                               fontFamily: 'QuickSand',
                                               color: Colors.white,
                                             ),
-                                          ), 
+                                          ),
                                         ),
                                       ),
                                     ],
