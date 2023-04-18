@@ -142,63 +142,7 @@ class _EventDescriptionState extends State<EventDescription>
                         )
                       : BlocBuilder<CartPageCubit, CartPageState>(
                           builder: ((context, cartPageState) {
-                            if (cartPageState is CartPageLoaded) {
-                              return cartPageState.cartList
-                                      .getIds()
-                                      .contains(event.id)
-                                  ? Expanded(
-                                      child: EventDescriptionPageButton(
-                                        'Remove from Cart',
-                                        Icons.close_rounded,
-                                        () {
-                                          if (event.id != null) {
-                                            BlocProvider.of<CartPageCubit>(
-                                                    context)
-                                                .deleteItem(event.id!);
-                                          }
-                                        },
-                                      ),
-                                    )
-                                  : Expanded(
-                                      child: EventDescriptionPageButton(
-                                        'Add to Cart',
-                                        Icons.shopping_cart,
-                                        () {
-                                          if (event.id != null) {
-                                            BlocProvider.of<CartPageCubit>(
-                                                    context)
-                                                .addCartItem(event.id!);
-                                          }
-                                        },
-                                      ),
-                                    );
-                            } else if (cartPageState is CartEmpty) {
-                              return Expanded(
-                                child: EventDescriptionPageButton(
-                                  'Add to Cart',
-                                  Icons.shopping_cart,
-                                  () {
-                                    if (event.id != null) {
-                                      BlocProvider.of<CartPageCubit>(context)
-                                          .addCartItem(event.id!);
-                                    }
-                                  },
-                                ),
-                              );
-                            } else {
-                              return Expanded(
-                                child: EventDescriptionPageButton(
-                                  'Add to Cart',
-                                  Icons.shopping_cart,
-                                  () {
-                                    if (event.id != null) {
-                                      BlocProvider.of<CartPageCubit>(context)
-                                          .addCartItem(event.id!);
-                                    }
-                                  },
-                                ),
-                              );
-                            }
+                            return cartPageState is CartPageLoaded ? cartPageState.cartList.getIds().contains(event.id) ? Expanded(child: EventDescriptionPageButton('Remove from Cart', Icons.close_rounded, () {if (event.id != null) {BlocProvider.of<CartPageCubit>(context).deleteItem(event.id!);}})) : Expanded(child: EventDescriptionPageButton('Add to Cart', Icons.shopping_cart, () {if (event.id != null) {BlocProvider.of<CartPageCubit>(context).addCartItem(event.id!);}})) : Expanded(child: EventDescriptionPageButton('Add to Cart', Icons.shopping_cart, () {if (event.id != null) {BlocProvider.of<CartPageCubit>(context).addCartItem(event.id!);}}));
                           }),
                         ),
                 );
