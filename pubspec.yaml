@@ -49,7 +49,7 @@ dependencies:
     country_code_picker: ^3.0.0
     shared_preferences: ^2.1.0
     cached_network_image: ^3.2.3
-    flutter_cache_manager:
+    flutter_cache_manager: ^3.3.0
 
 dev_dependencies:
     flutter_test:
