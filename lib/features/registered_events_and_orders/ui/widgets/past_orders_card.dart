@@ -19,15 +19,17 @@ class PastOrdersCards extends StatelessWidget {
 
     return orders.isEmpty
         ? const Center(
-          child: EmptyPage(
-            errorMessage: 'No pending / Rejected orders',
-            title: 'No Previous Orders',
-          ),
-        )
+            child: EmptyPage(
+              errorMessage: 'No pending / Rejected orders',
+              title: 'No Previous Orders',
+            ),
+          )
         : ListView.builder(
             itemCount: orders.length,
             itemBuilder: (context, index) {
-              Color statusColor = orders[index].status == "rejected" ? Colors.red : Colors.yellow;
+              Color statusColor = orders[index].status == "rejected"
+                  ? Colors.red
+                  : Colors.yellow;
 
               return Container(
                 margin: EdgeInsets.symmetric(
@@ -43,7 +45,8 @@ class PastOrdersCards extends StatelessWidget {
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: AppColors.eventCardGradientList.elementAt(
-                      orders[index].id! % AppColors.eventCardGradientList.length,
+                      orders[index].id! %
+                          AppColors.eventCardGradientList.length,
                     ),
                   ),
                   borderRadius: const BorderRadius.all(
@@ -75,20 +78,6 @@ class PastOrdersCards extends StatelessWidget {
                                   style: AppStyles.bodyTextStyle3().copyWith(
                                     color: statusColor,
                                     fontSize: 18,
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 8.0,
-                                  vertical: 2.0,
-                                ),
-                                child: Text(
-                                  DateFormat("hh:mm, dd MMMM yyyy")
-                                      .format(orders[index].createdAt!),
-                                  style: AppStyles.bodyTextStyle3().copyWith(
-                                    color: AppColors.loginPageAccent,
-                                    fontSize: 14,
                                   ),
                                 ),
                               ),

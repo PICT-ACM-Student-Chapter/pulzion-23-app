@@ -92,10 +92,6 @@ class ProfilePage extends StatelessWidget {
                                     decoration: BoxDecoration(
                                       borderRadius:
                                           BorderRadius.circular(h * 0.02),
-                                      border: Border.all(
-                                        width: h * 0.001,
-                                        color: Colors.blue,
-                                      ),
                                     ),
                                     child: const Image(
                                       image: AssetImage(

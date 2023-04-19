@@ -156,6 +156,21 @@ class EventCard extends StatelessWidget {
               ),
             ),
           ),
+          Align(
+            alignment: const Alignment(0.9, -0.65),
+            child: Padding(
+              padding: EdgeInsets.only(
+                top: SizeConfig.getProportionateScreenHeight(10),
+                right: SizeConfig.getProportionateScreenWidth(10),
+              ),
+              child: Icon(
+                event.mode == 'Online'
+                    ? Icons.laptop
+                    : Icons.location_on_outlined,
+                color: Colors.white,
+              ),
+            ),
+          ),
         ],
       ),
     );

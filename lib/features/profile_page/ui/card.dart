@@ -13,7 +13,6 @@ Widget cardDesign(
       children: [
         Container(
           padding: EdgeInsets.only(top: h * 0.001),
-
           margin: EdgeInsets.only(top: h * 0.008, bottom: h * 0.01),
 
           decoration: BoxDecoration(
@@ -67,7 +66,7 @@ Widget cardDesign(
           left: h * 0.04,
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(h * 0.00),
+              borderRadius: BorderRadius.circular(h * 0.01),
               color: const Color.fromARGB(255, 28, 52, 71),
             ),
             child: Text(

@@ -19,6 +19,7 @@ class EventDetailsCubitCubit extends Cubit<EventDetailsCubitState> {
       var response = await http.get(Uri.parse(EndPoints.events));
       var data = jsonDecode(response.body);
       EventList eventList = EventList.fromJson(data);
+   
       emit(EventDetailsCubitLoaded(eventList));
     } catch (e) {
       log(e.toString());

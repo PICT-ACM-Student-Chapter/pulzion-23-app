@@ -53,7 +53,8 @@ class _RegisteredEventsAndOrdersState extends State<RegisteredEventsAndOrders>
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) {
-        print("helo");
+        // print("helo");
+        
         return RegisteredEventsAndOrdersCubit()..getRegisteredEventsAndOrders();
       },
       child: BlocBuilder<RegisteredEventsAndOrdersCubit,
@@ -133,7 +134,9 @@ class _RegisteredEventsAndOrdersState extends State<RegisteredEventsAndOrders>
                                     .registeredEvents
                                     .toList(),
                           ),
-                          PastOrdersCards((state).registeredOrders.toList()),
+                          PastOrdersCards(
+                            (state).registeredOrders.toList(),
+                          ),
                         ],
                       ),
                     ),

@@ -237,11 +237,10 @@ part 'cart_page_state.dart';
 class CartPageCubit extends Cubit<CartPageState> {
   late CartItemList eventList;
   CartPageCubit() : super(CartPageLoading());
-  bool accepting_payment = true; // to be fetch from remote config...
 
   Future<void> loadCart() async {
-    emit(CartPageLoading());
-
+    // emit(CartPageLoading());
+    log('Load cart called');
     const storage = FlutterSecureStorage();
     var token = await storage.read(key: 'token');
     if (token != null) {
@@ -284,6 +283,7 @@ class CartPageCubit extends Cubit<CartPageState> {
   }
 
   Future<void> registerFreeEvent(int id, BuildContext context) async {
+    emit(CartPageLoading());
     Response? response;
     final sc = ScaffoldMessenger.of(context);
     try {
@@ -299,7 +299,6 @@ class CartPageCubit extends Cubit<CartPageState> {
       );
       log(response.body.toString());
       var data = jsonDecode(response.body);
-
 
       if ((response.statusCode / 100).floor() == 2) {
         sc.showSnackBar(

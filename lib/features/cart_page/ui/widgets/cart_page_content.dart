@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 import 'package:bloc/bloc.dart';
+import 'package:pulzion23/constants/urls.dart';
 import 'package:pulzion23/features/cart_page/cubit/cart_page_cubit.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -431,8 +432,7 @@ class _CartPageContentState extends State<CartPageContent> {
                                 padding: const EdgeInsets.all(12.0),
                                 child: InkWell(
                                   onTap: () async {
-                                    if (BlocProvider.of<CartPageCubit>(context)
-                                        .accepting_payment) {
+                                    if (EndPoints.acceptingPayment ?? true) {
                                       await _launchPaymentURL().then((value) {
                                         _showBottomSheet(context);
                                       });

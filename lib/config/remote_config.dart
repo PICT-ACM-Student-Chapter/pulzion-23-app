@@ -17,6 +17,7 @@ Future<void> remoteConfig() async {
   EndPoints.websiteURL = remoteConfig.getString('websiteUrl');
   EndPoints.playStoreURL = remoteConfig.getString('playstoreUrl');
   EndPoints.sponsorsUrl = remoteConfig.getString('sponsorsUrl');
+  EndPoints.acceptingPayment = remoteConfig.getBool('AcceptPayment');
 
   return;
 }

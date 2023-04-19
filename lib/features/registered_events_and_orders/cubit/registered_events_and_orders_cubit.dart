@@ -49,7 +49,8 @@ class RegisteredEventsAndOrdersCubit
         List<Events> registeredEvents =
             dataEve['events'].map<Events>((e) => Events.fromJson(e)).toList();
         log(response.body);
-        emit(RegisteredEventsAndOrdersLoaded(registeredEvents,registeredOrders));
+        emit(RegisteredEventsAndOrdersLoaded(
+            registeredEvents, registeredOrders));
       } catch (e) {
         if (response == null) {
           log('Registered Events Page Exception: $e');

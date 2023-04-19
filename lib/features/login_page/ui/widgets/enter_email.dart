@@ -7,6 +7,7 @@ import 'package:pulzion23/features/login_page/ui/widgets/roundedbutton.dart';
 import 'package:pulzion23/features/login_page/ui/widgets/text_field.dart';
 import '../../../../constants/images.dart';
 import '../../../../project/cubit/animation_toggle_cubit.dart';
+import 'package:lottie/lottie.dart';
 
 class GetUserEmail extends StatefulWidget {
   const GetUserEmail({super.key});
@@ -207,7 +208,7 @@ class _GetUserEmailState extends State<GetUserEmail> {
                   ),
                 ),
               );
-            } else {
+            } else if (state is LoginInitial) {
               return Scaffold(
                 backgroundColor: Colors.transparent,
                 body: SafeArea(
@@ -248,6 +249,10 @@ class _GetUserEmailState extends State<GetUserEmail> {
                     ),
                   ),
                 ),
+              );
+            } else {
+              return Center(
+                child: Lottie.asset(AppImages.loadingAnimation),
               );
             }
           },
