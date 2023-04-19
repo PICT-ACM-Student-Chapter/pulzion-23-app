@@ -100,8 +100,7 @@ class Pulzion23App extends StatelessWidget {
               if (state is CompulsoryUpdateLoading) {
                 return Scaffold(
                   body: Center(
-                    child:
-                        Center(child: Lottie.asset(AppImages.loadingAnimation)),
+                    child: Center(child: Lottie.asset(AppImages.loadingAnimation)),
                   ),
                 );
               } else if (state is CompulsoryUpdateNeeded) {
