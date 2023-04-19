@@ -1,4 +1,4 @@
-package com.pasc.pulzion23;
+package in.co.pulzion23;
 
 import io.flutter.embedding.android.FlutterActivity;
 

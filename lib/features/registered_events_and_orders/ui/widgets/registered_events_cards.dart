@@ -12,9 +12,7 @@ class RegisteredEventsCards extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var height = size.height;
-    var width = size.width;
     var th = height / 2.4;
-    var tw = width / 1.2;
 
     return registeredEvents.isEmpty
         ? const Center(

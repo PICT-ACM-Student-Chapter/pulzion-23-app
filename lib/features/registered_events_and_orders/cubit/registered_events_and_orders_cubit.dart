@@ -31,7 +31,6 @@ class RegisteredEventsAndOrdersCubit
           },
         );
         var data = jsonDecode(response.body);
-        print(data);
         List<RegisteredEvent> registeredOrders = data['transactions']
             .map<RegisteredEvent>((e) => RegisteredEvent.fromJson(e))
             .toList();
@@ -50,7 +49,7 @@ class RegisteredEventsAndOrdersCubit
             dataEve['events'].map<Events>((e) => Events.fromJson(e)).toList();
         log(response.body);
         emit(RegisteredEventsAndOrdersLoaded(
-            registeredEvents, registeredOrders));
+            registeredEvents, registeredOrders,));
       } catch (e) {
         if (response == null) {
           log('Registered Events Page Exception: $e');

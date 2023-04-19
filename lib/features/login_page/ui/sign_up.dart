@@ -13,7 +13,6 @@ import '../cubit/check_login_cubit.dart';
 import '../logic/sign_up_cubit.dart';
 import 'widgets/roundedbutton.dart';
 import 'widgets/text_field.dart';
-import 'package:country_code_picker/country_code_picker.dart';
 import 'package:csc_picker/csc_picker.dart';
 
 class SignUp extends StatefulWidget {
@@ -250,7 +249,7 @@ class _SignUpState extends State<SignUp> {
                                             width: MediaQuery.of(context)
                                                     .size
                                                     .width *
-                                                0.43),
+                                                0.43,),
                                         Icon(
                                           isOpen
                                               ? Icons.keyboard_arrow_up_sharp

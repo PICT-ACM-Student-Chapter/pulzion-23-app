@@ -2,12 +2,10 @@ import 'package:countup/countup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pulzion23/constants/styles.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:widget_circular_animator/widget_circular_animator.dart';
 import 'package:panorama/panorama.dart';
 import '../../../constants/images.dart';
-import 'package:bloc/bloc.dart';
 import '../../../project/cubit/animation_toggle_cubit.dart';
 
 class AboutUsPage extends StatelessWidget {
@@ -83,7 +81,7 @@ class AboutUsPage extends StatelessWidget {
                       children: [
                         Padding(
                           padding: EdgeInsets.only(
-                              left: width / 30, top: height / 20),
+                              left: width / 30, top: height / 20,),
                           child: WidgetCircularAnimator(
                             size: width / 2.6,
                             child: Container(
@@ -120,7 +118,7 @@ class AboutUsPage extends StatelessWidget {
                         ),
                         Padding(
                           padding: EdgeInsets.only(
-                              left: width / 15, top: height / 20),
+                              left: width / 15, top: height / 20,),
                           child: WidgetCircularAnimator(
                             size: width / 2.6,
                             child: Container(

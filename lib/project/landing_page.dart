@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:panorama/panorama.dart';
 
-import '../config/size_config.dart';
 import '../constants/images.dart';
 import '../features/cart_page/cubit/cart_page_cubit.dart';
 import '../features/cart_page/ui/cart_page_final.dart';
@@ -23,7 +22,7 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Initilize the size config for responsive UI
-    SizeConfig.init(context);
+    // SizeConfig.init(context);
 
     return Stack(
       children: [

@@ -8,7 +8,6 @@ import 'package:panorama/panorama.dart';
 import 'info.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../constants/images.dart';
-import 'package:bloc/bloc.dart';
 import '../../../project/cubit/animation_toggle_cubit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';

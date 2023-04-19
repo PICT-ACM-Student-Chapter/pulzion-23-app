@@ -10,6 +10,7 @@ import 'package:pulzion23/features/event_slots/logic/booked_slot_cubit.dart';
 import 'package:pulzion23/project/cubit/animation_toggle_cubit.dart';
 
 import 'config/remote_config.dart';
+import 'config/size_config.dart';
 import 'constants/images.dart';
 import 'constants/utils/theme.dart';
 import 'features/cart_page/cubit/cart_page_cubit.dart';
@@ -64,6 +65,8 @@ class Pulzion23App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init(context);
+    
     return MultiBlocProvider(
       providers: [
         BlocProvider(

@@ -43,20 +43,12 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1073515270647:android:e59256eb4123dbb8865ef2",
+        "mobilesdk_app_id": "1:1073515270647:android:25e107d563aab7cd865ef2",
         "android_client_info": {
-          "package_name": "com.rohandoshi21.fcmtestserverflutter"
+          "package_name": "in.co.pulzion23"
         }
       },
       "oauth_client": [
-        {
-          "client_id": "1073515270647-vlv1g1pmvrdoiq1tqunemigup0rpkghl.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.rohandoshi21.fcmtestserverflutter",
-            "certificate_hash": "b6e15b56ef8f149a31d4765b046e93beba77a69a"
-          }
-        },
         {
           "client_id": "1073515270647-ne5b6830pl53rl6n4lm0ua75kbtc9iqs.apps.googleusercontent.com",
           "client_type": 3

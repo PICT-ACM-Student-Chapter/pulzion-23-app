@@ -19,11 +19,11 @@ class Ticket extends StatelessWidget {
         fit: StackFit.loose,
         // fit: StackFit.expand,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.fromLTRB(100, 60, 10, 0),
+          const Padding(
+            padding: EdgeInsets.fromLTRB(100, 60, 10, 0),
             child: Expanded(
               child: Row(
-                children: const [
+                children: [
                   Text(
                     "YOUR EVENT IS BOOKED!!",
                     style: TextStyle(fontSize: 25, color: Colors.white),

@@ -10,11 +10,13 @@ import '../../../constants/styles.dart';
 import '../../../constants/urls.dart';
 import '../../login_page/ui/widgets/roundedbutton.dart';
 
+
 class CompulsoryUpdatePage extends StatelessWidget {
   const CompulsoryUpdatePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+
     return Stack(
       children: [
         Panorama(
@@ -57,7 +59,7 @@ class CompulsoryUpdatePage extends StatelessWidget {
                     if (Platform.isAndroid || Platform.isIOS) {
                       final url = Uri.parse(
                         EndPoints.playStoreURL ??
-                            'https://play.google.com/store/apps/details?id=com.pasc.pulzion2022&hl=en_IN&gl=US',
+                            'https://pulzion.co.in',
                       );
                       launchUrl(
                         url,
