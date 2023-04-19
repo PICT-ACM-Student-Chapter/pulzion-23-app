@@ -13,6 +13,7 @@ import '../../../constants/images.dart';
 import '../../../constants/styles.dart';
 import '../../login_page/cubit/check_login_cubit.dart';
 import '../../login_page/ui/login_signup_intro.dart';
+import 'widgets/loading_button.dart';
 
 class EventDescription extends StatefulWidget {
   final Events? event;
@@ -23,10 +24,8 @@ class EventDescription extends StatefulWidget {
   State<EventDescription> createState() => _EventDescriptionState();
 }
 
-class _EventDescriptionState extends State<EventDescription>
-    with TickerProviderStateMixin {
-  late final TabController tabBarController =
-      TabController(length: 3, vsync: this);
+class _EventDescriptionState extends State<EventDescription> with TickerProviderStateMixin {
+  late final TabController tabBarController = TabController(length: 3, vsync: this);
 
   @override
   void dispose() {
@@ -35,9 +34,7 @@ class _EventDescriptionState extends State<EventDescription>
   }
 
   Future<bool> getRegistered(String eventName, BuildContext ctx) async {
-    await ctx
-        .read<RegisteredEventsAndOrdersCubit>()
-        .getRegisteredEventsAndOrders();
+    await ctx.read<RegisteredEventsAndOrdersCubit>().getRegisteredEventsAndOrders();
     final E_state = ctx.read<RegisteredEventsAndOrdersCubit>().state;
 
     return E_state is RegisteredEventsAndOrdersLoaded
@@ -110,8 +107,7 @@ class _EventDescriptionState extends State<EventDescription>
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      const LoginSignUpIntro(),
+                                  builder: (context) => const LoginSignUpIntro(),
                                 ),
                               );
                             },
@@ -125,8 +121,7 @@ class _EventDescriptionState extends State<EventDescription>
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      const LoginSignUpIntro(),
+                                  builder: (context) => const LoginSignUpIntro(),
                                 ),
                               );
                             },
@@ -154,12 +149,10 @@ class _EventDescriptionState extends State<EventDescription>
                           listener: (context, state) {},
                           builder: ((context, cartPageState) {
                             if (cartPageState is CartPageLoaded) {
-                              if (cartPageState.cartList
-                                  .getIds()
-                                  .contains(event.id)) {
+                              if (cartPageState.cartList.getIds().contains(event.id)) {
                                 return Expanded(
                                   child: EventDescriptionPageButton(
-                                    'Remove from Cart',
+                                    'Remove Event',
                                     Icons.close_rounded,
                                     () {
                                       if (event.id != null) {
@@ -186,8 +179,7 @@ class _EventDescriptionState extends State<EventDescription>
                                 );
                               }
                             } else if (cartPageState is CartPageLoading) {
-                              return EventDescriptionPageButton(
-                                  'Loading...', Icons.circle_outlined, () {});
+                              return const Expanded(child: LoadingButton());
                             }
 
                             return Expanded(
@@ -314,8 +306,7 @@ class _EventDescriptionState extends State<EventDescription>
                         Share.share(
                           '${event.description}\n\nPulzion 23 App: ${EndPoints.playStoreURL}',
                           subject: 'Pulzion 2023',
-                          sharePositionOrigin:
-                              const Rect.fromLTWH(0, 0, 10, 10),
+                          sharePositionOrigin: const Rect.fromLTWH(0, 0, 10, 10),
                         );
                       }),
                       child: const Icon(
@@ -377,7 +368,7 @@ class _EventDescriptionState extends State<EventDescription>
                     ),
                     padding: const EdgeInsets.only(right: 2),
                     child: Container(
-                      padding: const EdgeInsets.all(1.5),
+                      padding: const EdgeInsets.all(3),
                       child: Text(
                         event.mode == 'Online' ? 'Online' : 'Offline',
                         style: const TextStyle(

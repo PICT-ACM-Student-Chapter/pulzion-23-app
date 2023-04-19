@@ -33,13 +33,10 @@ class EventDescriptionPageButton extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              FittedBox(
-                fit: BoxFit.cover,
-                child: Text(
-                  buttonText,
-                  style: AppStyles.bodyTextStyle3().copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+              Text(
+                buttonText,
+                style: AppStyles.bodyTextStyle3().copyWith(
+                  fontWeight: FontWeight.bold,
                 ),
               ),
               Icon(

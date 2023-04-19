@@ -187,8 +187,7 @@ class _CartPageContentState extends State<CartPageContent> {
                               }
                               _formKey.currentState!.save();
                               try {
-                                BlocProvider.of<CartPageCubit>(context)
-                                    .sendTransactionID(
+                                BlocProvider.of<CartPageCubit>(context).sendTransactionID(
                                   _transactionId,
                                 );
                               } catch (e) {
@@ -222,8 +221,7 @@ class _CartPageContentState extends State<CartPageContent> {
                             onPressed: () {
                               final cost = widget.eventList!.cartItems!.fold(
                                 0,
-                                (previousValue, element) =>
-                                    previousValue + element.price!,
+                                (previousValue, element) => previousValue + element.price!,
                               );
 
                               showDialog(
@@ -257,11 +255,8 @@ class _CartPageContentState extends State<CartPageContent> {
                                           ],
                                         ),
                                       ),
-                                      width: MediaQuery.of(context).size.width *
-                                          0.62,
-                                      height:
-                                          MediaQuery.of(context).size.width *
-                                              0.62,
+                                      width: MediaQuery.of(context).size.width * 0.62,
+                                      height: MediaQuery.of(context).size.width * 0.62,
                                       child: Align(
                                         alignment: Alignment.center,
                                         child: QrImage(
@@ -269,10 +264,7 @@ class _CartPageContentState extends State<CartPageContent> {
                                               'upi://pay?pa=pictscholarship@jsb&pn=PICT&am=$cost&tn=Pulzion&cu=INR',
                                           version: QrVersions.auto,
                                           foregroundColor: Colors.white,
-                                          size: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.6,
+                                          size: MediaQuery.of(context).size.width * 0.6,
                                         ),
                                       ),
                                     ),
@@ -437,10 +429,8 @@ class _CartPageContentState extends State<CartPageContent> {
                                         _showBottomSheet(context);
                                       });
                                     } else {
-                                      ScaffoldMessenger.of(context)
-                                          .hideCurrentSnackBar();
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
+                                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                                      ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(
                                           content: Text(
                                             "We are currently not accepting payments...",
@@ -451,13 +441,11 @@ class _CartPageContentState extends State<CartPageContent> {
                                     }
                                   },
                                   child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: [
                                       Text(
                                         "Checkout",
-                                        style:
-                                            AppStyles.bodyTextStyle3().copyWith(
+                                        style: AppStyles.bodyTextStyle3().copyWith(
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -489,8 +477,7 @@ class _CartPageContentState extends State<CartPageContent> {
                 ],
               ),
               Expanded(
-                child: widget.eventList == null ||
-                        widget.eventList!.cartItems == null
+                child: widget.eventList == null || widget.eventList!.cartItems == null
                     ? Center(
                         child: Text(
                           "Cart is empty.",
@@ -509,20 +496,17 @@ class _CartPageContentState extends State<CartPageContent> {
                                   ? Column(
                                       children: [
                                         Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 16.0),
+                                          padding: const EdgeInsets.only(top: 16.0),
                                           child: Text(
                                             "Items",
-                                            style: AppStyles.bodyTextStyle2()
-                                                .copyWith(
+                                            style: AppStyles.bodyTextStyle2().copyWith(
                                               color: Colors.white,
                                               fontSize: 18,
                                               fontWeight: FontWeight.w700,
                                             ),
                                           ),
                                         ),
-                                        CartListTile(widget
-                                            .eventList!.cartItems![index]),
+                                        CartListTile(widget.eventList!.cartItems![index]),
                                       ],
                                     )
                                   : CartListTile(
@@ -535,7 +519,21 @@ class _CartPageContentState extends State<CartPageContent> {
                             bottom: MediaQuery.of(context).size.height * 0.02,
                             right: MediaQuery.of(context).size.width * 0.03,
                             child: FloatingActionButton(
-                              onPressed: () => _showBottomSheet(context),
+                              onPressed: () {
+                                if (EndPoints.acceptingPayment ?? true) {
+                                  _showBottomSheet(context);
+                                } else {
+                                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                        "We are currently not accepting payments...",
+                                      ),
+                                      backgroundColor: Colors.red,
+                                    ),
+                                  );
+                                }
+                              },
                               backgroundColor: Colors.white12,
                               child: const Icon(
                                 Icons.payment,
