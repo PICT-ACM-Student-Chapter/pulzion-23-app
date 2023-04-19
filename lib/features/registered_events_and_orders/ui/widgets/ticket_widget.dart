@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pulzion23/features/home_page/logic/event_details_cubit_cubit.dart';
 import '../../../event_slots/logic/booked_slot_cubit.dart';
 import 'package:ticket_widget/ticket_widget.dart';
 import 'package:dotted_line/dotted_line.dart';
@@ -35,7 +34,7 @@ class MyTicketView extends StatelessWidget {
       child: Center(
         child: Text(
           slot,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.w100,
           ),
@@ -140,8 +139,6 @@ class MyTicketView extends StatelessWidget {
                               EventSlotStateCubit>(
                             listener: (context, state) {},
                             builder: (context, state) {
-                              print(state.toString());
-
                               return state is BookedSlotState
                                   ? Text(
                                       "Slot Booking not yet started",

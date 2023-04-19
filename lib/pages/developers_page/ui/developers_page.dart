@@ -1,17 +1,17 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../constants/styles.dart';
-import '../../../features/home_page/ui/wigets/custom_appbar.dart';
-import 'package:widget_circular_animator/widget_circular_animator.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:panorama/panorama.dart';
-import 'info.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:widget_circular_animator/widget_circular_animator.dart';
+
 import '../../../constants/images.dart';
-import 'package:bloc/bloc.dart';
+import '../../../constants/styles.dart';
+import '../../../features/home_page/ui/wigets/custom_appbar.dart';
 import '../../../project/cubit/animation_toggle_cubit.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'info.dart';
 
 class DevelopersPage extends StatefulWidget {
   const DevelopersPage({super.key});

@@ -88,7 +88,6 @@ class LoginCubit extends Cubit<LoginState> {
         }),
       );
       var data = jsonDecode(response.body);
-      print(data);
       if (data['error'] == 'User Not Found') {
         emit(UserNotFound());
       } else if (data['error'] == 'Invalid Otp') {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pulzion23/features/registered_events_and_orders/cubit/registered_events_and_orders_cubit.dart';
+import '../../registered_events_and_orders/cubit/registered_events_and_orders_cubit.dart';
 import "package:share_plus/share_plus.dart";
 import '../../../constants/urls.dart';
 import '../../cart_page/cubit/cart_page_cubit.dart';
@@ -24,8 +24,10 @@ class EventDescription extends StatefulWidget {
   State<EventDescription> createState() => _EventDescriptionState();
 }
 
-class _EventDescriptionState extends State<EventDescription> with TickerProviderStateMixin {
-  late final TabController tabBarController = TabController(length: 3, vsync: this);
+class _EventDescriptionState extends State<EventDescription>
+    with TickerProviderStateMixin {
+  late final TabController tabBarController =
+      TabController(length: 3, vsync: this);
 
   @override
   void dispose() {
@@ -34,7 +36,9 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
   }
 
   Future<bool> getRegistered(String eventName, BuildContext ctx) async {
-    await ctx.read<RegisteredEventsAndOrdersCubit>().getRegisteredEventsAndOrders();
+    await ctx
+        .read<RegisteredEventsAndOrdersCubit>()
+        .getRegisteredEventsAndOrders();
     final E_state = ctx.read<RegisteredEventsAndOrdersCubit>().state;
 
     return E_state is RegisteredEventsAndOrdersLoaded
@@ -107,7 +111,8 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const LoginSignUpIntro(),
+                                  builder: (context) =>
+                                      const LoginSignUpIntro(),
                                 ),
                               );
                             },
@@ -121,7 +126,8 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const LoginSignUpIntro(),
+                                  builder: (context) =>
+                                      const LoginSignUpIntro(),
                                 ),
                               );
                             },
@@ -149,7 +155,9 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                           listener: (context, state) {},
                           builder: ((context, cartPageState) {
                             if (cartPageState is CartPageLoaded) {
-                              if (cartPageState.cartList.getIds().contains(event.id)) {
+                              if (cartPageState.cartList
+                                  .getIds()
+                                  .contains(event.id)) {
                                 return Expanded(
                                   child: EventDescriptionPageButton(
                                     'Remove Event',
@@ -306,7 +314,8 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                         Share.share(
                           '${event.description}\n\nPulzion 23 App: ${EndPoints.playStoreURL}',
                           subject: 'Pulzion 2023',
-                          sharePositionOrigin: const Rect.fromLTWH(0, 0, 10, 10),
+                          sharePositionOrigin:
+                              const Rect.fromLTWH(0, 0, 10, 10),
                         );
                       }),
                       child: const Icon(

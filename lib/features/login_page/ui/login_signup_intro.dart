@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:panorama/panorama.dart';
-import '../../../project/cubit/animation_toggle_cubit.dart';
 
 import '../../../config/size_config.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/images.dart';
 import '../../../constants/styles.dart';
+import '../../../project/cubit/animation_toggle_cubit.dart';
 import '../logic/login_cubit.dart';
 import '../logic/sign_up_cubit.dart';
 import 'login.dart';

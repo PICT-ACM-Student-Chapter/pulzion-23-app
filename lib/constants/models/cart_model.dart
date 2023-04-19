@@ -23,7 +23,7 @@ class CartItemList {
     cartItems?.forEach((element) {
       ids.add(element.id!);
     });
-    
+
     return ids;
   }
 }

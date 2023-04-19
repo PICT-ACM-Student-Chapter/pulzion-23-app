@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
-import 'package:pulzion23/features/event_slots/logic/booked_slot_cubit.dart';
-import 'package:pulzion23/project/cubit/animation_toggle_cubit.dart';
+import 'features/event_slots/logic/booked_slot_cubit.dart';
+import 'project/cubit/animation_toggle_cubit.dart';
 
 import 'config/remote_config.dart';
 import 'constants/images.dart';

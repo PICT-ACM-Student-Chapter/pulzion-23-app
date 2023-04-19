@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:panorama/panorama.dart';
-import 'package:pulzion23/features/login_page/ui/widgets/enter_email.dart';
+import 'widgets/enter_email.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/images.dart';

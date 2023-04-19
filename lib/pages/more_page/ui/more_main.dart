@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pulzion23/project/cubit/animation_toggle_cubit.dart';
+import '../../../project/cubit/animation_toggle_cubit.dart';
 import '../../about_us_page/ui/about_us.dart';
 import '../../../constants/images.dart';
 import '../../../constants/urls.dart';
@@ -118,57 +118,55 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                 const SizedBox(
                   width: 40,
                 ),
-                Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      AnimatedTextKit(
-                        animatedTexts: [
-                          ColorizeAnimatedText(
-                            "Welcome to Pulzion '23",
-                            textStyle: TextStyle(
-                              fontSize: ht / 45,
-                              fontWeight: FontWeight.bold,
-                              overflow: TextOverflow.ellipsis,
-                              color: Colors.white,
-                            ),
-                            // speed: const Duration(seconds: 2),
-                            colors: [
-                              Colors.white.withOpacity(0.1),
-                              Colors.white.withOpacity(1),
-                              Colors.white.withOpacity(1),
-                              Colors.white.withOpacity(0.1),
-                              // Colors.deepPurple,
-                            ],
-                            speed: const Duration(
-                              milliseconds: 300,
-                            ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    AnimatedTextKit(
+                      animatedTexts: [
+                        ColorizeAnimatedText(
+                          "Welcome to Pulzion '23",
+                          textStyle: TextStyle(
+                            fontSize: ht / 45,
+                            fontWeight: FontWeight.bold,
+                            overflow: TextOverflow.ellipsis,
+                            color: Colors.white,
                           ),
-                        ],
-                        repeatForever: true,
-                        pause: Duration.zero,
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.005,
-                      ),
-                      AnimatedTextKit(
-                        animatedTexts: [
-                          TypewriterAnimatedText(
-                            '17 Fun-filled Events',
-                            textStyle: TextStyle(
-                              color: Colors.white54,
-                              overflow: TextOverflow.ellipsis,
-                              fontSize: ht / 55,
-                            ),
-                            speed: const Duration(
-                              milliseconds: 100,
-                            ),
+                          // speed: const Duration(seconds: 2),
+                          colors: [
+                            Colors.white.withOpacity(0.1),
+                            Colors.white.withOpacity(1),
+                            Colors.white.withOpacity(1),
+                            Colors.white.withOpacity(0.1),
+                            // Colors.deepPurple,
+                          ],
+                          speed: const Duration(
+                            milliseconds: 300,
                           ),
-                        ],
-                        totalRepeatCount: 3,
-                      ),
-                    ],
-                  ),
+                        ),
+                      ],
+                      repeatForever: true,
+                      pause: Duration.zero,
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.005,
+                    ),
+                    AnimatedTextKit(
+                      animatedTexts: [
+                        TypewriterAnimatedText(
+                          '17 Fun-filled Events',
+                          textStyle: TextStyle(
+                            color: Colors.white54,
+                            overflow: TextOverflow.ellipsis,
+                            fontSize: ht / 55,
+                          ),
+                          speed: const Duration(
+                            milliseconds: 100,
+                          ),
+                        ),
+                      ],
+                      totalRepeatCount: 3,
+                    ),
+                  ],
                 ),
               ],
             ),

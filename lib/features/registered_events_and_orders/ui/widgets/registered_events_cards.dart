@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pulzion23/constants/models/event_model.dart';
+import '../../../../constants/models/event_model.dart';
 
 import '../../../../constants/widgets/empty_page.dart';
 import 'ticket_widget.dart';
@@ -12,14 +12,15 @@ class RegisteredEventsCards extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var height = size.height;
-    var width = size.width;
+    // var width = size.width;
     var th = height / 2.4;
-    var tw = width / 1.2;
+    // var tw = width / 1.2;
 
     return registeredEvents.isEmpty
         ? const Center(
             child: EmptyPage(
-              errorMessage: 'Go ahead and purchase some events and enjoy Pulzion\'23',
+              errorMessage:
+                  'Go ahead and purchase some events and enjoy Pulzion\'23',
               title: 'No event registered',
             ),
           )

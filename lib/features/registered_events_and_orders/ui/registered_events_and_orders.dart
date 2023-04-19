@@ -54,7 +54,7 @@ class _RegisteredEventsAndOrdersState extends State<RegisteredEventsAndOrders>
     return BlocProvider(
       create: (context) {
         // print("helo");
-        
+
         return RegisteredEventsAndOrdersCubit()..getRegisteredEventsAndOrders();
       },
       child: BlocBuilder<RegisteredEventsAndOrdersCubit,

@@ -1,10 +1,12 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:panorama/panorama.dart';
-import 'package:pulzion23/features/login_page/logic/login_cubit.dart';
-import 'package:pulzion23/features/login_page/ui/login.dart';
-import 'package:pulzion23/features/login_page/ui/widgets/roundedbutton.dart';
-import 'package:pulzion23/features/login_page/ui/widgets/text_field.dart';
+import '../../logic/login_cubit.dart';
+import '../login.dart';
+import 'roundedbutton.dart';
+import 'text_field.dart';
 import '../../../../constants/images.dart';
 import '../../../../project/cubit/animation_toggle_cubit.dart';
 import 'package:lottie/lottie.dart';
