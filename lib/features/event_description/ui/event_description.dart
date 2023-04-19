@@ -38,10 +38,10 @@ class _EventDescriptionState extends State<EventDescription>
     await ctx
         .read<RegisteredEventsAndOrdersCubit>()
         .getRegisteredEventsAndOrders();
-    final registeredEvents = ctx.read<RegisteredEventsAndOrdersCubit>().state;
+    final E_state = ctx.read<RegisteredEventsAndOrdersCubit>().state;
 
-    return registeredEvents is RegisteredEventsAndOrdersLoaded
-        ? registeredEvents.registeredEvents.contains(eventName)
+    return E_state is RegisteredEventsAndOrdersLoaded
+        ? E_state.registeredEvents.contains(eventName)
             ? true
             : false
         : false;
@@ -91,10 +91,6 @@ class _EventDescriptionState extends State<EventDescription>
                           "Rs. ${event.price}",
                           style: AppStyles.bodyTextStyle3(),
                         ),
-                        // Text(
-                        //   "/person",
-                        //   style: AppStyles.bodyTextStyle3(),
-                        // ),
                       ],
                     ),
                   ],
@@ -190,23 +186,8 @@ class _EventDescriptionState extends State<EventDescription>
                                 );
                               }
                             } else if (cartPageState is CartPageLoading) {
-                              return Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.blueAccent,
-                                  borderRadius: BorderRadius.circular(12),
-                                  gradient: const LinearGradient(
-                                    colors: [
-                                      Color(0xff07f49e),
-                                      Color(0xff42047e)
-                                    ],
-                                    begin: Alignment.centerLeft,
-                                    end: Alignment.centerRight,
-                                  ),
-                                ),
-                                child: Center(
-                                  child: const CircularProgressIndicator(),
-                                ),
-                              );
+                              return EventDescriptionPageButton(
+                                  'Loading...', Icons.circle_outlined, () {});
                             }
 
                             return Expanded(
