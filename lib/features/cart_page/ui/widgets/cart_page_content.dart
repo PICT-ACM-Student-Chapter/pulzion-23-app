@@ -535,7 +535,22 @@ class _CartPageContentState extends State<CartPageContent> {
                             bottom: MediaQuery.of(context).size.height * 0.02,
                             right: MediaQuery.of(context).size.width * 0.03,
                             child: FloatingActionButton(
-                              onPressed: () => _showBottomSheet(context),
+                              onPressed: () {
+                                if (EndPoints.acceptingPayment ?? true) {
+                                  _showBottomSheet(context);
+                                } else {
+                                  ScaffoldMessenger.of(context)
+                                      .hideCurrentSnackBar();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                        "We are currently not accepting payments...",
+                                      ),
+                                      backgroundColor: Colors.red,
+                                    ),
+                                  );
+                                }
+                              },
                               backgroundColor: Colors.white12,
                               child: const Icon(
                                 Icons.payment,
