@@ -73,14 +73,14 @@ class Pulzion23App extends StatelessWidget {
           create: (context) => CompulsoryUpdateCubit()..needsUpdate(),
         ),
         BlocProvider(
-          create: (context) => CartPageCubit()..loadCart(),
+          create: (context) => CartPageCubit(),
         ),
         BlocProvider(
           create: (context) => GlobalParameterCubit(),
         ),
         BlocProvider(
           create: (context) => EventSlotsCubit(),
-        ),
+        )
       ],
       child: MaterialApp(
         title: 'Pulzion 23',

@@ -29,24 +29,24 @@ class EventDescriptionPageButton extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.all(12.0),
-          child: FittedBox(
-            fit: BoxFit.contain,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              FittedBox(
+                fit: BoxFit.cover,
+                child: Text(
                   buttonText,
                   style: AppStyles.bodyTextStyle3().copyWith(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Icon(
-                  buttonIcon,
-                  color: Colors.white,
-                ),
-              ],
-            ),
+              ),
+              Icon(
+                buttonIcon,
+                color: Colors.white,
+              ),
+            ],
           ),
         ),
       ),
