@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart';
 import 'package:pulzion23/features/registered_events_and_orders/cubit/registered_events_and_orders_cubit.dart';
 import "package:share_plus/share_plus.dart";
 import '../../../constants/urls.dart';
@@ -7,6 +8,7 @@ import '../../cart_page/cubit/cart_page_cubit.dart';
 import 'widgets/button.dart';
 import '../../../config/size_config.dart';
 import '../../../constants/models/event_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/images.dart';
@@ -34,22 +36,25 @@ class _EventDescriptionState extends State<EventDescription>
     tabBarController.dispose();
   }
 
-  Future<bool> getRegistered(String eventName, BuildContext ctx) async {
-    await ctx
-        .read<RegisteredEventsAndOrdersCubit>()
-        .getRegisteredEventsAndOrders();
-    final E_state = ctx.read<RegisteredEventsAndOrdersCubit>().state;
+  Future<void> openWhatsAppChat(String phoneNumber) async {
+    final whatsappUrl = Uri.parse('whatsapp://send?phone=$phoneNumber');
+    if (!await launchUrl(whatsappUrl)) {
+      throw 'Could not launch WhatsApp URL';
+    }
+  }
 
-    return E_state is RegisteredEventsAndOrdersLoaded
-        ? E_state.registeredEvents.contains(eventName)
-            ? true
-            : false
-        : false;
+  String extractPhoneNumbers(String message) {
+    return message.replaceAll(RegExp(r'[^0-9]'), '');
+  }
+
+  List<String> extractedNames(String msg) {
+    return msg.split('\n');
   }
 
   @override
   Widget build(BuildContext context) {
     final event = widget.event!;
+
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
     final fontSizeFactor = h / w;
@@ -59,14 +64,17 @@ class _EventDescriptionState extends State<EventDescription>
       bottomNavigationBar: Container(
         margin: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        decoration: BoxDecoration(color: Colors.black, boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.7),
-            spreadRadius: 3,
-            blurRadius: 9,
-            offset: const Offset(0, -4), // changes position of shadow
-          ),
-        ]),
+        decoration: BoxDecoration(
+          color: Colors.black,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.7),
+              spreadRadius: 3,
+              blurRadius: 9,
+              offset: const Offset(0, -4), // changes position of shadow
+            ),
+          ],
+        ),
         child: Row(
           children: [
             Expanded(
@@ -185,7 +193,8 @@ class _EventDescriptionState extends State<EventDescription>
                                   ),
                                 );
                               }
-                            } else if (cartPageState is CartPageLoading) {
+                            } else if (cartPageState is CartPageLoading ||
+                                cartPageState is CartItemAdded) {
                               return EventDescriptionPageButton(
                                   'Loading...', Icons.circle_outlined, () {});
                             }
@@ -501,10 +510,83 @@ class _EventDescriptionState extends State<EventDescription>
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                event.notes!,
-                                style: AppStyles.bodyTextStyle3(),
-                              ),
+                              child: event.id == 5
+                                  ? Container()
+                                  : Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        InkWell(
+                                          onTap: () => openWhatsAppChat(
+                                            extractPhoneNumbers(event.notes!)
+                                                .substring(0, 10),
+                                          ),
+                                          child: Card(
+                                            color:
+                                                Colors.white.withOpacity(0.16),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                IconButton(
+                                                  onPressed: () =>
+                                                      openWhatsAppChat(
+                                                    extractPhoneNumbers(
+                                                      event.notes!,
+                                                    ).substring(0, 10),
+                                                  ),
+                                                  icon: const Icon(Icons.phone),
+                                                  color: Colors.purpleAccent,
+                                                ),
+                                                Text(
+                                                  extractedNames(
+                                                    event.notes!,
+                                                  )[0],
+                                                  style: AppStyles
+                                                      .bodyTextStyle3(),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        InkWell(
+                                          onTap: () => openWhatsAppChat(
+                                            extractPhoneNumbers(event.notes!)
+                                                .substring(0, 10),
+                                          ),
+                                          child: Card(
+                                            color:
+                                                Colors.white.withOpacity(0.16),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                IconButton(
+                                                  onPressed: () =>
+                                                      openWhatsAppChat(
+                                                    extractPhoneNumbers(
+                                                      event.notes!,
+                                                    ).substring(10, 20),
+                                                  ),
+                                                  icon: const Icon(Icons.phone),
+                                                  color: Colors.purpleAccent,
+                                                ),
+                                                SizedBox(
+                                                  height: w * 0.08,
+                                                ),
+                                                Text(
+                                                  extractedNames(
+                                                    event.notes!,
+                                                  )[1],
+                                                  style: AppStyles
+                                                      .bodyTextStyle3(),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                             ),
                           ],
                         ),

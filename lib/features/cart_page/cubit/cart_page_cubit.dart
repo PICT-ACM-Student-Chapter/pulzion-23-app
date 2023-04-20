@@ -375,7 +375,7 @@ class CartPageCubit extends Cubit<CartPageState> {
     return event_id;
   }
 
-  Future<void> sendTransactionID(String tr_id) async {
+  Future<void> sendTransactionID(String tr_id, String? referral) async {
     emit(SendingTransaction());
     try {
       const storage = FlutterSecureStorage();
@@ -389,15 +389,10 @@ class CartPageCubit extends Cubit<CartPageState> {
         body: jsonEncode({
           'event_id': getTransactionID(),
           'transaction_id': tr_id,
+          'referal_code': referral ?? '',
         }),
       );
       var data = jsonDecode(response.body);
-      // var data = {
-      //   'message': "Form submitted successfully",
-      //   'error': null,
-      // };
-      // print("DATA IS:" + data);
-      // print("ERROR IS " + data['error']);
       if (data['error'] != null) {
         emit(TransactionError(data['error'].toString()));
       }
@@ -480,6 +475,29 @@ class CartPageCubit extends Cubit<CartPageState> {
         log('Load cart exception: $e');
         emit(CartPageError(e.toString()));
       }
+    }
+  }
+
+  Future<List<String>> getReferralCodes() async {
+    try {
+      final response = await http.get(
+        Uri.parse(
+          'https://pulzion-ems.s3.ap-south-1.amazonaws.com/referal/referal.json',
+        ),
+      );
+
+      var data = jsonDecode(response.body)['refreal'];
+      List<String> codes = ['N/A'];
+      for (var i in data) {
+        codes.add(i['code']);
+      }
+      log(codes.toString());
+
+      return codes;
+    } catch (e) {
+      log(e.toString());
+
+      return [];
     }
   }
 }

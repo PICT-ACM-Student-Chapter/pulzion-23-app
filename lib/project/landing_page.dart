@@ -58,7 +58,7 @@ class BottomNavBar extends StatelessWidget {
               return BlocBuilder<BottomBarCubit, BottomBarState>(
                 builder: (context, state) {
                   if (state is BottomBarAboutUs) {
-                    return const AboutUsPage();
+                    return AboutUsPage(false);
                   } else if (state is BottomBarRegisteredEvents) {
                     return loginState is CheckLoginSuccess
                         ? const RegisteredEventsAndOrders()

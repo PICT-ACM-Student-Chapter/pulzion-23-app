@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pulzion23/features/event_slots/logic/booked_slot_cubit.dart';
+import 'package:pulzion23/features/registered_events_and_orders/cubit/registered_events_and_orders_cubit.dart';
 import 'package:pulzion23/project/cubit/animation_toggle_cubit.dart';
 
 import 'config/remote_config.dart';
@@ -94,6 +95,10 @@ class Pulzion23App extends StatelessWidget {
             BlocProvider(
               create: (context) => EventDetailsCubitCubit()..getEventsDetails(),
             ),
+            // BlocProvider(
+            //   create: (context) =>
+            //       RegisteredEventsAndOrdersCubit()..getOrders(),
+            // ),
           ],
           child: BlocBuilder<CompulsoryUpdateCubit, CompulsoryUpdateState>(
             builder: (context, state) {

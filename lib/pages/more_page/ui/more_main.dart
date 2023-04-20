@@ -342,7 +342,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const AboutUsPage(),
+                              builder: (context) => AboutUsPage(true),
                             ),
                           );
                         },

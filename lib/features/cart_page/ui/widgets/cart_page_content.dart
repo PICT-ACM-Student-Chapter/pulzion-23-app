@@ -27,7 +27,15 @@ class CartPageContent extends StatefulWidget {
 
 class _CartPageContentState extends State<CartPageContent> {
   String _transactionId = '';
+  String _referral = 'N/A';
+  List<String> referralCodes = [];
+
   final _formKey = GlobalKey<FormState>();
+
+  Future<void> _getReferralCodes() async {
+    referralCodes =
+        await BlocProvider.of<CartPageCubit>(context).getReferralCodes();
+  }
 
   Future<void> _launchPaymentURL() async {
     final cost = widget.eventList!.cartItems!
@@ -54,273 +62,323 @@ class _CartPageContentState extends State<CartPageContent> {
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
       builder: (context) {
-        return Padding(
-          padding: MediaQuery.of(context).viewInsets,
-          child: GlassmorphicContainer(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.47,
-            borderRadius: 10,
-            blur: 10,
-            alignment: Alignment.center,
-            border: 2,
-            linearGradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Colors.white.withOpacity(0.1),
-                Colors.white.withOpacity(0.05),
-              ],
-            ),
-            borderGradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Colors.white.withOpacity(0.5),
-                Colors.white.withOpacity(0.2),
-              ],
-            ),
-            child: Container(
-              width: MediaQuery.of(context).size.width * 0.9,
-              height: 300,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Colors.white.withOpacity(0.1),
-                    Colors.white.withOpacity(0.05),
-                  ],
-                ),
+        return StatefulBuilder(builder: (
+          BuildContext ctx,
+          StateSetter setSheetState,
+        ) {
+          return Padding(
+            padding: MediaQuery.of(context).viewInsets,
+            child: GlassmorphicContainer(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.6,
+              borderRadius: 10,
+              blur: 10,
+              alignment: Alignment.center,
+              border: 2,
+              linearGradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Colors.white.withOpacity(0.1),
+                  Colors.white.withOpacity(0.05),
+                ],
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Text(
-                      'Enter Transaction ID:',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+              borderGradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Colors.white.withOpacity(0.5),
+                  Colors.white.withOpacity(0.2),
+                ],
+              ),
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.9,
+                height: 400,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Colors.white.withOpacity(0.1),
+                      Colors.white.withOpacity(0.05),
+                    ],
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Text(
+                        'Enter Transaction ID:',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 16),
-                    GlassmorphicContainer(
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      height: 56,
-                      borderRadius: 16,
-                      blur: 10,
-                      alignment: Alignment.center,
-                      border: 1,
-                      linearGradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Colors.white.withOpacity(0.1),
-                          Colors.white.withOpacity(0.05),
-                        ],
+                      const SizedBox(height: 16),
+                      GlassmorphicContainer(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        height: 56,
+                        borderRadius: 16,
+                        blur: 10,
+                        alignment: Alignment.center,
+                        border: 1,
+                        linearGradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Colors.white.withOpacity(0.1),
+                            Colors.white.withOpacity(0.05),
+                          ],
+                        ),
+                        borderGradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Colors.white.withOpacity(0.5),
+                            Colors.white.withOpacity(0.2),
+                          ],
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Form(
+                            key: _formKey,
+                            child: TextFormField(
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter a transaction ID';
+                                }
+
+                                return null;
+                              },
+                              onSaved: (newValue) {
+                                _transactionId = newValue!;
+                              },
+                              decoration: const InputDecoration(
+                                hintText: 'Transaction ID',
+                                hintStyle: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 16,
+                                ),
+                                border: InputBorder.none,
+                                icon: Icon(
+                                  Icons.credit_card,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              style: const TextStyle(
+                                fontSize: 16,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
-                      borderGradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Colors.white.withOpacity(0.5),
-                          Colors.white.withOpacity(0.2),
-                        ],
+                      const SizedBox(
+                        height: 20,
                       ),
-                      child: Padding(
+                      const Text(
+                        'Enter Referral Code:',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Form(
-                          key: _formKey,
-                          child: TextFormField(
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter a transaction ID';
-                              }
-
-                              return null;
-                            },
-                            onSaved: (newValue) {
-                              _transactionId = newValue!;
-                            },
-                            decoration: const InputDecoration(
-                              hintText: 'Transaction ID',
-                              hintStyle: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 16,
-                              ),
-                              border: InputBorder.none,
-                              icon: Icon(
-                                Icons.credit_card,
-                                color: Colors.grey,
-                              ),
-                            ),
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: Colors.white,
-                            ),
+                        child: DropdownButton<String>(
+                          style: const TextStyle(
+                            fontFamily: 'QuickSand',
+                            fontSize: 16,
                           ),
+                          elevation: 10,
+                          borderRadius: BorderRadius.circular(20),
+                          value: _referral,
+                          dropdownColor: Colors.black.withOpacity(0.9),
+                          items: referralCodes
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(
+                                value,
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                            );
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                            setSheetState(() {
+                              _referral = newValue!;
+                            });
+                          },
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 24),
-                    const Text(
-                      'Please follow the instructions to complete the transaction.',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey,
+                      const SizedBox(height: 24),
+                      const Text(
+                        'Please follow the instructions to complete the transaction.',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 24),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Expanded(
-                          flex: 2,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              if (!_formKey.currentState!.validate()) {
-                                return;
-                              }
-                              _formKey.currentState!.save();
-                              try {
-                                BlocProvider.of<CartPageCubit>(context)
-                                    .sendTransactionID(
-                                  _transactionId,
+                      const SizedBox(height: 24),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Expanded(
+                            flex: 2,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                if (!_formKey.currentState!.validate()) {
+                                  return;
+                                }
+                                _formKey.currentState!.save();
+                                try {
+                                  BlocProvider.of<CartPageCubit>(context)
+                                      .sendTransactionID(
+                                    _transactionId,
+                                    _referral,
+                                  );
+                                } catch (e) {
+                                  print(e.toString());
+                                }
+                                Navigator.of(context).pop();
+                              },
+                              style: ElevatedButton.styleFrom(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 16),
+                                textStyle: const TextStyle(fontSize: 18),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                backgroundColor: Colors.blue.withOpacity(0.5),
+                              ),
+                              child: const Text(
+                                'Submit',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const Flexible(
+                            flex: 1,
+                            child: Spacer(),
+                          ),
+                          Expanded(
+                            flex: 3,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                final cost = widget.eventList!.cartItems!.fold(
+                                  0,
+                                  (previousValue, element) =>
+                                      previousValue + element.price!,
                                 );
-                              } catch (e) {
-                                print(e.toString());
-                              }
-                              Navigator.of(context).pop();
-                            },
-                            style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                              textStyle: const TextStyle(fontSize: 18),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              backgroundColor: Colors.blue.withOpacity(0.5),
-                            ),
-                            child: const Text(
-                              'Submit',
-                              style: TextStyle(
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const Flexible(
-                          flex: 1,
-                          child: Spacer(),
-                        ),
-                        Expanded(
-                          flex: 3,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              final cost = widget.eventList!.cartItems!.fold(
-                                0,
-                                (previousValue, element) =>
-                                    previousValue + element.price!,
-                              );
 
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    backgroundColor: Colors.transparent,
-                                    title: const Text(
-                                      'QR Code',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontFamily: 'Panther',
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    content: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(16),
-                                        border: Border.all(
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      backgroundColor: Colors.transparent,
+                                      title: const Text(
+                                        'QR Code',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontFamily: 'Panther',
+                                          fontWeight: FontWeight.bold,
                                           color: Colors.white,
-                                          width: 2,
-                                        ),
-                                        gradient: LinearGradient(
-                                          begin: Alignment.topLeft,
-                                          end: Alignment.bottomRight,
-                                          colors: [
-                                            Colors.black.withOpacity(0.3),
-                                            Colors.black.withOpacity(0.2),
-                                            Colors.black.withOpacity(0.1),
-                                          ],
                                         ),
                                       ),
-                                      width: MediaQuery.of(context).size.width *
-                                          0.62,
-                                      height:
-                                          MediaQuery.of(context).size.width *
-                                              0.62,
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: QrImage(
-                                          data:
-                                              'upi://pay?pa=pictscholarship@jsb&pn=PICT&am=$cost&tn=Pulzion&cu=INR',
-                                          version: QrVersions.auto,
-                                          foregroundColor: Colors.white,
-                                          size: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.6,
+                                      content: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(16),
+                                          border: Border.all(
+                                            color: Colors.white,
+                                            width: 2,
+                                          ),
+                                          gradient: LinearGradient(
+                                            begin: Alignment.topLeft,
+                                            end: Alignment.bottomRight,
+                                            colors: [
+                                              Colors.black.withOpacity(0.3),
+                                              Colors.black.withOpacity(0.2),
+                                              Colors.black.withOpacity(0.1),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                    actions: [
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                          child: const Text(
-                                            'Close',
-                                            style: TextStyle(
-                                              fontFamily: 'QuickSand',
-                                              color: Colors.white,
-                                            ),
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.62,
+                                        height:
+                                            MediaQuery.of(context).size.width *
+                                                0.62,
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: QrImage(
+                                            data:
+                                                'upi://pay?pa=pictscholarship@jsb&pn=PICT&am=$cost&tn=Pulzion&cu=INR',
+                                            version: QrVersions.auto,
+                                            foregroundColor: Colors.white,
+                                            size: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.6,
                                           ),
                                         ),
                                       ),
-                                    ],
-                                  );
-                                },
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                              textStyle: const TextStyle(fontSize: 18),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
+                                      actions: [
+                                        Align(
+                                          alignment: Alignment.center,
+                                          child: TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: const Text(
+                                              'Close',
+                                              style: TextStyle(
+                                                fontFamily: 'QuickSand',
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 16),
+                                textStyle: const TextStyle(fontSize: 18),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                backgroundColor: Colors.blue.withOpacity(0.5),
                               ),
-                              backgroundColor: Colors.blue.withOpacity(0.5),
-                            ),
-                            child: const Text(
-                              'Generate QR Code',
-                              style: TextStyle(
-                                fontSize: 14,
+                              child: const Text(
+                                'Generate QR Code',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        );
+          );
+        });
       },
     );
   }
@@ -433,8 +491,11 @@ class _CartPageContentState extends State<CartPageContent> {
                                 child: InkWell(
                                   onTap: () async {
                                     if (EndPoints.acceptingPayment ?? true) {
-                                      await _launchPaymentURL().then((value) {
-                                        _showBottomSheet(context);
+                                      await _getReferralCodes()
+                                          .then((value) async {
+                                        await _launchPaymentURL().then((value) {
+                                          _showBottomSheet(context);
+                                        });
                                       });
                                     } else {
                                       ScaffoldMessenger.of(context)
@@ -535,9 +596,11 @@ class _CartPageContentState extends State<CartPageContent> {
                             bottom: MediaQuery.of(context).size.height * 0.02,
                             right: MediaQuery.of(context).size.width * 0.03,
                             child: FloatingActionButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 if (EndPoints.acceptingPayment ?? true) {
-                                  _showBottomSheet(context);
+                                  await _getReferralCodes().then(
+                                    (value) => _showBottomSheet(context),
+                                  );
                                 } else {
                                   ScaffoldMessenger.of(context)
                                       .hideCurrentSnackBar();
