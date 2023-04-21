@@ -42,6 +42,9 @@ class EventDescriptionPageButton extends StatelessWidget {
                   ),
                 ),
               ),
+              // const Expanded(
+              //   child: Spacer(),
+              // ),
               Icon(
                 buttonIcon,
                 color: Colors.white,

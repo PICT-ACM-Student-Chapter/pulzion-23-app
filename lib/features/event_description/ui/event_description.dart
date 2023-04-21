@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart';
 import 'package:pulzion23/features/registered_events_and_orders/cubit/registered_events_and_orders_cubit.dart';
 import "package:share_plus/share_plus.dart";
@@ -75,149 +76,173 @@ class _EventDescriptionState extends State<EventDescription>
             ),
           ],
         ),
-        child: Row(
-          children: [
-            Expanded(
-              child: SizedBox(
-                height: h / 12,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "PRICE",
-                      style: AppStyles.bodyTextStyle3().copyWith(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          "Rs. ${event.price}",
-                          style: AppStyles.bodyTextStyle3(),
+        child: Container(
+          child: Row(
+            children: [
+              Expanded(
+                child: SizedBox(
+                  height: h / 12,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "PRICE",
+                        style: AppStyles.bodyTextStyle3().copyWith(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
                         ),
-                      ],
-                    ),
-                  ],
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            "Rs. ${event.price}",
+                            style: AppStyles.bodyTextStyle3(),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            BlocBuilder<CheckLoginCubit, CheckLoginState>(
-              builder: (context, state) {
-                if (state is CheckLoginFailure || state is CheckLoginLoading) {
-                  return event.price == 0
-                      ? Expanded(
-                          child: EventDescriptionPageButton(
-                            'Register Now',
-                            Icons.edit_rounded,
-                            () {
-                              // Navigate to LoginSignUpIntroPage
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const LoginSignUpIntro(),
-                                ),
-                              );
-                            },
-                          ),
-                        )
-                      : Expanded(
-                          child: EventDescriptionPageButton(
-                            'Add to Cart',
-                            Icons.shopping_cart,
-                            () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const LoginSignUpIntro(),
-                                ),
-                              );
-                            },
-                          ),
-                        );
-                }
+              BlocBuilder<CheckLoginCubit, CheckLoginState>(
+                builder: (context, state) {
+                  if (state is CheckLoginFailure ||
+                      state is CheckLoginLoading) {
+                    return event.price == 0
+                        ? Expanded(
+                            child: EventDescriptionPageButton(
+                              'Register Now',
+                              Icons.edit_rounded,
+                              () {
+                                // Navigate to LoginSignUpIntroPage
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const LoginSignUpIntro(),
+                                  ),
+                                );
+                              },
+                            ),
+                          )
+                        : Expanded(
+                            child: EventDescriptionPageButton(
+                              'Add to Cart',
+                              Icons.shopping_cart,
+                              () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const LoginSignUpIntro(),
+                                  ),
+                                );
+                              },
+                            ),
+                          );
+                  }
 
-                return Container(
-                  child: event.price == 0
-                      ? BlocBuilder<CartPageCubit, CartPageState>(
-                          builder: (context, state) {
-                            return Expanded(
-                              child: EventDescriptionPageButton(
-                                'Register Now',
-                                Icons.edit_rounded,
-                                () async {
-                                  BlocProvider.of<CartPageCubit>(context)
-                                      .registerFreeEvent(event.id!, context);
+                  return BlocConsumer<RegisteredEventsAndOrdersCubit,
+                      RegisteredEventsAndOrdersState>(
+                    listener: (context, state) {},
+                    buildWhen: (previous, current) {
+                      return current is OrdersLoaded;
+                    },
+                    builder: (context, orderstate) {
+                      return Container(
+                        child: event.price == 0
+                            ? BlocBuilder<CartPageCubit, CartPageState>(
+                                builder: (context, state) {
+                                  return Expanded(
+                                    child: EventDescriptionPageButton(
+                                      'Register Now',
+                                      Icons.edit_rounded,
+                                      () async {
+                                        BlocProvider.of<CartPageCubit>(context)
+                                            .registerFreeEvent(
+                                                event.id!, context);
+                                      },
+                                    ),
+                                  );
                                 },
-                              ),
-                            );
-                          },
-                        )
-                      : BlocConsumer<CartPageCubit, CartPageState>(
-                          listener: (context, state) {},
-                          builder: ((context, cartPageState) {
-                            if (cartPageState is CartPageLoaded) {
-                              if (cartPageState.cartList
-                                  .getIds()
-                                  .contains(event.id)) {
-                                return Expanded(
-                                  child: EventDescriptionPageButton(
-                                    'Remove from Cart',
-                                    Icons.close_rounded,
-                                    () {
-                                      if (event.id != null) {
-                                        BlocProvider.of<CartPageCubit>(
-                                          context,
-                                        ).deleteItem(event.id!);
-                                      }
-                                    },
-                                  ),
-                                );
-                              } else {
-                                Expanded(
-                                  child: EventDescriptionPageButton(
-                                    'Add to Cart',
-                                    Icons.shopping_cart,
-                                    () {
-                                      if (event.id != null) {
-                                        BlocProvider.of<CartPageCubit>(
-                                          context,
-                                        ).addCartItem(event.id!);
-                                      }
-                                    },
-                                  ),
-                                );
-                              }
-                            } else if (cartPageState is CartPageLoading ||
-                                cartPageState is CartItemAdded) {
-                              return EventDescriptionPageButton(
-                                  'Loading...', Icons.circle_outlined, () {});
-                            }
-
-                            return Expanded(
-                              child: EventDescriptionPageButton(
-                                'Add to Cart',
-                                Icons.shopping_cart,
-                                () {
-                                  if (event.id != null) {
-                                    BlocProvider.of<CartPageCubit>(
-                                      context,
-                                    ).addCartItem(event.id!);
+                              )
+                            : BlocConsumer<CartPageCubit, CartPageState>(
+                                listener: (context, state) {},
+                                builder: ((context, cartPageState) {
+                                  if (cartPageState is CartPageLoaded) {
+                                    if (cartPageState.cartList
+                                        .getIds()
+                                        .contains(event.id)) {
+                                      return Expanded(
+                                        child: EventDescriptionPageButton(
+                                          'Remove from Cart',
+                                          Icons.close_rounded,
+                                          () {
+                                            if (event.id != null) {
+                                              BlocProvider.of<CartPageCubit>(
+                                                context,
+                                              ).deleteItem(event.id!);
+                                            }
+                                          },
+                                        ),
+                                      );
+                                    } else {
+                                      Expanded(
+                                        child: EventDescriptionPageButton(
+                                          (orderstate as OrdersLoaded)
+                                                  .l
+                                                  .contains(event.name!)
+                                              ? "Already Paid"
+                                              : 'Add to Cart',
+                                          Icons.shopping_cart,
+                                          () {
+                                            if (event.id != null) {
+                                              BlocProvider.of<CartPageCubit>(
+                                                context,
+                                              ).addCartItem(event.id!);
+                                            }
+                                          },
+                                        ),
+                                      );
+                                    }
+                                  } else if (cartPageState is CartPageLoading ||
+                                      cartPageState is CartItemAdded) {
+                                    return EventDescriptionPageButton(
+                                      'Loading...',
+                                      Icons.circle_outlined,
+                                      () {},
+                                    );
                                   }
-                                },
+
+                                  return Expanded(
+                                    child: EventDescriptionPageButton(
+                                      (orderstate as OrdersLoaded)
+                                              .l
+                                              .contains(event.name!)
+                                          ? "Already Paid"
+                                          : 'Add to Cart',
+                                      Icons.shopping_cart,
+                                      () {
+                                        if (event.id != null) {
+                                          BlocProvider.of<CartPageCubit>(
+                                            context,
+                                          ).addCartItem(event.id!);
+                                        }
+                                      },
+                                    ),
+                                  );
+                                }),
                               ),
-                            );
-                          }),
-                        ),
-                );
-              },
-            ),
-          ],
+                      );
+                    },
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
       body: BlocListener<CartPageCubit, CartPageState>(
@@ -523,7 +548,7 @@ class _EventDescriptionState extends State<EventDescription>
                                           ),
                                           child: Card(
                                             color:
-                                                Colors.white.withOpacity(0.16),
+                                                Colors.white.withOpacity(0.3),
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
@@ -535,15 +560,20 @@ class _EventDescriptionState extends State<EventDescription>
                                                       event.notes!,
                                                     ).substring(0, 10),
                                                   ),
-                                                  icon: const Icon(Icons.phone),
-                                                  color: Colors.purpleAccent,
+                                                  icon: const Icon(
+                                                    FontAwesomeIcons.whatsapp,
+                                                  ),
+                                                  color: Colors.white,
                                                 ),
                                                 Text(
                                                   extractedNames(
                                                     event.notes!,
                                                   )[0],
-                                                  style: AppStyles
-                                                      .bodyTextStyle3(),
+                                                  style: const TextStyle(
+                                                    fontFamily: 'QuickSand',
+                                                    fontSize: 16,
+                                                    color: Colors.white,
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -556,7 +586,7 @@ class _EventDescriptionState extends State<EventDescription>
                                           ),
                                           child: Card(
                                             color:
-                                                Colors.white.withOpacity(0.16),
+                                                Colors.white.withOpacity(0.3),
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
@@ -568,8 +598,10 @@ class _EventDescriptionState extends State<EventDescription>
                                                       event.notes!,
                                                     ).substring(10, 20),
                                                   ),
-                                                  icon: const Icon(Icons.phone),
-                                                  color: Colors.purpleAccent,
+                                                  icon: const Icon(
+                                                    FontAwesomeIcons.whatsapp,
+                                                    color: Colors.white,
+                                                  ),
                                                 ),
                                                 SizedBox(
                                                   height: w * 0.08,
@@ -578,8 +610,11 @@ class _EventDescriptionState extends State<EventDescription>
                                                   extractedNames(
                                                     event.notes!,
                                                   )[1],
-                                                  style: AppStyles
-                                                      .bodyTextStyle3(),
+                                                  style: const TextStyle(
+                                                    fontFamily: 'QuickSand',
+                                                    fontSize: 16,
+                                                    color: Colors.white,
+                                                  ),
                                                 ),
                                               ],
                                             ),

@@ -18,6 +18,7 @@ class RegisteredEventsAndOrdersLoading extends RegisteredEventsAndOrdersState {}
 
 class OrdersLoading extends RegisteredEventsAndOrdersState {}
 
+
 class OrdersLoaded extends RegisteredEventsAndOrdersState {
   List<String> l;
   OrdersLoaded(this.l);

@@ -38,17 +38,6 @@ class _RegisteredEventsAndOrdersState extends State<RegisteredEventsAndOrders>
     super.dispose();
   }
 
-  List<dynamic> getEventNames(List<RegisteredEvent> registeredEvents) {
-    List<dynamic> eventNames = [];
-    for (RegisteredEvent event in registeredEvents) {
-      if (event.status == "accepted") {
-        eventNames += event.events ?? [];
-      }
-    }
-
-    return eventNames;
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

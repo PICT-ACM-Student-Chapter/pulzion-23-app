@@ -81,7 +81,8 @@ class Pulzion23App extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => EventSlotsCubit(),
-        )
+        ),
+        BlocProvider(create: (context)=>RegisteredEventsAndOrdersCubit()..getRegisteredEventsAndOrders()..getOrders()),
       ],
       child: MaterialApp(
         title: 'Pulzion 23',
@@ -95,10 +96,7 @@ class Pulzion23App extends StatelessWidget {
             BlocProvider(
               create: (context) => EventDetailsCubitCubit()..getEventsDetails(),
             ),
-            // BlocProvider(
-            //   create: (context) =>
-            //       RegisteredEventsAndOrdersCubit()..getOrders(),
-            // ),
+
           ],
           child: BlocBuilder<CompulsoryUpdateCubit, CompulsoryUpdateState>(
             builder: (context, state) {

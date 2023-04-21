@@ -18,7 +18,7 @@ class RegisteredEventsAndOrdersCubit
 
   Future<void> getRegisteredEventsAndOrders() async {
     emit(RegisteredEventsAndOrdersLoading());
-    await getOrders();
+    //await getOrders();
 
     const storage = FlutterSecureStorage();
     var token = await storage.read(key: 'token');
@@ -101,6 +101,7 @@ class RegisteredEventsAndOrdersCubit
               l.add(j);
             }
           }
+          print(l);
           emit(OrdersLoaded(l));
         }
       } catch (e) {

@@ -106,11 +106,22 @@ class _CartPageContentState extends State<CartPageContent> {
                   ),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(24),
+                  padding:
+                      EdgeInsets.all(MediaQuery.of(context).size.width * 0.04),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisSize: MainAxisSize.min,
                     children: [
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: IconButton(
+                          icon: Icon(Icons.info_outline),
+                          color: Colors.white,
+                          onPressed: () {
+                            // showDialog(context: context, builder: (context) => showBottomSheet(context: context, builder: builder));
+                          },
+                        ),
+                      ),
                       const Text(
                         'Enter Transaction ID:',
                         style: TextStyle(
