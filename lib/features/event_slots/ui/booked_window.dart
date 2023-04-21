@@ -334,12 +334,12 @@ class _BookedWindowState extends State<BookedWindow>
                       end: Alignment.centerRight,
                     ),
                   ),
-                  child: const Padding(
-                    padding: EdgeInsets.all(12.0),
+                  child:  Padding(
+                    padding: const EdgeInsets.all(12.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
+                      children: const [
+                         Text(
                           "CONFIRM SLOT  ",
                           style: TextStyle(color: Colors.white),
                         ),

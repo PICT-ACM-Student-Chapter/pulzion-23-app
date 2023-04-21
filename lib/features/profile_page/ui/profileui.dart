@@ -110,6 +110,7 @@ class ProfilePage extends StatelessWidget {
                                       'WELCOME TO YOUR PROFILE',
                                       style: TextStyle(
                                         fontFamily: 'QuickSand',
+                                        fontWeight: FontWeight.bold,
                                         fontSize: h * 0.025,
                                         color: Colors.white,
                                       ),

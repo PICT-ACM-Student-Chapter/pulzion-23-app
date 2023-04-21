@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pulzion23/features/registered_events_and_orders/cubit/registered_events_and_orders_cubit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pulzion23/features/event_description/ui/widgets/loading_button.dart';
 import "package:share_plus/share_plus.dart";
 import '../../../constants/urls.dart';
 import '../../cart_page/cubit/cart_page_cubit.dart';
 import 'widgets/button.dart';
 import '../../../config/size_config.dart';
 import '../../../constants/models/event_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/images.dart';
 import '../../../constants/styles.dart';
 import '../../login_page/cubit/check_login_cubit.dart';
 import '../../login_page/ui/login_signup_intro.dart';
-import 'widgets/loading_button.dart';
 
 class EventDescription extends StatefulWidget {
   final Events? event;
@@ -24,8 +25,10 @@ class EventDescription extends StatefulWidget {
   State<EventDescription> createState() => _EventDescriptionState();
 }
 
-class _EventDescriptionState extends State<EventDescription> with TickerProviderStateMixin {
-  late final TabController tabBarController = TabController(length: 3, vsync: this);
+class _EventDescriptionState extends State<EventDescription>
+    with TickerProviderStateMixin {
+  late final TabController tabBarController =
+      TabController(length: 3, vsync: this);
 
   @override
   void dispose() {
@@ -33,20 +36,25 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
     tabBarController.dispose();
   }
 
-  Future<bool> getRegistered(String eventName, BuildContext ctx) async {
-    await ctx.read<RegisteredEventsAndOrdersCubit>().getRegisteredEventsAndOrders();
-    final E_state = ctx.read<RegisteredEventsAndOrdersCubit>().state;
+  Future<void> openWhatsAppChat(String phoneNumber) async {
+    final whatsappUrl = Uri.parse('whatsapp://send?phone=$phoneNumber');
+    if (!await launchUrl(whatsappUrl)) {
+      throw 'Could not launch WhatsApp URL';
+    }
+  }
 
-    return E_state is RegisteredEventsAndOrdersLoaded
-        ? E_state.registeredEvents.contains(eventName)
-            ? true
-            : false
-        : false;
+  String extractPhoneNumbers(String message) {
+    return message.replaceAll(RegExp(r'[^0-9]'), '');
+  }
+
+  List<String> extractedNames(String msg) {
+    return msg.split('\n');
   }
 
   @override
   Widget build(BuildContext context) {
     final event = widget.event!;
+
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
     final fontSizeFactor = h / w;
@@ -56,14 +64,17 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
       bottomNavigationBar: Container(
         margin: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        decoration: BoxDecoration(color: Colors.black, boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.7),
-            spreadRadius: 3,
-            blurRadius: 9,
-            offset: const Offset(0, -4), // changes position of shadow
-          ),
-        ]),
+        decoration: BoxDecoration(
+          color: Colors.black,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.7),
+              spreadRadius: 3,
+              blurRadius: 9,
+              offset: const Offset(0, -4), // changes position of shadow
+            ),
+          ],
+        ),
         child: Row(
           children: [
             Expanded(
@@ -107,7 +118,8 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const LoginSignUpIntro(),
+                                  builder: (context) =>
+                                      const LoginSignUpIntro(),
                                 ),
                               );
                             },
@@ -121,7 +133,8 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const LoginSignUpIntro(),
+                                  builder: (context) =>
+                                      const LoginSignUpIntro(),
                                 ),
                               );
                             },
@@ -149,10 +162,12 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                           listener: (context, state) {},
                           builder: ((context, cartPageState) {
                             if (cartPageState is CartPageLoaded) {
-                              if (cartPageState.cartList.getIds().contains(event.id)) {
+                              if (cartPageState.cartList
+                                  .getIds()
+                                  .contains(event.id)) {
                                 return Expanded(
                                   child: EventDescriptionPageButton(
-                                    'Remove Event',
+                                    'Remove from Cart',
                                     Icons.close_rounded,
                                     () {
                                       if (event.id != null) {
@@ -178,7 +193,8 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                                   ),
                                 );
                               }
-                            } else if (cartPageState is CartPageLoading) {
+                            } else if (cartPageState is CartPageLoading ||
+                                cartPageState is CartItemAdded) {
                               return const Expanded(child: LoadingButton());
                             }
 
@@ -306,7 +322,8 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                         Share.share(
                           '${event.description}\n\nPulzion 23 App: ${EndPoints.playStoreURL}',
                           subject: 'Pulzion 2023',
-                          sharePositionOrigin: const Rect.fromLTWH(0, 0, 10, 10),
+                          sharePositionOrigin:
+                              const Rect.fromLTWH(0, 0, 10, 10),
                         );
                       }),
                       child: const Icon(
@@ -368,7 +385,7 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                     ),
                     padding: const EdgeInsets.only(right: 2),
                     child: Container(
-                      padding: const EdgeInsets.all(3),
+                      padding: const EdgeInsets.all(1.5),
                       child: Text(
                         event.mode == 'Online' ? 'Online' : 'Offline',
                         style: const TextStyle(
@@ -492,10 +509,142 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                event.notes!,
-                                style: AppStyles.bodyTextStyle3(),
-                              ),
+                              child: event.id == 5
+                                  ? Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        InkWell(
+                                          onTap: () => openWhatsAppChat(
+                                            extractPhoneNumbers(event.notes!)
+                                                .substring(0, 10),
+                                          ),
+                                          child: Card(
+                                            color:
+                                                Colors.white.withOpacity(0.16),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                IconButton(
+                                                  onPressed: () =>
+                                                      openWhatsAppChat(
+                                                    '9130494725',
+                                                  ),
+                                                  icon: const Icon(
+                                                    FontAwesomeIcons.whatsapp,
+                                                    color: Colors.green,
+                                                  ),
+                                                  color: Colors.white,
+                                                ),
+                                                const Text(
+                                                  'Akanksha Waghmare',
+                                                  style: TextStyle(
+                                                    fontFamily: 'QuickSand',
+                                                    fontSize: 16,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                                const Text(
+                                                  ' - 91304 94725',
+                                                  style: TextStyle(
+                                                    fontFamily: 'QuickSand',
+                                                    fontSize: 16,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        InkWell(
+                                          onTap: () => openWhatsAppChat(
+                                            extractPhoneNumbers(event.notes!)
+                                                .substring(0, 10),
+                                          ),
+                                          child: Card(
+                                            color:
+                                                Colors.white.withOpacity(0.16),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                IconButton(
+                                                  onPressed: () =>
+                                                      openWhatsAppChat(
+                                                    extractPhoneNumbers(
+                                                      event.notes!,
+                                                    ).substring(0, 10),
+                                                  ),
+                                                  icon: const Icon(
+                                                    FontAwesomeIcons.whatsapp,
+                                                    color: Colors.green,
+                                                  ),
+                                                  color: Colors.white,
+                                                ),
+                                                Text(
+                                                  extractedNames(
+                                                    event.notes!,
+                                                  )[0],
+                                                  style: const TextStyle(
+                                                    fontFamily: 'QuickSand',
+                                                    fontSize: 16,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        InkWell(
+                                          onTap: () => openWhatsAppChat(
+                                            extractPhoneNumbers(event.notes!)
+                                                .substring(10, 20),
+                                          ),
+                                          child: Card(
+                                            color:
+                                                Colors.white.withOpacity(0.16),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                IconButton(
+                                                  onPressed: () =>
+                                                      openWhatsAppChat(
+                                                    extractPhoneNumbers(
+                                                      event.notes!,
+                                                    ).substring(10, 20),
+                                                  ),
+                                                  icon: const Icon(
+                                                    FontAwesomeIcons.whatsapp,
+                                                    color: Colors.green,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: w * 0.08,
+                                                ),
+                                                Text(
+                                                  extractedNames(
+                                                    event.notes!,
+                                                  )[1],
+                                                  style: const TextStyle(
+                                                    fontFamily: 'QuickSand',
+                                                    fontSize: 16,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                             ),
                           ],
                         ),

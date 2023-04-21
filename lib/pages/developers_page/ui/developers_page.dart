@@ -270,10 +270,10 @@ class _DevelopersPageState extends State<DevelopersPage> {
                                           developersList[index].emailId,
                                         );
                                         String subject = Uri.encodeComponent(
-                                          "Hello Flutter",
+                                          "",
                                         );
                                         String body = Uri.encodeComponent(
-                                          "Hi! I'm Flutter Developer",
+                                          "",
                                         );
                                         Uri mail = Uri.parse(
                                           "mailto:$email?subject=$subject&body=$body",

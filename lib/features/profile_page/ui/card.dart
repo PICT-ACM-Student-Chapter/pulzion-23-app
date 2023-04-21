@@ -14,7 +14,6 @@ Widget cardDesign(
         Container(
           padding: EdgeInsets.only(top: h * 0.001),
           margin: EdgeInsets.only(top: h * 0.008, bottom: h * 0.01),
-
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topLeft,
@@ -65,6 +64,7 @@ Widget cardDesign(
           top: h * 0.001,
           left: h * 0.04,
           child: Container(
+            padding: EdgeInsets.symmetric(horizontal: h * 0.01),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(h * 0.01),
               color: const Color.fromARGB(255, 28, 52, 71),

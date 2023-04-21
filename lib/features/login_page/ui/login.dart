@@ -180,31 +180,6 @@ class _LoginState extends State<Login> {
                         const SizedBox(
                           height: 13,
                         ),
-                        // TODO: Figure out bloc logic then add this!
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.center,
-                        //   children: [
-                        //     Text(
-                        //       "Don't have an account?",
-                        //       style: AppStyles.bodyTextStyle3()
-                        //           .copyWith(fontSize: 15),
-                        //     ),
-                        //     TextButton(
-                        //       onPressed: () {
-                        //         Navigator.push(
-                        //             context,
-                        //             MaterialPageRoute(
-                        //                 builder: (context) => const SignUp()));
-                        //       },
-                        //       child: Text(
-                        //         'Sign up',
-                        //         style: AppStyles.bodyTextStyle3().copyWith(
-                        //             fontSize: 15,
-                        //             color: AppColors.loginPageAccent),
-                        //       ),
-                        //     )
-                        //   ],
-                        // )
                       ],
                     ),
                   ),

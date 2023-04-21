@@ -112,10 +112,10 @@ class _TicketState extends State<Ticket> {
                         ),
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 32, top: 20),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 32, top: 20),
                       child: Row(
-                        children: [
+                        children: const [
                           Text(
                             'Name',
                             style:
@@ -127,10 +127,10 @@ class _TicketState extends State<Ticket> {
                     SizedBox(
                       height: screenheight * 0.005,
                     ),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 32),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 32),
                       child: Row(
-                        children: [
+                        children: const [
                           Text(
                             'ADITI DATE',
                             style: TextStyle(
@@ -187,10 +187,10 @@ class _TicketState extends State<Ticket> {
                     SizedBox(
                       height: screenheight * 0.005,
                     ),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 32, bottom: 8),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 32, bottom: 8),
                       child: Row(
-                        children: [
+                        children: const [
                           Expanded(
                             child: Text(
                               '11-04-2023',

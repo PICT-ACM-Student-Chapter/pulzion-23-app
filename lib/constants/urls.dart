@@ -7,6 +7,7 @@ class EndPoints {
   static String? playStoreURL;
   static String? sponsorsUrl;
   static bool? acceptingPayment;
+  static String? referralLink;
 
   static String events = '${baseUrl!}/events';
   static String user = '${baseUrl!}/user/me';

@@ -5,6 +5,7 @@ import 'package:lottie/lottie.dart';
 import 'package:panorama/panorama.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../config/size_config.dart';
 import '../../../constants/images.dart';
 import '../../../constants/styles.dart';
 import '../../../constants/urls.dart';
@@ -16,7 +17,8 @@ class CompulsoryUpdatePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    SizeConfig.init(context);
+    
     return Stack(
       children: [
         Panorama(
