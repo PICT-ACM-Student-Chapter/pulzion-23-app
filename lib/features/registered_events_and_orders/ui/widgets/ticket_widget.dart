@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pulzion23/features/event_slots/ui/booked_window.dart';
+import 'package:pulzion23/features/event_slots/ui/not_booked_window.dart';
 import '../../../event_slots/logic/booked_slot_cubit.dart';
 import 'package:ticket_widget/ticket_widget.dart';
 import 'package:dotted_line/dotted_line.dart';
@@ -126,12 +128,13 @@ class MyTicketView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(
-                          height: th * 0.11,
+                          height: th * 0.05,
                         ),
                         DottedLine(
-                          lineThickness: tw / 130,
-                          dashGapLength: tw / 40,
-                          dashLength: tw / 25,
+                          lineThickness: tw / 170,
+                          dashGapLength: tw / 50,
+                          dashLength: tw / 30,
+                          dashColor: Colors.white.withOpacity(0.5),
                         ),
                         Container(
                           margin: EdgeInsets.all(tw / 15),
@@ -139,7 +142,6 @@ class MyTicketView extends StatelessWidget {
                               EventSlotStateCubit>(
                             listener: (context, state) {},
                             builder: (context, state) {
-
                               return state is BookedSlotState
                                   ? Text(
                                       "Slot Booking not yet started",
@@ -160,46 +162,54 @@ class MyTicketView extends StatelessWidget {
                             },
                           ),
                         ),
-                        // Center(
-                        //   child: Card(
-                        //     shadowColor: Colors.black,
-                        //     color: Colors.black26,
-                        //     shape: RoundedRectangleBorder(
-                        //       borderRadius: BorderRadius.circular(15),
-                        //     ),
-                        //     child: BlocConsumer<EventSlotsCubit,
-                        //         EventSlotStateCubit>(
-                        //       listener: (context, state) {},
-                        //       builder: (context, state) {
-                        //         return state is BookedSlotState
-                        //             ? TextButton(
-                        //                 onPressed: () {
-                        //                   // nav to aditi's page
-                        //                 },
-                        //                 child: const Text(
-                        //                   'View Details',
-                        //                   style: TextStyle(
-                        //                     fontFamily: 'QuickSand',
-                        //                     color: Colors.white,
-                        //                   ),
-                        //                 ),
-                        //               )
-                        //             : TextButton(
-                        //                 onPressed: () {
-                        //                   // nav to soumya's page
-                        //                 },
-                        //                 child: const Text(
-                        //                   'Book Slot',
-                        //                   style: TextStyle(
-                        //                     fontFamily: 'QuickSand',
-                        //                     color: Colors.white,
-                        //                   ),
-                        //                 ),
-                        //               );
-                        //       },
-                        //     ),
-                        //   ),
-                        // ),
+                        Center(
+                          child: Card(
+                            shadowColor: Colors.black,
+                            color: Colors.black26,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: BlocConsumer<EventSlotsCubit,
+                                EventSlotStateCubit>(
+                              listener: (context, state) {
+                                if (state is BookedSlotState) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => BookedWindow(),
+                                    ),
+                                  );
+                                } else if (state is NotBookedSlotState) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => NotBookedWindow(),
+                                    ),
+                                  );
+                                }
+                              },
+                              builder: (context, state) {
+                                if (state is BookedSlotState) {
+                                  return TextButton(
+                                    onPressed: () {
+                                      print('clicked1');
+                                    },
+                                    child: Text('View Details'),
+                                  );
+                                } else if (state is NotBookedSlotState) {
+                                  return TextButton(
+                                    onPressed: () {
+                                      print('clicked2');
+                                    },
+                                    child: Text('Book Slot'),
+                                  );
+                                } else {
+                                  return Container();
+                                }
+                              },
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),

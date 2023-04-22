@@ -537,20 +537,30 @@ class _EventDescriptionState extends State<EventDescription>
                                                   ),
                                                   color: Colors.white,
                                                 ),
-                                                const Text(
-                                                  'Akanksha Waghmare',
-                                                  style: TextStyle(
-                                                    fontFamily: 'QuickSand',
-                                                    fontSize: 16,
-                                                    color: Colors.white,
+                                                const Flexible(
+                                                  child: FittedBox(
+                                                    fit: BoxFit.scaleDown,
+                                                    child: Text(
+                                                      'Akanksha Waghmare',
+                                                      style: TextStyle(
+                                                        fontFamily: 'QuickSand',
+                                                        // fontSize: 16,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
                                                   ),
                                                 ),
-                                                const Text(
-                                                  ' - 91304 94725',
-                                                  style: TextStyle(
-                                                    fontFamily: 'QuickSand',
-                                                    fontSize: 16,
-                                                    color: Colors.white,
+                                                const Flexible(
+                                                  child: FittedBox(
+                                                    fit: BoxFit.scaleDown,
+                                                    child: Text(
+                                                      ' - 91304 94725',
+                                                      style: TextStyle(
+                                                        fontFamily: 'QuickSand',
+                                                        // fontSize: 16,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
                                                   ),
                                                 ),
                                               ],
@@ -588,14 +598,19 @@ class _EventDescriptionState extends State<EventDescription>
                                                   ),
                                                   color: Colors.white,
                                                 ),
-                                                Text(
-                                                  extractedNames(
-                                                    event.notes!,
-                                                  )[0],
-                                                  style: const TextStyle(
-                                                    fontFamily: 'QuickSand',
-                                                    fontSize: 16,
-                                                    color: Colors.white,
+                                                Flexible(
+                                                  child: FittedBox(
+                                                    fit: BoxFit.scaleDown,
+                                                    child: Text(
+                                                      extractedNames(
+                                                        event.notes!,
+                                                      )[0],
+                                                      style: const TextStyle(
+                                                        fontFamily: 'QuickSand',
+                                                        // fontSize: 16,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
                                                   ),
                                                 ),
                                               ],
@@ -629,14 +644,19 @@ class _EventDescriptionState extends State<EventDescription>
                                                 SizedBox(
                                                   height: w * 0.08,
                                                 ),
-                                                Text(
-                                                  extractedNames(
-                                                    event.notes!,
-                                                  )[1],
-                                                  style: const TextStyle(
-                                                    fontFamily: 'QuickSand',
-                                                    fontSize: 16,
-                                                    color: Colors.white,
+                                                Flexible(
+                                                  child: FittedBox(
+                                                    fit: BoxFit.scaleDown,
+                                                    child: Text(
+                                                      extractedNames(
+                                                        event.notes!,
+                                                      )[1],
+                                                      style: const TextStyle(
+                                                        fontFamily: 'QuickSand',
+                                                        // fontSize: 16,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
                                                   ),
                                                 ),
                                               ],

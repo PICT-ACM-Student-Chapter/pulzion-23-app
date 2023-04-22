@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:panorama/panorama.dart';
+import 'package:pulzion23/project/cubit/animation_toggle_cubit.dart';
+import '../../../constants/models/event_model.dart';
 import '../../../constants/images.dart';
 
 class BookedWindow extends StatefulWidget {
-  const BookedWindow({super.key});
+  // Events event;
+  BookedWindow({super.key});
 
   @override
   State<BookedWindow> createState() => _BookedWindowState();
@@ -61,7 +65,7 @@ class _BookedWindowState extends State<BookedWindow>
           width: w * 0.2,
           child: Center(
             child: Text(
-              "1 to 2",
+              "Slot ${i + 1}",
               style: TextStyle(
                 color: c[i] ? Colors.black : Colors.white,
                 fontWeight: c[i] ? FontWeight.bold : FontWeight.w100,
@@ -147,11 +151,27 @@ class _BookedWindowState extends State<BookedWindow>
       backgroundColor: Colors.transparent,
       body: Stack(
         children: [
-          Panorama(
-            sensitivity: 0.4,
-            animSpeed: 0.5,
-            sensorControl: SensorControl.Orientation,
-            child: Image.asset(AppImages.spaceBackground, fit: BoxFit.cover),
+          BlocConsumer<GlobalParameterCubit, bool>(
+            listener: (context, state) {},
+            buildWhen: (previous, current) {
+              if (previous != current) {
+                return true;
+              }
+
+              return false;
+            },
+            builder: (context, state) {
+              return Panorama(
+                sensitivity: 0.4,
+                animSpeed: 0.5,
+                sensorControl:
+                    state ? SensorControl.Orientation : SensorControl.None,
+                child: Image.asset(
+                  AppImages.spaceBackground,
+                  fit: BoxFit.cover,
+                ),
+              );
+            },
           ),
           Column(
             children: [
@@ -160,7 +180,7 @@ class _BookedWindowState extends State<BookedWindow>
                 width: double.infinity,
                 child: Center(
                   child: Text(
-                    "BOOK SLOT",
+                    "BOOK SLOTS",
                     style: TextStyle(color: Colors.white, fontSize: 30),
                   ),
                 ),
@@ -334,12 +354,12 @@ class _BookedWindowState extends State<BookedWindow>
                       end: Alignment.centerRight,
                     ),
                   ),
-                  child:  Padding(
+                  child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
-                         Text(
+                        Text(
                           "CONFIRM SLOT  ",
                           style: TextStyle(color: Colors.white),
                         ),

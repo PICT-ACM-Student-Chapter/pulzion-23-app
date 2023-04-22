@@ -57,7 +57,7 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-         BlocConsumer<GlobalParameterCubit, bool>(
+        BlocConsumer<GlobalParameterCubit, bool>(
           listener: (context, state) {},
           buildWhen: (previous, current) {
             if (previous != current) {
@@ -211,7 +211,8 @@ class _SignUpState extends State<SignUp> {
                                     }),
                                   },
                                   child: Container(
-                                    height: 60,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.07,
                                     decoration: BoxDecoration(
                                       borderRadius: const BorderRadius.all(
                                         Radius.circular(25.0),
@@ -245,17 +246,18 @@ class _SignUpState extends State<SignUp> {
                                             fontSize: 16,
                                           )),
                                         ),
-                                        SizedBox(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.43,),
+                                        Spacer(
+                                          flex: 10,
+                                        ),
                                         Icon(
                                           isOpen
                                               ? Icons.keyboard_arrow_up_sharp
                                               : Icons.keyboard_arrow_down_sharp,
                                           color: Colors.white,
                                         ),
+                                        Spacer(
+                                          flex: 1,
+                                        )
                                       ],
                                     ),
                                   ),
@@ -278,7 +280,7 @@ class _SignUpState extends State<SignUp> {
                                                 border: Border.all(
                                                   color: AppColors.primary
                                                       .withAlpha(100),
-                                                  width: 10.0,
+                                                  width: 5.0,
                                                 ),
                                               ),
                                               child: Padding(

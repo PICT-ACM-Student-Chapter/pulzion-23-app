@@ -313,38 +313,45 @@ class _CartPageContentState extends State<CartPageContent> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Expanded(
-                                  flex: 2,
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      if (!_formKey.currentState!.validate()) {
-                                        return;
-                                      }
-                                      _formKey.currentState!.save();
-                                      try {
-                                        BlocProvider.of<CartPageCubit>(context)
-                                            .sendTransactionID(
-                                          _transactionId,
-                                          _referral,
-                                        );
-                                      } catch (e) {
-                                        // print(e.toString());
-                                      }
-                                      Navigator.of(context).pop();
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      padding: const EdgeInsets.symmetric(
-                                          ),
-                                      textStyle: const TextStyle(fontSize: 18),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8),
+                                  flex: 3,
+                                  child: SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.06,
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        if (!_formKey.currentState!
+                                            .validate()) {
+                                          return;
+                                        }
+                                        _formKey.currentState!.save();
+                                        try {
+                                          BlocProvider.of<CartPageCubit>(
+                                            context,
+                                          ).sendTransactionID(
+                                            _transactionId,
+                                            _referral,
+                                          );
+                                        } catch (e) {
+                                          // print(e.toString());
+                                        }
+                                        Navigator.of(context).pop();
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        padding: const EdgeInsets.symmetric(),
+                                        textStyle:
+                                            const TextStyle(fontSize: 18),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                        backgroundColor:
+                                            Colors.blue.withOpacity(0.5),
                                       ),
-                                      backgroundColor:
-                                          Colors.blue.withOpacity(0.5),
-                                    ),
-                                    child: const Text(
-                                      'Submit',
-                                      style: TextStyle(
-                                        fontSize: 16,
+                                      child: const Text(
+                                        'Submit',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -355,108 +362,117 @@ class _CartPageContentState extends State<CartPageContent> {
                                 ),
                                 Expanded(
                                   flex: 3,
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      final cost =
-                                          widget.eventList!.cartItems!.fold(
-                                        0,
-                                        (previousValue, element) =>
-                                            previousValue + element.price!,
-                                      );
+                                  child: SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.06,
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        final cost =
+                                            widget.eventList!.cartItems!.fold(
+                                          0,
+                                          (previousValue, element) =>
+                                              previousValue + element.price!,
+                                        );
 
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) {
-                                          return AlertDialog(
-                                            backgroundColor: Colors.transparent,
-                                            title: const Text(
-                                              'QR Code',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                fontFamily: 'Panther',
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                            content: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(16),
-                                                border: Border.all(
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              title: const Text(
+                                                'QR Code',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontFamily: 'Panther',
+                                                  fontWeight: FontWeight.bold,
                                                   color: Colors.white,
-                                                  width: 2,
-                                                ),
-                                                gradient: LinearGradient(
-                                                  begin: Alignment.topLeft,
-                                                  end: Alignment.bottomRight,
-                                                  colors: [
-                                                    Colors.black
-                                                        .withOpacity(0.3),
-                                                    Colors.black
-                                                        .withOpacity(0.2),
-                                                    Colors.black
-                                                        .withOpacity(0.1),
-                                                  ],
                                                 ),
                                               ),
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.62,
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.62,
-                                              child: Align(
-                                                alignment: Alignment.center,
-                                                child: QrImage(
-                                                  data:
-                                                      'upi://pay?pa=pictscholarship@jsb&pn=PICT&am=$cost&tn=Pulzion&cu=INR',
-                                                  version: QrVersions.auto,
-                                                  foregroundColor: Colors.white,
-                                                  size: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.6,
+                                              content: Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(16),
+                                                  border: Border.all(
+                                                    color: Colors.white,
+                                                    width: 2,
+                                                  ),
+                                                  gradient: LinearGradient(
+                                                    begin: Alignment.topLeft,
+                                                    end: Alignment.bottomRight,
+                                                    colors: [
+                                                      Colors.black
+                                                          .withOpacity(0.3),
+                                                      Colors.black
+                                                          .withOpacity(0.2),
+                                                      Colors.black
+                                                          .withOpacity(0.1),
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
-                                            ),
-                                            actions: [
-                                              Align(
-                                                alignment: Alignment.center,
-                                                child: TextButton(
-                                                  onPressed: () {
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                  child: const Text(
-                                                    'Close',
-                                                    style: TextStyle(
-                                                      fontFamily: 'QuickSand',
-                                                      color: Colors.white,
-                                                    ),
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.62,
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.62,
+                                                child: Align(
+                                                  alignment: Alignment.center,
+                                                  child: QrImage(
+                                                    data:
+                                                        'upi://pay?pa=pictscholarship@jsb&pn=PICT&am=$cost&tn=Pulzion&cu=INR',
+                                                    version: QrVersions.auto,
+                                                    foregroundColor:
+                                                        Colors.white,
+                                                    size: MediaQuery.of(context)
+                                                            .size
+                                                            .width *
+                                                        0.6,
                                                   ),
                                                 ),
                                               ),
-                                            ],
-                                          );
-                                        },
-                                      );
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      padding: const EdgeInsets.symmetric(
-                                        vertical: 16,
+                                              actions: [
+                                                Align(
+                                                  alignment: Alignment.center,
+                                                  child: TextButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                    child: const Text(
+                                                      'Close',
+                                                      style: TextStyle(
+                                                        fontFamily: 'QuickSand',
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 16,
+                                        ),
+                                        textStyle:
+                                            const TextStyle(fontSize: 18),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                        backgroundColor:
+                                            Colors.blue.withOpacity(0.5),
                                       ),
-                                      textStyle: const TextStyle(fontSize: 18),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      backgroundColor:
-                                          Colors.blue.withOpacity(0.5),
-                                    ),
-                                    child: const Text(
-                                      'Generate QR Code',
-                                      style: TextStyle(
-                                        fontSize: 14,
+                                      child: const Text(
+                                        'Generate QR Code',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -658,37 +674,41 @@ class _CartPageContentState extends State<CartPageContent> {
                       )
                     : Stack(
                         children: [
-                          ListView.builder(
-                            itemBuilder: (context, index) {
-                              return index == 0
-                                  ? Column(
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 16.0),
-                                          child: Text(
-                                            "Items",
-                                            style: AppStyles.bodyTextStyle2()
-                                                .copyWith(
-                                              color: Colors.white,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w700,
+                          Padding(
+                            padding: EdgeInsets.only(bottom: h * 0.07),
+                            child: ListView.builder(
+                              itemBuilder: (context, index) {
+                                return index == 0
+                                    ? Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                              top: 16.0,
+                                            ),
+                                            child: Text(
+                                              "Items",
+                                              style: AppStyles.bodyTextStyle2()
+                                                  .copyWith(
+                                                color: Colors.white,
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w700,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        CartListTile(widget
-                                            .eventList!.cartItems![index]),
-                                      ],
-                                    )
-                                  : CartListTile(
-                                      widget.eventList!.cartItems![index],
-                                    );
-                            },
-                            itemCount: widget.eventList!.cartItems!.length,
+                                          CartListTile(widget
+                                              .eventList!.cartItems![index]),
+                                        ],
+                                      )
+                                    : CartListTile(
+                                        widget.eventList!.cartItems![index],
+                                      );
+                              },
+                              itemCount: widget.eventList!.cartItems!.length,
+                            ),
                           ),
                           Positioned(
-                            bottom: MediaQuery.of(context).size.height * 0.02,
-                            right: MediaQuery.of(context).size.width * 0.03,
+                            bottom: MediaQuery.of(context).size.height * 0.012,
+                            right: MediaQuery.of(context).size.width * 0.013,
                             child: FloatingActionButton(
                               onPressed: () async {
                                 if (EndPoints.acceptingPayment ?? true) {
