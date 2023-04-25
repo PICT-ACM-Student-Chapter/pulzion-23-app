@@ -176,7 +176,7 @@ class MyTicketView extends StatelessWidget {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => BookedWindow(),
+                                      builder: (context) => BookSlots(),
                                     ),
                                   );
                                 } else if (state is NotBookedSlotState) {
@@ -192,14 +192,26 @@ class MyTicketView extends StatelessWidget {
                                 if (state is BookedSlotState) {
                                   return TextButton(
                                     onPressed: () {
-                                      print('clicked1');
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              NotBookedWindow(),
+                                        ),
+                                      );
                                     },
                                     child: Text('View Details'),
                                   );
                                 } else if (state is NotBookedSlotState) {
                                   return TextButton(
                                     onPressed: () {
-                                      print('clicked2');
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              NotBookedWindow(),
+                                        ),
+                                      );
                                     },
                                     child: Text('Book Slot'),
                                   );
