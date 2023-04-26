@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 // import 'package:lottie/lottie.dart';
 
-class NotBookedWindow extends StatelessWidget {
-  const NotBookedWindow({super.key});
+class ViewSlotDetails extends StatelessWidget {
+  const ViewSlotDetails({super.key});
 
   // This widget is the root of your application.
   @override

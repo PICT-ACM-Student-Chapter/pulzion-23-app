@@ -54,7 +54,7 @@ class _RegisteredEventsAndOrdersState extends State<RegisteredEventsAndOrders>
     return BlocProvider(
       create: (context) {
         // print("helo");
-        
+
         return RegisteredEventsAndOrdersCubit()..getRegisteredEventsAndOrders();
       },
       child: BlocBuilder<RegisteredEventsAndOrdersCubit,
@@ -145,14 +145,16 @@ class _RegisteredEventsAndOrdersState extends State<RegisteredEventsAndOrders>
               }
             case RegisteredEventsAndOrdersError:
               {
-                return ErrorDialog(
-                  (state as RegisteredEventsAndOrdersError).errorMessage,
-                  refreshFunction: () {
-                    log("refreshing");
-                    context
-                        .read<RegisteredEventsAndOrdersCubit>()
-                        .getRegisteredEventsAndOrders();
-                  },
+                return Center(
+                  child: ErrorDialog(
+                    (state as RegisteredEventsAndOrdersError).errorMessage,
+                    refreshFunction: () {
+                      log("refreshing");
+                      context
+                          .read<RegisteredEventsAndOrdersCubit>()
+                          .getRegisteredEventsAndOrders();
+                    },
+                  ),
                 );
               }
             default:

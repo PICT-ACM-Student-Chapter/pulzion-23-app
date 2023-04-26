@@ -171,6 +171,7 @@ class CartPageCubit extends Cubit<CartPageState> {
         }),
       );
       var data = jsonDecode(response.body);
+      log(data.toString());
       if (data['error'] != null) {
         emit(TransactionError(data['error'].toString()));
       }

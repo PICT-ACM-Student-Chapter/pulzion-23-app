@@ -9,7 +9,8 @@ Future<void> remoteConfig() async {
     minimumFetchInterval: const Duration(hours: 1),
   ));
   await remoteConfig.fetchAndActivate();
-  EndPoints.baseUrl = remoteConfig.getString('BaseUrl');
+  EndPoints.baseUrl = 'https://ems-test-server.onrender.com';
+  // remoteConfig.getString('BaseUrl');
   EndPoints.sampleToken = remoteConfig.getString('SampleToken');
   EndPoints.appLatestStableVersion =
       remoteConfig.getString('AppLatestStableVersion');

@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -21,6 +22,7 @@ class CheckLoginCubit extends Cubit<CheckLoginState> {
         const storage = FlutterSecureStorage();
         final token = await storage.read(key: 'token');
         if (token != null) {
+          log(token);
           emit(CheckLoginSuccess());
 
           return;

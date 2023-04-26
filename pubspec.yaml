@@ -24,7 +24,7 @@ dependencies:
     firebase_core: ^2.4.1
     lottie: ^2.2.0
     flutter_svg: any
-    intl: ^0.18.0
+    intl: ^0.18.1
     curved_navigation_bar: ^1.0.3
     panorama: ^0.4.1
     sizer: ^2.0.15
