@@ -90,203 +90,173 @@ class MyTicketView extends StatelessWidget {
               ],
             ),
           ),
-          child: Padding(
-            padding: EdgeInsets.only(top: height / 35, left: width / 22),
-            child: SizedBox(
-              height: th,
-              width: tw,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: th / 28,
-                      left: tw / 25,
-                      right: tw / 15,
-                    ),
-                    child: FittedBox(
-                      fit: BoxFit.contain,
-                      child: Text(
-                        name,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: tw / 6.5,
-                          overflow: TextOverflow.ellipsis,
-                          fontWeight: FontWeight.bold,
-                        ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: (th * 0.5 - 75) * 0.5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 75,
+                      width: 75,
+                      child: CachedNetworkImage(
+                        imageUrl: logo,
+                        placeholder: (context, url) => Container(),
+                        errorWidget: (context, url, error) => Container(),
+                        cacheManager: _cacheManager,
+                        fadeInDuration: const Duration(milliseconds: 100),
+                        fit: BoxFit.fitWidth,
+                        key: UniqueKey(),
                       ),
                     ),
-                  ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Flexible(
-                          child: SizedBox(
-                            height: 50,
-                            width: 50,
-                            child: FittedBox(
-                              child: ClipRRect(
-                                child: CachedNetworkImage(
-                                  imageUrl: logo,
-                                  placeholder: (context, url) => Container(),
-                                  errorWidget: (context, url, error) =>
-                                      Container(),
-                                  cacheManager: _cacheManager,
-                                  fadeInDuration:
-                                      const Duration(milliseconds: 100),
-                                  fit: BoxFit.fitWidth,
-                                  key: UniqueKey(),
-                                ),
-                              ),
-                            ),
+                    SizedBox(
+                      width: tw / 20,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          name,
+                          softWrap: true,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 30,
+                            overflow: TextOverflow.ellipsis,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: th / 50, left: tw / 25),
-                        child: Text(
+                        Text(
                           eventType,
-                          style: TextStyle(
+                          style: const TextStyle(
+                            fontSize: 15,
                             color: Colors.white70,
-                            fontSize: tw / 17,
                             fontWeight: FontWeight.bold,
                             fontStyle: FontStyle.italic,
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: th / 50,
-                      left: tw / 110,
-                      right: tw / 25,
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: th / 80),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: th * 0.07,
-                        ),
-                        DottedLine(
-                          lineThickness: tw / 170,
-                          dashGapLength: tw / 50,
-                          dashLength: tw / 30,
-                          dashColor: Colors.white.withOpacity(0.5),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                            top: tw / 15,
-                            bottom: tw / 15,
-                            left: tw / 30,
-                            right: tw / 15,
-                          ),
-                          child: BlocConsumer<EventSlotsCubit,
-                              EventSlotStateCubit>(
-                            listener: (context, state) {},
-                            builder: (context, state) {
-                              return state is BookedSlotState
-                                  ? Text(
-                                      "Slot Booking not yet started",
-                                      style: TextStyle(
-                                        fontSize: tw / 25,
-                                        color: Colors.white,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    )
-                                  : Text(
-                                      "Registered : You haven't booked a slot for this event",
-                                      style: TextStyle(
-                                        fontSize: tw / 25,
-                                        color: Colors.white,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    );
-                            },
-                          ),
-                        ),
-                        Center(
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              right: MediaQuery.of(context).size.width * 0.05,
-                            ),
-                            child: Card(
-                              shadowColor: Colors.black,
-                              color: Colors.black26,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: BlocConsumer<EventSlotsCubit,
-                                  EventSlotStateCubit>(
-                                listener: (context, state) {},
-                                builder: (context, state) {
-                                  // if (state is EventSlotLoadingState) {
-                                  //   return const Center(
-                                  //     child: CircularProgressIndicator(),
-                                  //   );
-                                  // }
-                                  if (state is BookedSlotState) {
-                                    return TextButton(
-                                      onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                ViewSlotDetails(),
-                                          ),
-                                        );
-                                      },
-                                      child: const Text(
-                                        'View Details',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontFamily: 'QuickSand',
-                                        ),
-                                      ),
-                                    );
-                                  } else {
-                                    return TextButton(
-                                      onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => BlocProvider(
-                                              create: (context) =>
-                                                  EventSlotsCubit()
-                                                    ..getAvailableSlots(id),
-                                              child: BookSlots(
-                                                id: id,
-                                                name: name,
-                                                logo: logo,
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      child: const Text(
-                                        'Book Slot',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontFamily: 'QuickSand'),
-                                      ),
-                                    );
-                                  }
-                                },
-                              ),
-                            ),
-                          ),
-                        ),
                       ],
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
+              DottedLine(
+                lineThickness: tw / 170,
+                dashGapLength: tw / 50,
+                dashLength: tw / 30,
+                dashColor: Colors.white.withOpacity(0.5),
+              ),
+              Expanded(child: Container()),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 16),
+                child: BlocConsumer<EventSlotsCubit, EventSlotStateCubit>(
+                  listener: (context, state) {},
+                  builder: (context, state) {
+                    return state is BookedSlotState
+                        ? const Text(
+                            "You have booked slots",
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.white,
+                            ),
+                            textAlign: TextAlign.center,
+                          )
+                        : const Text(
+                            "Registered : You haven't booked a slot for this event",
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.white,
+                            ),
+                            textAlign: TextAlign.center,
+                          );
+                  },
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(8),
+                width: tw * 0.4,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.black26,
+                ),
+                child: BlocConsumer<EventSlotsCubit, EventSlotStateCubit>(
+                  listener: (context, state) {},
+                  builder: (context, state) {
+                    // if (state is EventSlotLoadingState) {
+                    //   return const Center(
+                    //     child: CircularProgressIndicator(),
+                    //   );
+                    // }
+                    return state is BookedSlotState
+                        ? InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const ViewSlotDetails(),
+                                ),
+                              );
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: const [
+                                Icon(
+                                  Icons.remove_red_eye_rounded,
+                                  color: Colors.white,
+                                ),
+                                Text(
+                                  'View Details',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: 'QuickSand',
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        : InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => BlocProvider(
+                                    create: (context) => EventSlotsCubit()..getAvailableSlots(id),
+                                    child: BookSlots(
+                                      id: id,
+                                      name: name,
+                                      logo: logo,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: const [
+                                Icon(
+                                  Icons.bookmark_added_rounded,
+                                  color: Colors.white,
+                                ),
+                                Text(
+                                  'Book Slot',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: 'QuickSand',
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                  },
+                ),
+              ),
+            ],
           ),
         ),
       ),
