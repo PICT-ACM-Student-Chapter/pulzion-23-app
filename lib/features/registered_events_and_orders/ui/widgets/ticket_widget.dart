@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pulzion23/constants/models/booked_slot_model.dart';
 import 'package:pulzion23/features/event_slots/ui/booked_window.dart';
 import 'package:pulzion23/features/event_slots/ui/view_slot_details.dart';
 import '../../../event_slots/logic/booked_slot_cubit.dart';
@@ -197,7 +198,10 @@ class MyTicketView extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const ViewSlotDetails(),
+                                  builder: (context) => ViewSlotDetails(
+                                    // to figure
+                                    bookedSlotModel: BookedSlotModel(),
+                                  ),
                                 ),
                               );
                             },
@@ -225,7 +229,8 @@ class MyTicketView extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => BlocProvider(
-                                    create: (context) => EventSlotsCubit()..getAvailableSlots(id),
+                                    create: (context) => EventSlotsCubit()
+                                      ..getAvailableSlots(id),
                                     child: BookSlots(
                                       id: id,
                                       name: name,

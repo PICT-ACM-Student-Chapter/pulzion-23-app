@@ -19,6 +19,6 @@ class EndPoints {
   static String otp = '${baseUrl!}/user/otp';
   static String forget = '${baseUrl!}/user/forget';
   static String userEvents = '${baseUrl!}/user_events';
-  static String getSlots = '${baseUrl!}/slots?event_id=';
+  static String getSlots = '${baseUrl!}/user_slots?event_id=';
   static String bookSlots = '${baseUrl!}/user_slots';
 }

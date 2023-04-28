@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:panorama/panorama.dart';
 import 'package:pulzion23/constants/colors.dart';
-import 'package:pulzion23/constants/styles.dart';
+import 'package:pulzion23/constants/widgets/empty_page.dart';
+import 'package:pulzion23/features/event_slots/ui/view_slot_details.dart';
 import '../../../constants/models/slot_model.dart';
 import 'package:pulzion23/constants/images.dart';
 import 'package:pulzion23/features/event_slots/logic/booked_slot_cubit.dart';
@@ -10,6 +11,7 @@ import 'package:pulzion23/project/cubit/animation_toggle_cubit.dart';
 import 'package:intl/intl.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:lottie/lottie.dart';
 
 class BookSlots extends StatelessWidget {
   final int id;
@@ -29,45 +31,6 @@ class BookSlots extends StatelessWidget {
     required this.logo,
   });
 
-  // Widget gradientContainer(Widget child, double h, double w) {
-  //   return Container(
-  //     height: h,
-  //     width: w,
-  //     margin: EdgeInsets.symmetric(
-  //       horizontal: h * 0.025,
-  //       vertical: w * 0.0075,
-  //     ),
-  //     padding: EdgeInsets.symmetric(
-  //       horizontal: w * 0.025,
-  //       vertical: h * 0.015,
-  //     ),
-  //     decoration: BoxDecoration(
-  //       gradient: LinearGradient(
-  //         begin: Alignment.topLeft,
-  //         end: Alignment.bottomRight,
-  //         colors: AppColors.eventCardGradientList.elementAt(
-  //           0 %
-  //               // orders[index].id! %
-  //               AppColors.eventCardGradientList.length,
-  //         ),
-  //       ),
-  //       borderRadius: const BorderRadius.all(
-  //         Radius.circular(20),
-  //       ),
-  //       border: const Border.fromBorderSide(
-  //         BorderSide(
-  //           color: AppColors.cardBorder,
-  //           width: 0.2,
-  //         ),
-  //       ),
-  //     ),
-  //     child: ClipRRect(
-  //       borderRadius: BorderRadius.circular(20),
-  //       child: child,
-  //     ),
-  //   );
-  // }
-
   Widget slotContainer(BuildContext ctx, Slot slot) {
     return Padding(
       padding: const EdgeInsets.all(14),
@@ -79,8 +42,7 @@ class BookSlots extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                DateFormat('yyyy-MM-dd')
-                    .format(DateTime.parse(slot.created_at!)),
+                'Date: ${DateFormat('yyyy-MM-dd').format(DateTime.parse(slot.created_at!))}',
                 style: const TextStyle(
                   color: Colors.white,
                   fontFamily: 'QuickSand',
@@ -179,7 +141,7 @@ class BookSlots extends StatelessWidget {
           },
         ),
         SafeArea(
-          top: false,
+          top: true,
           child: Scaffold(
             backgroundColor: Colors.transparent,
             body: CustomScrollView(
@@ -196,57 +158,63 @@ class BookSlots extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const Text(
-                            'BOOK SLOTS',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'Panther',
+                          Flexible(
+                            child: FittedBox(
+                              fit: BoxFit.cover,
+                              child: Text(
+                                'BOOK SLOTS',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize:
+                                      MediaQuery.of(context).size.height / 70,
+                                  fontFamily: 'Panther',
+                                ),
+                              ),
                             ),
                           ),
                           const Divider(
                             color: Colors.white,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Flexible(
-                                child: SizedBox(
+                          Flexible(
+                            fit: FlexFit.tight,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
                                   height: 50,
                                   width: 50,
                                   child: FittedBox(
-                                    child: ClipRRect(
-                                      child: CachedNetworkImage(
-                                        imageUrl: logo,
-                                        placeholder: (context, url) =>
-                                            Container(),
-                                        errorWidget: (context, url, error) =>
-                                            Container(),
-                                        cacheManager: _cacheManager,
-                                        fadeInDuration:
-                                            const Duration(milliseconds: 100),
-                                        fit: BoxFit.fitWidth,
-                                        key: UniqueKey(),
+                                    child: CachedNetworkImage(
+                                      imageUrl: logo,
+                                      placeholder: (context, url) =>
+                                          Container(),
+                                      errorWidget: (context, url, error) =>
+                                          Container(),
+                                      cacheManager: _cacheManager,
+                                      fadeInDuration:
+                                          const Duration(milliseconds: 100),
+                                      fit: BoxFit.fitWidth,
+                                      key: UniqueKey(),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: w / 25,
+                                ),
+                                Flexible(
+                                  child: FittedBox(
+                                    fit: BoxFit.cover,
+                                    child: Text(
+                                      name,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: 'Panther',
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              SizedBox(
-                                width: w / 25,
-                              ),
-                              Flexible(
-                                child: FittedBox(
-                                  fit: BoxFit.cover,
-                                  child: Text(
-                                    name,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: 'Panther',
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -267,93 +235,120 @@ class BookSlots extends StatelessWidget {
                     ),
                   ),
                 ),
-                SliverList(
-                  delegate: SliverChildListDelegate(
-                    [
-                      Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: SingleChildScrollView(
+                BlocConsumer<EventSlotsCubit, EventSlotStateCubit>(
+                  listener: (context, state) {
+                    if (state is BookingSuccessful) {
+                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        duration: Duration(seconds: 3),
+                        content: Text('Slot Booked Successfully!'),
+                        backgroundColor: Colors.green,
+                      ));
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) => ViewSlotDetails(
+                            bookedSlotModel: state.bookedSlotModel,
+                          ),
+                        ),
+                      );
+                    } else if (state is EventSlotErrorState) {
+                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        duration: const Duration(seconds: 3),
+                        content: Text(
+                          state.message.toString(),
+                        ),
+                        backgroundColor: Colors.red,
+                      ));
+                    }
+                  },
+                  builder: (context, state) {
+                    if (state is EventSlotLoadingState) {
+                      return SliverToBoxAdapter(
+                        child: Center(
                           child: Column(
                             children: [
                               SizedBox(
-                                height: h * 0.02,
+                                height: w / 2.5,
                               ),
-                              SizedBox(
-                                height: h * 0.8,
-                                child: BlocConsumer<EventSlotsCubit,
-                                    EventSlotStateCubit>(
-                                  listener: (context, state) {
-                                    if (state is BookingSuccessful) {
-                                      ScaffoldMessenger.of(context)
-                                          .hideCurrentSnackBar();
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(const SnackBar(
-                                        duration: Duration(seconds: 3),
-                                        content:
-                                            Text('Slot Booked Successfully!'),
-                                        backgroundColor: Colors.green,
-                                      ));
-                                      Navigator.of(context).pop();
-                                    }
-                                  },
-                                  builder: (context, state) {
-                                    if (state is EventSlotLoadingState) {
-                                      return const Center(
-                                        child: CircularProgressIndicator(),
-                                      );
-                                    } else if (state is NotBookedSlotState) {
-                                      return ListView.builder(
-                                        itemBuilder: (context, index) =>
-                                            Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              gradient: const LinearGradient(
-                                                colors: [
-                                                  Colors.white10,
-                                                  Colors.white30,
-                                                ],
-                                              ),
-                                            ),
-                                            height: h * 0.2,
-                                            width: w,
-                                            child: slotContainer(
-                                              context,
-                                              state.slot_list.slots![index],
-                                            ),
-                                          ),
-                                        ),
-                                        itemCount:
-                                            state.slot_list.slots!.length,
-                                      );
-                                    } else if (state is EventSlotErrorState) {
-                                      return Center(
-                                        child: Text(
-                                          'Error Occured',
-                                          style: AppStyles.bodyTextStyle2()
-                                              .copyWith(color: Colors.white),
-                                        ),
-                                      );
-                                    } else {
-                                      return Center(
-                                        child: Text(
-                                          'No Slots Available',
-                                          style: AppStyles.bodyTextStyle2()
-                                              .copyWith(color: Colors.white),
-                                        ),
-                                      );
-                                    }
-                                  },
-                                ),
+                              Lottie.asset(
+                                AppImages.loader,
+                                height: w / 2,
+                                width: w / 2,
                               ),
                             ],
                           ),
                         ),
-                      ),
-                    ],
-                  ),
+                      );
+                    } else if (state is NotBookedSlotState) {
+                      return SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(
+                                left: 8.0,
+                                right: 8.0,
+                                top: 10.0,
+                                bottom: 8.0,
+                              ),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  gradient: const LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: [
+                                      Colors.white10,
+                                      Colors.white30,
+                                    ],
+                                  ),
+                                ),
+                                height: h * 0.2,
+                                width: w,
+                                child: slotContainer(
+                                  context,
+                                  state.slot_list.slots![index],
+                                ),
+                              ),
+                            );
+                          },
+                          childCount: state.slot_list.slots!.length,
+                        ),
+                      );
+                    } else if (state is EventSlotErrorState) {
+                      return SliverToBoxAdapter(
+                        child: Center(
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: w / 2.5,
+                              ),
+                              EmptyPage(
+                                title: 'Error',
+                                errorMessage: state.message.toString(),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    } else {
+                      return SliverToBoxAdapter(
+                        child: Center(
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: w / 2.5,
+                              ),
+                              const EmptyPage(
+                                title: 'Error',
+                                errorMessage: 'Slots Not Available!',
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    }
+                  },
                 ),
               ],
             ),

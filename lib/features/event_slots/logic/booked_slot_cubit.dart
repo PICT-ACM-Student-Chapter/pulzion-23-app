@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:pulzion23/constants/models/slot_model.dart';
+import '../../../constants/models/booked_slot_model.dart';
 part 'booked_slot_state.dart';
 
 class EventSlotsCubit extends Cubit<EventSlotStateCubit> {
@@ -61,6 +62,7 @@ class EventSlotsCubit extends Cubit<EventSlotStateCubit> {
   }
 
   Future<void> bookSlot(String event_id, String slot_id) async {
+    log('event_id: $event_id, slot_id: $slot_id');
     emit(EventSlotLoadingState());
     const storage = FlutterSecureStorage();
     var token = await storage.read(key: 'token');
@@ -82,18 +84,16 @@ class EventSlotsCubit extends Cubit<EventSlotStateCubit> {
           ),
         );
         var data = jsonDecode(response.body);
-        log(data['error'].toString());
+        log(data.toString());
 
-        // (data as Map).entries.forEach((element) {
-        //   log(element.key);
-        //   log(element.value.toString());
-        // });
-        // if (data['error'] == null) {
-        //   print('BOOKED SUCCESSFULLY for $event_id and $slot_id');
-        //   emit(BookedSlotState());
-        // } else {
-        //   emit(EventSlotErrorState(data['error']));
-        // }
+        if (data['error'] != null) {
+          emit(EventSlotErrorState(data['error'].toString()));
+
+          return;
+        }
+        emit(BookingSuccessful(
+          BookedSlotModel.fromJson(data),
+        ));
       } catch (e) {
         log(e.toString());
         emit(EventSlotErrorState(e.toString()));

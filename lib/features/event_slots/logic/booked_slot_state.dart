@@ -11,12 +11,16 @@ class BookedSlotState extends EventSlotStateCubit {}
 
 class NotBookedSlotState extends EventSlotStateCubit {
   final EventSlot slot_list;
-  
+
   NotBookedSlotState(this.slot_list);
 }
 
 class EventSlotErrorState extends EventSlotStateCubit {
-  EventSlotErrorState(String e);
+  final message;
+  EventSlotErrorState(this.message);
 }
 
-class BookingSuccessful extends EventSlotStateCubit {}
+class BookingSuccessful extends EventSlotStateCubit {
+  late final BookedSlotModel bookedSlotModel;
+  BookingSuccessful(this.bookedSlotModel);
+}

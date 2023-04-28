@@ -1,33 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:glassmorphism/glassmorphism.dart';
+import 'package:pulzion23/constants/models/booked_slot_model.dart';
 // import 'package:lottie/lottie.dart';
 
-class ViewSlotDetails extends StatelessWidget {
-  const ViewSlotDetails({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        //backgroundColor: Color(),
-        scaffoldBackgroundColor: const Color(0XFF000067),
-      ),
-      home: const Ticket(),
-    );
-  }
-}
-
-class Ticket extends StatefulWidget {
-  const Ticket({Key? key}) : super(key: key);
+class ViewSlotDetails extends StatefulWidget {
+  final BookedSlotModel bookedSlotModel;
+  const ViewSlotDetails({Key? key, required this.bookedSlotModel})
+      : super(key: key);
 
   @override
-  State<Ticket> createState() => _TicketState();
+  State<ViewSlotDetails> createState() => _TicketState();
 }
 
-class _TicketState extends State<Ticket> {
+class _TicketState extends State<ViewSlotDetails> {
   @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
@@ -74,8 +59,6 @@ class _TicketState extends State<Ticket> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              // const Expanded(child: Text(''),
-              // flex: 2,),
               SizedBox(
                 height: screenheight * 0.38,
                 child: const Image(
@@ -86,8 +69,6 @@ class _TicketState extends State<Ticket> {
                 flex: 3,
                 child: Column(
                   children: [
-                    // Padding(
-                    //   padding: const EdgeInsets.only(left: 10),
                     const Text(
                       'Fandom',
                       style: TextStyle(
