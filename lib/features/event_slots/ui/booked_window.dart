@@ -4,6 +4,7 @@ import 'package:panorama/panorama.dart';
 import 'package:pulzion23/constants/colors.dart';
 import 'package:pulzion23/constants/widgets/empty_page.dart';
 import 'package:pulzion23/features/event_slots/ui/view_slot_details.dart';
+import 'package:pulzion23/features/home_page/logic/event_details_cubit_cubit.dart';
 import '../../../constants/models/slot_model.dart';
 import 'package:pulzion23/constants/images.dart';
 import 'package:pulzion23/features/event_slots/logic/booked_slot_cubit.dart';
@@ -13,16 +14,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:lottie/lottie.dart';
 
-class BookSlots extends StatelessWidget {
+class BookSlots extends StatefulWidget {
   final int id;
   final String name;
   final String logo;
-
-  final _cacheManager = CacheManager(Config(
-    'my_custom_cache_key',
-    stalePeriod: const Duration(days: 7),
-    maxNrOfCacheObjects: 100,
-  ));
 
   BookSlots({
     super.key,
@@ -30,6 +25,23 @@ class BookSlots extends StatelessWidget {
     required this.name,
     required this.logo,
   });
+
+  @override
+  State<BookSlots> createState() => _BookSlotsState();
+}
+
+class _BookSlotsState extends State<BookSlots> {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    setState(() {});
+  }
+
+  final _cacheManager = CacheManager(Config(
+    'my_custom_cache_key',
+    stalePeriod: const Duration(days: 7),
+    maxNrOfCacheObjects: 100,
+  ));
 
   Widget slotContainer(BuildContext ctx, Slot slot) {
     return Padding(
@@ -96,7 +108,7 @@ class BookSlots extends StatelessWidget {
                     onPressed: () {
                       BlocProvider.of<EventSlotsCubit>(ctx)
                           .bookSlot(
-                            id.toString(),
+                            widget.id.toString(),
                             slot.id.toString(),
                           )
                           .then((value) {});
@@ -185,7 +197,7 @@ class BookSlots extends StatelessWidget {
                                   width: 50,
                                   child: FittedBox(
                                     child: CachedNetworkImage(
-                                      imageUrl: logo,
+                                      imageUrl: widget.logo,
                                       placeholder: (context, url) =>
                                           Container(),
                                       errorWidget: (context, url, error) =>
@@ -205,7 +217,7 @@ class BookSlots extends StatelessWidget {
                                   child: FittedBox(
                                     fit: BoxFit.cover,
                                     child: Text(
-                                      name,
+                                      widget.name,
                                       style: const TextStyle(
                                         color: Colors.white,
                                         fontFamily: 'Panther',
@@ -244,10 +256,17 @@ class BookSlots extends StatelessWidget {
                         content: Text('Slot Booked Successfully!'),
                         backgroundColor: Colors.green,
                       ));
-                      Navigator.of(context).pushReplacement(
+                      Navigator.pushReplacement(
+                        context,
                         MaterialPageRoute(
-                          builder: (context) => ViewSlotDetails(
-                            bookedSlotModel: state.bookedSlotModel,
+                          builder: (context) =>
+                              BlocProvider<EventDetailsCubitCubit>(
+                            create: (context) =>
+                                EventDetailsCubitCubit()..getEventsDetails(),
+                            child: ViewSlotDetails(
+                              id: widget.id,
+                              name: widget.name,
+                            ),
                           ),
                         ),
                       );
@@ -334,16 +353,8 @@ class BookSlots extends StatelessWidget {
                     } else {
                       return SliverToBoxAdapter(
                         child: Center(
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: w / 2.5,
-                              ),
-                              const EmptyPage(
-                                title: 'Error',
-                                errorMessage: 'Slots Not Available!',
-                              ),
-                            ],
+                          child: Center(
+                            child: Lottie.asset(AppImages.loadingAnimation),
                           ),
                         ),
                       );

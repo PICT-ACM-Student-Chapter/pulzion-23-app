@@ -37,6 +37,8 @@ class Events {
   String? notes;
   String? createdAt;
   String? updatedAt;
+  int? fk_user;
+  int? fk_slot;
 
   Events({
     this.id,
@@ -56,6 +58,8 @@ class Events {
     this.notes,
     this.createdAt,
     this.updatedAt,
+    this.fk_slot,
+    this.fk_user,
   });
 
   Events.fromJson(Map<String, dynamic> json) {
@@ -76,6 +80,8 @@ class Events {
     notes = json["notes"];
     createdAt = json["created_at"];
     updatedAt = json["updated_at"];
+    fk_user = json["fk_user"];
+    fk_slot = json["fk_slot"];
   }
 
   Map<String, dynamic> toJson() {
@@ -97,6 +103,8 @@ class Events {
     data["notes"] = notes;
     data["created_at"] = createdAt;
     data["updated_at"] = updatedAt;
+    data["fk_user"] = fk_user;
+    data["fk_slot"] = fk_slot;
 
     return data;
   }

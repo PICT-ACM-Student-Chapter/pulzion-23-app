@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pulzion23/constants/models/booked_slot_model.dart';
 import 'package:pulzion23/features/event_slots/ui/booked_window.dart';
 import 'package:pulzion23/features/event_slots/ui/view_slot_details.dart';
+import 'package:pulzion23/features/home_page/logic/event_details_cubit_cubit.dart';
 import '../../../event_slots/logic/booked_slot_cubit.dart';
 import 'package:ticket_widget/ticket_widget.dart';
 import 'package:dotted_line/dotted_line.dart';
@@ -13,7 +14,7 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 class MyTicketView extends StatelessWidget {
   final String name;
   final String description;
-  final String isBooked;
+  final int? isBooked;
   final String eventType;
   final int id;
   final String logo;
@@ -31,7 +32,7 @@ class MyTicketView extends StatelessWidget {
     required this.eventType,
     required this.id,
     required this.logo,
-    this.isBooked = "",
+    required this.isBooked,
   });
 
   Widget EventSlot(
@@ -116,30 +117,36 @@ class MyTicketView extends StatelessWidget {
                     SizedBox(
                       width: tw / 20,
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          name,
-                          softWrap: true,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 30,
-                            overflow: TextOverflow.ellipsis,
-                            fontWeight: FontWeight.bold,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: tw * 0.65,
+                            child: Text(
+                              name,
+                              softWrap: true,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 25,
+                                overflow: TextOverflow.ellipsis,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
-                        ),
-                        Text(
-                          eventType,
-                          style: const TextStyle(
-                            fontSize: 15,
-                            color: Colors.white70,
-                            fontWeight: FontWeight.bold,
-                            fontStyle: FontStyle.italic,
+                          Text(
+                            eventType,
+                            style: const TextStyle(
+                              fontSize: 15,
+                              color: Colors.white70,
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.italic,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -153,112 +160,84 @@ class MyTicketView extends StatelessWidget {
               Expanded(child: Container()),
               Padding(
                 padding: const EdgeInsets.only(bottom: 16),
-                child: BlocConsumer<EventSlotsCubit, EventSlotStateCubit>(
-                  listener: (context, state) {},
-                  builder: (context, state) {
-                    return state is BookedSlotState
-                        ? const Text(
-                            "You have booked slots",
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.white,
-                            ),
-                            textAlign: TextAlign.center,
-                          )
-                        : const Text(
-                            "Registered : You haven't booked a slot for this event",
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.white,
-                            ),
-                            textAlign: TextAlign.center,
-                          );
-                  },
-                ),
+                child: isBooked != null
+                    ? const Text(
+                        "You have booked slot for this event",
+                        style: TextStyle(
+                          fontFamily: 'QuickSand',
+                          fontSize: 15,
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
+                      )
+                    : const Text(
+                        "Registered : You haven't booked a slot for this event",
+                        style: TextStyle(
+                          fontFamily: 'QuickSand',
+                          fontSize: 15,
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
               ),
               Container(
                 margin: const EdgeInsets.all(16),
-                padding: const EdgeInsets.all(8),
+                padding: const EdgeInsets.all(12),
                 width: tw * 0.4,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   color: Colors.black26,
                 ),
-                child: BlocConsumer<EventSlotsCubit, EventSlotStateCubit>(
-                  listener: (context, state) {},
-                  builder: (context, state) {
-                    // if (state is EventSlotLoadingState) {
-                    //   return const Center(
-                    //     child: CircularProgressIndicator(),
-                    //   );
-                    // }
-                    return state is BookedSlotState
-                        ? InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ViewSlotDetails(
-                                    // to figure
-                                    bookedSlotModel: BookedSlotModel(),
-                                  ),
+                child: InkWell(
+                  onTap: () {
+                    isBooked != null
+                        ? Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BlocProvider(
+                                create: (context) => EventDetailsCubitCubit()
+                                  ..getEventsDetails(),
+                                child: ViewSlotDetails(
+                                  id: id,
+                                  name: name,
                                 ),
-                              );
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: const [
-                                Icon(
-                                  Icons.remove_red_eye_rounded,
-                                  color: Colors.white,
-                                ),
-                                Text(
-                                  'View Details',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'QuickSand',
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
                           )
-                        : InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => BlocProvider(
-                                    create: (context) => EventSlotsCubit()
-                                      ..getAvailableSlots(id),
-                                    child: BookSlots(
-                                      id: id,
-                                      name: name,
-                                      logo: logo,
-                                    ),
-                                  ),
+                        : Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BlocProvider(
+                                create: (context) =>
+                                    EventSlotsCubit()..getAvailableSlots(id),
+                                child: BookSlots(
+                                  id: id,
+                                  name: name,
+                                  logo: logo,
                                 ),
-                              );
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: const [
-                                Icon(
-                                  Icons.bookmark_added_rounded,
-                                  color: Colors.white,
-                                ),
-                                Text(
-                                  'Book Slot',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'QuickSand',
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
                           );
                   },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(
+                        isBooked != null
+                            ? Icons.remove_red_eye_rounded
+                            : Icons.pin_drop_rounded,
+                        color: Colors.white,
+                      ),
+                      Text(
+                        isBooked != null ? 'View Details' : 'Book Slot',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'QuickSand',
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

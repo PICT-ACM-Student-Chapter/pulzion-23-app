@@ -30,6 +30,7 @@ class RegisteredEventsCards extends StatelessWidget {
               description: registeredEvents[index].description!,
               eventType: registeredEvents[index].type!,
               logo: registeredEvents[index].logo!,
+              isBooked: registeredEvents[index].fk_slot,
             ),
             itemCount: registeredEvents.length,
           );

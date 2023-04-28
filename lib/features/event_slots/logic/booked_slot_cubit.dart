@@ -91,6 +91,7 @@ class EventSlotsCubit extends Cubit<EventSlotStateCubit> {
 
           return;
         }
+
         emit(BookingSuccessful(
           BookedSlotModel.fromJson(data),
         ));
