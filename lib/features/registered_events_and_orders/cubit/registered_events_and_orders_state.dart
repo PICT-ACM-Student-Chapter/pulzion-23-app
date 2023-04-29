@@ -22,3 +22,5 @@ class RegisteredEvents extends RegisteredEventsAndOrdersState {
   List<BookedSlotModel> bookedEventList;
   RegisteredEvents(this.bookedEventList);
 }
+
+class RegisteredOrdersandEventsUpdates extends RegisteredEventsAndOrdersState {}

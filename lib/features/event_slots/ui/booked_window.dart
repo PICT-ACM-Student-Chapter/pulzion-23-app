@@ -5,6 +5,7 @@ import 'package:pulzion23/constants/colors.dart';
 import 'package:pulzion23/constants/widgets/empty_page.dart';
 import 'package:pulzion23/features/event_slots/ui/view_slot_details.dart';
 import 'package:pulzion23/features/home_page/logic/event_details_cubit_cubit.dart';
+import 'package:pulzion23/features/registered_events_and_orders/cubit/registered_events_and_orders_cubit.dart';
 import '../../../constants/models/slot_model.dart';
 import 'package:pulzion23/constants/images.dart';
 import 'package:pulzion23/features/event_slots/logic/booked_slot_cubit.dart';
@@ -96,7 +97,8 @@ class _BookSlotsState extends State<BookSlots> {
                 ),
               ),
               Container(
-                height: MediaQuery.of(ctx).size.height / 15,
+                // height: MediaQuery.of(ctx).size.height / 15,
+                padding: const EdgeInsets.symmetric(horizontal: 8),
                 decoration: BoxDecoration(
                   color: Colors.blueAccent,
                   borderRadius: BorderRadius.circular(12),
@@ -106,27 +108,24 @@ class _BookSlotsState extends State<BookSlots> {
                     end: Alignment.centerRight,
                   ),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: TextButton(
-                    child: const Text(
-                      'Book Slot',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'QuickSand',
-                      ),
+                child: TextButton(
+                  child: const Text(
+                    'Book Slot',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'QuickSand',
                     ),
-                    onPressed: () {
-                      BlocProvider.of<EventSlotsCubit>(ctx)
-                          .bookSlot(
-                            widget.id.toString(),
-                            slot.id.toString(),
-                          )
-                          .then((value) {});
-                    },
                   ),
+                  onPressed: () {
+                    BlocProvider.of<EventSlotsCubit>(ctx)
+                        .bookSlot(
+                          widget.id.toString(),
+                          slot.id.toString(),
+                        )
+                        .then((value) {});
+                  },
                 ),
               ),
             ],
@@ -263,6 +262,9 @@ class _BookSlotsState extends State<BookSlots> {
                 BlocConsumer<EventSlotsCubit, EventSlotStateCubit>(
                   listener: (context, state) {
                     if (state is BookingSuccessful) {
+                      BlocProvider.of<RegisteredEventsAndOrdersCubit>(context)
+                          .getUpdatedEvents();
+
                       ScaffoldMessenger.of(context).hideCurrentSnackBar();
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         duration: Duration(seconds: 3),
@@ -273,9 +275,10 @@ class _BookSlotsState extends State<BookSlots> {
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              BlocProvider<EventDetailsCubitCubit>(
+                              BlocProvider<RegisteredEventsAndOrdersCubit>(
                             create: (context) =>
-                                EventDetailsCubitCubit()..getEventsDetails(),
+                                RegisteredEventsAndOrdersCubit()
+                                  ..getOnlyRegisteredEvents(),
                             child: ViewSlotDetails(
                               id: widget.id,
                               logo: widget.logo,

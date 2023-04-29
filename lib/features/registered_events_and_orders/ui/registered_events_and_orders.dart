@@ -57,8 +57,17 @@ class _RegisteredEventsAndOrdersState extends State<RegisteredEventsAndOrders>
 
         return RegisteredEventsAndOrdersCubit()..getRegisteredEventsAndOrders();
       },
-      child: BlocBuilder<RegisteredEventsAndOrdersCubit,
+      child: BlocConsumer<RegisteredEventsAndOrdersCubit,
           RegisteredEventsAndOrdersState>(
+        listener: (context, state) {},
+        // buildWhen: (previous, current) {
+        //   if (current is RegisteredOrdersandEventsUpdates ||
+        //       current is RegisteredEventsAndOrdersLoaded) {
+        //     return true;
+        //   }
+
+        //   return false;
+        // },
         builder: (context, state) {
           switch (state.runtimeType) {
             case RegisteredEventsAndOrdersLoading:

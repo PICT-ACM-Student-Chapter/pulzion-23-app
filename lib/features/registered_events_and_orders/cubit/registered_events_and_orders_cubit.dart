@@ -67,6 +67,11 @@ class RegisteredEventsAndOrdersCubit
     }
   }
 
+  Future<void> getUpdatedEvents() async {
+    emit(RegisteredOrdersandEventsUpdates());
+    await getRegisteredEventsAndOrders();
+  }
+
   Future<void> getOnlyRegisteredEvents() async {
     emit(RegisteredEventsAndOrdersLoading());
 
