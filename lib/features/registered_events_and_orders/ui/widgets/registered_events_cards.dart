@@ -1,7 +1,9 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pulzion23/constants/models/event_model.dart';
+import 'package:pulzion23/features/registered_events_and_orders/cubit/registered_events_and_orders_cubit.dart';
 import '../../../../constants/widgets/empty_page.dart';
 import 'ticket_widget.dart';
 

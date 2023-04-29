@@ -210,9 +210,19 @@ class MyTicketView extends StatelessWidget {
                         : Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => BlocProvider(
-                                create: (context) =>
-                                    EventSlotsCubit()..getAvailableSlots(id),
+                              builder: (ctx) => MultiBlocProvider(
+                                providers: [
+                                  BlocProvider(
+                                    create: (context) => EventSlotsCubit()
+                                      ..getAvailableSlots(id),
+                                  ),
+                                  BlocProvider.value(
+                                    value: BlocProvider.of<
+                                        RegisteredEventsAndOrdersCubit>(
+                                      context,
+                                    ),
+                                  ),
+                                ],
                                 child: BookSlots(
                                   id: id,
                                   name: name,

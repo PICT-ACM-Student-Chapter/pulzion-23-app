@@ -11,7 +11,6 @@ Future<void> remoteConfig() async {
   await remoteConfig.fetchAndActivate();
   EndPoints.baseUrl = remoteConfig.getString('BaseUrl');
   // 'https://ems-test-server.onrender.com';
-  // remoteConfig.getString('BaseUrl');
   EndPoints.sampleToken = remoteConfig.getString('SampleToken');
   EndPoints.appLatestStableVersion =
       remoteConfig.getString('AppLatestStableVersion');
