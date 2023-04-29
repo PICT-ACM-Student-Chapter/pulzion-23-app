@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:panorama/panorama.dart';
@@ -27,8 +29,7 @@ class _SignUpState extends State<SignUp> {
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController passwordConfirmController =
-      TextEditingController();
+  final TextEditingController passwordConfirmController = TextEditingController();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
@@ -70,8 +71,7 @@ class _SignUpState extends State<SignUp> {
             return Panorama(
               sensitivity: 0.4,
               animSpeed: 0.5,
-              sensorControl:
-                  state ? SensorControl.Orientation : SensorControl.None,
+              sensorControl: state ? SensorControl.Orientation : SensorControl.None,
               child: Image.asset(
                 AppImages.spaceBackground,
                 fit: BoxFit.cover,
@@ -144,8 +144,7 @@ class _SignUpState extends State<SignUp> {
                           children: [
                             Text(
                               'Create Account',
-                              style: AppStyles.bodyTextStyle2()
-                                  .copyWith(fontSize: 30),
+                              style: AppStyles.bodyTextStyle2().copyWith(fontSize: 30),
                             ),
                             Text(
                               'Please fill the your information below.',
@@ -172,6 +171,7 @@ class _SignUpState extends State<SignUp> {
                               ),
                               onCountryChanged: (country) {
                                 setState(() {
+                                  log(country.toString());
                                   countryValue = country;
                                   address = countryValue;
                                 });
@@ -211,8 +211,7 @@ class _SignUpState extends State<SignUp> {
                                     }),
                                   },
                                   child: Container(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.07,
+                                    height: MediaQuery.of(context).size.height * 0.07,
                                     decoration: BoxDecoration(
                                       borderRadius: const BorderRadius.all(
                                         Radius.circular(25.0),
@@ -232,8 +231,7 @@ class _SignUpState extends State<SignUp> {
                                         ),
                                         const Icon(
                                           Icons.school_outlined,
-                                          color: Colors
-                                              .white, // add custom icons also
+                                          color: Colors.white, // add custom icons also
                                         ),
                                         const SizedBox(
                                           width: 15,
@@ -270,22 +268,18 @@ class _SignUpState extends State<SignUp> {
                                         .map((e) => Container(
                                               decoration: BoxDecoration(
                                                 color: selectOption == e
-                                                    ? AppColors.primary
-                                                        .withAlpha(100)
+                                                    ? AppColors.primary.withAlpha(100)
                                                     : Colors.white,
-                                                borderRadius:
-                                                    const BorderRadius.all(
+                                                borderRadius: const BorderRadius.all(
                                                   Radius.circular(25.0),
                                                 ),
                                                 border: Border.all(
-                                                  color: AppColors.primary
-                                                      .withAlpha(100),
+                                                  color: AppColors.primary.withAlpha(100),
                                                   width: 5.0,
                                                 ),
                                               ),
                                               child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
+                                                padding: const EdgeInsets.all(8.0),
                                                 child: InkWell(
                                                   onTap: () {
                                                     selectOption = e;
@@ -334,8 +328,7 @@ class _SignUpState extends State<SignUp> {
                               child: RoundedButton(
                                 btnText: 'SIGN UP',
                                 onPressed: () async {
-                                  if (passwordController.text !=
-                                      passwordConfirmController.text) {
+                                  if (passwordController.text != passwordConfirmController.text) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
                                         content: Text("Passwords do not match"),
@@ -346,10 +339,9 @@ class _SignUpState extends State<SignUp> {
                                     return;
                                   }
 
-                                  collegeController.text =
-                                      selectOption == 'Other'
-                                          ? othercollegeController.text
-                                          : "PICT";
+                                  collegeController.text = selectOption == 'Other'
+                                      ? othercollegeController.text
+                                      : "PICT";
 
                                   if (firstNameController.text.isEmpty ||
                                       lastNameController.text.isEmpty ||
@@ -396,8 +388,7 @@ class _SignUpState extends State<SignUp> {
                                   final RegExp emailRegex = RegExp(
                                     r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+',
                                   );
-                                  if (!emailRegex
-                                      .hasMatch(emailController.text)) {
+                                  if (!emailRegex.hasMatch(emailController.text)) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
                                         content: Text(
@@ -410,8 +401,7 @@ class _SignUpState extends State<SignUp> {
                                     return;
                                   }
                                   final RegExp phoneRegex = RegExp(r'^[0-9]+$');
-                                  if (!phoneRegex
-                                      .hasMatch(phoneController.text)) {
+                                  if (!phoneRegex.hasMatch(phoneController.text)) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
                                         content: Text(
@@ -426,15 +416,11 @@ class _SignUpState extends State<SignUp> {
                                   await context.read<SignUpCubit>().signUp(
                                         college: collegeController.text.trim(),
                                         email: emailController.text.trim(),
-                                        firstName:
-                                            firstNameController.text.trim(),
-                                        lastName:
-                                            lastNameController.text.trim(),
-                                        password:
-                                            passwordController.text.trim(),
+                                        firstName: firstNameController.text.trim(),
+                                        lastName: lastNameController.text.trim(),
+                                        password: passwordController.text.trim(),
                                         phone: phoneController.text.trim(),
-                                        year: YearSelectRadioTile
-                                            .yearOfStudyString,
+                                        year: YearSelectRadioTile.yearOfStudyString,
                                         country: address,
                                       );
                                 },
