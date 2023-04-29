@@ -45,6 +45,7 @@ class _BookSlotsState extends State<BookSlots> {
   ));
 
   Widget slotContainer(BuildContext ctx, Slot slot) {
+    
     return Padding(
       padding: const EdgeInsets.all(14),
       child: Row(
@@ -55,7 +56,7 @@ class _BookSlotsState extends State<BookSlots> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                'Date: ${DateFormat('yyyy-MM-dd').format(DateTime.parse(slot.created_at!))}',
+                'Date: ${DateFormat('dd-MM-yyyy').format(DateTime.parse(slot.start_time!))}',
                 style: const TextStyle(
                   color: Colors.white,
                   fontFamily: 'QuickSand',
