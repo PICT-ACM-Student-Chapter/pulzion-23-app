@@ -24,3 +24,5 @@ class BookingSuccessful extends EventSlotStateCubit {
   late final BookedSlotModel bookedSlotModel;
   BookingSuccessful(this.bookedSlotModel);
 }
+
+class NoAvailableSlots extends EventSlotStateCubit {}

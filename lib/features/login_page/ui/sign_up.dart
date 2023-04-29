@@ -164,7 +164,7 @@ class _SignUpState extends State<SignUp> {
                               obscureText: false,
                             ),
                             CSCPicker(
-                              defaultCountry: CscCountry.India,
+                              // defaultCountry: CscCountry.India,
                               selectedItemStyle: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,
@@ -246,7 +246,7 @@ class _SignUpState extends State<SignUp> {
                                             fontSize: 16,
                                           )),
                                         ),
-                                        Spacer(
+                                        const Spacer(
                                           flex: 10,
                                         ),
                                         Icon(
@@ -255,9 +255,9 @@ class _SignUpState extends State<SignUp> {
                                               : Icons.keyboard_arrow_down_sharp,
                                           color: Colors.white,
                                         ),
-                                        Spacer(
+                                        const Spacer(
                                           flex: 1,
-                                        )
+                                        ),
                                       ],
                                     ),
                                   ),

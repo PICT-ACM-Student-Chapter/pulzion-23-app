@@ -6,20 +6,24 @@ import 'package:glassmorphism/glassmorphism.dart';
 import 'package:lottie/lottie.dart';
 import 'package:panorama/panorama.dart';
 import 'package:pulzion23/constants/images.dart';
+import 'package:pulzion23/constants/models/booked_slot_model.dart';
 import 'package:pulzion23/features/home_page/logic/event_details_cubit_cubit.dart';
 import 'package:intl/intl.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:pulzion23/features/registered_events_and_orders/cubit/registered_events_and_orders_cubit.dart';
 import 'package:pulzion23/project/cubit/animation_toggle_cubit.dart';
 
 class ViewSlotDetails extends StatefulWidget {
   final int id;
+  final String logo;
   final String name;
 
   ViewSlotDetails({
     Key? key,
     required this.id,
+    required this.logo,
     required this.name,
   }) : super(key: key);
 
@@ -67,28 +71,27 @@ class _TicketState extends State<ViewSlotDetails> {
         ),
         Scaffold(
           backgroundColor: Colors.transparent,
-          body: BlocConsumer<EventDetailsCubitCubit, EventDetailsCubitState>(
+          body: BlocConsumer<RegisteredEventsAndOrdersCubit,
+              RegisteredEventsAndOrdersState>(
             listener: (context, state) {},
             builder: (context, state) {
               log(state.toString());
-              if (state is EventDetailsCubitLoading) {
+              if (state is RegisteredEventsAndOrdersLoading) {
                 return Center(
                   child: Center(
                     child: Lottie.asset(AppImages.loadingAnimation),
                   ),
                 );
-              } else if (state is EventDetailsCubitLoaded) {
-                final bookedSlotModel = state.events.events!
-                    .where((element) => element.id == widget.id)
-                    .first;
+              } else if (state is RegisteredEvents) {
+                final BookedSlotModel bookedSlotModel = state.bookedEventList
+                    .firstWhere((element) => element.id == widget.id);
 
                 return GlassmorphicContainer(
-                  padding: const EdgeInsets.all(8),
-                  margin: const EdgeInsets.only(
-                    left: 30,
-                    right: 30,
-                    top: 60,
-                    bottom: 60,
+                  margin: EdgeInsets.only(
+                    left: screenheight * 0.05,
+                    right: screenheight * 0.05,
+                    top: screenheight * 0.1,
+                    bottom: screenheight * 0.1,
                   ),
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
@@ -115,224 +118,256 @@ class _TicketState extends State<ViewSlotDetails> {
                       1,
                     ],
                   ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: screenheight * 0.1,
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(screenheight * 0.04),
-                        height: screenheight * 0.2,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          gradient: RadialGradient(
-                            colors: [
-                              Colors.white.withOpacity(0.1),
-                              Colors.white.withOpacity(0.2),
-                              Colors.white.withOpacity(0.1),
-                            ],
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: screenheight * 0.05,
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(screenheight * 0.04),
+                          height: screenheight * 0.2,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            gradient: RadialGradient(
+                              colors: [
+                                Colors.white.withOpacity(0.1),
+                                Colors.white.withOpacity(0.2),
+                                Colors.white.withOpacity(0.1),
+                              ],
+                            ),
+                          ),
+                          child: FittedBox(
+                            fit: BoxFit.contain,
+                            child: CachedNetworkImage(
+                              imageUrl: widget.logo,
+                              placeholder: (context, url) => Container(),
+                              errorWidget: (context, url, error) => Container(),
+                              cacheManager: _cacheManager,
+                              fadeInDuration: const Duration(milliseconds: 100),
+                              fit: BoxFit.fitWidth,
+                              key: UniqueKey(),
+                            ),
                           ),
                         ),
-                        child: FittedBox(
-                          fit: BoxFit.contain,
-                          child: CachedNetworkImage(
-                            imageUrl: bookedSlotModel.logo!,
-                            placeholder: (context, url) => Container(),
-                            errorWidget: (context, url, error) => Container(),
-                            cacheManager: _cacheManager,
-                            fadeInDuration: const Duration(milliseconds: 100),
-                            fit: BoxFit.fitWidth,
-                            key: UniqueKey(),
-                          ),
+                        SizedBox(
+                          height: screenheight * 0.05,
                         ),
-                      ),
-                      SizedBox(
-                        height: screenheight * 0.1,
-                      ),
-                      Expanded(
-                        flex: 3,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Flexible(
-                              child: FittedBox(
-                                fit: BoxFit.cover,
-                                child: Text(
-                                  bookedSlotModel.name ?? '',
-                                  style: const TextStyle(
-                                    fontSize: 25,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'Panther',
+                        Expanded(
+                          flex: 3,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Flexible(
+                                child: FittedBox(
+                                  fit: BoxFit.cover,
+                                  child: Text(
+                                    widget.name,
+                                    style: const TextStyle(
+                                      fontSize: 25,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Panther',
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            SizedBox(
-                              height: screenheight * 0.02,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 32, top: 20),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  const Icon(
-                                    Icons.calendar_month,
-                                    color: Colors.grey,
-                                    size: 20.0,
-                                  ),
-                                  SizedBox(
-                                    width: screenwidth * 0.01,
-                                  ),
-                                  const Expanded(
-                                    child: Text(
-                                      'Date',
-                                      style: TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 16,
-                                        fontFamily: 'QuickSand',
-                                      ),
-                                    ),
-                                  ),
-                                  const Icon(
-                                    Icons.access_time,
-                                    color: Colors.grey,
-                                    size: 20.0,
-                                  ),
-                                  SizedBox(
-                                    width: screenwidth * 0.01,
-                                  ),
-                                  const Expanded(
-                                    child: Text(
-                                      'Time',
-                                      style: TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 16,
-                                        fontFamily: 'QuickSand',
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                              SizedBox(
+                                height: screenheight * 0.02,
                               ),
-                            ),
-                            SizedBox(
-                              height: screenheight * 0.005,
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 32, bottom: 8),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      DateFormat('yyyy-MM-dd').format(
-                                        DateTime.parse(
-                                          bookedSlotModel.createdAt ?? '',
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 32, top: 20),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    const Icon(
+                                      Icons.calendar_month,
+                                      color: Colors.grey,
+                                      size: 20.0,
+                                    ),
+                                    SizedBox(
+                                      width: screenwidth * 0.01,
+                                    ),
+                                    const Expanded(
+                                      child: Text(
+                                        'Date',
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 16,
+                                          fontFamily: 'QuickSand',
                                         ),
                                       ),
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontFamily: 'QuickSand',
+                                    ),
+                                    const Icon(
+                                      Icons.access_time,
+                                      color: Colors.grey,
+                                      size: 20.0,
+                                    ),
+                                    SizedBox(
+                                      width: screenwidth * 0.01,
+                                    ),
+                                    const Expanded(
+                                      child: Text(
+                                        'Time',
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 16,
+                                          fontFamily: 'QuickSand',
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Expanded(
-                                    child: Text(
-                                      '${DateTime.parse(bookedSlotModel.createdAt!).hour} - ${DateTime.parse(bookedSlotModel.updatedAt!).hour}',
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                            SizedBox(height: screenheight * 0.02),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 32, top: 20),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  const Icon(
-                                    Icons.laptop,
-                                    color: Colors.grey,
-                                    size: 20.0,
-                                  ),
-                                  SizedBox(
-                                    width: screenwidth * 0.01,
-                                  ),
-                                  const Expanded(
-                                    child: Text(
-                                      'Mode',
-                                      style: TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 16,
-                                        fontFamily: 'QuickSand',
-                                      ),
-                                    ),
-                                  ),
-                                  const Icon(
-                                    Icons.airplane_ticket,
-                                    color: Colors.grey,
-                                    size: 20.0,
-                                  ),
-                                  SizedBox(
-                                    width: screenwidth * 0.01,
-                                  ),
-                                  const Expanded(
-                                    child: Text(
-                                      'Ticket ID',
-                                      style: TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 16,
-                                        fontFamily: 'QuickSand',
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                              SizedBox(
+                                height: screenheight * 0.005,
                               ),
-                            ),
-                            SizedBox(
-                              height: screenheight * 0.005,
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 32, bottom: 8),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      bookedSlotModel.mode.toString(),
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontFamily: 'QuickSand',
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 32, bottom: 8),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        DateFormat('yyyy-MM-dd').format(
+                                          DateTime.parse(
+                                            bookedSlotModel.start_time ?? '',
+                                          ),
+                                        ),
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'QuickSand',
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Expanded(
-                                    child: Text(
-                                      bookedSlotModel.id.toString(),
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontFamily: 'QuickSand',
+                                    const VerticalDivider(
+                                      color: Colors.transparent,
+                                      width: 5,
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        '${DateFormat('hh:mm a').format(DateTime.parse(bookedSlotModel.start_time!))} - ${DateFormat('hh:mm a').format(DateTime.parse(bookedSlotModel.end_time!))}',
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                              SizedBox(height: screenheight * 0.02),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 32, top: 20),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    const Icon(
+                                      Icons.laptop,
+                                      color: Colors.grey,
+                                      size: 20.0,
+                                    ),
+                                    SizedBox(
+                                      width: screenwidth * 0.01,
+                                    ),
+                                    const Expanded(
+                                      child: Text(
+                                        'Mode',
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 16,
+                                          fontFamily: 'QuickSand',
+                                        ),
+                                      ),
+                                    ),
+                                    const Icon(
+                                      Icons.airplane_ticket,
+                                      color: Colors.grey,
+                                      size: 20.0,
+                                    ),
+                                    SizedBox(
+                                      width: screenwidth * 0.01,
+                                    ),
+                                    const Expanded(
+                                      child: Text(
+                                        'Ticket ID',
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 16,
+                                          fontFamily: 'QuickSand',
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: screenheight * 0.005,
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 32, bottom: 8),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        bookedSlotModel.mode.toString(),
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'QuickSand',
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        bookedSlotModel.id.toString(),
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'QuickSand',
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                child: Container(
+                                  padding: EdgeInsets.only(
+                                    top: screenheight * 0.02,
+                                    bottom: screenheight * 0.01,
+                                  ),
+                                  child: Lottie.asset(AppImages.orangeRocket),
+                                ),
+                              ),
+                              const Text(
+                                'Can\'t wait to see you at the event! Hope you have a great time!',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'QuickSand',
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 );
               } else {

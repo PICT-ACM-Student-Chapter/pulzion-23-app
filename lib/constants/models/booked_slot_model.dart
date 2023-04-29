@@ -5,6 +5,7 @@ class BookedSlotModel {
       start_time,
       end_time,
       year,
+      mode,
       certificate_url;
   int? id, fk_event, fk_user, fk_slot, capacity;
 
@@ -21,6 +22,7 @@ class BookedSlotModel {
     this.fk_user,
     this.fk_slot,
     this.capacity,
+    this.mode
   });
 
   BookedSlotModel.fromJson(Map<String, dynamic> data) {
@@ -36,5 +38,6 @@ class BookedSlotModel {
     fk_user = data["fk_user"];
     fk_slot = data["fk_slot"];
     capacity = data["capacity"];
+    mode = data["mode"];
   }
 }

@@ -4,6 +4,7 @@ import 'package:pulzion23/constants/models/booked_slot_model.dart';
 import 'package:pulzion23/features/event_slots/ui/booked_window.dart';
 import 'package:pulzion23/features/event_slots/ui/view_slot_details.dart';
 import 'package:pulzion23/features/home_page/logic/event_details_cubit_cubit.dart';
+import 'package:pulzion23/features/registered_events_and_orders/cubit/registered_events_and_orders_cubit.dart';
 import '../../../event_slots/logic/booked_slot_cubit.dart';
 import 'package:ticket_widget/ticket_widget.dart';
 import 'package:dotted_line/dotted_line.dart';
@@ -195,10 +196,12 @@ class MyTicketView extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                               builder: (context) => BlocProvider(
-                                create: (context) => EventDetailsCubitCubit()
-                                  ..getEventsDetails(),
+                                create: (context) =>
+                                    RegisteredEventsAndOrdersCubit()
+                                      ..getOnlyRegisteredEvents(),
                                 child: ViewSlotDetails(
                                   id: id,
+                                  logo: logo,
                                   name: name,
                                 ),
                               ),

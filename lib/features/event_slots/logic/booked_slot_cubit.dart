@@ -14,20 +14,42 @@ class EventSlotsCubit extends Cubit<EventSlotStateCubit> {
   Future<void> getAvailableSlots(int event_id) async {
     emit(EventSlotLoadingState());
     try {
+      const storage = FlutterSecureStorage();
+      var token = await storage.read(key: 'token');
+
       var response = await http.get(
         Uri.parse(
-          '${EndPoints.getSlots}$event_id',
+          "${EndPoints.getSlots}$event_id",
         ),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $token",
+        },
       );
+
       var data = jsonDecode(response.body);
 
       if (data == null) {
         emit(EventSlotErrorState('Some Error Occured'));
+
+        return;
       }
+
+      if (data['error'] != null) {
+        emit(EventSlotErrorState(data['error'].toString()));
+
+        return;
+      }
+
       EventSlot slotList = EventSlot.fromJson(data);
-      // (slotList.slots!.forEach((element) {
-      //   log(element.capacity.toString());
-      // }));
+
+      if (slotList.slots!.length == 0) {
+        emit(NoAvailableSlots());
+
+        return;
+      }
+      // log(data.toString());
+
       emit(NotBookedSlotState(slotList));
     } catch (e) {
       log('error occured');
@@ -36,31 +58,32 @@ class EventSlotsCubit extends Cubit<EventSlotStateCubit> {
     }
   }
 
-  Future<void> getBookedSlots(int event_id) async {
-    emit(EventSlotLoadingState());
-    try {
-      const storage = FlutterSecureStorage();
-      var token = await storage.read(key: 'token');
+  // Future<void> getBookedSlots(int event_id) async {
+  //   emit(EventSlotLoadingState());
+  //   try {
+  //     const storage = FlutterSecureStorage();
+  //     var token = await storage.read(key: 'token');
 
-      var response = await http.get(
-        Uri.parse(
-          '${EndPoints.getSlots}$event_id',
-        ),
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer $token",
-        },
-      );
-      var data = jsonDecode(response.body);
+  //     var response = await http.get(
+  //       Uri.parse(
+  //         '${EndPoints.getSlots}$event_id',
+  //       ),
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         "Authorization": "Bearer $token",
+  //       },
+  //     );
+  //     var data = jsonDecode(response.body);
 
-      log(data);
-      EventSlot slotList = EventSlot.fromJson(data);
-      emit(NotBookedSlotState(slotList));
-    } catch (e) {
-      log(e.toString());
-      emit(EventSlotErrorState(e.toString()));
-    }
-  }
+  //     log(data);
+  //     EventSlot slotList = EventSlot.fromJson(data);
+  //     // log(slotList.toString());
+  //     emit(NotBookedSlotState(slotList));
+  //   } catch (e) {
+  //     log(e.toString());
+  //     emit(EventSlotErrorState(e.toString()));
+  //   }
+  // }
 
   Future<void> bookSlot(String event_id, String slot_id) async {
     log('event_id: $event_id, slot_id: $slot_id');

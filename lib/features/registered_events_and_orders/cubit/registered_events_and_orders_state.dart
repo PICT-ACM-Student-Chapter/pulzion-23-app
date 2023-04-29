@@ -17,3 +17,8 @@ class RegisteredEventsAndOrdersError extends RegisteredEventsAndOrdersState {
 }
 
 class RegisteredEventsAndOrdersLoading extends RegisteredEventsAndOrdersState {}
+
+class RegisteredEvents extends RegisteredEventsAndOrdersState {
+  List<BookedSlotModel> bookedEventList;
+  RegisteredEvents(this.bookedEventList);
+}

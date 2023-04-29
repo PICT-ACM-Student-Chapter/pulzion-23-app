@@ -76,11 +76,23 @@ class _BookSlotsState extends State<BookSlots> {
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(
-                'Time: ${DateTime.parse(slot.created_at!).hour} - ${DateTime.parse(slot.end_time!).hour}',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'QuickSand',
+              RichText(
+                text: TextSpan(
+                  text: 'Time: ',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'QuickSand',
+                    fontWeight: FontWeight.bold,
+                  ),
+                  children: [
+                    TextSpan(
+                      text:
+                          '${DateFormat('hh:mm a').format(DateTime.parse(slot.start_time!))} - ${DateFormat('hh:mm a').format(DateTime.parse(slot.end_time!))}',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Container(
@@ -102,6 +114,7 @@ class _BookSlotsState extends State<BookSlots> {
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 15,
+                        fontWeight: FontWeight.bold,
                         fontFamily: 'QuickSand',
                       ),
                     ),
@@ -265,6 +278,7 @@ class _BookSlotsState extends State<BookSlots> {
                                 EventDetailsCubitCubit()..getEventsDetails(),
                             child: ViewSlotDetails(
                               id: widget.id,
+                              logo: widget.logo,
                               name: widget.name,
                             ),
                           ),
@@ -348,6 +362,21 @@ class _BookSlotsState extends State<BookSlots> {
                               ),
                             ],
                           ),
+                        ),
+                      );
+                    } else if (state is NoAvailableSlots) {
+                      return SliverToBoxAdapter(
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: w / 2.5,
+                            ),
+                            const EmptyPage(
+                              errorMessage:
+                                  'Slot Booking isn\'t active for this event! \nFurther details will be communicated to you via email in due course.',
+                              title: 'Slots Unavailable',
+                            ),
+                          ],
                         ),
                       );
                     } else {

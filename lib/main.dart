@@ -83,6 +83,12 @@ class Pulzion23App extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        builder: (context, child) {
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+            child: child!,
+          );
+        },
         title: 'Pulzion 23',
         theme: Themes.darkTheme,
         debugShowCheckedModeBanner: false,

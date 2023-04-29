@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:pulzion23/constants/models/booked_slot_model.dart';
 import 'package:pulzion23/constants/models/event_model.dart';
 
 import '../../../constants/models/registered_event.dart';
@@ -49,7 +50,47 @@ class RegisteredEventsAndOrdersCubit
             dataEve['events'].map<Events>((e) => Events.fromJson(e)).toList();
         log(response.body);
         emit(RegisteredEventsAndOrdersLoaded(
-            registeredEvents, registeredOrders,));
+          registeredEvents,
+          registeredOrders,
+        ));
+      } catch (e) {
+        if (response == null) {
+          log('Registered Events Page Exception: $e');
+          emit(RegisteredEventsAndOrdersError('Failed host lookup.'));
+        } else {
+          log('Registered Events Page Exception: $e');
+          emit(RegisteredEventsAndOrdersError(e.toString()));
+        }
+      }
+    } else {
+      emit(RegisteredEventsAndOrdersError('Logout and login again.'));
+    }
+  }
+
+  Future<void> getOnlyRegisteredEvents() async {
+    emit(RegisteredEventsAndOrdersLoading());
+
+    const storage = FlutterSecureStorage();
+    var token = await storage.read(key: 'token');
+    if (token != null) {
+      http.Response? response;
+      try {
+        response = await http.get(
+          Uri.parse(EndPoints.userEvents),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $token",
+          },
+        );
+
+        var dataEve = jsonDecode(response.body);
+        List<BookedSlotModel> eventList = dataEve['events']
+            .map<BookedSlotModel>((e) => BookedSlotModel.fromJson(e))
+            .toList();
+        log(response.body);
+        emit(RegisteredEvents(
+          eventList,
+        ));
       } catch (e) {
         if (response == null) {
           log('Registered Events Page Exception: $e');
