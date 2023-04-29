@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
+import '../../../constants/urls.dart';
 import 'package:pulzion23/constants/models/slot_model.dart';
 import '../../../constants/models/booked_slot_model.dart';
 part 'booked_slot_state.dart';
@@ -15,7 +16,7 @@ class EventSlotsCubit extends Cubit<EventSlotStateCubit> {
     try {
       var response = await http.get(
         Uri.parse(
-          'https://ems-test-server.onrender.com/slots?event_id=$event_id',
+          '${EndPoints.getSlots}$event_id',
         ),
       );
       var data = jsonDecode(response.body);
@@ -43,7 +44,7 @@ class EventSlotsCubit extends Cubit<EventSlotStateCubit> {
 
       var response = await http.get(
         Uri.parse(
-          'https://ems-test-server.onrender.com/user_slots?event_id=1',
+          '${EndPoints.getSlots}$event_id',
         ),
         headers: {
           "Content-Type": "application/json",
@@ -70,7 +71,7 @@ class EventSlotsCubit extends Cubit<EventSlotStateCubit> {
       try {
         var response = await http.post(
           Uri.parse(
-            'https://ems-test-server.onrender.com/user_slots',
+            EndPoints.bookSlots,
           ),
           headers: {
             "Content-Type": "application/json",

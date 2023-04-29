@@ -167,7 +167,7 @@ class CartPageCubit extends Cubit<CartPageState> {
         body: jsonEncode({
           'event_id': getTransactionID(),
           'transaction_id': tr_id,
-          // 'referal_code': referral ?? '',  // not on render....
+          'referal_code': referral ?? '',  // not on render....
         }),
       );
       var data = jsonDecode(response.body);
