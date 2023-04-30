@@ -3,7 +3,7 @@ description: Official App for Pulzion 23
 
 publish_to: "none"
 
-version: 1.3.0+3    
+version: 1.4.0+4
 
 environment:
     sdk: ">=2.18.2 <3.0.0"
@@ -51,6 +51,8 @@ dependencies:
     cached_network_image: ^3.2.3
     flutter_cache_manager: ^3.3.0
     fluttertoast: ^8.2.1
+    provider: ^6.0.5
+    intl_phone_number_input: ^0.7.0+2
 
 dev_dependencies:
     flutter_test:

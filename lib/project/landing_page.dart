@@ -2,6 +2,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:panorama/panorama.dart';
+import 'package:pulzion23/features/mcq/presentation/pages/mcq_login.dart';
 
 import '../config/size_config.dart';
 import '../constants/images.dart';
@@ -58,7 +59,7 @@ class BottomNavBar extends StatelessWidget {
               return BlocBuilder<BottomBarCubit, BottomBarState>(
                 builder: (context, state) {
                   if (state is BottomBarAboutUs) {
-                    return AboutUsPage(false);
+                    return McqLogin();
                   } else if (state is BottomBarRegisteredEvents) {
                     return loginState is CheckLoginSuccess
                         ? const RegisteredEventsAndOrders()
