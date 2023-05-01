@@ -15,6 +15,8 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:pulzion23/features/registered_events_and_orders/cubit/registered_events_and_orders_cubit.dart';
 import 'package:pulzion23/project/cubit/animation_toggle_cubit.dart';
 
+import '../../home_page/ui/wigets/custom_appbar.dart';
+
 class ViewSlotDetails extends StatefulWidget {
   final int id;
   final String logo;
@@ -60,8 +62,7 @@ class _TicketState extends State<ViewSlotDetails> {
             return Panorama(
               sensitivity: 0.4,
               animSpeed: 0.5,
-              sensorControl:
-                  state ? SensorControl.Orientation : SensorControl.None,
+              sensorControl: state ? SensorControl.Orientation : SensorControl.None,
               child: Image.asset(
                 AppImages.spaceBackground,
                 fit: BoxFit.cover,
@@ -70,9 +71,9 @@ class _TicketState extends State<ViewSlotDetails> {
           },
         ),
         Scaffold(
+          appBar: const CustomAppBar(),
           backgroundColor: Colors.transparent,
-          body: BlocConsumer<RegisteredEventsAndOrdersCubit,
-              RegisteredEventsAndOrdersState>(
+          body: BlocConsumer<RegisteredEventsAndOrdersCubit, RegisteredEventsAndOrdersState>(
             listener: (context, state) {},
             builder: (context, state) {
               log(state.toString());
@@ -83,14 +84,13 @@ class _TicketState extends State<ViewSlotDetails> {
                   ),
                 );
               } else if (state is RegisteredEvents) {
-                final BookedSlotModel bookedSlotModel = state.bookedEventList
-                    .firstWhere((element) => element.id == widget.id);
+                final BookedSlotModel bookedSlotModel =
+                    state.bookedEventList.firstWhere((element) => element.id == widget.id);
 
                 return GlassmorphicContainer(
                   margin: EdgeInsets.only(
                     left: screenheight * 0.05,
                     right: screenheight * 0.05,
-                    top: screenheight * 0.1,
                     bottom: screenheight * 0.1,
                   ),
                   width: MediaQuery.of(context).size.width,
@@ -179,8 +179,7 @@ class _TicketState extends State<ViewSlotDetails> {
                                 height: screenheight * 0.02,
                               ),
                               Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 32, top: 20),
+                                padding: const EdgeInsets.only(left: 32, top: 20),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
@@ -227,14 +226,13 @@ class _TicketState extends State<ViewSlotDetails> {
                                 height: screenheight * 0.005,
                               ),
                               Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 32, bottom: 8),
+                                padding: const EdgeInsets.only(left: 32, bottom: 8),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        DateFormat('yyyy-MM-dd').format(
+                                        DateFormat('dd-MM-yyyy').format(
                                           DateTime.parse(
                                             bookedSlotModel.start_time ?? '',
                                           ),
@@ -266,8 +264,7 @@ class _TicketState extends State<ViewSlotDetails> {
                               ),
                               SizedBox(height: screenheight * 0.02),
                               Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 32, top: 20),
+                                padding: const EdgeInsets.only(left: 32, top: 20),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
@@ -314,8 +311,7 @@ class _TicketState extends State<ViewSlotDetails> {
                                 height: screenheight * 0.005,
                               ),
                               Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 32, bottom: 8),
+                                padding: const EdgeInsets.only(left: 32, bottom: 8),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [

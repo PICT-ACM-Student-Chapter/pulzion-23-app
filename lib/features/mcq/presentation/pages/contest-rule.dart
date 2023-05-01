@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
+import 'package:panorama/panorama.dart';
 import 'package:provider/provider.dart';
+import 'package:pulzion23/constants/styles.dart';
 import 'package:pulzion23/features/mcq/presentation/pages/questionPageBuilder.dart';
 // import 'package:pulzion22_app/screens/mcq/questionPageBuilder.dart';
 // import '../../constants/constants.dart';
@@ -12,6 +14,7 @@ import 'package:pulzion23/features/mcq/presentation/pages/questionPageBuilder.da
 // ignore_for_file:prefer_const_literals_to_create_immutables
 // ignore_for_file: prefer_const_constructors
 
+import '../../../../constants/images.dart';
 import '../../../../constants/mcqconstants.dart';
 import '../../../../services/mcq_user_provider.dart';
 import 'mcq_event_statusmodel.dart';
@@ -75,23 +78,13 @@ class _RulePageState extends State<RulePage> {
     return _isLoad
         ? Center(child: CircularProgressIndicator())
         : Scaffold(
-            appBar: AppBar(
-              elevation: 0,
-              backgroundColor: Colors.transparent,
-            ),
-            extendBodyBehindAppBar: true,
-            body: Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("assets/backImage.png"),
-                      fit: BoxFit.cover)),
-              child: ListView(children: [
-                RuleBox(
-                  id: widget.id,
-                  isFinished: McqStatus.finished as bool,
-                  endTime: DateTime.parse(McqStatus.fkEvent!.endTime as String),
-                ),
-              ]),
+            backgroundColor: Colors.white.withOpacity(0.15),
+            body: Center(
+              child: RuleBox(
+                id: widget.id,
+                isFinished: McqStatus.finished as bool,
+                endTime: DateTime.parse(McqStatus.fkEvent!.endTime as String),
+              ),
             ),
           );
   }
@@ -103,24 +96,22 @@ class RuleBox extends StatelessWidget {
   final String id;
   final DateTime endTime;
 
-  RuleBox(
-      {Key? key,
-      required this.id,
-      required this.isFinished,
-      required this.endTime})
+  const RuleBox({Key? key, required this.id, required this.isFinished, required this.endTime})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: MediaQuery.of(context).size.height * 0.75,
       margin: EdgeInsets.all(20),
       padding: EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
-            bottomRight: Radius.circular(15),
-            bottomLeft: Radius.circular(15),
-            topRight: Radius.circular(15),
-            topLeft: Radius.circular(15)),
+          bottomRight: Radius.circular(15),
+          bottomLeft: Radius.circular(15),
+          topRight: Radius.circular(15),
+          topLeft: Radius.circular(15),
+        ),
         boxShadow: [
           BoxShadow(
             color: Colors.black54,
@@ -142,82 +133,36 @@ class RuleBox extends StatelessWidget {
         ),
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-            margin: EdgeInsets.only(top: 15),
-            padding: EdgeInsets.all(5),
-            width: MediaQuery.of(context).size.width * 0.5,
-            height: 50,
-            decoration: BoxDecoration(
-                color: Colors.grey,
-                gradient: LinearGradient(
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,
-                  colors: [
-                    Colors.blue,
-                    Color(0xFF2d4c6a),
-                  ],
-                ),
-                borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(15),
-                    bottomLeft: Radius.circular(15),
-                    topRight: Radius.circular(15),
-                    topLeft: Radius.circular(15)),
-                boxShadow: [
-                  // BoxShadow(
-                  //   color: Colors.white,
-                  //   blurRadius: 5.0, // soften the shadow
-                  //   spreadRadius: 3.0, //extend the shadow
-                  //   offset: Offset(
-                  //     2.0, // Move to right 10  horizontally
-                  //     2.0, // Move to bottom 10 Vertically
-                  //   ),
-                  // )
-                ]),
-            child: Center(
-              child: Text(
-                "Rules",
-                style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20),
-              ),
-            ),
+          Text(
+            "Rules",
+            style: AppStyles.bodyTextStyle4(),
           ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 8, vertical: 20),
+            padding: EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               children: [
                 Padding(
-                  //dummy rules
                   padding: const EdgeInsets.only(top: 15),
                   child: Text(
                     "1. You cannot change apps after you begin with the quiz!",
-                    style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      color: Colors.white,
-                    ),
+                    style: AppStyles.bodyTextStyle3(),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 15),
                   child: Text(
                     "2. Tabs cannot be changed during the quiz!, or you will be disqualified! , and the test will get autosubmitted!",
-                    style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      color: Colors.white,
-                    ),
+                    style: AppStyles.bodyTextStyle3(),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(top: 15),
                   child: Text(
                     "3.The duration of the quiz is for x mins and there are x questions! that are to be completed within the time limit! , if you fail to complete the quiz within the time limit , the test will record the responses submitted during the quiz and will be submitted automatically!",
-                    style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      color: Colors.white,
-                    ),
+                    style: AppStyles.bodyTextStyle3(),
                   ),
                 ),
                 SizedBox(
@@ -230,8 +175,7 @@ class RuleBox extends StatelessWidget {
                     // primary: Color(0xff0a3b58),
                     primary: const Color(0xFF031F4B),
                     // primary: const Color(0xff1b3357),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25)),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
                   ),
                   onPressed: () {
                     if (isFinished) {
@@ -247,12 +191,11 @@ class RuleBox extends StatelessWidget {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => SingleQuestion(
-                                  id: id,
-                                  timer: endTime
-                                      .difference(DateTime.now())
-                                      .inSeconds,
-                                )),
+                          builder: (context) => SingleQuestion(
+                            id: id,
+                            timer: endTime.difference(DateTime.now()).inSeconds,
+                          ),
+                        ),
                       );
                     }
                   },
@@ -265,7 +208,7 @@ class RuleBox extends StatelessWidget {
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

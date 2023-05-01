@@ -2,16 +2,22 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:panorama/panorama.dart';
 import 'package:provider/provider.dart';
+import 'package:pulzion23/constants/colors.dart';
+import 'package:pulzion23/constants/styles.dart';
 // import 'package:pulzion22_app/screens/mcq/contest-rule.dart';
 // import 'package:pulzion22_app/screens/mcq/mcq_event_model.dart';
 // import 'package:pulzion22_app/services/mcq_user_provider.dart';
 
+import '../../../../constants/images.dart';
 import '../../../../constants/mcqcolors.dart';
 import '../../../../constants/mcqconstants.dart';
+import '../../../../project/cubit/animation_toggle_cubit.dart';
 import '../../../../services/mcq_user_provider.dart';
 // import '../../constants/constants.dart';
 // import '../../theme/app_colors.dart';
@@ -50,8 +56,7 @@ class _MCQEventListState extends State<MCQEventList> {
         });
       } else {
         var result = jsonDecode(response.body);
-        var error =
-            result['error'] ?? 'There is some problem currently not possible!';
+        var error = result['error'] ?? 'There is some problem currently not possible!';
         throw error;
       }
     } catch (error) {
@@ -75,180 +80,157 @@ class _MCQEventListState extends State<MCQEventList> {
             child: CircularProgressIndicator(),
           )
         : Scaffold(
-            extendBodyBehindAppBar: true,
+            backgroundColor: Colors.white.withOpacity(0.15),
             appBar: AppBar(
               backgroundColor: Colors.transparent,
               elevation: 0,
               centerTitle: true,
-              title: const Text(
+              title: Text(
                 'Event List',
-                style: TextStyle(fontSize: 30, color: Colors.white),
+                style: AppStyles.bodyTextStyle2(),
               ),
             ),
             body: Container(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/backImage.png"),
-                    fit: BoxFit.cover),
-              ),
-              child: Container(
-                margin: const EdgeInsets.only(top: 50),
-                child: ListView.separated(
-                    itemBuilder: (context, i) {
-                      return MCQList.mcqEventList.isEmpty
-                          ? const Center(
-                              child: Text(
-                                  "No events available to play right now!"),
-                            )
-                          : Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      MediaQuery.of(context).size.width * 0.02),
-                              child: InkWell(
-                                onTap: () {
-                                  if (MCQList.mcqEventList[i].started == true) {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => RulePage(
-                                                id: MCQList.mcqEventList[i].id
-                                                    as String)));
-                                  } else {
-                                    Fluttertoast.showToast(
-                                      msg: "Event has not started yet!",
-                                      backgroundColor: Colors.blue.shade600,
-                                    );
-                                  }
-                                },
-                                child: Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.2,
-                                  decoration: BoxDecoration(
-                                      color: MCQAppColors.COLOR_SWATCH1
-                                          .withOpacity(0.6),
-                                      border: Border.all(
-                                        color: Colors.white,
-                                      ),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.015))),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Text(
-                                              MCQList.mcqEventList[i].fkEvent!
-                                                  .name as String,
-                                              style: TextStyle(
-                                                  fontSize:
-                                                      MediaQuery.of(context)
-                                                              .size
-                                                              .height *
-                                                          0.03,
-                                                  color: Colors.white)),
-                                          SizedBox(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.018,
-                                          ),
-                                          MCQList.mcqEventList[i].started ==
-                                                  true
-                                              ? Text('Started',
-                                                  style: TextStyle(
-                                                      fontSize:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.025,
-                                                      color: Colors.green))
-                                              : const Text('Not Started',
-                                                  style: TextStyle(
-                                                      fontSize: 18,
-                                                      color: Colors.red))
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.02,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Text(
-                                            'Start Time',
-                                            style: TextStyle(
-                                                fontSize: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.022,
-                                                color: MCQAppColors.COLOR_SWATCH2),
-                                          ),
-                                          Text(
-                                            'End Time',
-                                            style: TextStyle(
-                                                fontSize: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.022,
-                                                color: MCQAppColors.COLOR_SWATCH2),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.02,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Text(
-                                            DateFormat('dd E  kk:mm a')
-                                                .format(DateTime.parse(MCQList
-                                                        .mcqEventList[i]
-                                                        .fkEvent!
-                                                        .startTime as String)
-                                                    .toLocal())
-                                                .toString(),
-                                            style: const TextStyle(
-                                                fontSize: 18,
-                                                color: Colors.white),
-                                          ),
-                                          Text(
-                                            DateFormat('dd E  kk:mm a')
-                                                .format(DateTime.parse(MCQList
-                                                        .mcqEventList[i]
-                                                        .fkEvent!
-                                                        .endTime as String)
-                                                    .toLocal())
-                                                .toString(),
-                                            style: const TextStyle(
-                                                fontSize: 18,
-                                                color: Colors.white),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+              margin: const EdgeInsets.only(top: 50),
+              child: ListView.separated(
+                itemBuilder: (context, i) {
+                  return MCQList.mcqEventList.isEmpty
+                      ? const Center(
+                          child: Text("No events available to play right now!"),
+                        )
+                      : Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: MediaQuery.of(context).size.width * 0.02,
+                          ),
+                          child: InkWell(
+                            onTap: () {
+                              if (MCQList.mcqEventList[i].started == true) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => RulePage(
+                                      id: MCQList.mcqEventList[i].id as String,
+                                    ),
+                                  ),
+                                );
+                              } else {
+                                Fluttertoast.showToast(
+                                  msg: "Event has not started yet!",
+                                  backgroundColor: Colors.blue.shade600,
+                                );
+                              }
+                            },
+                            child: Container(
+                              height: MediaQuery.of(context).size.height * 0.2,
+                              decoration: BoxDecoration(
+                                color: AppColors.primary.withOpacity(0.5),
+                                border: Border.all(
+                                  color: Colors.white,
+                                ),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(
+                                    MediaQuery.of(context).size.width * 0.015,
                                   ),
                                 ),
                               ),
-                            );
-                    },
-                    separatorBuilder: (BuildContext context, int index) {
-                      return const SizedBox(
-                        height: 10,
-                      );
-                    },
-                    itemCount: MCQList.mcqEventList.length),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Text(
+                                        MCQList.mcqEventList[i].fkEvent!.name as String,
+                                        style: TextStyle(
+                                          fontSize: MediaQuery.of(context).size.height * 0.03,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: MediaQuery.of(context).size.height * 0.018,
+                                      ),
+                                      MCQList.mcqEventList[i].started == true
+                                          ? Text(
+                                              'Started',
+                                              style: TextStyle(
+                                                fontSize:
+                                                    MediaQuery.of(context).size.height * 0.025,
+                                                color: Colors.green,
+                                              ),
+                                            )
+                                          : const Text(
+                                              'Not Started',
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.red,
+                                              ),
+                                            ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height * 0.02,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Text(
+                                        'Start Time',
+                                        style: TextStyle(
+                                          fontSize: MediaQuery.of(context).size.height * 0.022,
+                                          color: MCQAppColors.COLOR_SWATCH2,
+                                        ),
+                                      ),
+                                      Text(
+                                        'End Time',
+                                        style: TextStyle(
+                                          fontSize: MediaQuery.of(context).size.height * 0.022,
+                                          color: MCQAppColors.COLOR_SWATCH2,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height * 0.02,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Text(
+                                        DateFormat('dd E  kk:mm a')
+                                            .format(DateTime.parse(MCQList
+                                                    .mcqEventList[i].fkEvent!.startTime as String)
+                                                .toLocal())
+                                            .toString(),
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Text(
+                                        DateFormat('dd E  kk:mm a')
+                                            .format(DateTime.parse(MCQList
+                                                    .mcqEventList[i].fkEvent!.endTime as String)
+                                                .toLocal())
+                                            .toString(),
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return const SizedBox(
+                    height: 10,
+                  );
+                },
+                itemCount: MCQList.mcqEventList.length,
               ),
             ),
           );

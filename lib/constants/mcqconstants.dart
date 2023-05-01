@@ -26,7 +26,7 @@ const SizedBox kspaceBetweenTextField = SizedBox(
 
 class Constants {
   static const String BASE_URL = "https://api.pulzion.in";
-  static const String MCQ_BASE = "https://api.mcq.pulzion.in/api";
+  static const String MCQ_BASE = "https://api.pulzion.co.in/api";
   static const String GET_REGISTERED_EVENTS = BASE_URL + '/user_events';
   static const String GET_USER = BASE_URL + '/user/me';
   static const String LOGIN_URL = BASE_URL + "/user/signin";
@@ -37,7 +37,7 @@ class Constants {
   static const String GET_SLOTS_URL = BASE_URL + "/user_slots?event_id=";
   static const String BOOK_SLOT_URL = BASE_URL + "/user_slots";
 
-  static const BASE_MCQ_URL = 'https://api.mcq.pulzion.in';
+  static const BASE_MCQ_URL = 'https://api.pulzion.co.in';
   static const GET_MCQS_URL = BASE_MCQ_URL + '/api/question/list/';
   static const MARK_ANSWER_URL = BASE_MCQ_URL + '/api/question/answer';
   static bool load = true;

@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names, prefer_const_constructors
 
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -86,20 +87,20 @@ class _QuestionGridState extends State<QuestionGrid> {
                     ),
                   ),
                   onPressed: () async {
-                    var _mcqUser =
-                        Provider.of<MCQUserProvider>(context, listen: false);
+                    var _mcqUser = Provider.of<MCQUserProvider>(context, listen: false);
 
                     Map<String, String> headers = {
                       'Authorization': 'Token ${_mcqUser.mcqtoken}',
                     };
                     try {
-                      final url = Uri.parse(
-                          Constants.SUBMIT_MCQ + (_mcqUser.mcqId as String));
+                      final url = Uri.parse(Constants.SUBMIT_MCQ + (_mcqUser.mcqId as String));
                       final response = await http.get(
                         url,
                         headers: headers,
                       );
                       if (response.statusCode == 200) {
+                        var result = jsonDecode(response.body);
+                        log(result.toString());
                         Fluttertoast.showToast(
                           msg: "Submit Successful",
                           backgroundColor: Colors.blue.shade600,
@@ -109,8 +110,8 @@ class _QuestionGridState extends State<QuestionGrid> {
                         }
                       } else {
                         var result = jsonDecode(response.body);
-                        var error = result['error'] ??
-                            'There is some problem currently';
+                        log(result.toString());
+                        var error = result['error'] ?? 'There is some problem currently';
                         throw error;
                       }
                     } catch (error) {
@@ -118,6 +119,9 @@ class _QuestionGridState extends State<QuestionGrid> {
                         msg: error.toString(),
                         backgroundColor: Colors.blue.shade600,
                       );
+                      while (Navigator.canPop(context)) {
+                        Navigator.pop(context);
+                      }
                     }
                   },
                 ),
@@ -134,7 +138,10 @@ class _QuestionGridState extends State<QuestionGrid> {
     return Dialog(
       backgroundColor: Color(0xff1b3357),
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10))),
+        borderRadius: BorderRadius.all(
+          Radius.circular(10),
+        ),
+      ),
       child: Builder(
         builder: (context) {
           return Padding(

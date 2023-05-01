@@ -184,7 +184,7 @@ class MyTicketView extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.all(16),
                 padding: const EdgeInsets.all(12),
-                width: tw * 0.4,
+                width: tw * 0.5,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   color: Colors.black26,
@@ -197,8 +197,7 @@ class MyTicketView extends StatelessWidget {
                             MaterialPageRoute(
                               builder: (context) => BlocProvider(
                                 create: (context) =>
-                                    RegisteredEventsAndOrdersCubit()
-                                      ..getOnlyRegisteredEvents(),
+                                    RegisteredEventsAndOrdersCubit()..getOnlyRegisteredEvents(),
                                 child: ViewSlotDetails(
                                   id: id,
                                   logo: logo,
@@ -213,12 +212,10 @@ class MyTicketView extends StatelessWidget {
                               builder: (ctx) => MultiBlocProvider(
                                 providers: [
                                   BlocProvider(
-                                    create: (context) => EventSlotsCubit()
-                                      ..getAvailableSlots(id),
+                                    create: (context) => EventSlotsCubit()..getAvailableSlots(id),
                                   ),
                                   BlocProvider.value(
-                                    value: BlocProvider.of<
-                                        RegisteredEventsAndOrdersCubit>(
+                                    value: BlocProvider.of<RegisteredEventsAndOrdersCubit>(
                                       context,
                                     ),
                                   ),
@@ -237,9 +234,7 @@ class MyTicketView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Icon(
-                        isBooked != null
-                            ? Icons.remove_red_eye_rounded
-                            : Icons.pin_drop_rounded,
+                        isBooked != null ? Icons.remove_red_eye_rounded : Icons.pin_drop_rounded,
                         color: Colors.white,
                       ),
                       Text(
