@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -6,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:panorama/panorama.dart';
 import 'package:provider/provider.dart';
 import 'package:pulzion23/constants/styles.dart';
+import 'package:pulzion23/constants/widgets/error_dialog.dart';
 import 'package:pulzion23/features/mcq/presentation/pages/questionPageBuilder.dart';
 // import 'package:pulzion22_app/screens/mcq/questionPageBuilder.dart';
 // import '../../constants/constants.dart';
@@ -33,6 +35,8 @@ class _RulePageState extends State<RulePage> {
 
   bool _isLoad = true;
 
+  bool _isError = false;
+
   Future _getMCQEventDetails() async {
     var _mcqUser = Provider.of<MCQUserProvider>(context, listen: false);
 
@@ -54,11 +58,17 @@ class _RulePageState extends State<RulePage> {
           _isLoad = false;
         });
       } else {
+        setState(() {
+          _isError = true;
+        });
         var result = jsonDecode(response.body);
         var error = result['error'] ?? 'There is some problem currently';
         throw error;
       }
     } catch (error) {
+      setState(() {
+        _isError = true;
+      });
       Fluttertoast.showToast(
         msg: error.toString(),
         backgroundColor: Colors.blue.shade600,
@@ -75,18 +85,37 @@ class _RulePageState extends State<RulePage> {
 
   @override
   Widget build(BuildContext context) {
-    return _isLoad
-        ? Center(child: CircularProgressIndicator())
-        : Scaffold(
+    return _isError
+        ? Scaffold(
             backgroundColor: Colors.white.withOpacity(0.15),
-            body: Center(
-              child: RuleBox(
-                id: widget.id,
-                isFinished: McqStatus.finished as bool,
-                endTime: DateTime.parse(McqStatus.fkEvent!.endTime as String),
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(
+                  Icons.arrow_back_rounded,
+                  color: Colors.white,
+                ),
               ),
             ),
-          );
+            body: Center(
+              child: ErrorDialog('Response already submitted.'),
+            ),
+          )
+        : _isLoad
+            ? Center(child: CircularProgressIndicator())
+            : Scaffold(
+                backgroundColor: Colors.white.withOpacity(0.15),
+                body: Center(
+                  child: RuleBox(
+                    id: widget.id,
+                    isFinished: McqStatus.finished as bool,
+                    endTime: DateTime.parse(McqStatus.fkEvent!.endTime as String),
+                  ),
+                ),
+              );
   }
 }
 
@@ -101,6 +130,8 @@ class RuleBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log(DateTime.parse(McqStatus.fkEvent!.endTime as String).toString());
+    
     return Container(
       height: MediaQuery.of(context).size.height * 0.75,
       margin: EdgeInsets.all(20),

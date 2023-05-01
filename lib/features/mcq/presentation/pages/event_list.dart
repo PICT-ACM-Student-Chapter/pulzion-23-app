@@ -77,7 +77,9 @@ class _MCQEventListState extends State<MCQEventList> {
   Widget build(BuildContext context) {
     return _isLoad
         ? const Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              color: Colors.white,
+            ),
           )
         : Scaffold(
             backgroundColor: Colors.white.withOpacity(0.15),

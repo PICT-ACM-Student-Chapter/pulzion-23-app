@@ -105,12 +105,13 @@ class _McqLoginState extends State<McqLogin> {
               height: height * 0.15,
             ),
             Text(
-              "Login",
+              "Login For MCQs",
               style: AppStyles.bodyTextStyle2().copyWith(
                 color: Colors.white,
                 fontWeight: FontWeight.w700,
                 fontSize: 40,
               ),
+              textAlign: TextAlign.center,
             ),
             SizedBox(
               height: height * 0.05,

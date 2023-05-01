@@ -398,7 +398,8 @@ class _SingleQuestionState extends State<SingleQuestion> {
                                 children: [
                                   Padding(
                                     padding: EdgeInsets.only(
-                                        top: MediaQuery.of(context).size.height * 0.06),
+                                      top: MediaQuery.of(context).size.height * 0.06,
+                                    ),
                                     child: Row(
                                       children: [
                                         Spacer(),
@@ -488,16 +489,64 @@ class _SingleQuestionState extends State<SingleQuestion> {
                                       ],
                                     ),
                                   ),
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
+                                  InkWell(
+                                    onTap: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          title: Text(questions[index]['fk_question']['statement']),
+                                          content: questions[index]['fk_question']['image_url'] !=
+                                                      null &&
+                                                  questions[index]['fk_question']['image_url'] != ''
+                                              ? Image(
+                                                  image: NetworkImage(
+                                                    questions[index]['fk_question']['image_url'],
+                                                  ),
+                                                )
+                                              : Text('No image'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(context),
+                                              child: Text('Close'),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
                                         vertical: MediaQuery.of(context).size.height * 0.02,
-                                        horizontal: MediaQuery.of(context).size.width * 0.05),
-                                    child: Text(
-                                      //actual Question
-                                      questions[index]['fk_question']['statement'],
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        color: Color(0xff73859d),
+                                        horizontal: MediaQuery.of(context).size.width * 0.05,
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            //actual Question
+                                            "${questions[index]['fk_question']['statement'].toString().substring(
+                                                  0,
+                                                  questions[index]['fk_question']['statement']
+                                                              .toString()
+                                                              .length >
+                                                          40
+                                                      ? 40
+                                                      : questions[index]['fk_question']['statement']
+                                                          .toString()
+                                                          .length,
+                                                )}...",
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              color: Color(0xff73859d),
+                                            ),
+                                          ),
+                                          Text(
+                                            //actual Question
+                                            'Click to view full question and image',
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.blue,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
@@ -538,7 +587,8 @@ class _SingleQuestionState extends State<SingleQuestion> {
                                   ? Text(
                                       '00:00',
                                       style: TextStyle(
-                                          fontSize: MediaQuery.of(context).size.height * 0.025),
+                                        fontSize: MediaQuery.of(context).size.height * 0.025,
+                                      ),
                                     )
                                   : buildTime(),
                             ),
