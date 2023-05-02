@@ -219,6 +219,7 @@ class RuleBox extends StatelessWidget {
                         msg: "Quiz begins!",
                         backgroundColor: Colors.blue.shade600,
                       );
+                      log('Time left'+endTime.difference(DateTime.now()).inSeconds.toString());
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(

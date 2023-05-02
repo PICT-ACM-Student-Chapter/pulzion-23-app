@@ -7,6 +7,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:pulzion23/constants/images.dart';
 // import 'package:pulzion22_app/constants/constants.dart';
@@ -273,8 +274,8 @@ class _SingleQuestionState extends State<SingleQuestion> {
     String twoDigits(int n) => n.toString().padLeft(2, '0');
     final minutes = twoDigits(duration.inMinutes.remainder(60));
     final seconds = twoDigits(duration.inSeconds.remainder(60));
-    final hours = twoDigits(duration.inHours.remainder(60));
-    if (minutes == '00' && seconds == '00') {
+    final hours = twoDigits(duration.inHours.remainder(24));
+    if (minutes == '00' && seconds == '00' && hours == '00') {//TODO
       Future.delayed(
         Duration.zero,
         (() => {
@@ -291,7 +292,7 @@ class _SingleQuestionState extends State<SingleQuestion> {
     }
 
     return Text(
-      '$minutes:$seconds',
+      '$hours:$minutes:$seconds',//TODO
       style: TextStyle(fontSize: MediaQuery.of(context).size.height * 0.025),
     );
   }
@@ -526,8 +527,7 @@ class _SingleQuestionState extends State<SingleQuestion> {
                                                       ''
                                               ? FadeInImage(
                                                   placeholder: AssetImage(
-                                                    AppImages.loader,
-                                                  ),
+                                                      'assets/images/loading.jpeg',),
                                                   image: NetworkImage(
                                                     questions[index]
                                                             ['fk_question']
