@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'package:pulzion23/constants/images.dart';
 // import 'package:pulzion22_app/constants/constants.dart';
 
 // import 'package:pulzion22_app/widgets/timer.dart';
@@ -24,7 +25,8 @@ class SingleQuestion extends StatefulWidget {
   String id;
   int timer;
 
-  SingleQuestion({Key? key, required this.id, required this.timer}) : super(key: key);
+  SingleQuestion({Key? key, required this.id, required this.timer})
+      : super(key: key);
 
   @override
   _SingleQuestionState createState() => _SingleQuestionState();
@@ -99,7 +101,8 @@ class _SingleQuestionState extends State<SingleQuestion> {
         // print("Bookmark Api : " + response.statusCode.toString());
         setState(() {
           _isBookmarked = !_isBookmarked;
-          questions[questionIndex]['review_status'] = !questions[questionIndex]['review_status'];
+          questions[questionIndex]['review_status'] =
+              !questions[questionIndex]['review_status'];
         });
       } else {
         Fluttertoast.showToast(
@@ -398,7 +401,8 @@ class _SingleQuestionState extends State<SingleQuestion> {
                                 children: [
                                   Padding(
                                     padding: EdgeInsets.only(
-                                      top: MediaQuery.of(context).size.height * 0.06,
+                                      top: MediaQuery.of(context).size.height *
+                                          0.06,
                                     ),
                                     child: Row(
                                       children: [
@@ -409,12 +413,14 @@ class _SingleQuestionState extends State<SingleQuestion> {
                                               index -= 1;
                                               pgController.animateToPage(
                                                 index,
-                                                duration: Duration(milliseconds: 300),
+                                                duration:
+                                                    Duration(milliseconds: 300),
                                                 curve: Curves.easeIn,
                                               );
                                             } else {
                                               Fluttertoast.showToast(
-                                                msg: 'This is the first question',
+                                                msg:
+                                                    'This is the first question',
                                                 backgroundColor: Colors.blue,
                                               );
                                             }
@@ -422,21 +428,30 @@ class _SingleQuestionState extends State<SingleQuestion> {
                                           icon: Icon(Icons.arrow_back_ios),
                                         ),
                                         SizedBox(
-                                          width: MediaQuery.of(context).size.width * 0.01,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.01,
                                         ),
                                         IconButton(
                                           onPressed: () {
                                             setState(() {
-                                              _isBookmarked = questions[index]['review_status'];
+                                              _isBookmarked = questions[index]
+                                                  ['review_status'];
                                             });
                                             _toggleBookMark(index);
                                           },
                                           icon: _isBookmarked
                                               ? Icon(Icons.bookmark_add)
-                                              : Icon(Icons.bookmark_add_outlined),
+                                              : Icon(
+                                                  Icons.bookmark_add_outlined,
+                                                ),
                                         ),
                                         SizedBox(
-                                          width: MediaQuery.of(context).size.width * 0.01,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.01,
                                         ),
                                         Text(
                                           'Question ',
@@ -465,7 +480,10 @@ class _SingleQuestionState extends State<SingleQuestion> {
                                           ),
                                         ),
                                         SizedBox(
-                                          width: MediaQuery.of(context).size.width * 0.01,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.01,
                                         ),
                                         IconButton(
                                           onPressed: () {
@@ -473,12 +491,14 @@ class _SingleQuestionState extends State<SingleQuestion> {
                                               index += 1;
                                               pgController.animateToPage(
                                                 index,
-                                                duration: Duration(milliseconds: 300),
+                                                duration:
+                                                    Duration(milliseconds: 300),
                                                 curve: Curves.easeIn,
                                               );
                                             } else {
                                               Fluttertoast.showToast(
-                                                msg: 'This is the last question',
+                                                msg:
+                                                    'This is the last question',
                                                 backgroundColor: Colors.blue,
                                               );
                                             }
@@ -494,19 +514,31 @@ class _SingleQuestionState extends State<SingleQuestion> {
                                       showDialog(
                                         context: context,
                                         builder: (context) => AlertDialog(
-                                          title: Text(questions[index]['fk_question']['statement']),
-                                          content: questions[index]['fk_question']['image_url'] !=
+                                          title: Text(questions[index]
+                                              ['fk_question']['statement']),
+                                          content: questions[index]
+                                                              ['fk_question']
+                                                          ['image_url'] !=
                                                       null &&
-                                                  questions[index]['fk_question']['image_url'] != ''
-                                              ? Image(
+                                                  questions[index]
+                                                              ['fk_question']
+                                                          ['image_url'] !=
+                                                      ''
+                                              ? FadeInImage(
+                                                  placeholder: AssetImage(
+                                                    AppImages.loader,
+                                                  ),
                                                   image: NetworkImage(
-                                                    questions[index]['fk_question']['image_url'],
+                                                    questions[index]
+                                                            ['fk_question']
+                                                        ['image_url'],
                                                   ),
                                                 )
                                               : Text('No image'),
                                           actions: [
                                             TextButton(
-                                              onPressed: () => Navigator.pop(context),
+                                              onPressed: () =>
+                                                  Navigator.pop(context),
                                               child: Text('Close'),
                                             ),
                                           ],
@@ -515,8 +547,12 @@ class _SingleQuestionState extends State<SingleQuestion> {
                                     },
                                     child: Padding(
                                       padding: EdgeInsets.symmetric(
-                                        vertical: MediaQuery.of(context).size.height * 0.02,
-                                        horizontal: MediaQuery.of(context).size.width * 0.05,
+                                        vertical:
+                                            MediaQuery.of(context).size.height *
+                                                0.02,
+                                        horizontal:
+                                            MediaQuery.of(context).size.width *
+                                                0.05,
                                       ),
                                       child: Column(
                                         children: [
@@ -524,12 +560,15 @@ class _SingleQuestionState extends State<SingleQuestion> {
                                             //actual Question
                                             "${questions[index]['fk_question']['statement'].toString().substring(
                                                   0,
-                                                  questions[index]['fk_question']['statement']
+                                                  questions[index]['fk_question']
+                                                                  ['statement']
                                                               .toString()
                                                               .length >
                                                           40
                                                       ? 40
-                                                      : questions[index]['fk_question']['statement']
+                                                      : questions[index][
+                                                                  'fk_question']
+                                                              ['statement']
                                                           .toString()
                                                           .length,
                                                 )}...",
@@ -565,8 +604,9 @@ class _SingleQuestionState extends State<SingleQuestion> {
                                 ),
                                 color: Colors.white,
                               ),
-                              margin:
-                                  EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.05),
+                              margin: EdgeInsets.only(
+                                  top: MediaQuery.of(context).size.height *
+                                      0.05),
                               child: SizedBox(
                                 height: 100,
                                 width: 100,
@@ -581,13 +621,16 @@ class _SingleQuestionState extends State<SingleQuestion> {
                           Align(
                             child: Container(
                               //Timer
-                              margin:
-                                  EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.11),
+                              margin: EdgeInsets.only(
+                                top: MediaQuery.of(context).size.height * 0.11,
+                              ),
                               child: _isFinallyOver
                                   ? Text(
                                       '00:00',
                                       style: TextStyle(
-                                        fontSize: MediaQuery.of(context).size.height * 0.025,
+                                        fontSize:
+                                            MediaQuery.of(context).size.height *
+                                                0.025,
                                       ),
                                     )
                                   : buildTime(),
@@ -596,8 +639,9 @@ class _SingleQuestionState extends State<SingleQuestion> {
                           Align(
                             alignment: Alignment.center,
                             child: Container(
-                              margin:
-                                  EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.48),
+                              margin: EdgeInsets.only(
+                                top: MediaQuery.of(context).size.height * 0.48,
+                              ),
                               height: MediaQuery.of(context).size.height * 0.35,
                               width: MediaQuery.of(context).size.width * 0.85,
                               decoration: BoxDecoration(
@@ -607,18 +651,25 @@ class _SingleQuestionState extends State<SingleQuestion> {
                                 //Options
                                 children: [
                                   SizedBox(
-                                    width: MediaQuery.of(context).size.width * 0.85,
-                                    height: MediaQuery.of(context).size.height * 0.07,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.85,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.07,
                                     child: TextButton(
                                       onPressed: () {
-                                        _markAnswer(0, questions[index]['id'], index);
+                                        _markAnswer(
+                                            0, questions[index]['id'], index);
                                       },
-                                      style: TextButton.styleFrom(backgroundColor: Colors.white),
+                                      style: TextButton.styleFrom(
+                                          backgroundColor: Colors.white),
                                       child: Text(
-                                        questions[index]['fk_question']['options'][0],
+                                        questions[index]['fk_question']
+                                            ['options'][0],
                                         style: TextStyle(
-                                          color: (questions[index]['answer'] != null &&
-                                                  questions[index]['answer'] == 0)
+                                          color: (questions[index]['answer'] !=
+                                                      null &&
+                                                  questions[index]['answer'] ==
+                                                      0)
                                               ? markedColour
                                               : Colors.blue,
                                         ),
@@ -627,18 +678,25 @@ class _SingleQuestionState extends State<SingleQuestion> {
                                   ),
                                   Spacer(),
                                   SizedBox(
-                                    width: MediaQuery.of(context).size.width * 0.85,
-                                    height: MediaQuery.of(context).size.height * 0.07,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.85,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.07,
                                     child: TextButton(
                                       onPressed: () {
-                                        _markAnswer(1, questions[index]['id'], index);
+                                        _markAnswer(
+                                            1, questions[index]['id'], index);
                                       },
-                                      style: TextButton.styleFrom(backgroundColor: Colors.white),
+                                      style: TextButton.styleFrom(
+                                          backgroundColor: Colors.white),
                                       child: Text(
-                                        questions[index]['fk_question']['options'][1],
+                                        questions[index]['fk_question']
+                                            ['options'][1],
                                         style: TextStyle(
-                                          color: (questions[index]['answer'] != null &&
-                                                  questions[index]['answer'] == 1)
+                                          color: (questions[index]['answer'] !=
+                                                      null &&
+                                                  questions[index]['answer'] ==
+                                                      1)
                                               ? markedColour
                                               : Colors.blue,
                                         ),
@@ -647,18 +705,25 @@ class _SingleQuestionState extends State<SingleQuestion> {
                                   ),
                                   Spacer(),
                                   SizedBox(
-                                    width: MediaQuery.of(context).size.width * 0.85,
-                                    height: MediaQuery.of(context).size.height * 0.07,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.85,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.07,
                                     child: TextButton(
                                       onPressed: () {
-                                        _markAnswer(2, questions[index]['id'], index);
+                                        _markAnswer(
+                                            2, questions[index]['id'], index);
                                       },
-                                      style: TextButton.styleFrom(backgroundColor: Colors.white),
+                                      style: TextButton.styleFrom(
+                                          backgroundColor: Colors.white),
                                       child: Text(
-                                        questions[index]['fk_question']['options'][2],
+                                        questions[index]['fk_question']
+                                            ['options'][2],
                                         style: TextStyle(
-                                          color: (questions[index]['answer'] != null &&
-                                                  questions[index]['answer'] == 2)
+                                          color: (questions[index]['answer'] !=
+                                                      null &&
+                                                  questions[index]['answer'] ==
+                                                      2)
                                               ? markedColour
                                               : Colors.blue,
                                         ),
@@ -667,20 +732,26 @@ class _SingleQuestionState extends State<SingleQuestion> {
                                   ),
                                   Spacer(),
                                   SizedBox(
-                                    width: MediaQuery.of(context).size.width * 0.85,
-                                    height: MediaQuery.of(context).size.height * 0.07,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.85,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.07,
                                     child: TextButton(
                                       onPressed: () {
-                                        _markAnswer(3, questions[index]['id'], index);
+                                        _markAnswer(
+                                            3, questions[index]['id'], index);
                                       },
                                       style: TextButton.styleFrom(
                                         backgroundColor: Colors.white,
                                       ),
                                       child: Text(
-                                        questions[index]['fk_question']['options'][3],
+                                        questions[index]['fk_question']
+                                            ['options'][3],
                                         style: TextStyle(
-                                          color: (questions[index]['answer'] != null &&
-                                                  questions[index]['answer'] == 3)
+                                          color: (questions[index]['answer'] !=
+                                                      null &&
+                                                  questions[index]['answer'] ==
+                                                      3)
                                               ? markedColour
                                               : Colors.blue,
                                         ),

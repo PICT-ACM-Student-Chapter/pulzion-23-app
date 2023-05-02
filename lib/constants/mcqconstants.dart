@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pulzion23/constants/urls.dart';
 
 const Color kBackGroundColor = Color(0xFFe0e0e6);
 const Color kButtonColor = Color(0xFF1B3357);
@@ -25,26 +26,26 @@ const SizedBox kspaceBetweenTextField = SizedBox(
 );
 
 class Constants {
-  static const String BASE_URL = "https://api.pulzion.in";
-  static const String MCQ_BASE = "https://api.pulzion.co.in/api";
-  static const String GET_REGISTERED_EVENTS = BASE_URL + '/user_events';
-  static const String GET_USER = BASE_URL + '/user/me';
-  static const String LOGIN_URL = BASE_URL + "/user/signin";
-  static const String MCQ_LOGIN = MCQ_BASE + "/login";
-  static const String SIGNUP_URl = BASE_URL + "/user/signup";
-  static const String EVENT_URL = BASE_URL + "/events";
-  static const String EVENT_REGISTRATION_URL = BASE_URL + "/user_events";
-  static const String GET_SLOTS_URL = BASE_URL + "/user_slots?event_id=";
-  static const String BOOK_SLOT_URL = BASE_URL + "/user_slots";
+  static String BASE_URL = EndPoints.mcqBaseUrl!;
+  static String MCQ_BASE = BASE_URL + '/api';
+  static String GET_REGISTERED_EVENTS = BASE_URL + '/user_events';
+  static String GET_USER = BASE_URL + '/user/me';
+  static String LOGIN_URL = BASE_URL + "/user/signin";
+  static String MCQ_LOGIN = MCQ_BASE + "/login";
+  static String SIGNUP_URl = BASE_URL + "/user/signup";
+  static String EVENT_URL = BASE_URL + "/events";
+  static String EVENT_REGISTRATION_URL = BASE_URL + "/user_events";
+  static String GET_SLOTS_URL = BASE_URL + "/user_slots?event_id=";
+  static String BOOK_SLOT_URL = BASE_URL + "/user_slots";
 
-  static const BASE_MCQ_URL = 'https://api.pulzion.co.in';
-  static const GET_MCQS_URL = BASE_MCQ_URL + '/api/question/list/';
-  static const MARK_ANSWER_URL = BASE_MCQ_URL + '/api/question/answer';
+  static String BASE_MCQ_URL = EndPoints.mcqBaseUrl!;
+  static String GET_MCQS_URL = BASE_MCQ_URL + '/api/question/list/';
+  static String MARK_ANSWER_URL = BASE_MCQ_URL + '/api/question/answer';
   static bool load = true;
 
-  static const String GET_MCQ_EVENTS = MCQ_BASE + "/event/list";
-  static const String GET_MCQ_EVENT_DETAILS = MCQ_BASE + "/event/get/";
-  static const String SUBMIT_MCQ = MCQ_BASE + "/event/submit/";
+  static String GET_MCQ_EVENTS = MCQ_BASE + "/event/list";
+  static String GET_MCQ_EVENT_DETAILS = MCQ_BASE + "/event/get/";
+  static String SUBMIT_MCQ = MCQ_BASE + "/event/submit/";
 }
 
 String? userToken = "";

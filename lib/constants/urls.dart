@@ -7,8 +7,9 @@ class EndPoints {
   static String? playStoreURL;
   static String? sponsorsUrl;
   static bool? acceptingPayment;
+  static bool? mcqStarted;
   static String? referralLink;
-  static String? BASE_MCQ_URL;
+  static String? mcqBaseUrl;
 
   static String events = '${baseUrl!}/events';
   static String user = '${baseUrl!}/user/me';
@@ -22,5 +23,4 @@ class EndPoints {
   static String userEvents = '${baseUrl!}/user_events';
   static String getSlots = '${baseUrl!}/user_slots?event_id=';
   static String bookSlots = '${baseUrl!}/user_slots';
-  
 }

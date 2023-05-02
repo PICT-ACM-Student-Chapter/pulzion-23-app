@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:panorama/panorama.dart';
+import 'package:pulzion23/constants/urls.dart';
 import 'package:pulzion23/features/mcq/presentation/pages/mcq_login.dart';
 
 import '../config/size_config.dart';
@@ -58,8 +61,11 @@ class BottomNavBar extends StatelessWidget {
             builder: (context, loginState) {
               return BlocBuilder<BottomBarCubit, BottomBarState>(
                 builder: (context, state) {
+                  log(EndPoints.mcqStarted.toString());
                   if (state is BottomBarAboutUs) {
-                    return McqLogin();
+                    return EndPoints.mcqStarted == true
+                        ? const McqLogin()
+                        : AboutUsPage(false);
                   } else if (state is BottomBarRegisteredEvents) {
                     return loginState is CheckLoginSuccess
                         ? const RegisteredEventsAndOrders()
@@ -89,7 +95,9 @@ class BottomNavBar extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.07,
               items: <Widget>[
                 Icon(
-                  Icons.info,
+                  EndPoints.mcqStarted == true
+                      ? Icons.question_answer
+                      : Icons.info,
                   size: 30,
                   color: Colors.white.withOpacity(0.7),
                 ),
