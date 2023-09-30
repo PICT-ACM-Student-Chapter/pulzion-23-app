@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'dart:math' as Math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pulzion23/features/event_description/ui/widgets/contact_card.dart';
@@ -14,16 +17,26 @@ import 'widgets/dynamic_button.dart';
 import 'widgets/event_mode.dart';
 
 class EventDescription extends StatefulWidget {
+  final bool isDark;
   final Events? event;
-
-  const EventDescription({this.event, Key? key}) : super(key: key);
+  final Function()? onChange;
+  final Function()? getTheme;
+  const EventDescription({
+    required this.isDark,
+    required this.event,
+    required this.onChange,
+    required this.getTheme,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<EventDescription> createState() => _EventDescriptionState();
 }
 
-class _EventDescriptionState extends State<EventDescription> with TickerProviderStateMixin {
-  late final TabController tabBarController = TabController(length: 3, vsync: this);
+class _EventDescriptionState extends State<EventDescription>
+    with TickerProviderStateMixin {
+  late final TabController tabBarController =
+      TabController(length: 3, vsync: this);
 
   @override
   void dispose() {
@@ -40,7 +53,9 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
     final fontSizeFactor = h / w;
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: widget.getTheme != null
+          ? widget.getTheme!().scaffoldBackgroundColor
+          : Colors.black,
       bottomNavigationBar: Container(
         margin: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -67,7 +82,7 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                     Text(
                       "PRICE",
                       style: AppStyles.bodyTextStyle3().copyWith(
-                        color: Colors.white,
+                        color: Theme.of(context).primaryColor,
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
                       ),
@@ -77,7 +92,11 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                       children: [
                         Text(
                           "Rs. ${event.price}",
-                          style: AppStyles.bodyTextStyle3(),
+                          style: AppStyles.bodyTextStyle3().copyWith(
+                            color: Theme.of(context).primaryColor,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                       ],
                     ),
@@ -143,28 +162,28 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
             children: [
               Stack(
                 children: [
-                  SizedBox(
-                    height: h * 0.28,
-                    width: double.infinity,
-                    child: Image.asset(
-                      AppImages.eventDescriptionBackground,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  Container(
-                    height: h * 0.28,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Colors.deepPurple.withOpacity(0.3),
-                          Colors.black,
-                        ],
-                      ),
-                    ),
-                  ),
+                  // SizedBox(
+                  //   height: h * 0.28,
+                  //   width: double.infinity,
+                  //   child: Image.asset(
+                  //     AppImages.eventDescriptionBackground,
+                  //     fit: BoxFit.cover,
+                  //   ),
+                  // ),
+                  // Container(
+                  //   height: h * 0.28,
+                  //   width: double.infinity,
+                  //   decoration: BoxDecoration(
+                  //     gradient: LinearGradient(
+                  //       begin: Alignment.topCenter,
+                  //       end: Alignment.bottomCenter,
+                  //       colors: [
+                  //         Colors.deepPurple.withOpacity(0.3),
+                  //         Colors.black,
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
                   Align(
                     alignment: Alignment.topLeft,
                     child: Padding(
@@ -195,7 +214,8 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                           Share.share(
                             '${event.description}\n\nPulzion 23 App: ${EndPoints.playStoreURL}',
                             subject: 'Pulzion 2023',
-                            sharePositionOrigin: const Rect.fromLTWH(0, 0, 10, 10),
+                            sharePositionOrigin:
+                                const Rect.fromLTWH(0, 0, 10, 10),
                           );
                         }),
                         child: const Icon(
@@ -220,21 +240,44 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                         height: w / 5,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: AppColors.eventCardGradientList.elementAt(
-                              event.id! % AppColors.eventCardGradientList.length,
-                            ),
+                          gradient: RadialGradient(
+                            radius: fontSizeFactor * 0.5,
+                            colors: [
+                              Colors.deepPurple.withOpacity(0.3),
+                              Colors.black,
+                            ],
                           ),
                         ),
-                        child: Padding(
-                          padding: EdgeInsets.all(
-                            SizeConfig.getProportionateScreenWidth(15),
-                          ),
-                          child: Image.network(
-                            event.logo!,
-                            fit: BoxFit.fitWidth,
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          onTap: widget.onChange,
+                          child: Padding(
+                            padding: EdgeInsets.all(
+                              SizeConfig.getProportionateScreenWidth(15),
+                            ),
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 1000),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: widget.isDark
+                                        ? Colors.yellow.withAlpha(50)
+                                        : Colors.black.withAlpha(60),
+                                    blurRadius: 10.0,
+                                    spreadRadius: 0.0,
+                                    offset: const Offset(
+                                      0.0,
+                                      0.0,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              child: Image.network(
+                                event.logo!,
+                                fit: BoxFit.fitWidth,
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -245,6 +288,7 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                       child: Text(
                         event.name!,
                         style: AppStyles.bodyTextStyle2().copyWith(
+                          color: Theme.of(context).primaryColor,
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
@@ -275,10 +319,11 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                           ),
                           unselectedLabelColor: AppColors.cardSubtitleTextColor,
                           labelColor: AppColors.loginPageAccent,
-                          tabs: const [
+                          tabs: [
                             Text(
                               "Description",
                               style: TextStyle(
+                                color: Theme.of(context).primaryColor,
                                 fontFamily: 'Quicksand',
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
@@ -287,6 +332,7 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                             Text(
                               "Rounds",
                               style: TextStyle(
+                                color: Theme.of(context).primaryColor,
                                 fontFamily: 'Quicksand',
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
@@ -295,6 +341,7 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                             Text(
                               "Rules",
                               style: TextStyle(
+                                color: Theme.of(context).primaryColor,
                                 fontFamily: 'Quicksand',
                                 fontSize: 16,
                               ),
@@ -322,7 +369,7 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                                   style: TextStyle(
                                     fontSize: fontSizeFactor * 8,
                                     fontWeight: FontWeight.bold,
-                                    color: const Color(0xFFfafafa),
+                                    color: Theme.of(context).primaryColor,
                                     fontStyle: FontStyle.italic,
                                   ),
                                 ),
@@ -331,7 +378,9 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
                                   event.description!,
-                                  style: AppStyles.bodyTextStyle3(),
+                                  style: AppStyles.bodyTextStyle3().copyWith(
+                                    color: Theme.of(context).primaryColor,
+                                  ),
                                 ),
                               ),
                               Padding(
@@ -339,7 +388,7 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                                 child: Text(
                                   'Team Details :',
                                   style: AppStyles.bodyTextStyle3().copyWith(
-                                    color: AppColors.loginPageAccent,
+                                    color: Theme.of(context).primaryColor,
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -349,7 +398,9 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
                                   event.teams!,
-                                  style: AppStyles.bodyTextStyle3(),
+                                  style: AppStyles.bodyTextStyle3().copyWith(
+                                    color: Theme.of(context).primaryColor,
+                                  ),
                                 ),
                               ),
                               Padding(
@@ -357,25 +408,29 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                                 child: Text(
                                   'Event Leads :',
                                   style: AppStyles.bodyTextStyle3().copyWith(
-                                    color: AppColors.loginPageAccent,
+                                    color: Theme.of(context).primaryColor,
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: ContactCard(event: event),
-                              ),
+                              // Padding(
+                              //   padding: const EdgeInsets.all(8.0),
+                              //   child: ContactCard(event: event),
+                              // ),
                             ],
                           ),
                           Text(
-                            event.rounds!,
-                            style: AppStyles.bodyTextStyle3(),
+                            event.rounds ?? '',
+                            style: AppStyles.bodyTextStyle3().copyWith(
+                              color: Theme.of(context).primaryColor,
+                            ),
                           ),
                           Text(
-                            event.rules!,
-                            style: AppStyles.bodyTextStyle3(),
+                            event.rules ?? '',
+                            style: AppStyles.bodyTextStyle3().copyWith(
+                              color: Theme.of(context).primaryColor,
+                            ),
                           ),
                         ],
                       ),

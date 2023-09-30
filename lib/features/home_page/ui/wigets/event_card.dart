@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:pulzion23/features/event_description/ui/widgets/lightOnOff.dart';
 
 import '../../../../config/size_config.dart';
 import '../../../../constants/colors.dart';
@@ -32,9 +33,7 @@ class EventCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => EventDescription(
-              event: event,
-            ),
+            builder: (context) => DarkSample(event: event),
           ),
         );
       }),
