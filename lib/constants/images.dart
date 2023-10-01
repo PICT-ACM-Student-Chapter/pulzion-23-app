@@ -16,4 +16,6 @@ class AppImages {
       'assets/images/event-description-bg.gif';
   static const orangeRocket = 'assets/images/orange_rocket.json';
   static const emptyMan = "assets/images/empty_spaceman.json";
+  static const halloweenCard = "assets/images/halloween_card_1.png";
+  static const halloweenBg = "assets/images/halloween_bg.jpeg";
 }
