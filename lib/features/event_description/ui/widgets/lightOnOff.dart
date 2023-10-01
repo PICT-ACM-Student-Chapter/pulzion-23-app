@@ -1,21 +1,8 @@
-import 'dart:developer';
-import 'dart:math' as Math;
-
+import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pulzion23/features/event_description/ui/event_description.dart';
-import 'package:pulzion23/features/event_description/ui/widgets/contact_card.dart';
-import "package:share_plus/share_plus.dart";
-import '../../../../constants/urls.dart';
-import '../../../cart_page/cubit/cart_page_cubit.dart';
-import '../../../../config/size_config.dart';
 import '../../../../constants/models/event_model.dart';
 
-import '../../../../constants/colors.dart';
-import '../../../../constants/images.dart';
-import '../../../../constants/styles.dart';
-import 'dynamic_button.dart';
-import 'event_mode.dart';
 
 class DarkSample extends StatefulWidget {
   final Events event;
@@ -48,6 +35,7 @@ class _DarkSampleState extends State<DarkSample> {
   }
 }
 
+// work
 ThemeData _darkTheme = ThemeData(
   brightness: Brightness.dark,
   primaryColor: Colors.grey[900],
@@ -95,6 +83,15 @@ class DarkTransition extends StatefulWidget {
 
 class _DarkTransitionState extends State<DarkTransition>
     with SingleTickerProviderStateMixin {
+      late AnimationController _animationController;
+  double x = 0;
+  double y = 0;
+  bool isDark = false;
+  // bool isBottomThemeDark = true;
+  bool isDarkVisible = false;
+  late double radius;
+  Offset position = Offset.zero;
+
   @override
   void dispose() {
     _darkNotifier.dispose();
@@ -112,19 +109,10 @@ class _DarkTransitionState extends State<DarkTransition>
   }
 
   double _radius(Size size) {
-    final maxVal = Math.max(size.width, size.height);
+    final maxVal = max(size.width, size.height);
 
     return maxVal * 1.5;
   }
-
-  late AnimationController _animationController;
-  double x = 0;
-  double y = 0;
-  bool isDark = false;
-  // bool isBottomThemeDark = true;
-  bool isDarkVisible = false;
-  late double radius;
-  Offset position = Offset.zero;
 
   ThemeData getTheme(bool dark) {
     return (dark) ? _darkTheme : _lightTheme;
@@ -143,7 +131,6 @@ class _DarkTransitionState extends State<DarkTransition>
         _animationController.forward();
         _darkNotifier.value = true;
       }
-      position = widget.offset;
     }
     if (widget.radius != oldWidget.radius) {
       _updateRadius();

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pulzion23/constants/models/event_model.dart';
+import 'package:pulzion23/constants/widgets/halloween_button.dart';
 
 import '../../../cart_page/cubit/cart_page_cubit.dart';
 import '../../../login_page/cubit/check_login_cubit.dart';
@@ -15,115 +16,111 @@ class DynamicButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CheckLoginCubit, CheckLoginState>(
-              builder: (context, state) {
-                if (state is CheckLoginFailure || state is CheckLoginLoading) {
-                  return event.price == 0
-                      ? Expanded(
-                          child: EventDescriptionPageButton(
-                            'Register Now',
-                            Icons.edit_rounded,
-                            () {
-                              // Navigate to LoginSignUpIntroPage
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const LoginSignUpIntro(),
-                                ),
-                              );
-                            },
-                          ),
-                        )
-                      : Expanded(
-                          child: EventDescriptionPageButton(
-                            'Add to Cart',
-                            Icons.shopping_cart,
-                            () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const LoginSignUpIntro(),
-                                ),
-                              );
+      builder: (context, state) {
+        if (state is CheckLoginFailure || state is CheckLoginLoading) {
+          return event.price == 0
+              ? Expanded(
+                  child: HalloweenButton(
+                    buttonText: 'Register Now',
+                    icon: Icons.edit_rounded,
+                    onPressed: () {
+                      // Navigate to LoginSignUpIntroPage
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginSignUpIntro(),
+                        ),
+                      );
+                    },
+                  ),
+                )
+              : Expanded(
+                  child: HalloweenButton(
+                    buttonText: 'Add to Cart',
+                    icon: Icons.shopping_cart,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginSignUpIntro(),
+                        ),
+                      );
+                    },
+                  ),
+                );
+        }
+
+        return Container(
+          child: event.price == 0
+              ? BlocBuilder<CartPageCubit, CartPageState>(
+                  builder: (context, state) {
+                    return Expanded(
+                      child: HalloweenButton(
+                        buttonText: 'Register Now',
+                        icon: Icons.edit_rounded,
+                        onPressed: () async {
+                          BlocProvider.of<CartPageCubit>(context)
+                              .registerFreeEvent(event.id!, context);
+                        },
+                      ),
+                    );
+                  },
+                )
+              : BlocConsumer<CartPageCubit, CartPageState>(
+                  listener: (context, state) {},
+                  builder: ((context, cartPageState) {
+                    if (cartPageState is CartPageLoaded) {
+                      if (cartPageState.cartList.getIds().contains(event.id)) {
+                        return Expanded(
+                          child: HalloweenButton(
+                            buttonText: 'Remove',
+                            icon: Icons.close_rounded,
+                            onPressed: () {
+                              if (event.id != null) {
+                                BlocProvider.of<CartPageCubit>(
+                                  context,
+                                ).deleteItem(event.id!);
+                              }
                             },
                           ),
                         );
-                }
-
-                return Container(
-                  child: event.price == 0
-                      ? BlocBuilder<CartPageCubit, CartPageState>(
-                          builder: (context, state) {
-                            return Expanded(
-                              child: EventDescriptionPageButton(
-                                'Register Now',
-                                Icons.edit_rounded,
-                                () async {
-                                  BlocProvider.of<CartPageCubit>(context)
-                                      .registerFreeEvent(event.id!, context);
-                                },
-                              ),
-                            );
-                          },
-                        )
-                      : BlocConsumer<CartPageCubit, CartPageState>(
-                          listener: (context, state) {},
-                          builder: ((context, cartPageState) {
-                            if (cartPageState is CartPageLoaded) {
-                              if (cartPageState.cartList
-                                  .getIds()
-                                  .contains(event.id)) {
-                                return Expanded(
-                                  child: EventDescriptionPageButton(
-                                    'Remove',
-                                    Icons.close_rounded,
-                                    () {
-                                      if (event.id != null) {
-                                        BlocProvider.of<CartPageCubit>(
-                                          context,
-                                        ).deleteItem(event.id!);
-                                      }
-                                    },
-                                  ),
-                                );
-                              } else {
-                                Expanded(
-                                  child: EventDescriptionPageButton(
-                                    'Add to Cart',
-                                    Icons.shopping_cart,
-                                    () {
-                                      if (event.id != null) {
-                                        BlocProvider.of<CartPageCubit>(
-                                          context,
-                                        ).addCartItem(event.id!);
-                                      }
-                                    },
-                                  ),
-                                );
+                      } else {
+                        Expanded(
+                          child: HalloweenButton(
+                            buttonText: 'Add to Cart',
+                            icon: Icons.shopping_cart,
+                            onPressed: () {
+                              if (event.id != null) {
+                                BlocProvider.of<CartPageCubit>(
+                                  context,
+                                ).addCartItem(event.id!);
                               }
-                            } else if (cartPageState is CartPageLoading ||
-                                cartPageState is CartItemAdded) {
-                              return const Expanded(child: LoadingButton());
-                            }
+                            },
+                          ),
+                        );
+                      }
+                    } else if (cartPageState is CartPageLoading ||
+                        cartPageState is CartItemAdded) {
+                      return const Expanded(child: LoadingButton());
+                    }
 
-                            return Expanded(
-                              child: EventDescriptionPageButton(
-                                'Add to Cart',
-                                Icons.shopping_cart,
-                                () {
-                                  if (event.id != null) {
-                                    BlocProvider.of<CartPageCubit>(
-                                      context,
-                                    ).addCartItem(event.id!);
-                                  }
-                                },
-                              ),
-                            );
-                          }),
-                        ),
-                );
-              },
-            );
+                    return Expanded(
+                      child: HalloweenButton(
+                        buttonText: 'Add to Cart',
+                        icon: Icons.shopping_cart,
+                        onPressed: () {
+                          if (event.id != null) {
+                            BlocProvider.of<CartPageCubit>(
+                              context,
+                            ).addCartItem(event.id!);
+                          }
+                        },
+                      ),
+                    );
+                  }),
+                ),
+        );
+      },
+    );
   }
 }
