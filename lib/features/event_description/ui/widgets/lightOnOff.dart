@@ -1,8 +1,7 @@
-import 'dart:math';
+import 'dart:math' as Math;
 import 'package:flutter/material.dart';
 import 'package:pulzion23/features/event_description/ui/event_description.dart';
 import '../../../../constants/models/event_model.dart';
-
 
 class DarkSample extends StatefulWidget {
   final Events event;
@@ -12,7 +11,7 @@ class DarkSample extends StatefulWidget {
 }
 
 class _DarkSampleState extends State<DarkSample> {
-  bool isDark = true;
+  bool isDark = false;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -38,7 +37,7 @@ class _DarkSampleState extends State<DarkSample> {
 // work
 ThemeData _darkTheme = ThemeData(
   brightness: Brightness.dark,
-  primaryColor: Colors.grey[900],
+  primaryColor: Colors.grey[700],
   scaffoldBackgroundColor: Colors.black.withOpacity(0.4),
   cardColor: Colors.black,
   canvasColor: Colors.black,
@@ -83,7 +82,7 @@ class DarkTransition extends StatefulWidget {
 
 class _DarkTransitionState extends State<DarkTransition>
     with SingleTickerProviderStateMixin {
-      late AnimationController _animationController;
+  late AnimationController _animationController;
   double x = 0;
   double y = 0;
   bool isDark = false;
@@ -109,7 +108,7 @@ class _DarkTransitionState extends State<DarkTransition>
   }
 
   double _radius(Size size) {
-    final maxVal = max(size.width, size.height);
+    final maxVal = Math.max(size.width, size.height);
 
     return maxVal * 1.5;
   }
@@ -172,7 +171,8 @@ class _DarkTransitionState extends State<DarkTransition>
       builder: (BuildContext context, Widget? child) {
         return Stack(
           children: [
-            _body(1),
+            if (!isDark) _body(1),
+            // if (isDark)
             ClipPath(
               clipper: CircularClipper(
                 _animationController.value * radius,
@@ -195,7 +195,7 @@ class CircularClipper extends CustomClipper<Path> {
     final Path path = Path();
     path.addOval(Rect.fromCircle(
       radius: radius,
-      center: Offset(size.width * 0.15, size.height * 0.12),
+      center: Offset(size.width * 0.5, size.height * 0.3),
     ));
 
     return path;

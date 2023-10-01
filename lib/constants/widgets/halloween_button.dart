@@ -4,9 +4,13 @@ class HalloweenButton extends StatelessWidget {
   final String buttonText;
   final IconData icon;
   final VoidCallback onPressed;
+  final double fontsize;
+  final Color color;
 
   const HalloweenButton({
     super.key,
+    this.color = Colors.deepPurple,
+    this.fontsize = 15,
     required this.icon,
     required this.buttonText,
     required this.onPressed,
@@ -29,14 +33,15 @@ class HalloweenButton extends StatelessWidget {
                 image: AssetImage('assets/images/border.png'),
               ),
             ),
-            child: Container(
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 500),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Colors.deepPurple.withOpacity(0.3),
-                    Colors.deepPurple.withOpacity(0.6),
-                    Colors.deepPurple.withOpacity(0.7),
-                    Colors.deepPurple.withOpacity(0.8),
+                    color.withOpacity(0.3),
+                    color.withOpacity(0.6),
+                    color.withOpacity(0.7),
+                    color.withOpacity(0.8),
                   ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
@@ -53,11 +58,11 @@ class HalloweenButton extends StatelessWidget {
                   ),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 15.0, right: 12.0),
+                  padding: const EdgeInsets.only(left: 20.0, right: 25.0),
                   child: Text(
                     buttonText,
                     style: const TextStyle(
-                      fontSize: 14.0,
+                      fontSize: 15,
                       color: Colors.white,
                       // fontWeight: FontWeight.bold,
                     ),
