@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -70,28 +71,22 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
 
   Widget titleBar(double ht) {
     return Padding(
-      padding: EdgeInsets.only(left: ht / 100, right: ht / 100),
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(ht / 25),
-        ),
+      padding: EdgeInsets.only(left: ht / 80, right: ht / 80),
+      child: Container(
         color: Colors.transparent,
         child: Stack(children: [
           BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 0.9, sigmaY: 0.9),
             child: Container(),
           ),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(ht / 25),
-              border: Border.all(color: Colors.white.withOpacity(0.1)),
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Colors.white.withOpacity(0.23),
-                  Colors.white.withOpacity(0.05),
-                ],
+          ClipPath(
+            clipper: PointsClipper(),
+            child: Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/event_frame.png'),
+                  fit: BoxFit.fill,
+                ),
               ),
             ),
           ),
@@ -111,7 +106,9 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(ht),
                     child: Lottie.asset(
-                      imgC ? AppImages.spaceman : AppImages.spaceman2,
+                      imgC
+                          ? "assets/images/pumpkin_cat.json"
+                          : AppImages.spaceman2,
                     ),
                   ),
                 ),
@@ -133,10 +130,14 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                           ),
                           // speed: const Duration(seconds: 2),
                           colors: [
-                            Colors.white.withOpacity(0.1),
-                            Colors.white.withOpacity(1),
-                            Colors.white.withOpacity(1),
-                            Colors.white.withOpacity(0.1),
+                            const Color.fromARGB(255, 82, 50, 16)
+                                .withOpacity(0.1),
+                            const Color.fromARGB(255, 82, 50, 16)
+                                .withOpacity(1),
+                            const Color.fromARGB(255, 82, 50, 16)
+                                .withOpacity(1),
+                            const Color.fromARGB(255, 82, 50, 16)
+                                .withOpacity(0.1),
                             // Colors.deepPurple,
                           ],
                           speed: const Duration(
@@ -155,7 +156,8 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                         TypewriterAnimatedText(
                           '14 Fun-filled Events',
                           textStyle: TextStyle(
-                            color: Colors.white54,
+                            color: const Color.fromARGB(255, 82, 50, 16)
+                                .withOpacity(0.4),
                             overflow: TextOverflow.ellipsis,
                             fontSize: ht / 55,
                           ),
@@ -193,132 +195,140 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                   height - height * 0.05,
                 ),
               ),
-              Container(
-                margin: EdgeInsets.all(height / 55),
-                padding: EdgeInsets.all(height / 120),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.black.withOpacity(0.15),
-                      Colors.white.withOpacity(0.15),
-                    ],
-                  ),
-                ),
-                child: Padding(
-                  padding:
-                      EdgeInsets.only(left: height / 90, right: height / 90),
-                  child: SizedBox(
-                    height: height / 11,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            _launchUniversalLinkApp(
-                              Uri.parse('https://www.instagram.com/acm.pict/'),
-                            );
-                          },
-                          icon: const FaIcon(FontAwesomeIcons.instagram),
-                          color: Colors.white,
-                          iconSize: height / 22,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ClipPath(
+                  clipper: MovieTicketBothSidesClipper(),
+                  child: Container(
+                    // margin: EdgeInsets.all(height / 55),
+                    padding: EdgeInsets.all(height / 120),
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/images/event_frame.png'),
+                        fit: BoxFit.fill, // Adjust this based on your needs
+                      ),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          left: height / 90, right: height / 90,),
+                      child: SizedBox(
+                        height: height / 11,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                _launchUniversalLinkApp(
+                                  Uri.parse(
+                                    'https://www.instagram.com/acm.pict/',
+                                  ),
+                                );
+                              },
+                              icon: const FaIcon(FontAwesomeIcons.instagram),
+                              color: const Color.fromARGB(255, 82, 50, 16),
+                              iconSize: height / 22,
+                            ),
+                            const VerticalDivider(
+                              color: Colors.white54,
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                _launchUniversalLinkApp(
+                                  Uri.parse(
+                                    'https://www.linkedin.com/in/pict-acm-student-chapter-09004a132/',
+                                  ),
+                                );
+                              },
+                              color: const Color.fromARGB(255, 82, 50, 16),
+                              iconSize: height / 22,
+                              icon: const FaIcon(FontAwesomeIcons.linkedin),
+                            ),
+                            const VerticalDivider(
+                              color: Colors.white54,
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                _launchUniversalLinkApp(
+                                  Uri.parse(
+                                      'https://www.facebook.com/acmpict/',),
+                                );
+                              },
+                              color: const Color.fromARGB(255, 82, 50, 16),
+                              iconSize: height / 22,
+                              icon: const FaIcon(FontAwesomeIcons.facebook),
+                            ),
+                            const VerticalDivider(
+                              color: Colors.white54,
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                _launchUniversalLinkApp(
+                                  Uri.parse(
+                                    'https://twitter.com/_pict_acm_?lang=en',
+                                  ),
+                                );
+                              },
+                              color: const Color.fromARGB(255, 82, 50, 16),
+                              iconSize: height / 22,
+                              icon: const FaIcon(FontAwesomeIcons.twitter),
+                            ),
+                          ],
                         ),
-                        const VerticalDivider(
-                          color: Colors.white54,
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            _launchUniversalLinkApp(
-                              Uri.parse(
-                                'https://www.linkedin.com/in/pict-acm-student-chapter-09004a132/',
-                              ),
-                            );
-                          },
-                          color: Colors.white,
-                          iconSize: height / 22,
-                          icon: const FaIcon(FontAwesomeIcons.linkedin),
-                        ),
-                        const VerticalDivider(
-                          color: Colors.white54,
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            _launchUniversalLinkApp(
-                              Uri.parse('https://www.facebook.com/acmpict/'),
-                            );
-                          },
-                          color: Colors.white,
-                          iconSize: height / 22,
-                          icon: const FaIcon(FontAwesomeIcons.facebook),
-                        ),
-                        const VerticalDivider(
-                          color: Colors.white54,
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            _launchUniversalLinkApp(
-                              Uri.parse(
-                                'https://twitter.com/_pict_acm_?lang=en',
-                              ),
-                            );
-                          },
-                          color: Colors.white,
-                          iconSize: height / 22,
-                          icon: const FaIcon(FontAwesomeIcons.twitter),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
               ),
-              Container(
-                height: height / 13,
-                margin: EdgeInsets.all(height / 60),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.black.withOpacity(0.15),
-                      Colors.white.withOpacity(0.15),
-                    ],
-                  ),
-                ),
-                child: SwitchListTile(
-                  secondary: CircleAvatar(
-                    backgroundColor: Colors.white54,
-                    child: Icon(
-                      Icons.animation_outlined,
-                      color: Colors.black,
-                      size: height / 43,
-                    ),
-                  ),
-                  title: Text(
-                    'Toggle Animations',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white70,
-                      fontSize: height / 47,
-                    ),
-                  ),
-                  activeColor: Colors.white,
-                  inactiveThumbColor: Colors.white,
-                  inactiveTrackColor: Colors.white54,
-                  value: _animationstoggle,
-                  onChanged: (val) {
-                    BlocProvider.of<GlobalParameterCubit>(context)
-                        .toggleParameter()
-                        .then((value) => {
-                              setState(() {
-                                _animationstoggle = val;
-                              }),
-                            });
-                  },
-                ),
-              ),
+
+            //This is for toogle animation
+
+              // Container(
+              //   height: height / 13,
+              //   margin: EdgeInsets.all(height / 60),
+              //   decoration: BoxDecoration(
+              //     borderRadius: BorderRadius.circular(15),
+              //     gradient: LinearGradient(
+              //       begin: Alignment.topCenter,
+              //       end: Alignment.bottomCenter,
+              //       colors: [
+              //         Colors.black.withOpacity(0.15),
+              //         Colors.white.withOpacity(0.15),
+              //       ],
+              //     ),
+              //   ),
+              //   child: SwitchListTile(
+              //     secondary: CircleAvatar(
+              //       backgroundColor: Colors.white54,
+              //       child: Icon(
+              //         Icons.animation_outlined,
+              //         color: Colors.black,
+              //         size: height / 43,
+              //       ),
+              //     ),
+              //     title: Text(
+              //       'Toggle Animations',
+              //       style: TextStyle(
+              //         fontWeight: FontWeight.bold,
+              //         color: Colors.white70,
+              //         fontSize: height / 47,
+              //       ),
+              //     ),
+              //     activeColor: Colors.white,
+              //     inactiveThumbColor: Colors.white,
+              //     inactiveTrackColor: Colors.white54,
+              //     value: _animationstoggle,
+              //     onChanged: (val) {
+              //       BlocProvider.of<GlobalParameterCubit>(context)
+              //           .toggleParameter()
+              //           .then((value) => {
+              //                 setState(() {
+              //                   _animationstoggle = val;
+              //                 }),
+              //               });
+              //     },
+              //   ),
+              // ),
+              
               BlocBuilder<CheckLoginCubit, CheckLoginState>(
                 builder: (context, state) {
                   List<List<FrostedTile>> f = [
@@ -333,6 +343,8 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                           );
                         },
                       ),
+                    ],
+                    [
                       FrostedTile(
                         tilename: 'About Us',
                         tileicon: Icons.info_outline,
@@ -345,6 +357,8 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                           );
                         },
                       ),
+                    ],
+                    [
                       FrostedTile(
                         tilename: 'Developers',
                         tileicon: Icons.laptop,
@@ -364,11 +378,8 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                         tileicon: Icons.privacy_tip_outlined,
                         url: EndPoints.privacyPolicyURL,
                       ),
-                      FrostedTile(
-                        tilename: 'Visit Website',
-                        tileicon: Icons.web_outlined,
-                        url: EndPoints.websiteURL,
-                      ),
+                    ],
+                    [
                       FrostedTile(
                         tilename: 'Rate us on Play Store',
                         tileicon: FontAwesomeIcons.googlePlay,
