@@ -11,6 +11,7 @@ import '../../../constants/images.dart';
 import '../../../project/cubit/animation_toggle_cubit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:lottie/lottie.dart';
 
 class DevelopersPage extends StatefulWidget {
   const DevelopersPage({super.key});
@@ -140,8 +141,8 @@ class _DevelopersPageState extends State<DevelopersPage> {
                       child: SizedBox(
                         height: h * 0.04,
                         width: h * 0.1,
-                        child: Image.asset(
-                          'assets/images/ufo_developer_page.gif',
+                        child: Lottie.asset(
+                          'assets/images/anim3.json',
                           fit: BoxFit.cover,
                         ),
                       ),
