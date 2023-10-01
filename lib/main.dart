@@ -58,7 +58,10 @@ Future<void> main() async {
     Bloc.observer = PulzionBlocObserver();
   }
 
-  runApp(ChangeNotifierProvider(create: (context) => MCQUserProvider(),child: Pulzion23App(),));
+  runApp(ChangeNotifierProvider(
+    create: (context) => MCQUserProvider(),
+    child: Pulzion23App(),
+  ));
 }
 
 class Pulzion23App extends StatelessWidget {
@@ -66,7 +69,6 @@ class Pulzion23App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return MultiBlocProvider(
       providers: [
         BlocProvider(

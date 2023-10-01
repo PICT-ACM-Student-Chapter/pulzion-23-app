@@ -11,6 +11,7 @@ import '../../../constants/images.dart';
 import '../../../project/cubit/animation_toggle_cubit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:lottie/lottie.dart';
 
 class DevelopersPage extends StatefulWidget {
   const DevelopersPage({super.key});
@@ -77,15 +78,22 @@ class _DevelopersPageState extends State<DevelopersPage> {
           },
           builder: (context, state) {
             return Panorama(
-              sensitivity: 0.4,
-              animSpeed: 0.5,
-              sensorControl:
-                  state ? SensorControl.Orientation : SensorControl.None,
-              child: Image.asset(
-                AppImages.spaceBackground,
-                fit: BoxFit.cover,
-              ),
-            );
+                sensitivity: 0.4,
+                sensorControl:
+                    state ? SensorControl.Orientation : SensorControl.None,
+                child: Image.asset(
+                  AppImages.halloweenBg,
+                ));
+            // return Panorama(
+            //   sensitivity: 0.4,
+            //   animSpeed: 0.5,
+            //   sensorControl:
+            //       state ? SensorControl.Orientation : SensorControl.None,
+            //   child: Image.asset(
+            //     AppImages.spaceBackground,
+            //     fit: BoxFit.cover,
+            //   ),
+            // );
           },
         ),
         SafeArea(
@@ -138,10 +146,10 @@ class _DevelopersPageState extends State<DevelopersPage> {
                     child: Padding(
                       padding: const EdgeInsets.only(top: 10.0),
                       child: SizedBox(
-                        height: h * 0.04,
+                        height: h * 0.14,
                         width: h * 0.1,
-                        child: Image.asset(
-                          'assets/images/ufo_developer_page.gif',
+                        child: Lottie.asset(
+                          'assets/images/anim3.json',
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -189,13 +197,13 @@ class _DevelopersPageState extends State<DevelopersPage> {
                                   alignment: Alignment.topCenter,
                                   height: h * 0.25,
                                   child: WidgetCircularAnimator(
-                                    innerAnimation: Curves.easeInCirc,
-                                    outerAnimation: Curves.linear,
-                                    innerAnimationSeconds: 5,
-                                    outerAnimationSeconds: 7,
-                                    singleRing: false,
-                                    innerColor: Colors.white,
-                                    outerColor: Colors.amber,
+                                    // innerAnimation: Curves.easeInCirc,
+                                    // outerAnimation: Curves.linear,
+                                    // innerAnimationSeconds: 5,
+                                    // outerAnimationSeconds: 7,
+                                    // singleRing: false,
+                                    // innerColor: Colors.white,
+                                    // outerColor: Colors.amber,
                                     size: h * 0.170,
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(100),

@@ -23,9 +23,9 @@ class ProfilePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: const BackButton(
-          color: Colors.white,
+          color: Color.fromARGB(255, 243, 152, 92),
         ),
-        backgroundColor: Colors.transparent,
+        backgroundColor: Color.fromARGB(132, 54, 3, 50),
       ),
       extendBodyBehindAppBar: true,
       body: Stack(children: [
@@ -40,15 +40,22 @@ class ProfilePage extends StatelessWidget {
           },
           builder: (context, state) {
             return Panorama(
-              sensitivity: 0.4,
-              animSpeed: 0.5,
-              sensorControl:
-                  state ? SensorControl.Orientation : SensorControl.None,
-              child: Image.asset(
-                AppImages.spaceBackground,
-                fit: BoxFit.cover,
-              ),
-            );
+                sensitivity: 0.4,
+                sensorControl:
+                    state ? SensorControl.Orientation : SensorControl.None,
+                child: Image.asset(
+                  AppImages.halloweenBg,
+                ));
+            // return Panorama(
+            //   sensitivity: 0.4,
+            //   animSpeed: 0,
+            //   sensorControl:
+            //       state ? SensorControl.Orientation : SensorControl.None,
+            //   child: Image.asset(
+            //     AppImages.halloween_bg,
+            //     fit: BoxFit.fitHeight,
+            //   ),
+            // );
           },
         ),
         Padding(
@@ -82,7 +89,7 @@ class ProfilePage extends StatelessWidget {
                                 bottomLeft: Radius.circular(h * 0.04),
                                 bottomRight: Radius.circular(h * 0.04),
                               ),
-                              color: Colors.black.withOpacity(0.7),
+                              color: Color.fromARGB(200, 0, 39, 59),
                             ),
                             child: Column(
                               children: [
@@ -112,7 +119,8 @@ class ProfilePage extends StatelessWidget {
                                         fontFamily: 'QuickSand',
                                         fontWeight: FontWeight.bold,
                                         fontSize: h * 0.025,
-                                        color: Colors.white,
+                                        color:
+                                            Color.fromARGB(255, 236, 122, 22),
                                       ),
                                     ),
                                   ),
@@ -169,8 +177,8 @@ class ProfilePage extends StatelessWidget {
                         w,
                         state.user.email!.split('@')[0],
                         const Icon(
-                          Icons.person,
-                          color: Colors.white,
+                          Icons.email,
+                          // color: Colors.white,
                         ),
                       ),
                       SizedBox(
