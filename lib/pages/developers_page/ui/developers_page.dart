@@ -205,6 +205,7 @@ class _DevelopersPageState extends State<DevelopersPage> {
                                     // innerColor: Colors.white,
                                     // outerColor: Colors.amber,
                                     size: h * 0.170,
+
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(100),
                                       //Images of the developer need to be added  here
