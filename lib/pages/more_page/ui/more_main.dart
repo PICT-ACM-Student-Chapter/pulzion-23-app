@@ -197,90 +197,90 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: ClipPath(
-                  clipper: MovieTicketBothSidesClipper(),
-                  child: Container(
-                    // margin: EdgeInsets.all(height / 55),
-                    padding: EdgeInsets.all(height / 120),
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/images/event_frame.png'),
-                        fit: BoxFit.fill, // Adjust this based on your needs
-                      ),
+                child: Container(
+                  // margin: EdgeInsets.all(height / 55),
+                  padding: EdgeInsets.all(height / 120),
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/event_frame.png'),
+                      fit: BoxFit.fill, // Adjust this based on your needs
                     ),
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                          left: height / 90, right: height / 90,),
-                      child: SizedBox(
-                        height: height / 11,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                _launchUniversalLinkApp(
-                                  Uri.parse(
-                                    'https://www.instagram.com/acm.pict/',
-                                  ),
-                                );
-                              },
-                              icon: const FaIcon(FontAwesomeIcons.instagram),
-                              color: const Color.fromARGB(255, 82, 50, 16),
-                              iconSize: height / 22,
-                            ),
-                            const VerticalDivider(
-                              color: Colors.white54,
-                            ),
-                            IconButton(
-                              onPressed: () {
-                                _launchUniversalLinkApp(
-                                  Uri.parse(
-                                    'https://www.linkedin.com/in/pict-acm-student-chapter-09004a132/',
-                                  ),
-                                );
-                              },
-                              color: const Color.fromARGB(255, 82, 50, 16),
-                              iconSize: height / 22,
-                              icon: const FaIcon(FontAwesomeIcons.linkedin),
-                            ),
-                            const VerticalDivider(
-                              color: Colors.white54,
-                            ),
-                            IconButton(
-                              onPressed: () {
-                                _launchUniversalLinkApp(
-                                  Uri.parse(
-                                      'https://www.facebook.com/acmpict/',),
-                                );
-                              },
-                              color: const Color.fromARGB(255, 82, 50, 16),
-                              iconSize: height / 22,
-                              icon: const FaIcon(FontAwesomeIcons.facebook),
-                            ),
-                            const VerticalDivider(
-                              color: Colors.white54,
-                            ),
-                            IconButton(
-                              onPressed: () {
-                                _launchUniversalLinkApp(
-                                  Uri.parse(
-                                    'https://twitter.com/_pict_acm_?lang=en',
-                                  ),
-                                );
-                              },
-                              color: const Color.fromARGB(255, 82, 50, 16),
-                              iconSize: height / 22,
-                              icon: const FaIcon(FontAwesomeIcons.twitter),
-                            ),
-                          ],
-                        ),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      left: height / 90,
+                      right: height / 90,
+                    ),
+                    child: SizedBox(
+                      height: height / 11,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              _launchUniversalLinkApp(
+                                Uri.parse(
+                                  'https://www.instagram.com/acm.pict/',
+                                ),
+                              );
+                            },
+                            icon: const FaIcon(FontAwesomeIcons.instagram),
+                            color: const Color.fromARGB(255, 82, 50, 16),
+                            iconSize: height / 22,
+                          ),
+                          const VerticalDivider(
+                            color: Colors.white54,
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              _launchUniversalLinkApp(
+                                Uri.parse(
+                                  'https://www.linkedin.com/in/pict-acm-student-chapter-09004a132/',
+                                ),
+                              );
+                            },
+                            color: const Color.fromARGB(255, 82, 50, 16),
+                            iconSize: height / 22,
+                            icon: const FaIcon(FontAwesomeIcons.linkedin),
+                          ),
+                          const VerticalDivider(
+                            color: Colors.white54,
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              _launchUniversalLinkApp(
+                                Uri.parse(
+                                  'https://www.facebook.com/acmpict/',
+                                ),
+                              );
+                            },
+                            color: const Color.fromARGB(255, 82, 50, 16),
+                            iconSize: height / 22,
+                            icon: const FaIcon(FontAwesomeIcons.facebook),
+                          ),
+                          const VerticalDivider(
+                            color: Colors.white54,
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              _launchUniversalLinkApp(
+                                Uri.parse(
+                                  'https://twitter.com/_pict_acm_?lang=en',
+                                ),
+                              );
+                            },
+                            color: const Color.fromARGB(255, 82, 50, 16),
+                            iconSize: height / 22,
+                            icon: const FaIcon(FontAwesomeIcons.twitter),
+                          ),
+                        ],
                       ),
                     ),
                   ),
                 ),
               ),
 
-            //This is for toogle animation
+              //This is for toogle animation
 
               // Container(
               //   height: height / 13,
@@ -328,7 +328,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
               //     },
               //   ),
               // ),
-              
+
               BlocBuilder<CheckLoginCubit, CheckLoginState>(
                 builder: (context, state) {
                   List<List<FrostedTile>> f = [
