@@ -162,40 +162,57 @@ class _SignUpState extends State<SignUp> {
                               controller: lastNameController,
                               obscureText: false,
                             ),
-                            CSCPicker(
-                              // defaultCountry: CscCountry.India,
-                              selectedItemStyle: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                              ),
-                              onCountryChanged: (country) {
-                                setState(() {
-                                  log(country.toString());
-                                  countryValue = country;
-                                  address = countryValue;
-                                });
-                              },
-                              countryDropdownLabel: address,
-                              countrySearchPlaceholder: address,
-                              dropdownHeadingStyle: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w400,
-                                fontSize: 20,
-                              ),
-                              showCities: false,
-                              showStates: false,
-                              dropdownDecoration: BoxDecoration(
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(25.0),
-                                ),
-                                color: AppColors.primary.withAlpha(100),
-                                border: Border.all(
-                                  color: Colors.black26,
-                                  width: 2.0,
-                                ),
-                              ),
-                            ),
+
+
+                                  Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top:8),
+                                      child: CSCPicker(
+                                        // defaultCountry: CscCountry.India,
+                                        selectedItemStyle: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                        onCountryChanged: (country) {
+                                          setState(() {
+                                            log(country.toString());
+                                            countryValue = country;
+                                            address = countryValue;
+                                          });
+                                        },
+                                        countryDropdownLabel: address,
+                                        countrySearchPlaceholder: address,
+                                        dropdownHeadingStyle: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 20,
+                                        ),
+                                        showCities: false,
+                                        showStates: false,
+                                        dropdownDecoration: BoxDecoration(
+                                          boxShadow: [BoxShadow(color: Colors.yellowAccent,
+                                            blurRadius: 6,
+                                            spreadRadius:2.5,)],
+                                          image:DecorationImage(
+                                            colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.5),BlendMode.dstATop),
+                                            image: AssetImage('assets/images/fieldss.jpg'),
+                                            fit: BoxFit.fill ,),
+                                          borderRadius: const BorderRadius.all(
+                                            Radius.circular(25.0),
+                                          ),
+                                          color: AppColors.primary.withAlpha(50),
+                                          // border: Border.all(
+                                          //   // color: Colors.black26,
+                                          //   // width: 2.0,
+                                          // ),
+
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+
+
                             LoginSignUpTextField(
                               'Contact Number',
                               Icons.call,
@@ -210,53 +227,66 @@ class _SignUpState extends State<SignUp> {
                                       isOpen = !isOpen;
                                     }),
                                   },
-                                  child: Container(
-                                    height: MediaQuery.of(context).size.height * 0.07,
-                                    decoration: BoxDecoration(
-                                      borderRadius: const BorderRadius.all(
-                                        Radius.circular(25.0),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top:8.0),
+                                    child: Container(
+
+                                      height: MediaQuery.of(context).size.height * 0.07,
+                                      decoration: BoxDecoration(
+                                        boxShadow: [BoxShadow(color: Colors.yellowAccent,
+                                          blurRadius: 6,
+                                          spreadRadius:2.5,
+                                        )],
+                                            image: DecorationImage(
+                                              colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.6),BlendMode.dstATop),
+                                                image: AssetImage('assets/images/fields.jpg'),
+                                                fit: BoxFit.fill),
+
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(25.0),
+                                        ),
+                                        color: AppColors.primary.withAlpha(100),
+                                        border: Border.all(
+                                          color: Colors.black26,
+                                          width: 2.0,
+                                        ),
                                       ),
-                                      color: AppColors.primary.withAlpha(100),
-                                      border: Border.all(
-                                        color: Colors.black26,
-                                        width: 2.0,
-                                      ),
-                                    ),
-                                    child: Row(
-                                      // mainAxisAlignment:
-                                      //     MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const SizedBox(
-                                          width: 8,
-                                        ),
-                                        const Icon(
-                                          Icons.school_outlined,
-                                          color: Colors.white, // add custom icons also
-                                        ),
-                                        const SizedBox(
-                                          width: 15,
-                                        ),
-                                        Text(
-                                          selectOption,
-                                          style: (const TextStyle(
+                                      child: Row(
+                                        // mainAxisAlignment:
+                                        //     MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const SizedBox(
+                                            width: 8,
+                                          ),
+                                          const Icon(
+                                            Icons.school_outlined,
+                                            color: Colors.white, // add custom icons also
+                                          ),
+                                          const SizedBox(
+                                            width: 15,
+                                          ),
+                                          Text(
+                                            selectOption,
+                                            style: (const TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 16,
+                                            )),
+                                          ),
+                                          const Spacer(
+                                            flex: 10,
+                                          ),
+                                          Icon(
+                                            isOpen
+                                                ? Icons.keyboard_arrow_up_sharp
+                                                : Icons.keyboard_arrow_down_sharp,
                                             color: Colors.white,
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 16,
-                                          )),
-                                        ),
-                                        const Spacer(
-                                          flex: 10,
-                                        ),
-                                        Icon(
-                                          isOpen
-                                              ? Icons.keyboard_arrow_up_sharp
-                                              : Icons.keyboard_arrow_down_sharp,
-                                          color: Colors.white,
-                                        ),
-                                        const Spacer(
-                                          flex: 1,
-                                        ),
-                                      ],
+                                          ),
+                                          const Spacer(
+                                            flex: 1,
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -296,11 +326,18 @@ class _SignUpState extends State<SignUp> {
                                 if (selectOption == 'Other')
                                   Padding(
                                     padding: const EdgeInsets.only(top: 8.0),
-                                    child: LoginSignUpTextField(
-                                      'enter college name',
-                                      Icons.school,
-                                      controller: othercollegeController,
-                                      obscureText: false,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(24),
+                                          image: DecorationImage(image: AssetImage('assets/images/textfield.jpg'),
+                                              fit: BoxFit.fill)
+                                      ),
+                                      child: LoginSignUpTextField(
+                                        'enter college name',
+                                        Icons.school,
+                                        controller: othercollegeController,
+                                        obscureText: false,
+                                      ),
                                     ),
                                   ),
                               ],
@@ -325,105 +362,120 @@ class _SignUpState extends State<SignUp> {
                               obscureText: true,
                             ),
                             Center(
-                              child: RoundedButton(
-                                btnText: 'SIGN UP',
-                                onPressed: () async {
-                                  if (passwordController.text != passwordConfirmController.text) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text("Passwords do not match"),
-                                        backgroundColor: Colors.red,
-                                      ),
-                                    );
+                              child: Padding(
+                                padding: const EdgeInsets.only(top:4),
+                                child: Container(
+                                  decoration:  BoxDecoration(
+                                    boxShadow: [BoxShadow(color: Colors.yellowAccent,
+                                      blurRadius: 6,
+                                      spreadRadius:2.5,
+                                    )],
+                                    borderRadius: BorderRadius.circular(24),
+                                    image: DecorationImage(
+                                // colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.7),BlendMode.dstATop),
+                          image: AssetImage('assets/images/pumpkin.jpg'),
+                          fit: BoxFit.fill),),
+                                  child: RoundedButton(
+                                    btnText: 'SIGN UP',
+                                    onPressed: () async {
+                                      if (passwordController.text != passwordConfirmController.text) {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(
+                                            content: Text("Passwords do not match"),
+                                            backgroundColor: Colors.red,
+                                          ),
+                                        );
 
-                                    return;
-                                  }
+                                        return;
+                                      }
 
-                                  collegeController.text = selectOption == 'Other'
-                                      ? othercollegeController.text
-                                      : "PICT";
+                                      collegeController.text = selectOption == 'Other'
+                                          ? othercollegeController.text
+                                          : "PICT";
 
-                                  if (firstNameController.text.isEmpty ||
-                                      lastNameController.text.isEmpty ||
-                                      phoneController.text.isEmpty ||
-                                      collegeController.text.isEmpty ||
-                                      emailController.text.isEmpty ||
-                                      passwordController.text.isEmpty ||
-                                      passwordConfirmController.text.isEmpty) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                          "Please fill all fields",
-                                        ),
-                                        backgroundColor: Colors.red,
-                                      ),
-                                    );
+                                      if (firstNameController.text.isEmpty ||
+                                          lastNameController.text.isEmpty ||
+                                          phoneController.text.isEmpty ||
+                                          collegeController.text.isEmpty ||
+                                          emailController.text.isEmpty ||
+                                          passwordController.text.isEmpty ||
+                                          passwordConfirmController.text.isEmpty) {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(
+                                            content: Text(
+                                              "Please fill all fields",
+                                            ),
+                                            backgroundColor: Colors.red,
+                                          ),
+                                        );
 
-                                    return;
-                                  }
-                                  if (passwordController.text.length < 8) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                          "Password should be atleast 8 characters long",
-                                        ),
-                                        backgroundColor: Colors.red,
-                                      ),
-                                    );
+                                        return;
+                                      }
+                                      if (passwordController.text.length < 8) {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(
+                                            content: Text(
+                                              "Password should be atleast 8 characters long",
+                                            ),
+                                            backgroundColor: Colors.red,
+                                          ),
+                                        );
 
-                                    return;
-                                  }
-                                  if (phoneController.text.length != 10) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                          "Phone number should be 10 digits long",
-                                        ),
-                                        backgroundColor: Colors.red,
-                                      ),
-                                    );
+                                        return;
+                                      }
+                                      if (phoneController.text.length != 10) {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(
+                                            content: Text(
+                                              "Phone number should be 10 digits long",
+                                            ),
+                                            backgroundColor: Colors.red,
+                                          ),
+                                        );
 
-                                    return;
-                                  }
-                                  final RegExp emailRegex = RegExp(
-                                    r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+',
-                                  );
-                                  if (!emailRegex.hasMatch(emailController.text)) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                          "Please enter a valid email",
-                                        ),
-                                        backgroundColor: Colors.red,
-                                      ),
-                                    );
-
-                                    return;
-                                  }
-                                  final RegExp phoneRegex = RegExp(r'^[0-9]+$');
-                                  if (!phoneRegex.hasMatch(phoneController.text)) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                          "Please enter a valid phone number",
-                                        ),
-                                        backgroundColor: Colors.red,
-                                      ),
-                                    );
-
-                                    return;
-                                  }
-                                  await context.read<SignUpCubit>().signUp(
-                                        college: collegeController.text.trim(),
-                                        email: emailController.text.trim(),
-                                        firstName: firstNameController.text.trim(),
-                                        lastName: lastNameController.text.trim(),
-                                        password: passwordController.text.trim(),
-                                        phone: phoneController.text.trim(),
-                                        year: YearSelectRadioTile.yearOfStudyString,
-                                        country: address,
+                                        return;
+                                      }
+                                      final RegExp emailRegex = RegExp(
+                                        r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+',
                                       );
-                                },
+                                      if (!emailRegex.hasMatch(emailController.text)) {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(
+                                            content: Text(
+                                              "Please enter a valid email",
+                                            ),
+                                            backgroundColor: Colors.red,
+                                          ),
+                                        );
+
+                                        return;
+                                      }
+                                      final RegExp phoneRegex = RegExp(r'^[0-9]+$');
+                                      if (!phoneRegex.hasMatch(phoneController.text)) {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(
+                                            content: Text(
+                                              "Please enter a valid phone number",
+                                            ),
+                                            backgroundColor: Colors.red,
+                                          ),
+                                        );
+
+                                        return;
+                                      }
+                                      await context.read<SignUpCubit>().signUp(
+                                            college: collegeController.text.trim(),
+                                            email: emailController.text.trim(),
+                                            firstName: firstNameController.text.trim(),
+                                            lastName: lastNameController.text.trim(),
+                                            password: passwordController.text.trim(),
+                                            phone: phoneController.text.trim(),
+                                            year: YearSelectRadioTile.yearOfStudyString,
+                                            country: address,
+                                          );
+                                    },
+                                  ),
+                                ),
                               ),
                             ),
                           ],
