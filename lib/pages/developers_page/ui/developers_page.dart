@@ -79,12 +79,8 @@ class _DevelopersPageState extends State<DevelopersPage> {
             return Panorama(
               sensitivity: 0.4,
               animSpeed: 0.5,
-              sensorControl:
-                  state ? SensorControl.Orientation : SensorControl.None,
-              child: Image.asset(
-                AppImages.spaceBackground,
-                fit: BoxFit.cover,
-              ),
+              sensorControl: SensorControl.Orientation,
+              child: Image.asset("assets/images/treat5.jpg", fit: BoxFit.cover),
             );
           },
         ),
@@ -96,6 +92,15 @@ class _DevelopersPageState extends State<DevelopersPage> {
               padding: const EdgeInsets.all(10),
               child: Column(
                 children: [
+                  Container(
+                    height: h / 10,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/images/cobwebs.png"),
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ),
                   Center(
                     child: Align(
                       alignment: Alignment.center,
@@ -107,13 +112,17 @@ class _DevelopersPageState extends State<DevelopersPage> {
                           bottom: h * 0.015,
                         ),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(h * 0.03),
-                          gradient: LinearGradient(
-                            colors: [
-                              Colors.white.withOpacity(0.3),
-                              Colors.white.withOpacity(0.1),
+                          shape: BoxShape.rectangle,
+                          gradient: RadialGradient(
+                            center: const Alignment(-0.8, -0.6),
+                            colors: const [
+                              Color.fromRGBO(9, 7, 130, 1),
+                              Color.fromRGBO(160, 11, 143, 0.91),
+                              Colors.purple,
                             ],
+                            radius: w * 0.016,
                           ),
+                          borderRadius: BorderRadius.circular(30),
                         ),
                         child: FittedBox(
                           clipBehavior: Clip.hardEdge,
@@ -127,23 +136,14 @@ class _DevelopersPageState extends State<DevelopersPage> {
                       ),
                     ),
                   ),
-                  AnimatedAlign(
-                    alignment:
-                        _move ? Alignment.centerLeft : Alignment.centerRight,
-                    onEnd: () => setState(() {
-                      _move = !_move;
-                    }),
-                    duration: const Duration(seconds: 3),
-                    curve: Curves.easeInOut,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 10.0),
-                      child: SizedBox(
-                        height: h * 0.04,
-                        width: h * 0.1,
-                        child: Image.asset(
-                          'assets/images/ufo_developer_page.gif',
-                          fit: BoxFit.cover,
-                        ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 7.0),
+                    child: SizedBox(
+                      height: h * 0.1,
+                      width: h * 0.34,
+                      child: Image.asset(
+                        'assets/images/hanging_decor2.png',
+                        fit: BoxFit.fill,
                       ),
                     ),
                   ),
@@ -164,137 +164,160 @@ class _DevelopersPageState extends State<DevelopersPage> {
                         return Container(
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                Colors.white.withOpacity(.4),
-                                Colors.white.withOpacity(.1),
+                            shape: BoxShape.rectangle,
+                            gradient: RadialGradient(
+                              center: const Alignment(-0.8, -0.6),
+                              colors: const [
+                                Color.fromRGBO(9, 7, 130, 1),
+                                Color.fromRGBO(160, 11, 143, 0.91),
+                                Colors.purple,
                               ],
+                              radius: w * 0.016,
                             ),
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(7.0),
                             child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
                                   decoration: BoxDecoration(
-                                    color:
-                                        const Color.fromARGB(255, 27, 58, 83),
-                                    borderRadius: BorderRadius.circular(17),
+                                    image: const DecorationImage(
+                                      image: AssetImage(
+                                        "assets/images/frame_developers.jpg",
+                                      ),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    borderRadius: BorderRadius.circular(15),
                                   ),
                                   padding: EdgeInsets.all(h * 0.005),
                                   alignment: Alignment.topCenter,
-                                  height: h * 0.25,
-                                  child: WidgetCircularAnimator(
-                                    innerAnimation: Curves.easeInCirc,
-                                    outerAnimation: Curves.linear,
-                                    innerAnimationSeconds: 5,
-                                    outerAnimationSeconds: 7,
-                                    singleRing: false,
-                                    innerColor: Colors.white,
-                                    outerColor: Colors.amber,
-                                    size: h * 0.170,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(100),
-                                      //Images of the developer need to be added  here
-                                      // ignore: sort_child_properties_last
-                                      child: CachedNetworkImage(
-                                        imageUrl:
-                                            developersList[index].imageUrl,
-                                        placeholder: (context, url) =>
-                                            Image.asset(
-                                          'assets/images/placeholder_person.png',
+                                  height: h * 0.252,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(right: 8.0),
+                                    child: WidgetCircularAnimator(
+                                      innerAnimation: Curves.easeInCirc,
+                                      outerAnimation: Curves.linear,
+                                      innerAnimationSeconds: 5,
+                                      outerAnimationSeconds: 7,
+                                      singleRing: false,
+                                      innerColor: Colors.transparent,
+                                      outerColor: Colors.transparent,
+                                      size: h * 0.170,
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(100),
+                                        //Images of the developer need to be added  here
+                                        // ignore: sort_child_properties_last
+                                        child: CachedNetworkImage(
+                                          imageUrl:
+                                              developersList[index].imageUrl,
+                                          placeholder: (context, url) =>
+                                              Image.asset(
+                                            'assets/images/placeholder_person.png',
+                                          ),
+                                          errorWidget: (context, url, error) =>
+                                              Container(),
+                                          cacheManager: _cacheManager,
+                                          fadeInDuration:
+                                              const Duration(milliseconds: 100),
+                                          fit: BoxFit.fitWidth,
+                                          key: UniqueKey(),
                                         ),
-                                        errorWidget: (context, url, error) =>
-                                            Container(),
-                                        cacheManager: _cacheManager,
-                                        fadeInDuration:
-                                            const Duration(milliseconds: 100),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 15),
+                                  child: Container(
+                                    height: h * 0.04,
+                                    width: w * 0.4,
+                                    decoration: BoxDecoration(
+                                      image: const DecorationImage(
+                                        image: AssetImage(
+                                          "assets/images/nameplate1.jpg",
+                                        ),
+                                        fit: BoxFit.cover,
+                                      ),
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Align(
+                                      alignment: Alignment.center,
+                                      child: FittedBox(
                                         fit: BoxFit.fitWidth,
-                                        key: UniqueKey(),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  height: h * 0.05,
-                                  width: w * 0.4,
-                                  decoration: BoxDecoration(
-                                    color: Colors.black.withOpacity(0.7),
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(w * 0.04),
-                                    ),
-                                  ),
-                                  child: Align(
-                                    alignment: Alignment.center,
-                                    child: FittedBox(
-                                      fit: BoxFit.fitWidth,
-                                      child: Text(
-                                        developersList[index]
-                                            .name, // the names of the users are to be entered here in the child
-                                        style: const TextStyle(
-                                          color: Colors.white,
+                                        child: Text(
+                                          developersList[index]
+                                              .name, // the names of the users are to be entered here in the child
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
                                 ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    InkWell(
-                                      child: const Icon(
-                                        FontAwesomeIcons.linkedin,
-                                        color: Colors.white,
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 15),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      InkWell(
+                                        child: const Icon(
+                                          FontAwesomeIcons.linkedin,
+                                          color:
+                                              Color.fromARGB(255, 196, 95, 13),
+                                        ),
+                                        onTap: () {
+                                          _launchUniversalLinkApp(
+                                            Uri.parse(
+                                              developersList[index].linkedInId,
+                                            ),
+                                          );
+                                        },
                                       ),
-                                      onTap: () {
-                                        _launchUniversalLinkApp(
-                                          Uri.parse(
-                                            developersList[index].linkedInId,
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                    InkWell(
-                                      child: const Icon(
-                                        Icons.mail,
-                                        color: Colors.white,
+                                      InkWell(
+                                        child: const Icon(
+                                          Icons.mail,
+                                          color:
+                                              Color.fromARGB(255, 196, 95, 13),
+                                        ),
+                                        onTap: () async {
+                                          String email = Uri.encodeComponent(
+                                            developersList[index].emailId,
+                                          );
+                                          String subject = Uri.encodeComponent(
+                                            "",
+                                          );
+                                          String body = Uri.encodeComponent(
+                                            "",
+                                          );
+                                          Uri mail = Uri.parse(
+                                            "mailto:$email?subject=$subject&body=$body",
+                                          );
+                                          launchUrl(mail);
+                                        },
                                       ),
-                                      onTap: () async {
-                                        String email = Uri.encodeComponent(
-                                          developersList[index].emailId,
-                                        );
-                                        String subject = Uri.encodeComponent(
-                                          "",
-                                        );
-                                        String body = Uri.encodeComponent(
-                                          "",
-                                        );
-                                        Uri mail = Uri.parse(
-                                          "mailto:$email?subject=$subject&body=$body",
-                                        );
-                                        launchUrl(mail);
-                                      },
-                                    ),
-                                    InkWell(
-                                      child: const Icon(
-                                        FontAwesomeIcons.github,
-                                        color: Colors.white,
+                                      InkWell(
+                                        child: const Icon(
+                                          FontAwesomeIcons.github,
+                                          color:
+                                              Color.fromARGB(255, 196, 95, 13),
+                                        ),
+                                        onTap: () {
+                                          _launchUniversalLinkApp(
+                                            Uri.parse(
+                                              developersList[index].gitHubId,
+                                            ),
+                                          );
+                                        },
                                       ),
-                                      onTap: () {
-                                        _launchUniversalLinkApp(
-                                          Uri.parse(
-                                            developersList[index].gitHubId,
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
