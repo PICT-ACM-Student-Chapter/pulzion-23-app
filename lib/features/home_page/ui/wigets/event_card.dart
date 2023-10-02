@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -21,6 +22,7 @@ class EventCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final width = mediaQuery.size.width;
+    final height = mediaQuery.size.height;
     final _cacheManager = CacheManager(Config(
       'my_custom_cache_key',
       stalePeriod: const Duration(days: 7),
@@ -52,14 +54,9 @@ class EventCard extends StatelessWidget {
                 bottom: SizeConfig.getProportionateScreenWidth(53),
               ),
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: AppColors.eventCardGradientList.elementAt(
-                    event.id! % AppColors.eventCardGradientList.length,
-                  ),
-                ),
-                borderRadius: BorderRadius.circular(20),
+                image: const DecorationImage(
+                    image: AssetImage(AppImages.manuscript), fit: BoxFit.fill),
+                borderRadius: BorderRadius.circular(10),
                 border: Border.all(
                   color: Colors.white,
                   width: 0.2,
@@ -70,7 +67,7 @@ class EventCard extends StatelessWidget {
                   top: SizeConfig.getProportionateScreenHeight(80),
                   left: SizeConfig.getProportionateScreenWidth(10),
                   right: SizeConfig.getProportionateScreenWidth(10),
-                  bottom: SizeConfig.getProportionateScreenHeight(10),
+                  bottom: SizeConfig.getProportionateScreenHeight(20),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -78,7 +75,7 @@ class EventCard extends StatelessWidget {
                   children: [
                     Text(
                       event.name!,
-                      style: AppStyles.bodyTextStyle2(),
+                      style: AppStyles.bodyTextStyle2().copyWith(color: Colors.black),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                       // Note: This is issue in flutter -> https://github.com/flutter/flutter/issues/98975
@@ -91,20 +88,9 @@ class EventCard extends StatelessWidget {
                     ),
                     Text(
                       event.description!,
-                      style: AppStyles.bodyTextStyle3(),
+                      style: AppStyles.bodyTextStyle3().copyWith(color: Colors.black),
                       overflow: TextOverflow.ellipsis,
-                      maxLines: 3,
-                    ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Transform.rotate(
-                        angle: pi / 2,
-                        child: Lottie.asset(
-                          AppImages.rocketButton,
-                          height: 50,
-                          width: 50,
-                        ),
-                      ),
+                      maxLines: 5,
                     ),
                   ],
                 ),
@@ -112,46 +98,57 @@ class EventCard extends StatelessWidget {
             ),
           ),
           Align(
-            alignment: Alignment.topLeft,
-            child: Container(
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 8,
-                  ),
-                ],
+            alignment: Alignment.topRight,
+            child: Transform.translate(
+              offset: Offset(width / 11, height / 30),
+              child: Image.asset(
+                AppImages.cobweb,
+                width: width / 2.5,
+                height: width / 2.5,
               ),
-              child: Hero(
-                tag: 'event${event.id}',
-                child: Container(
-                  width: width / 4,
-                  height: width / 4,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: AppColors.eventCardGradientList.elementAt(
-                        event.id! % AppColors.eventCardGradientList.length,
+            ),
+          ),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Hero(
+              tag: 'event${event.id}',
+              child: Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  Transform.translate(
+                    offset: Offset(
+                      -width / 8.7,
+                      -width / 8,
+                    ),
+                    child: Image.asset(
+                      AppImages.seal,
+                      width: width / 2,
+                      height: width / 2,
+                    ),
+                  ),
+                  Container(
+                    width: width / 4,
+                    height: width / 4,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.transparent,
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(
+                        SizeConfig.getProportionateScreenWidth(15),
+                      ),
+                      child: CachedNetworkImage(
+                        imageUrl: event.logo!,
+                        placeholder: (context, url) => Container(),
+                        errorWidget: (context, url, error) => Container(),
+                        cacheManager: _cacheManager,
+                        fadeInDuration: const Duration(milliseconds: 100),
+                        fit: BoxFit.fitWidth,
+                        key: UniqueKey(),
                       ),
                     ),
                   ),
-                  child: Padding(
-                    padding: EdgeInsets.all(
-                      SizeConfig.getProportionateScreenWidth(15),
-                    ),
-                    child: CachedNetworkImage(
-                      imageUrl: event.logo!,
-                      placeholder: (context, url) => Container(),
-                      errorWidget: (context, url, error) => Container(),
-                      cacheManager: _cacheManager,
-                      fadeInDuration: const Duration(milliseconds: 100),
-                      fit: BoxFit.fitWidth,
-                      key: UniqueKey(),
-                    ),
-                  ),
-                ),
+                ],
               ),
             ),
           ),
@@ -163,9 +160,7 @@ class EventCard extends StatelessWidget {
                 right: SizeConfig.getProportionateScreenWidth(10),
               ),
               child: Icon(
-                event.mode == 'Online'
-                    ? Icons.laptop
-                    : Icons.location_on_outlined,
+                event.mode == 'Online' ? Icons.laptop : Icons.location_on_outlined,
                 color: Colors.white,
               ),
             ),
