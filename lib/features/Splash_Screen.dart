@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pulzion23/main.dart';
 import 'package:video_player/video_player.dart';
-
-
-
-
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();

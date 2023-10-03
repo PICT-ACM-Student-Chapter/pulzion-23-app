@@ -1,5 +1,4 @@
 import 'dart:ui';
-import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,6 +17,7 @@ import 'child_wild.dart';
 import 'frostedglass.dart';
 import 'rocket.dart';
 import '../../developers_page/ui/developers_page.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 
 class FrostedGlassTile extends StatefulWidget {
   const FrostedGlassTile({super.key});
