@@ -208,7 +208,7 @@ class AboutUsPage extends StatelessWidget {
                           children: [
                             IconButton(
                               onPressed: () =>
-                                  openWhatsAppChat('+919172682087'),
+                                  openWhatsAppChat('+91 80870 69750'),
                               icon: const Icon(
                                 FontAwesomeIcons.whatsapp,
                                 color: Colors.green,
@@ -218,18 +218,18 @@ class AboutUsPage extends StatelessWidget {
                             Padding(
                               padding: EdgeInsets.only(left: width / 80),
                               child: Text(
-                                "Aditi Chavan",
+                                "Pritika Rohera",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontFamily: 'Quicksand',
-                                  fontSize: width / 20,
+                                  fontSize: width / 22,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
                             Text(
-                              " :  +91 91726 82087",
+                              " :  +91 80870 69750",
                               // textAlign: TextAlign.justify,
                               style: TextStyle(
                                 fontFamily: 'Quicksand',
@@ -245,7 +245,7 @@ class AboutUsPage extends StatelessWidget {
                         child: Row(children: [
                           IconButton(
                             onPressed: () =>
-                                openWhatsAppChat('+91 97656 08601'),
+                                openWhatsAppChat('+91 91563 31100'),
                             icon: const Icon(
                               FontAwesomeIcons.whatsapp,
                             ),
@@ -254,7 +254,7 @@ class AboutUsPage extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.only(left: width / 200),
                             child: Text(
-                              "Tejas Padhiyar ",
+                              "Samarth Mali",
                               textAlign: TextAlign.justify,
                               style: TextStyle(
                                 fontFamily: 'Quicksand',
@@ -265,7 +265,7 @@ class AboutUsPage extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            ":  +91 97656 08601",
+                            ":  +91 91563 31100",
                             textAlign: TextAlign.justify,
                             style: TextStyle(
                               fontFamily: 'Quicksand',
