@@ -83,17 +83,8 @@ class _LoginState extends State<Login> {
                 }
               }
               if (state is LoginFailure) {
-                if (mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(state.message),
-                      backgroundColor: Colors.red,
-                    ),
-                  );
-                }
-              }
-              if (state is LoginError) {
-                if (mounted) {
+
+                if(mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(state.message),
