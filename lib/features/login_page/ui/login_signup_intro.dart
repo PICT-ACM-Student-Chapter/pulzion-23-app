@@ -32,15 +32,9 @@ class LoginSignUpIntro extends StatelessWidget {
             return false;
           },
           builder: (context, state) {
-            return Panorama(
-              sensitivity: 0.4,
-              animSpeed: 0.5,
-              sensorControl:
-                  state ? SensorControl.Orientation : SensorControl.None,
-              child: Image.asset(
-                AppImages.spaceBackground,
-                fit: BoxFit.cover,
-              ),
+            return Image.asset(
+              AppImages.spaceBackground2,
+              fit: BoxFit.fill,
             );
           },
         ),
@@ -101,20 +95,17 @@ class LoginSignupBody extends StatelessWidget {
                 ),
               ),
             ),
-        child: Padding(
-          padding: const EdgeInsets.all(14),
-          child: Container(
-            // height: ,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(25),
-                image: DecorationImage(
-                    image: AssetImage('assets/images/registergif.gif'),
-                    fit:BoxFit.fill
-
-                )
+            child: Padding(
+              padding: const EdgeInsets.all(14),
+              child: Container(
+                // height: ,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(25),
+                    image: DecorationImage(
+                        image: AssetImage('assets/images/registergif.gif'),
+                        fit: BoxFit.fill)),
+              ),
             ),
-            ),
-        ),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -139,10 +130,10 @@ class LoginSignupBody extends StatelessWidget {
             width: size.width * 0.6,
             decoration: BoxDecoration(
               image: DecorationImage(
-                  colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.4),BlendMode.dstATop),
-                  image:AssetImage('assets/images/textfield.jpg'),
-              fit: BoxFit.fill
-              ),
+                  colorFilter: ColorFilter.mode(
+                      Colors.black.withOpacity(0.4), BlendMode.dstATop),
+                  image: AssetImage('assets/images/textfield.jpg'),
+                  fit: BoxFit.fill),
               color: AppColors.primary.withAlpha(200),
               borderRadius: const BorderRadius.all(
                 Radius.circular(20),

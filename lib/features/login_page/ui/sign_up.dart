@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:panorama/panorama.dart';
+import 'package:pulzion23/constants/widgets/halloween_button.dart';
 
 import '../../../project/cubit/animation_toggle_cubit.dart';
 import '../../../constants/images.dart';
@@ -29,7 +30,8 @@ class _SignUpState extends State<SignUp> {
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController passwordConfirmController = TextEditingController();
+  final TextEditingController passwordConfirmController =
+      TextEditingController();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
@@ -68,14 +70,9 @@ class _SignUpState extends State<SignUp> {
             return false;
           },
           builder: (context, state) {
-            return Panorama(
-              sensitivity: 0.4,
-              animSpeed: 0.5,
-              sensorControl: state ? SensorControl.Orientation : SensorControl.None,
-              child: Image.asset(
-                AppImages.spaceBackground,
-                fit: BoxFit.cover,
-              ),
+            return Image.asset(
+              AppImages.spaceBackground2,
+              fit: BoxFit.cover,
             );
           },
         ),
@@ -144,7 +141,8 @@ class _SignUpState extends State<SignUp> {
                           children: [
                             Text(
                               'Create Account',
-                              style: AppStyles.bodyTextStyle2().copyWith(fontSize: 30),
+                              style: AppStyles.bodyTextStyle2()
+                                  .copyWith(fontSize: 30),
                             ),
                             Text(
                               'Please fill the your information below.',
@@ -162,57 +160,60 @@ class _SignUpState extends State<SignUp> {
                               controller: lastNameController,
                               obscureText: false,
                             ),
-
-
-                                  Center(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top:8),
-                                      child: CSCPicker(
-                                        // defaultCountry: CscCountry.India,
-                                        selectedItemStyle: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                        onCountryChanged: (country) {
-                                          setState(() {
-                                            log(country.toString());
-                                            countryValue = country;
-                                            address = countryValue;
-                                          });
-                                        },
-                                        countryDropdownLabel: address,
-                                        countrySearchPlaceholder: address,
-                                        dropdownHeadingStyle: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 20,
-                                        ),
-                                        showCities: false,
-                                        showStates: false,
-                                        dropdownDecoration: BoxDecoration(
-                                          boxShadow: [BoxShadow(color: Colors.yellowAccent,
-                                            blurRadius: 6,
-                                            spreadRadius:2.5,)],
-                                          image:DecorationImage(
-                                            colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.5),BlendMode.dstATop),
-                                            image: AssetImage('assets/images/fieldss.jpg'),
-                                            fit: BoxFit.fill ,),
-                                          borderRadius: const BorderRadius.all(
-                                            Radius.circular(25.0),
-                                          ),
-                                          color: AppColors.primary.withAlpha(50),
-                                          // border: Border.all(
-                                          //   // color: Colors.black26,
-                                          //   // width: 2.0,
-                                          // ),
-
-                                        ),
-                                      ),
-                                    ),
+                            Center(
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 8),
+                                child: CSCPicker(
+                                  // defaultCountry: CscCountry.India,
+                                  selectedItemStyle: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
                                   ),
-
-
+                                  onCountryChanged: (country) {
+                                    setState(() {
+                                      log(country.toString());
+                                      countryValue = country;
+                                      address = countryValue;
+                                    });
+                                  },
+                                  countryDropdownLabel: address,
+                                  countrySearchPlaceholder: address,
+                                  dropdownHeadingStyle: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 20,
+                                  ),
+                                  showCities: false,
+                                  showStates: false,
+                                  dropdownDecoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Colors.black.withOpacity(0.6),
+                                        Colors.black.withOpacity(0.4),
+                                        Colors.black.withOpacity(0.4),
+                                      ],
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight,
+                                    ),
+                                    borderRadius: BorderRadius.circular(24),
+                                    border: Border.all(
+                                      color:
+                                          Colors.orange[700]!.withOpacity(0.8),
+                                      width: 0.7,
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        blurRadius: 1.0,
+                                        spreadRadius: 2.0,
+                                        color: Colors.yellow[900]!
+                                            .withOpacity(0.3),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
                             LoginSignUpTextField(
                               'Contact Number',
                               Icons.call,
@@ -228,28 +229,48 @@ class _SignUpState extends State<SignUp> {
                                     }),
                                   },
                                   child: Padding(
-                                    padding: const EdgeInsets.only(top:8.0),
+                                    padding: const EdgeInsets.only(top: 8.0),
                                     child: Container(
-
-                                      height: MediaQuery.of(context).size.height * 0.07,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.07,
                                       decoration: BoxDecoration(
-                                        boxShadow: [BoxShadow(color: Colors.yellowAccent,
-                                          blurRadius: 6,
-                                          spreadRadius:2.5,
-                                        )],
-                                            image: DecorationImage(
-                                              colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.6),BlendMode.dstATop),
-                                                image: AssetImage('assets/images/fields.jpg'),
-                                                fit: BoxFit.fill),
-
-                                        borderRadius: const BorderRadius.all(
-                                          Radius.circular(25.0),
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Colors.black.withOpacity(0.6),
+                                            Colors.black.withOpacity(0.4),
+                                            Colors.black.withOpacity(0.4),
+                                          ],
+                                          begin: Alignment.centerLeft,
+                                          end: Alignment.centerRight,
                                         ),
-                                        color: AppColors.primary.withAlpha(100),
+                                        borderRadius: BorderRadius.circular(24),
                                         border: Border.all(
-                                          color: Colors.black26,
-                                          width: 2.0,
+                                          color: Colors.orange[700]!
+                                              .withOpacity(0.8),
+                                          width: 0.7,
                                         ),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            blurRadius: 1.0,
+                                            spreadRadius: 2.0,
+                                            color: Colors.yellow[900]!
+                                                .withOpacity(0.3),
+                                          ),
+                                        ],
+                                        // image: DecorationImage(
+                                        //   colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.6),BlendMode.dstATop),
+                                        //     image: AssetImage('assets/images/fields.jpg'),
+                                        //     fit: BoxFit.fill),
+
+                                        // borderRadius: const BorderRadius.all(
+                                        //   Radius.circular(25.0),
+                                        // ),
+                                        // color: AppColors.primary.withAlpha(100),
+                                        // border: Border.all(
+                                        //   color: Colors.black26,
+                                        //   width: 2.0,
+                                        // ),
                                       ),
                                       child: Row(
                                         // mainAxisAlignment:
@@ -260,7 +281,8 @@ class _SignUpState extends State<SignUp> {
                                           ),
                                           const Icon(
                                             Icons.school_outlined,
-                                            color: Colors.white, // add custom icons also
+                                            color: Colors
+                                                .white, // add custom icons also
                                           ),
                                           const SizedBox(
                                             width: 15,
@@ -279,7 +301,8 @@ class _SignUpState extends State<SignUp> {
                                           Icon(
                                             isOpen
                                                 ? Icons.keyboard_arrow_up_sharp
-                                                : Icons.keyboard_arrow_down_sharp,
+                                                : Icons
+                                                    .keyboard_arrow_down_sharp,
                                             color: Colors.white,
                                           ),
                                           const Spacer(
@@ -298,18 +321,22 @@ class _SignUpState extends State<SignUp> {
                                         .map((e) => Container(
                                               decoration: BoxDecoration(
                                                 color: selectOption == e
-                                                    ? AppColors.primary.withAlpha(100)
+                                                    ? AppColors.primary
+                                                        .withAlpha(100)
                                                     : Colors.white,
-                                                borderRadius: const BorderRadius.all(
+                                                borderRadius:
+                                                    const BorderRadius.all(
                                                   Radius.circular(25.0),
                                                 ),
                                                 border: Border.all(
-                                                  color: AppColors.primary.withAlpha(100),
+                                                  color: AppColors.primary
+                                                      .withAlpha(100),
                                                   width: 5.0,
                                                 ),
                                               ),
                                               child: Padding(
-                                                padding: const EdgeInsets.all(8.0),
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
                                                 child: InkWell(
                                                   onTap: () {
                                                     selectOption = e;
@@ -328,10 +355,12 @@ class _SignUpState extends State<SignUp> {
                                     padding: const EdgeInsets.only(top: 8.0),
                                     child: Container(
                                       decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(24),
-                                          image: DecorationImage(image: AssetImage('assets/images/textfield.jpg'),
-                                              fit: BoxFit.fill)
-                                      ),
+                                          borderRadius:
+                                              BorderRadius.circular(24),
+                                          image: DecorationImage(
+                                              image: AssetImage(
+                                                  'assets/images/textfield.jpg'),
+                                              fit: BoxFit.fill)),
                                       child: LoginSignUpTextField(
                                         'enter college name',
                                         Icons.school,
@@ -363,117 +392,151 @@ class _SignUpState extends State<SignUp> {
                             ),
                             Center(
                               child: Padding(
-                                padding: const EdgeInsets.only(top:4),
+                                padding: const EdgeInsets.only(top: 4),
                                 child: Container(
-                                  decoration:  BoxDecoration(
-                                    boxShadow: [BoxShadow(color: Colors.yellowAccent,
-                                      blurRadius: 6,
-                                      spreadRadius:2.5,
-                                    )],
+                                  decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(24),
-                                    image: DecorationImage(
-                                // colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.7),BlendMode.dstATop),
-                          image: AssetImage('assets/images/pumpkin.jpg'),
-                          fit: BoxFit.fill),),
-                                  child: RoundedButton(
-                                    btnText: 'SIGN UP',
-                                    onPressed: () async {
-                                      if (passwordController.text != passwordConfirmController.text) {
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                          const SnackBar(
-                                            content: Text("Passwords do not match"),
-                                            backgroundColor: Colors.red,
-                                          ),
-                                        );
-
-                                        return;
-                                      }
-
-                                      collegeController.text = selectOption == 'Other'
-                                          ? othercollegeController.text
-                                          : "PICT";
-
-                                      if (firstNameController.text.isEmpty ||
-                                          lastNameController.text.isEmpty ||
-                                          phoneController.text.isEmpty ||
-                                          collegeController.text.isEmpty ||
-                                          emailController.text.isEmpty ||
-                                          passwordController.text.isEmpty ||
-                                          passwordConfirmController.text.isEmpty) {
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                          const SnackBar(
-                                            content: Text(
-                                              "Please fill all fields",
+                                    image: const DecorationImage(
+                                      // colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.7),BlendMode.dstATop),
+                                      image: AssetImage(
+                                        'assets/images/pumpkin.jpg',
+                                      ),
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
+                                  child: Container(
+                                    padding: const EdgeInsets.only(
+                                      left: 90,
+                                      top: 30,
+                                    ),
+                                    height: 100,
+                                    width: 700,
+                                    child: HalloweenButton(
+                                      buttonText: 'SIGN UP',
+                                      icon: Icons.sign_language,
+                                      onPressed: () async {
+                                        if (passwordController.text !=
+                                            passwordConfirmController.text) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                              content: Text(
+                                                "Passwords do not match",
+                                              ),
+                                              backgroundColor: Colors.red,
                                             ),
-                                            backgroundColor: Colors.red,
-                                          ),
-                                        );
-
-                                        return;
-                                      }
-                                      if (passwordController.text.length < 8) {
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                          const SnackBar(
-                                            content: Text(
-                                              "Password should be atleast 8 characters long",
-                                            ),
-                                            backgroundColor: Colors.red,
-                                          ),
-                                        );
-
-                                        return;
-                                      }
-                                      if (phoneController.text.length != 10) {
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                          const SnackBar(
-                                            content: Text(
-                                              "Phone number should be 10 digits long",
-                                            ),
-                                            backgroundColor: Colors.red,
-                                          ),
-                                        );
-
-                                        return;
-                                      }
-                                      final RegExp emailRegex = RegExp(
-                                        r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+',
-                                      );
-                                      if (!emailRegex.hasMatch(emailController.text)) {
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                          const SnackBar(
-                                            content: Text(
-                                              "Please enter a valid email",
-                                            ),
-                                            backgroundColor: Colors.red,
-                                          ),
-                                        );
-
-                                        return;
-                                      }
-                                      final RegExp phoneRegex = RegExp(r'^[0-9]+$');
-                                      if (!phoneRegex.hasMatch(phoneController.text)) {
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                          const SnackBar(
-                                            content: Text(
-                                              "Please enter a valid phone number",
-                                            ),
-                                            backgroundColor: Colors.red,
-                                          ),
-                                        );
-
-                                        return;
-                                      }
-                                      await context.read<SignUpCubit>().signUp(
-                                            college: collegeController.text.trim(),
-                                            email: emailController.text.trim(),
-                                            firstName: firstNameController.text.trim(),
-                                            lastName: lastNameController.text.trim(),
-                                            password: passwordController.text.trim(),
-                                            phone: phoneController.text.trim(),
-                                            year: YearSelectRadioTile.yearOfStudyString,
-                                            country: address,
                                           );
-                                    },
+
+                                          return;
+                                        }
+
+                                        collegeController.text =
+                                            selectOption == 'Other'
+                                                ? othercollegeController.text
+                                                : "PICT";
+
+                                        if (firstNameController.text.isEmpty ||
+                                            lastNameController.text.isEmpty ||
+                                            phoneController.text.isEmpty ||
+                                            collegeController.text.isEmpty ||
+                                            emailController.text.isEmpty ||
+                                            passwordController.text.isEmpty ||
+                                            passwordConfirmController
+                                                .text.isEmpty) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                              content: Text(
+                                                "Please fill all fields",
+                                              ),
+                                              backgroundColor: Colors.red,
+                                            ),
+                                          );
+
+                                          return;
+                                        }
+                                        if (passwordController.text.length <
+                                            8) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                              content: Text(
+                                                "Password should be atleast 8 characters long",
+                                              ),
+                                              backgroundColor: Colors.red,
+                                            ),
+                                          );
+
+                                          return;
+                                        }
+                                        if (phoneController.text.length != 10) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                              content: Text(
+                                                "Phone number should be 10 digits long",
+                                              ),
+                                              backgroundColor: Colors.red,
+                                            ),
+                                          );
+
+                                          return;
+                                        }
+                                        final RegExp emailRegex = RegExp(
+                                          r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+',
+                                        );
+                                        if (!emailRegex
+                                            .hasMatch(emailController.text)) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                              content: Text(
+                                                "Please enter a valid email",
+                                              ),
+                                              backgroundColor: Colors.red,
+                                            ),
+                                          );
+
+                                          return;
+                                        }
+                                        final RegExp phoneRegex =
+                                            RegExp(r'^[0-9]+$');
+                                        if (!phoneRegex
+                                            .hasMatch(phoneController.text)) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                              content: Text(
+                                                "Please enter a valid phone number",
+                                              ),
+                                              backgroundColor: Colors.red,
+                                            ),
+                                          );
+
+                                          return;
+                                        }
+                                        await context
+                                            .read<SignUpCubit>()
+                                            .signUp(
+                                              college:
+                                                  collegeController.text.trim(),
+                                              email:
+                                                  emailController.text.trim(),
+                                              firstName: firstNameController
+                                                  .text
+                                                  .trim(),
+                                              lastName: lastNameController.text
+                                                  .trim(),
+                                              password: passwordController.text
+                                                  .trim(),
+                                              phone:
+                                                  phoneController.text.trim(),
+                                              year: YearSelectRadioTile
+                                                  .yearOfStudyString,
+                                              country: address,
+                                            );
+                                      },
+                                    ),
                                   ),
                                 ),
                               ),

@@ -41,15 +41,9 @@ class BottomNavBar extends StatelessWidget {
             return false;
           },
           builder: (context, state) {
-            return Panorama(
-              sensitivity: 0.4,
-              animSpeed: 0.5,
-              sensorControl:
-                  state ? SensorControl.Orientation : SensorControl.None,
-              child: Image.asset(
-                AppImages.spaceBackground,
-                fit: BoxFit.cover,
-              ),
+            return Image.asset(
+              AppImages.spaceBackground2,
+              fit: BoxFit.cover,
             );
           },
         ),

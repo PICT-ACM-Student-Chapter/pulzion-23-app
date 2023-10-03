@@ -158,7 +158,7 @@ class _BookSlotsState extends State<BookSlots> {
               sensorControl:
                   state ? SensorControl.Orientation : SensorControl.None,
               child: Image.asset(
-                AppImages.spaceBackground,
+                'assets/images/app_background.png',
                 fit: BoxFit.cover,
               ),
             );

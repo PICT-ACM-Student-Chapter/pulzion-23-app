@@ -113,6 +113,7 @@ class EventCard extends StatelessWidget {
           // ),
           Align(
             alignment: Alignment.topLeft,
+            
             child: Hero(
               tag: 'event${event.id}',
               child: Padding(
@@ -125,11 +126,7 @@ class EventCard extends StatelessWidget {
                         -width / 8.7,
                         -width / 8,
                       ),
-                      child: Image.asset(
-                        AppImages.seal,
-                        width: width / 2,
-                        height: width / 2,
-                      ),
+                      child: Container()
                     ),
                     Container(
                       width: width / 4,

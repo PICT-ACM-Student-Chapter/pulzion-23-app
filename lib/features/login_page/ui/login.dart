@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:lottie/lottie.dart';
 import 'package:panorama/panorama.dart';
+import 'package:pulzion23/constants/widgets/halloween_button.dart';
 import 'package:pulzion23/features/login_page/ui/widgets/enter_email.dart';
 
 import '../../../constants/colors.dart';
@@ -50,15 +52,9 @@ class _LoginState extends State<Login> {
             return false;
           },
           builder: (context, state) {
-            return Panorama(
-              sensitivity: 0.4,
-              animSpeed: 0.5,
-              sensorControl:
-                  state ? SensorControl.Orientation : SensorControl.None,
-              child: Image.asset(
-                AppImages.spaceBackground,
-                fit: BoxFit.cover,
-              ),
+            return Image.asset(
+              AppImages.spaceBackground2,
+              fit: BoxFit.cover,
             );
           },
         ),
@@ -122,10 +118,10 @@ class _LoginState extends State<Login> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-
-                        ClipOval(
-                          
-                            child: Image.asset('assets/images/bat.gif')),
+                        ClipOval(child: Image.asset('assets/images/bat.gif')),
+                        const SizedBox(
+                          height: 30,
+                        ),
                         Text(
                           'Login',
                           style:
@@ -136,23 +132,18 @@ class _LoginState extends State<Login> {
                           style:
                               AppStyles.bodyTextStyle3().copyWith(fontSize: 15),
                         ),
-
                         LoginSignUpTextField(
-                            'Email',
-                            Icons.email,
-                            controller: emailController,
-                            obscureText: false,
-                          ),
-
-
-
-                          LoginSignUpTextField(
-                            'Password',
-                            Icons.lock,
-                            controller: passwordController,
-                            obscureText: true,
-                          ),
-
+                          'Email',
+                          Icons.email,
+                          controller: emailController,
+                          obscureText: false,
+                        ),
+                        LoginSignUpTextField(
+                          'Password',
+                          Icons.lock,
+                          controller: passwordController,
+                          obscureText: true,
+                        ),
                         Align(
                           alignment: Alignment.centerRight,
                           child: InkWell(
@@ -167,36 +158,38 @@ class _LoginState extends State<Login> {
                                 ),
                               );
                             },
-                            child: const Text(
-                              'Forgot Password?',
-                              style:
-                                  TextStyle(color: AppColors.loginPageAccent),
-                            ),
-                          ),
-                        ),
-                        Center(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(24),
-                                image:DecorationImage(
-                                    image: AssetImage('assets/images/pumpkin.jpg'),
-                                    fit: BoxFit.fill
-                                )
-                            ),
-                            child: RoundedButton(
-
-                              btnText: 'LOGIN 🎃',
-                              onPressed: () async {
-                                context.read<LoginCubit>().login(
-                                      emailController.text,
-                                      passwordController.text,
-                                    );
-                              },
+                            child: const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'Forgot Password?',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
                             ),
                           ),
                         ),
                         const SizedBox(
-                          height: 13,
+                          height: 50,
+                        ),
+                        Container(
+                          height: 100,
+                          width: 700,
+                          padding: const EdgeInsets.only(left: 90),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(24),
+                          ),
+                          child: HalloweenButton(
+                            buttonText: 'LOGIN',
+                            icon: Icons.login,
+                            onPressed: () async {
+                              context.read<LoginCubit>().login(
+                                    emailController.text,
+                                    passwordController.text,
+                                  );
+                            },
+                          ),
                         ),
                       ],
                     ),

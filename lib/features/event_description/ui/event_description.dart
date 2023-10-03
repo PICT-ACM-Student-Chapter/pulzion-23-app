@@ -68,7 +68,7 @@ Widget getEventLogo(
                       BoxShadow(
                         color: isDark
                             ? Colors.black.withAlpha(60)
-                            : Colors.yellow.withAlpha(50),
+                            : Colors.orange.withAlpha(50),
                         blurRadius: 30.0,
                         spreadRadius: 10.0,
                         offset: const Offset(
@@ -384,10 +384,9 @@ class _EventDescriptionState extends State<EventDescription>
                                 BoxShadow(
                                   color: widget.isDark
                                       ? Colors.transparent
-                                      : Colors.yellow[200]!.withOpacity(0.2),
-                                  blurRadius: 20.0,
+                                      : Colors.orange[700]!.withOpacity(0.25),
+                                  blurRadius: 15.0,
                                   spreadRadius: 0.0,
-                                  offset: const Offset(0.0, 0.0),
                                 ),
                               ],
                             ),
@@ -431,7 +430,7 @@ class _EventDescriptionState extends State<EventDescription>
                           indicator: BoxDecoration(
                             border: Border(
                               bottom: BorderSide(
-                                color: Colors.yellow.withOpacity(0.7),
+                                color: Colors.orange[400]!.withOpacity(0.7),
                               ),
                             ),
                           ),

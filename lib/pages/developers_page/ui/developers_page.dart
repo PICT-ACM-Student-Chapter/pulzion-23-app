@@ -76,12 +76,7 @@ class _DevelopersPageState extends State<DevelopersPage> {
             return false;
           },
           builder: (context, state) {
-            return Panorama(
-              sensitivity: 0.4,
-              animSpeed: 0.5,
-              sensorControl: SensorControl.Orientation,
-              child: Image.asset("assets/images/treat5.jpg", fit: BoxFit.cover),
-            );
+            return Image.asset(AppImages.spaceBackground2, fit: BoxFit.cover);
           },
         ),
         SafeArea(

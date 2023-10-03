@@ -9,57 +9,67 @@ class LoginSignUpTextField extends StatelessWidget {
   final TextEditingController controller;
   final bool obscureText;
 
-   LoginSignUpTextField(
+  LoginSignUpTextField(
     this.hintText,
     this.icon, {
     super.key,
     required this.controller,
     required this.obscureText,
-  }
-  );
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 7,bottom: 7),
+      padding: const EdgeInsets.only(top: 7, bottom: 7),
       child: Container(
         decoration: BoxDecoration(
-          boxShadow: [BoxShadow(color: Colors.yellowAccent,
-          blurRadius: 6,
-          spreadRadius:2.5,
-            )],
-            borderRadius: BorderRadius.circular(24),
-          image: DecorationImage(
-              colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.7),BlendMode.dstATop),
-              image: AssetImage('assets/images/fields.jpg'),
-          fit: BoxFit.fill)
+          gradient: LinearGradient(
+            colors: [
+              Colors.black.withOpacity(0.6),
+              Colors.black.withOpacity(0.4),
+              Colors.black.withOpacity(0.4),
+            ],
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+          ),
+          borderRadius: BorderRadius.circular(24),
+          border: Border.all(
+            color: Colors.orange[700]!.withOpacity(0.8),
+            width: 0.7,
+          ),
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 1.0,
+              spreadRadius: 2.0,
+              color: Colors.yellow[900]!.withOpacity(0.3),
+            ),
+          ],
         ),
         child: TextField(
           obscureText: obscureText,
           textInputAction: TextInputAction.next,
-          style:
-              (const TextStyle(color: Colors.white, fontWeight: FontWeight.w400)),
+          style: (const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w400,
+          )),
           cursorColor: Colors.white,
           decoration: InputDecoration(
-
             hintText: hintText,
             hintStyle: const TextStyle(
               color: Colors.white,
             ),
-
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(25.0),
             ),
-            fillColor: AppColors.primary.withAlpha(100),
+            // fillColor: AppColors.primary.withAlpha(100),
             filled: true,
             prefixIcon: Icon(
               icon,
               color: Colors.white,
             ),
-            focusedBorder: OutlineInputBorder(
-              borderSide:
-                  BorderSide(color: AppColors.primary.withAlpha(255), width: 2.0),
-              borderRadius: const BorderRadius.all(Radius.circular(25.0)),
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.black, width: 3.0),
+              borderRadius: BorderRadius.all(Radius.circular(25.0)),
             ),
           ),
           controller: controller,

@@ -38,10 +38,10 @@ class HalloweenButton extends StatelessWidget {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    color.withOpacity(0.3),
-                    color.withOpacity(0.6),
-                    color.withOpacity(0.7),
-                    color.withOpacity(0.8),
+                    Colors.orange[600]!.withOpacity(0.3),
+                    Colors.orange[700]!.withOpacity(0.6),
+                    Colors.orange[800]!.withOpacity(0.7),
+                    Colors.orange[900]!.withOpacity(0.8),
                   ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
