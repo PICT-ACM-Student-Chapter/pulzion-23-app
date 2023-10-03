@@ -94,7 +94,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                 );
                 await context.read<CheckLoginCubit>().checkLogin();
-                if (context.mounted) {
+                if (mounted) {
                   while (Navigator.canPop(context)) {
                     Navigator.pop(context);
                   }
