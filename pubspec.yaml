@@ -53,7 +53,8 @@ dependencies:
     fluttertoast: ^8.2.1
     provider: ^6.0.5
     intl_phone_number_input: ^0.7.0+2
-    flutter_custom_clippers: ^2.1.0
+    video_player: ^2.2.5
+
 
 dev_dependencies:
     flutter_test:
@@ -68,6 +69,7 @@ flutter:
     assets:
         - assets/images/
         - assets/images/eventlogos/
+        - assets/video/
 
     fonts:
         - family: Roboto
