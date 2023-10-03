@@ -47,8 +47,9 @@ class FrostedTile extends StatelessWidget {
             ),
             child: CircleAvatar(
               maxRadius: height * 0.025,
-              backgroundColor: Colors.white.withOpacity(0.7),
-              foregroundColor: Colors.black,
+              backgroundColor:
+                  const Color.fromARGB(255, 55, 32, 12).withOpacity(0.7),
+              foregroundColor: const Color.fromARGB(255, 187, 102, 10),
               child: Center(
                 child: Icon(
                   tileicon,
@@ -64,7 +65,7 @@ class FrostedTile extends StatelessWidget {
             tilename,
             style: TextStyle(
               fontSize: height / 43,
-              color: Colors.white70,
+              color: const Color.fromARGB(255, 82, 50, 16),
               fontWeight: FontWeight.bold,
             ),
           ),

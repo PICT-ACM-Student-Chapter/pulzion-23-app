@@ -1,4 +1,4 @@
-import 'dart:math';
+// import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -49,14 +49,14 @@ class _MyAppState extends State<Rocket> {
                         },
                       );
                     },
-                    duration: const Duration(milliseconds: 1200),
-                    alignment: a ? Alignment.bottomCenter : Alignment.topCenter,
+                    duration: const Duration(milliseconds: 1400),
+                    alignment: a ? Alignment.topCenter : Alignment.bottomCenter,
                     child: Transform.rotate(
-                      angle: pi,
+                      angle: 0,
                       child: Lottie.asset(
-                        'assets/images/rocket_more_page.json',
-                        height: 100,
-                        width: 100,
+                        'assets/images/bat_more_page.json',
+                        height: 140,
+                        width: 140,
                       ),
                     ),
                   ),
