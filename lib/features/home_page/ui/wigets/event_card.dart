@@ -54,7 +54,9 @@ class EventCard extends StatelessWidget {
               ),
               decoration: BoxDecoration(
                 image: const DecorationImage(
-                    image: AssetImage(AppImages.manuscript), fit: BoxFit.fill),
+                  image: AssetImage(AppImages.manuscript),
+                  fit: BoxFit.fill,
+                ),
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(
                   color: Colors.white,
@@ -74,7 +76,8 @@ class EventCard extends StatelessWidget {
                   children: [
                     Text(
                       event.name!,
-                      style: AppStyles.bodyTextStyle2().copyWith(color: Colors.black),
+                      style: AppStyles.bodyTextStyle2()
+                          .copyWith(color: Colors.black),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                       // Note: This is issue in flutter -> https://github.com/flutter/flutter/issues/98975
@@ -87,7 +90,8 @@ class EventCard extends StatelessWidget {
                     ),
                     Text(
                       event.description!,
-                      style: AppStyles.bodyTextStyle3().copyWith(color: Colors.black),
+                      style: AppStyles.bodyTextStyle3()
+                          .copyWith(color: Colors.black),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 5,
                     ),
@@ -96,58 +100,64 @@ class EventCard extends StatelessWidget {
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.topRight,
-            child: Transform.translate(
-              offset: Offset(width / 11, height / 30),
-              child: Image.asset(
-                AppImages.cobweb,
-                width: width / 2.5,
-                height: width / 2.5,
-              ),
-            ),
-          ),
+          // Align(
+          //   alignment: Alignment.topRight,
+          //   child: Transform.translate(
+          //     offset: Offset(width / 11, height / 30),
+          //     child: Image.asset(
+          //       AppImages.cobweb,
+          //       width: width / 2.5,
+          //       height: width / 2.5,
+          //     ),
+          //   ),
+          // ),
           Align(
             alignment: Alignment.topLeft,
             child: Hero(
               tag: 'event${event.id}',
-              child: Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  Transform.translate(
-                    offset: Offset(
-                      -width / 8.7,
-                      -width / 8,
-                    ),
-                    child: Image.asset(
-                      AppImages.seal,
-                      width: width / 2,
-                      height: width / 2,
-                    ),
-                  ),
-                  Container(
-                    width: width / 4,
-                    height: width / 4,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.transparent,
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(
-                        SizeConfig.getProportionateScreenWidth(15),
+              child: Padding(
+                padding: EdgeInsets.all(0),
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    Transform.translate(
+                      offset: Offset(
+                        -width / 8.7,
+                        -width / 8,
                       ),
-                      child: CachedNetworkImage(
-                        imageUrl: event.logo!,
-                        placeholder: (context, url) => Container(),
-                        errorWidget: (context, url, error) => Container(),
-                        cacheManager: _cacheManager,
-                        fadeInDuration: const Duration(milliseconds: 100),
-                        fit: BoxFit.fitWidth,
-                        key: UniqueKey(),
+                      child: Image.asset(
+                        AppImages.seal,
+                        width: width / 2,
+                        height: width / 2,
                       ),
                     ),
-                  ),
-                ],
+                    Container(
+                      width: width / 4,
+                      height: width / 4,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.transparent,
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.all(
+                          SizeConfig.getProportionateScreenWidth(15),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CachedNetworkImage(
+                            imageUrl: event.logo!,
+                            placeholder: (context, url) => Container(),
+                            errorWidget: (context, url, error) => Container(),
+                            cacheManager: _cacheManager,
+                            fadeInDuration: const Duration(milliseconds: 100),
+                            fit: BoxFit.fitWidth,
+                            key: UniqueKey(),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -159,7 +169,9 @@ class EventCard extends StatelessWidget {
                 right: SizeConfig.getProportionateScreenWidth(10),
               ),
               child: Icon(
-                event.mode == 'Online' ? Icons.laptop : Icons.location_on_outlined,
+                event.mode == 'Online'
+                    ? Icons.laptop
+                    : Icons.location_on_outlined,
                 color: Colors.white,
               ),
             ),
