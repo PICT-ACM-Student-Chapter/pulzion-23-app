@@ -122,7 +122,10 @@ class _LoginState extends State<Login> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Lottie.asset(AppImages.astronautWithPlanet),
+
+                        ClipOval(
+                          
+                            child: Image.asset('assets/images/bat.gif')),
                         Text(
                           'Login',
                           style:
@@ -133,18 +136,23 @@ class _LoginState extends State<Login> {
                           style:
                               AppStyles.bodyTextStyle3().copyWith(fontSize: 15),
                         ),
+
                         LoginSignUpTextField(
-                          'Email',
-                          Icons.email,
-                          controller: emailController,
-                          obscureText: false,
-                        ),
-                        LoginSignUpTextField(
-                          'Password',
-                          Icons.lock,
-                          controller: passwordController,
-                          obscureText: true,
-                        ),
+                            'Email',
+                            Icons.email,
+                            controller: emailController,
+                            obscureText: false,
+                          ),
+
+
+
+                          LoginSignUpTextField(
+                            'Password',
+                            Icons.lock,
+                            controller: passwordController,
+                            obscureText: true,
+                          ),
+
                         Align(
                           alignment: Alignment.centerRight,
                           child: InkWell(
@@ -167,14 +175,24 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                         Center(
-                          child: RoundedButton(
-                            btnText: 'LOGIN',
-                            onPressed: () async {
-                              context.read<LoginCubit>().login(
-                                    emailController.text,
-                                    passwordController.text,
-                                  );
-                            },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(24),
+                                image:DecorationImage(
+                                    image: AssetImage('assets/images/pumpkin.jpg'),
+                                    fit: BoxFit.fill
+                                )
+                            ),
+                            child: RoundedButton(
+
+                              btnText: 'LOGIN 🎃',
+                              onPressed: () async {
+                                context.read<LoginCubit>().login(
+                                      emailController.text,
+                                      passwordController.text,
+                                    );
+                              },
+                            ),
                           ),
                         ),
                         const SizedBox(

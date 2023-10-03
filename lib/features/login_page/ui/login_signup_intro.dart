@@ -87,21 +87,34 @@ class LoginSignupBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            height: size.height * 0.5,
+            height: size.height * 0.45,
             width: size.height * 0.5,
             decoration: BoxDecoration(
-              color: AppColors.primary.withAlpha(150),
+              color: Colors.transparent,
               borderRadius: const BorderRadius.all(
                 Radius.circular(20),
               ),
               border: const Border.fromBorderSide(
                 BorderSide(
-                  color: AppColors.cardBorder,
+                  // color: AppColors.cardBorder,
                   width: 0.2,
                 ),
               ),
             ),
-            child: Lottie.asset(AppImages.djAstronaut),
+        child: Padding(
+          padding: const EdgeInsets.all(14),
+          child: Container(
+            // height: ,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25),
+                image: DecorationImage(
+                    image: AssetImage('assets/images/registergif.gif'),
+                    fit:BoxFit.fill
+
+                )
+            ),
+            ),
+        ),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -125,6 +138,11 @@ class LoginSignupBody extends StatelessWidget {
             height: size.height * 0.075,
             width: size.width * 0.6,
             decoration: BoxDecoration(
+              image: DecorationImage(
+                  colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.4),BlendMode.dstATop),
+                  image:AssetImage('assets/images/textfield.jpg'),
+              fit: BoxFit.fill
+              ),
               color: AppColors.primary.withAlpha(200),
               borderRadius: const BorderRadius.all(
                 Radius.circular(20),
