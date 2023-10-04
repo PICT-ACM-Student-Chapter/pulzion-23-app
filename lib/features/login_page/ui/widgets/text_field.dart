@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import '../../../../constants/colors.dart';
+import '../../../../constants/styles.dart';
 
 class LoginSignUpTextField extends StatelessWidget {
   final String hintText;
@@ -48,15 +49,17 @@ class LoginSignUpTextField extends StatelessWidget {
         child: TextField(
           obscureText: obscureText,
           textInputAction: TextInputAction.next,
-          style: (const TextStyle(
+          style: (AppStyles.NormalText().copyWith(
             color: Colors.white,
             fontWeight: FontWeight.w400,
+            fontSize: 20,
           )),
           cursorColor: Colors.white,
           decoration: InputDecoration(
             hintText: hintText,
-            hintStyle: const TextStyle(
+            hintStyle: AppStyles.NormalText().copyWith(
               color: Colors.white,
+              fontSize: 20,
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(25.0),

@@ -25,8 +25,8 @@ class EventCard extends StatelessWidget {
     final width = mediaQuery.size.width;
     final height = mediaQuery.size.height;
     const l = [
-      Color.fromRGBO(165, 42, 42, 1),
-      Colors.black,
+       Color.fromARGB(255, 208, 168, 116),
+       Color.fromARGB(255, 168, 104, 20),
     ];
     final _cacheManager = CacheManager(Config(
       'my_custom_cache_key',
@@ -89,24 +89,26 @@ class EventCard extends StatelessWidget {
                   children: [
                     Text(
                       event.name!,
-                      style: AppStyles.bodyTextStyle2()
-                          .copyWith(color: Colors.black),
+                      style: AppStyles.NormalText()
+                          .copyWith(
+                            color: Colors.black,
+                            fontSize: width*0.075),
                       overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
+                      maxLines: 3,
                       // Note: This is issue in flutter -> https://github.com/flutter/flutter/issues/98975
                       strutStyle: StrutStyle(
                         height: 1.2,
                         fontSize: SizeConfig.getProportionateScreenFontSize(15),
                         fontWeight: FontWeight.w600,
-                        fontFamily: 'Panther',
+                        fontFamily: 'Gothica-Book',
                       ),
                     ),
                     Text(
                       event.description!,
-                      style: AppStyles.bodyTextStyle3()
-                          .copyWith(color: Colors.black),
+                      style: AppStyles.NormalText()
+                          .copyWith(color: Colors.black,fontSize: width*0.02),
                       overflow: TextOverflow.ellipsis,
-                      maxLines: 5,
+                      maxLines: 4,
                     ),
                   ],
                 ),
@@ -134,7 +136,7 @@ class EventCard extends StatelessWidget {
                   clipBehavior: Clip.none,
                   children: [
                     Positioned(
-                      right: 71,
+                      right: 76,
                       top: 13,
                       child: Container(
                         decoration: const BoxDecoration(
@@ -142,7 +144,7 @@ class EventCard extends StatelessWidget {
                           gradient: RadialGradient(radius: 1, colors: l),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black,
+                              color: Color.fromARGB(255, 232, 230, 230),
                               spreadRadius: 0,
                               blurRadius: 5,
                             ),
@@ -177,8 +179,8 @@ class EventCard extends StatelessWidget {
                       ),
                     ),
                     Positioned(
-                      left: 9,
-                      top: -13,
+                      left: 15,
+                      top: -10,
                       child: Transform.translate(
                         offset: Offset(
                           -width / 16,
@@ -186,12 +188,12 @@ class EventCard extends StatelessWidget {
                         ),
                         child: SizedBox(
                           // black color container circular with boxshadow
-                          width: width / 2.9,
-                          height: width / 2.9,
+                          width: width / 3.1,
+                          height: width / 3.1,
                           child: FittedBox(
                             fit: BoxFit.fill,
                             child: Image.asset(
-                              'assets/images/ring.png',
+                              'assets/images/finalring.png',
                             ),
                           ),
                         ),

@@ -48,4 +48,23 @@ class AppStyles {
       color: AppColors.white,
     );
   }
+
+  static TextStyle NormalText() {
+    return TextStyle(
+      fontSize: SizeConfig.getProportionateScreenFontSize(30),
+      fontWeight: FontWeight.normal,
+      fontFamily: 'Gothica-Book',
+      color: AppColors.black,
+    );
+  }
+
+  static TextStyle TitleText() {
+    return TextStyle(
+      fontSize: SizeConfig.getProportionateScreenFontSize(15),
+      fontWeight: FontWeight.w600,
+      fontFamily: 'Danger-Night',
+      color: AppColors.cardTitleTextColor,
+    );
+  }
+
 }

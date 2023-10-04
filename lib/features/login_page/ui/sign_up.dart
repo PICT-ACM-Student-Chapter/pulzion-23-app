@@ -88,8 +88,11 @@ class _SignUpState extends State<SignUp> {
             listener: (context, state) async {
               if (state is SignUpSuccess) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text("Sign Up Successful"),
+              SnackBar(
+                    content: Text("Sign Up Successful",style: AppStyles.NormalText().copyWith(
+                      fontSize: 15,
+                    ),),
+
                     backgroundColor: Colors.green,
                   ),
                 );
@@ -141,12 +144,12 @@ class _SignUpState extends State<SignUp> {
                           children: [
                             Text(
                               'Create Account',
-                              style: AppStyles.bodyTextStyle2()
-                                  .copyWith(fontSize: 30),
+                              style: AppStyles.NormalText()
+                                  .copyWith(fontSize:30, color:Color.fromARGB(255, 208, 168, 116), ),
                             ),
                             Text(
                               'Please fill the your information below.',
-                              style: AppStyles.bodyTextStyle3(),
+                              style: AppStyles.NormalText().copyWith( color:Color.fromARGB(255, 208, 168, 116),fontSize: 18),
                             ),
                             LoginSignUpTextField(
                               'First Name',
@@ -165,9 +168,9 @@ class _SignUpState extends State<SignUp> {
                                 padding: const EdgeInsets.only(top: 8),
                                 child: CSCPicker(
                                   // defaultCountry: CscCountry.India,
-                                  selectedItemStyle: const TextStyle(
+                                  selectedItemStyle: AppStyles.NormalText().copyWith(
                                     color: Colors.white,
-                                    fontSize: 16,
+                                    fontSize: 20,
                                     fontWeight: FontWeight.w400,
                                   ),
                                   onCountryChanged: (country) {
@@ -179,7 +182,7 @@ class _SignUpState extends State<SignUp> {
                                   },
                                   countryDropdownLabel: address,
                                   countrySearchPlaceholder: address,
-                                  dropdownHeadingStyle: const TextStyle(
+                                  dropdownHeadingStyle: AppStyles.NormalText().copyWith(
                                     color: Colors.white,
                                     fontWeight: FontWeight.w400,
                                     fontSize: 20,
@@ -289,10 +292,10 @@ class _SignUpState extends State<SignUp> {
                                           ),
                                           Text(
                                             selectOption,
-                                            style: (const TextStyle(
+                                            style: (AppStyles.NormalText().copyWith(
                                               color: Colors.white,
                                               fontWeight: FontWeight.w400,
-                                              fontSize: 16,
+                                              fontSize: 20,
                                             )),
                                           ),
                                           const Spacer(
@@ -394,16 +397,7 @@ class _SignUpState extends State<SignUp> {
                               child: Padding(
                                 padding: const EdgeInsets.only(top: 4),
                                 child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(24),
-                                    image: const DecorationImage(
-                                      // colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.7),BlendMode.dstATop),
-                                      image: AssetImage(
-                                        'assets/images/pumpkin.jpg',
-                                      ),
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ),
+                                  
                                   child: Container(
                                     padding: const EdgeInsets.only(
                                       left: 90,
@@ -581,7 +575,7 @@ class _YearSelectRadioTileState extends State<YearSelectRadioTile> {
                 child: RadioListTile(
                   contentPadding: EdgeInsets.zero,
                   activeColor: AppColors.secondary,
-                  title: Text('FE', style: AppStyles.bodyTextStyle2()),
+                  title: Text('FE', style: AppStyles.NormalText()),
                   value: 1,
                   groupValue: YearSelectRadioTile.yearOfStudy,
                   onChanged: (value) {
@@ -602,7 +596,7 @@ class _YearSelectRadioTileState extends State<YearSelectRadioTile> {
                 child: RadioListTile(
                   contentPadding: EdgeInsets.zero,
                   activeColor: AppColors.secondary,
-                  title: Text('SE', style: AppStyles.bodyTextStyle2()),
+                  title: Text('SE', style: AppStyles.NormalText()),
                   value: 2,
                   groupValue: YearSelectRadioTile.yearOfStudy,
                   onChanged: (value) {
@@ -628,7 +622,7 @@ class _YearSelectRadioTileState extends State<YearSelectRadioTile> {
                 child: RadioListTile(
                   contentPadding: EdgeInsets.zero,
                   activeColor: AppColors.secondary,
-                  title: Text('TE', style: AppStyles.bodyTextStyle2()),
+                  title: Text('TE', style: AppStyles.NormalText()),
                   value: 3,
                   groupValue: YearSelectRadioTile.yearOfStudy,
                   onChanged: (value) {
@@ -649,7 +643,7 @@ class _YearSelectRadioTileState extends State<YearSelectRadioTile> {
                 child: RadioListTile(
                   contentPadding: EdgeInsets.zero,
                   activeColor: AppColors.secondary,
-                  title: Text('BE', style: AppStyles.bodyTextStyle2()),
+                  title: Text('BE', style: AppStyles.NormalText()),
                   value: 4,
                   groupValue: YearSelectRadioTile.yearOfStudy,
                   onChanged: (value) {

@@ -81,7 +81,7 @@ class LoginSignupBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            height: size.height * 0.45,
+            height: size.height * 0.4,
             width: size.height * 0.5,
             decoration: BoxDecoration(
               color: Colors.transparent,
@@ -112,8 +112,16 @@ class LoginSignupBody extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                'Pulzion \'23',
-                style: AppStyles.bodyTextStyle2().copyWith(
+                'Pulzion',
+                style: AppStyles.NormalText().copyWith(
+                   color:Color.fromARGB(255, 208, 168, 116),
+                  fontSize: SizeConfig.getProportionateScreenFontSize(35),
+                ),
+              ),
+              Text(
+                'Tech or Treat',
+                style: AppStyles.TitleText().copyWith(
+                   color:Color.fromARGB(255, 208, 168, 116),
                   fontSize: SizeConfig.getProportionateScreenFontSize(35),
                 ),
               ),
@@ -121,7 +129,10 @@ class LoginSignupBody extends StatelessWidget {
               Text(
                 textAlign: TextAlign.center,
                 'A 3-day event that includes a plethora of events and workshops, and is a platform for students to showcase their talents and skills.',
-                style: AppStyles.bodyTextStyle3(),
+                style: AppStyles.NormalText().copyWith(
+                  fontSize: SizeConfig.getProportionateScreenFontSize(15),
+                   color:Color.fromARGB(255, 208, 168, 116),
+                ),
               ),
             ],
           ),

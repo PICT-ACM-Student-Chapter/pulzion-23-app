@@ -100,36 +100,38 @@ class _HomePageContentState extends State<HomePageContent>
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "Pulzi",
-                                style: AppStyles.bodyTextStyle2().copyWith(
+                                "Pulzion",
+                                style: AppStyles.NormalText().copyWith(
+                                  color:Color.fromARGB(255, 208, 168, 116),
                                   fontSize:
                                       SizeConfig.getProportionateScreenFontSize(
-                                          30),
+                                          height*0.1),
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 5),
-                                child: Lottie.asset(
-                                  'assets/images/pn.json',
-                                  width: 50,
-                                  height: 50,
-                                ),
-                              ),
-                              Text(
-                                'n',
-                                style: AppStyles.bodyTextStyle2().copyWith(
-                                  fontSize:
-                                      SizeConfig.getProportionateScreenFontSize(
-                                          30),
-                                ),
-                              ),
+                              // Padding(
+                              //   padding: const EdgeInsets.only(bottom: 5),
+                              //   child: Lottie.asset(
+                              //     'assets/images/pn.json',
+                              //     width: width*0.3,
+                              //     height: width*0.2,
+                              //   ),
+                              // ),
+                              // Text(
+                              //   'n',
+                              //   style: AppStyles.TitleText().copyWith(
+                              //     fontSize:
+                              //         SizeConfig.getProportionateScreenFontSize(
+                              //            height*0.1 ),
+                              //   ),
+                              // ),
                             ],
                           ),
                           Text(
                             'Tech or Treat',
-                            style: AppStyles.bodyTextStyle2().copyWith(
+                            style: AppStyles.TitleText().copyWith(
+                               color:Color.fromARGB(255, 208, 168, 116),
                               fontSize:
-                                  SizeConfig.getProportionateScreenFontSize(15),
+                                  SizeConfig.getProportionateScreenFontSize(height*0.05),
                             ),
                           ),
                         ],
@@ -147,7 +149,7 @@ class _HomePageContentState extends State<HomePageContent>
                         indicator: const BoxDecoration(
                           border: Border(
                             bottom: BorderSide(
-                              color: Colors.orangeAccent,
+                               color:Color.fromARGB(255, 208, 168, 116),
                             ),
                           ),
                         ),
@@ -217,11 +219,15 @@ class EventType extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+        final mediaQuery = MediaQuery.of(context);
+    final width = mediaQuery.size.width;
+    final height = mediaQuery.size.height;
     return Text(
       eventType,
       style: TextStyle(
-        fontSize: fontSizeFactor * 7.3,
-        fontFamily: 'QuickSand',
+        fontSize: width*0.075,
+        fontFamily: 'Danger-Night',
+        
       ),
     );
   }

@@ -84,3 +84,9 @@ flutter:
         - family: Panther
           fonts:
               - asset: assets/fonts/Panther.ttf
+        - family: Danger-Night
+          fonts:
+              - asset: assets/fonts/Danger-Night.ttf
+        - family: Gothica-Book
+          fonts:
+              - asset: assets/fonts/Gothica-Book.ttf

@@ -125,12 +125,12 @@ class _LoginState extends State<Login> {
                         Text(
                           'Login',
                           style:
-                              AppStyles.bodyTextStyle2().copyWith(fontSize: 30),
+                              AppStyles.NormalText().copyWith(fontSize: 30,color:Color.fromARGB(255, 208, 168, 116),),
                         ),
                         Text(
                           'Please sign in to continue.',
                           style:
-                              AppStyles.bodyTextStyle3().copyWith(fontSize: 15),
+                             AppStyles.NormalText().copyWith(fontSize: 15,color:Color.fromARGB(255, 208, 168, 116),),
                         ),
                         LoginSignUpTextField(
                           'Email',
@@ -158,11 +158,12 @@ class _LoginState extends State<Login> {
                                 ),
                               );
                             },
-                            child: const Padding(
+                            child: Padding(
                               padding: EdgeInsets.all(8.0),
                               child: Text(
                                 'Forgot Password?',
-                                style: TextStyle(
+                                style: AppStyles.NormalText().copyWith(
+                                  fontSize: 15,
                                   color: Colors.white,
                                   decoration: TextDecoration.underline,
                                 ),
