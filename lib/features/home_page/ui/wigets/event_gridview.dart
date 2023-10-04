@@ -15,7 +15,7 @@ class EventGridView extends StatelessWidget {
     return GridView.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio: 0.7,
+        childAspectRatio: 0.59,
       ),
       itemCount: eventList.length,
       itemBuilder: ((context, index) {

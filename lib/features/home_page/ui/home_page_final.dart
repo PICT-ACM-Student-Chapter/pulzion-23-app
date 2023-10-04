@@ -85,22 +85,54 @@ class _HomePageContentState extends State<HomePageContent>
 
                           // child: Transform.rotate(
                           //   angle: pi,
-                          child: Lottie.asset(
-                            AppImages.ufo3,
-                            width: width * 0.16,
-                            height: height * 0.1,
-                          ),
+                          // child: Lottie.asset(
+                          //   'assets/images/Wh.json',
+                          //   width: width * 0.16,
+                          //   height: height * 0.1,
+                          // ),
                           // )
                         ),
                       ),
-                      Center(
-                        child: Text(
-                          "Pulzion '23",
-                          style: AppStyles.bodyTextStyle2().copyWith(
-                            fontSize:
-                                SizeConfig.getProportionateScreenFontSize(30),
+                      Column(
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Pulzi",
+                                style: AppStyles.bodyTextStyle2().copyWith(
+                                  fontSize:
+                                      SizeConfig.getProportionateScreenFontSize(
+                                          30),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 5),
+                                child: Lottie.asset(
+                                  'assets/images/pn.json',
+                                  width: 50,
+                                  height: 50,
+                                ),
+                              ),
+                              Text(
+                                'n',
+                                style: AppStyles.bodyTextStyle2().copyWith(
+                                  fontSize:
+                                      SizeConfig.getProportionateScreenFontSize(
+                                          30),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
+                          Text(
+                            'Tech or Treat',
+                            style: AppStyles.bodyTextStyle2().copyWith(
+                              fontSize:
+                                  SizeConfig.getProportionateScreenFontSize(15),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -115,12 +147,12 @@ class _HomePageContentState extends State<HomePageContent>
                         indicator: const BoxDecoration(
                           border: Border(
                             bottom: BorderSide(
-                              color: AppColors.loginPageAccent,
+                              color: Colors.orangeAccent,
                             ),
                           ),
                         ),
                         unselectedLabelColor: AppColors.cardSubtitleTextColor,
-                        labelColor: AppColors.loginPageAccent,
+                        labelColor: Colors.orangeAccent,
                         onTap: (_) {
                           changeAnimation(tabBarController.index);
                         },
