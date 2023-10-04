@@ -99,17 +99,14 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
             ),
             child: Row(
               children: [
-                GestureDetector(
-                  onTap: () => setState(() {
-                    imgC = !imgC;
-                  }),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(ht),
-                    child: Lottie.asset(
-                      imgC
-                          ? "assets/images/pumpkin_cat.json"
-                          : AppImages.spaceman2,
-                    ),
+                SizedBox(
+                  height: ht / 40,
+                  width: ht / 40,
+                ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(ht),
+                  child: Lottie.asset(
+                    "assets/images/potion.json",
                   ),
                 ),
                 const SizedBox(
