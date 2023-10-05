@@ -76,24 +76,15 @@ class _LoginState extends State<Login> {
                   ),
                 );
                 await context.read<CheckLoginCubit>().checkLogin();
-                if (context.mounted) {
+                if (mounted) {
                   while (Navigator.canPop(context)) {
                     Navigator.pop(context);
                   }
                 }
               }
               if (state is LoginFailure) {
-                if (context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(state.message),
-                      backgroundColor: Colors.red,
-                    ),
-                  );
-                }
-              }
-              if (state is LoginError) {
-                if (context.mounted) {
+
+                if(mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(state.message),

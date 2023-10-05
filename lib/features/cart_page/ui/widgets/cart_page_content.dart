@@ -420,7 +420,7 @@ class _CartPageContentState extends State<CartPageContent> {
                                                     0.62,
                                                 child: Align(
                                                   alignment: Alignment.center,
-                                                  child: QrImageView(
+                                                  child: QrImage(
                                                     data:
                                                         'upi://pay?pa=pictscholarship@jsb&pn=PICT&am=$cost&tn=Pulzion&cu=INR',
                                                     version: QrVersions.auto,

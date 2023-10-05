@@ -8,14 +8,45 @@ import 'package:widget_circular_animator/widget_circular_animator.dart';
 import 'package:panorama/panorama.dart';
 import '../../../constants/images.dart';
 import '../../../project/cubit/animation_toggle_cubit.dart';
+import 'dart:math';
 
-class AboutUsPage extends StatelessWidget {
+class AboutUsPage extends StatefulWidget {
   bool isAppbar;
 
   AboutUsPage(this.isAppbar, {super.key});
 
+  @override
+  State<AboutUsPage> createState() => _AboutUsPageState();
+}
+
+class _AboutUsPageState extends State<AboutUsPage> with SingleTickerProviderStateMixin {
   final String aboutPulzion =
       "Pulzion is the annual technical fest organized by PICT ACM Student Chapter. Pulzion has hosted multiple events including coding competition ranging from amateur competitions two day-long as well as mock placements, business management based and quizzing events. It has become one of the most anticipated events taking place at PICT with participants from colleges all over Pune. With high aspirations, backed with sincerity and dedication, the PASC team aims to add value to the college and all the people in it.";
+
+  AnimationController? _animationController;
+  late Animation<double> _rotation;
+
+  @override
+  void initState() {
+    super.initState();
+    if (_animationController == null) {
+      _animationController =
+          AnimationController(vsync: this, duration: const Duration(seconds: 100)); // Reduced the duration for faster rotation
+
+      _rotation = Tween(begin: 0.0, end: 2 * pi).animate(_animationController!);
+
+      _animationController?.repeat();
+    } else {
+      print('fuck off!');
+    }
+
+  }
+
+  @override
+  void dispose() {
+    _animationController?.dispose();
+    super.dispose();
+  }
 
   Future<void> _launchUniversalLinkApp(String url) async {
     final bool nativeAppLaunchSucceeded = await launchUrl(
@@ -39,6 +70,7 @@ class AboutUsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    _animationController?.repeat();
     Size size;
     double height, width;
     size = MediaQuery.of(context).size;
@@ -49,26 +81,21 @@ class AboutUsPage extends StatelessWidget {
       backgroundColor: Colors.transparent,
       body: Stack(
         children: [
-          BlocConsumer<GlobalParameterCubit, bool>(
-            listener: (context, state) {},
-            buildWhen: (previous, current) {
-              if (previous != current) {
-                return true;
-              }
 
-              return false;
-            },
-            builder: (context, state) {
-              return Image.asset(
-                AppImages.spaceBackground2,
-                fit: BoxFit.cover,
-              );
-            },
+          Container(
+            constraints: BoxConstraints.expand(),
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/app_background2.png"),
+                  fit: BoxFit.cover,
+                ),
+            ),
           ),
+
           SafeArea(
             child: Scaffold(
               backgroundColor: Colors.transparent,
-              appBar: isAppbar ? const CustomAppBar() : null,
+              appBar: widget.isAppbar ? const CustomAppBar() : null,
               body: SingleChildScrollView(
                 child: Padding(
                   padding: EdgeInsets.all(width / 20),
@@ -89,78 +116,116 @@ class AboutUsPage extends StatelessWidget {
                         children: [
                           Padding(
                             padding: EdgeInsets.only(
-                              left: width / 30,
+                              left: width / 80,
                               top: height / 20,
                             ),
-                            child: WidgetCircularAnimator(
-                              size: width / 2.6,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.blue[900]!.withOpacity(0.5),
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Countup(
-                                      begin: 0,
-                                      end: 14,
-                                      duration: const Duration(seconds: 1),
-                                      separator: ',',
-                                      style: TextStyle(
-                                        fontFamily: 'Quicksand',
-                                        color: Colors.white,
-                                        fontSize: width / 13,
+                            child: Stack(
+                              children: [
+
+                                Positioned(
+                                  top: height/27,
+                                  left: width/34.3,
+                                  child: Container(
+                                    // height: 95.0,
+                                  // width: 95.0,
+                                    height: height/8,
+                                    width: width/2.6,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(image: AssetImage("assets/images/hehe.png")),
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Countup(
+                                        begin: 0,
+                                        end: 14,
+                                        duration: const Duration(seconds: 1),
+                                        separator: ',',
+                                        style: TextStyle(
+                                          fontFamily: 'Quicksand',
+                                          color: Colors.black,
+                                          fontSize: width / 13,
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      "EVENTS",
-                                      style: TextStyle(
-                                        fontSize: width / 26,
-                                        color: Colors.white,
+                                      Text(
+                                        "EVENTS",
+                                        style: TextStyle(
+                                          fontSize: width / 26,
+                                          color: Colors.black,
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
+                                    ],
+                                  ),
                               ),
+                                ),
+                                RotationTransition(
+                                  turns: _rotation,
+                                  child: Container(
+                                    width: width/2.26,
+                                    child: Image.asset("assets/images/aboutusframe.png"),
+                                  ),
+                                ),
+
+                              ],
                             ),
                           ),
                           Padding(
                             padding: EdgeInsets.only(
-                                left: width / 15, top: height / 20),
-                            child: WidgetCircularAnimator(
-                              size: width / 2.6,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.blue[900]!.withOpacity(0.5),
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Countup(
-                                      begin: 0,
-                                      end: 300,
-                                      duration: const Duration(seconds: 1),
-                                      separator: ',',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: width / 13,
+                              left: width / 400,
+                              top: height / 20,
+                            ),
+                            child: Stack(
+                              children: [
+
+                              Positioned(
+                                top: height/27,
+                                right: width/34.3,
+                                child: Container(
+                                  height: height/8,
+                                  width: width/2.6,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(image: AssetImage("assets/images/hehe.png",
                                       ),
-                                    ),
-                                    Text(
-                                      "VOLUNTEERS",
-                                      style: TextStyle(
-                                        fontFamily: 'Quicksand',
-                                        fontSize: width / 28,
-                                        color: Colors.white,
+                                        fit: BoxFit.cover,
                                       ),
-                                    ),
-                                  ],
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Countup(
+                                        begin: 0,
+                                        end: 300,
+                                        duration: const Duration(seconds: 1),
+                                        separator: ',',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: width / 13,
+                                        ),
+                                      ),
+                                      Text(
+                                        "VOLUNTEERS",
+                                        style: TextStyle(
+                                          fontFamily: 'Quicksand',
+                                          fontSize: width / 28,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
+                                RotationTransition(
+                                  turns: _rotation,
+                                  child: Container(
+                                    width: width/2.26,
+                                    child: Image.asset("assets/images/aboutusframe.png"),
+                                  ),
+                                ),
+                            ],
                             ),
                           ),
                         ],

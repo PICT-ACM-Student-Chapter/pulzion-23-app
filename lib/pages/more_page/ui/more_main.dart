@@ -65,7 +65,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
 
   Future<void> _logout() async {
     await context.read<CheckLoginCubit>().logout();
-    if (context.mounted) {
+    if (mounted) {
       await context.read<CheckLoginCubit>().checkLogin();
     }
   }
