@@ -84,10 +84,15 @@ class MyTicketView extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(th * 0.07),
             image: DecorationImage(
-                colorFilter: ColorFilter.mode(
-                    Colors.black.withOpacity(0.8), BlendMode.dstATop),
-                image: AssetImage("assets/images/ticket2.jpeg"),
-                fit: BoxFit.fill),
+              colorFilter: ColorFilter.mode(
+                Colors.black.withOpacity(0.7),
+                BlendMode.dstATop,
+              ),
+              image: const AssetImage(
+                "assets/images/ticket2.jpeg",
+              ),
+              fit: BoxFit.fill,
+            ),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -184,6 +189,8 @@ class MyTicketView extends StatelessWidget {
                 height: th * 0.2,
 
                 child: HalloweenButton(
+                  color: Colors.purple[800]!,
+                  isColor: true,
                   buttonText: isBooked != null ? 'View Details' : 'Book Slot',
                   icon: isBooked != null
                       ? Icons.remove_red_eye_rounded

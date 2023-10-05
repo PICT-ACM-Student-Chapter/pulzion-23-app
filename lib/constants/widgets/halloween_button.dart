@@ -7,11 +7,13 @@ class HalloweenButton extends StatelessWidget {
   final VoidCallback onPressed;
   final double fontsize;
   final Color color;
+  final bool isColor;
 
   const HalloweenButton({
     super.key,
     this.color = Colors.deepPurple,
     this.fontsize = 15,
+    this.isColor = false,
     required this.icon,
     required this.buttonText,
     required this.onPressed,
@@ -38,12 +40,19 @@ class HalloweenButton extends StatelessWidget {
               duration: const Duration(milliseconds: 500),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [
-                    Colors.orange[600]!.withOpacity(0.3),
-                    Colors.orange[700]!.withOpacity(0.6),
-                    Colors.orange[800]!.withOpacity(0.7),
-                    Colors.orange[900]!.withOpacity(0.8),
-                  ],
+                  colors: isColor
+                      ? [
+                          Colors.deepPurple[600]!.withOpacity(0.3),
+                          Colors.deepPurple[700]!.withOpacity(0.6),
+                          Colors.deepPurple[800]!.withOpacity(0.7),
+                          Colors.deepPurple[900]!.withOpacity(0.8),
+                        ]
+                      : [
+                          Colors.orange[600]!.withOpacity(0.3),
+                          Colors.orange[700]!.withOpacity(0.6),
+                          Colors.orange[800]!.withOpacity(0.7),
+                          Colors.orange[900]!.withOpacity(0.8),
+                        ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -64,7 +73,7 @@ class HalloweenButton extends StatelessWidget {
                     buttonText,
                     style: AppStyles.NormalText().copyWith(
                       color: Colors.white,
-                      fontSize:15,
+                      fontSize: 15,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

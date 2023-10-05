@@ -8,7 +8,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:pulzion23/features/splash_screen/Splash_Screen.dart';
-import 'package:pulzion23/features/combo_cubit/cubit/combo_cubit.dart';
 import 'package:pulzion23/features/event_slots/logic/booked_slot_cubit.dart';
 import 'package:pulzion23/features/splash_screen/cubit/splash_cubit.dart';
 import 'package:pulzion23/project/cubit/animation_toggle_cubit.dart';
@@ -28,8 +27,6 @@ import 'project/landing_page.dart';
 import 'services/bloc_observer.dart';
 import 'services/firebase_notifications.dart';
 import 'services/local_notifications.dart';
-// import 'features/event_slots/logic/booked_slot_cubit.dart';
-// import 'constants/models/event_model.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

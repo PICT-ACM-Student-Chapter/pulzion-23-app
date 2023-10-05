@@ -37,6 +37,7 @@ class ContactCard extends StatelessWidget {
     }
 
     return ListView.builder(
+      shrinkWrap: true,
       itemCount: leads.length,
       itemBuilder: (context, index) => MyWidget(
         name: names[index],

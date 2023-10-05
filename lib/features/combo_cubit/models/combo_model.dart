@@ -32,7 +32,10 @@ class Combo {
     // terms_c = json['terms_c'];
   }
 
-  static List<Combo> getComboList(List<dynamic> json) {
+  static List<Combo> getComboList(List<dynamic>? json) {
+    if (json == null || json == []) {
+      return [];
+    }
     List<Combo> l = [];
     for (var element in json) {
       final combo = Combo.fromJson(element);
@@ -42,7 +45,10 @@ class Combo {
     return l;
   }
 
-  static List<dynamic>? getComboEventName(List<dynamic> json) {
+  static List<dynamic>? getComboEventName(List<dynamic>? json) {
+    if (json == null || json == []) {
+      return [];
+    }
     List<dynamic> l = [];
     for (var element in json) {
       l.add(element['name']);
