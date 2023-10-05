@@ -94,27 +94,27 @@ class BottomNavBar extends StatelessWidget {
                       ? Icons.question_answer
                       : Icons.info,
                   size: 30,
-                  color: Colors.white.withOpacity(0.7),
+                  color:  Color.fromARGB(255, 228, 188, 136),
                 ),
                 Icon(
                   Icons.calendar_month,
                   size: 30,
-                  color: Colors.white.withOpacity(0.7),
+                  color: Color.fromARGB(255, 228, 188, 136),
                 ),
                 Icon(
                   Icons.home_rounded,
                   size: 30,
-                  color: Colors.white.withOpacity(0.7),
+                  color:  Color.fromARGB(255, 228, 188, 136),
                 ),
                 Icon(
                   Icons.shopping_cart,
                   size: 30,
-                  color: Colors.white.withOpacity(0.7),
+                  color:  Color.fromARGB(255, 228, 188, 136),
                 ),
                 Icon(
                   Icons.more_horiz_rounded,
                   size: 30,
-                  color: Colors.white.withOpacity(0.7),
+                  color:  Color.fromARGB(255, 228, 188, 136),
                 ),
               ],
               color: Colors.grey.withOpacity(0.2),

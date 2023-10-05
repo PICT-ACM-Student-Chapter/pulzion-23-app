@@ -101,8 +101,8 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
             child: Row(
               children: [
                 SizedBox(
-                  height: ht / 40,
-                  width: ht / 40,
+                  height: ht / 80,
+                  width: ht / 80,
                 ),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(ht),

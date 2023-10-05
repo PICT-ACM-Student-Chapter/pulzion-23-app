@@ -3,12 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pulzion23/constants/models/event_model.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-class ContactCard extends StatelessWidget {
-  final Events event;
-  const ContactCard({super.key, required this.event});
-
-  Future<void> openWhatsAppChat(String phoneNumber) async {
+ Future<void> openWhatsAppChat(String phoneNumber) async {
     final whatsappUrl = Uri.parse('whatsapp://send?phone=$phoneNumber');
     if (!await launchUrl(whatsappUrl)) {
       throw 'Could not launch WhatsApp URL';
@@ -18,6 +13,11 @@ class ContactCard extends StatelessWidget {
   String extractPhoneNumbers(String message) {
     return message.replaceAll(RegExp(r'[^0-9]'), '');
   }
+class ContactCard extends StatelessWidget {
+  final Events event;
+  const ContactCard({super.key, required this.event});
+
+ 
 
   List<String> extractedNames(String msg) {
     return msg.split('\n');
