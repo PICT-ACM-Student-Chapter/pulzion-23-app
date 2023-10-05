@@ -9,7 +9,9 @@ Future<void> remoteConfig() async {
     minimumFetchInterval: const Duration(hours: 1),
   ));
   await remoteConfig.fetchAndActivate();
-  EndPoints.baseUrl = remoteConfig.getString('BaseUrl');
+  EndPoints.baseUrl = 
+  // 'https://staging.api.pulzion.co.in/';
+  remoteConfig.getString('BaseUrl');
   // 'https://ems-test-server.onrender.com';
   EndPoints.sampleToken = remoteConfig.getString('SampleToken');
   EndPoints.appLatestStableVersion =

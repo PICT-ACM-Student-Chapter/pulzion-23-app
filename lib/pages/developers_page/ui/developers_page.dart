@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import '../../../constants/styles.dart';
 import '../../../features/home_page/ui/wigets/custom_appbar.dart';
 import 'package:widget_circular_animator/widget_circular_animator.dart';
@@ -11,6 +12,7 @@ import '../../../constants/images.dart';
 import '../../../project/cubit/animation_toggle_cubit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'dart:math' as math;
 
 class DevelopersPage extends StatefulWidget {
   const DevelopersPage({super.key});
@@ -76,7 +78,7 @@ class _DevelopersPageState extends State<DevelopersPage> {
             return false;
           },
           builder: (context, state) {
-            return Image.asset(AppImages.spaceBackground2, fit: BoxFit.cover);
+            return Image.asset(AppImages.spaceBackground2);
           },
         ),
         SafeArea(
@@ -86,61 +88,131 @@ class _DevelopersPageState extends State<DevelopersPage> {
             body: Padding(
               padding: const EdgeInsets.all(10),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Container(
-                    height: h / 10,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("assets/images/cobwebs.png"),
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Container(
-                        padding: EdgeInsets.only(
-                          left: h * 0.05,
-                          right: h * 0.05,
-                          top: h * 0.02,
-                          bottom: h * 0.015,
-                        ),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          gradient: RadialGradient(
-                            center: const Alignment(-0.8, -0.6),
-                            colors: const [
-                              Color.fromRGBO(9, 7, 130, 1),
-                              Color.fromRGBO(160, 11, 143, 0.91),
-                              Colors.purple,
-                            ],
-                            radius: w * 0.016,
+                  Stack(
+                    children: [
+                      Positioned(
+                        top: h / 20,
+                        child: Center(
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Container(
+                              padding: EdgeInsets.only(
+                                left: h * 0.05,
+                                right: h * 0.05,
+                                top: h * 0.02,
+                                bottom: h * 0.015,
+                              ),
+                              // decoration: BoxDecoration(
+                              //   shape: BoxShape.rectangle,
+                              //   gradient: RadialGradient(
+                              //     center: const Alignment(-0.8, -0.6),
+                              //     colors: const [
+
+                              //     ],
+                              //     radius: w * 0.016,
+                              //   ),
+                              //   borderRadius: BorderRadius.circular(30),
+                              // ),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Colors.black.withOpacity(0.6),
+                                    Colors.black.withOpacity(0.4),
+                                    Colors.black.withOpacity(0.4),
+                                  ],
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight,
+                                ),
+                                borderRadius: BorderRadius.circular(24),
+                                border: Border.all(
+                                  color: Colors.orange[700]!.withOpacity(0.8),
+                                  width: 0.7,
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    blurRadius: 1.0,
+                                    spreadRadius: 2.0,
+                                    color: Colors.yellow[900]!.withOpacity(0.3),
+                                  ),
+                                ],
+                              ),
+                              child: FittedBox(
+                                clipBehavior: Clip.hardEdge,
+                                fit: BoxFit.contain,
+                                child: Text(
+                                  "Developers Page",
+                                  style: AppStyles.bodyTextStyle2()
+                                      .copyWith(fontSize: 25),
+                                ),
+                              ),
+                            ),
                           ),
-                          borderRadius: BorderRadius.circular(30),
                         ),
-                        child: FittedBox(
-                          clipBehavior: Clip.hardEdge,
-                          fit: BoxFit.contain,
-                          child: Text(
-                            "Developers Page",
-                            style: AppStyles.bodyTextStyle2()
-                                .copyWith(fontSize: 25),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Transform(
+                            alignment: Alignment.center,
+                            transform: Matrix4.rotationY(math.pi),
+                            child: SizedBox(
+                              child: Lottie.asset('assets/images/error_gif.json'
+                                  // "assets/images/spider_web.json",
+                                  ),
+                              height: h / 8,
+                            ),
                           ),
-                        ),
+                          SizedBox(
+                            height: h / 8,
+                            child: Lottie.asset('assets/images/error_gif.json'
+
+                                // "assets/images/spider_web.json",
+                                ),
+                          ),
+                        ],
                       ),
-                    ),
+                    ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 7.0),
-                    child: SizedBox(
-                      height: h * 0.1,
-                      width: h * 0.34,
-                      child: Image.asset(
-                        'assets/images/hanging_decor2.png',
-                        fit: BoxFit.fill,
+// SizedBox(height: h/5,
+//   width: w*0.5,),
+
+                  Row(
+                    children: [
+                      SizedBox(
+                        height: h * 0.1,
+                        width: w * 0.24,
+                        child: Lottie.asset('assets/images/error_gif.json'
+
+                            // "assets/images/fly_pumpkin.json",
+                            ),
                       ),
-                    ),
+                      SizedBox(
+                        height: h * 0.1,
+                        width: w * 0.23,
+                        child: Lottie.asset('assets/images/error_gif.json'
+
+                            // "assets/images/fly_pumpkin.json",
+                            ),
+                      ),
+                      SizedBox(
+                        height: h * 0.1,
+                        width: w * 0.24,
+                        child: Lottie.asset('assets/images/error_gif.json'
+
+                            // "assets/images/fly_pumpkin.json",
+                            ),
+                      ),
+                      SizedBox(
+                        height: h * 0.1,
+                        width: w * 0.23,
+                        child: Lottie.asset('assets/images/error_gif.json'
+
+                            // "assets/images/fly_pumpkin.json",
+                            ),
+                      ),
+                    ],
                   ),
                   Expanded(
                     child: GridView.builder(
@@ -158,18 +230,41 @@ class _DevelopersPageState extends State<DevelopersPage> {
                       itemBuilder: (BuildContext ctx, index) {
                         return Container(
                           alignment: Alignment.center,
+                          // decoration: BoxDecoration(
+                          //   shape: BoxShape.rectangle,
+                          //   gradient: RadialGradient(
+                          //     center: const Alignment(-0.8, -0.6),
+                          //     colors: const [
+                          //       Color.fromRGBO(9, 7, 130, 1),
+                          //       Color.fromRGBO(160, 11, 143, 0.91),
+                          //       Colors.purple,
+                          //     ],
+                          //     radius: w * 0.016,
+                          //   ),
+                          //   borderRadius: BorderRadius.circular(15),
+                          // ),
                           decoration: BoxDecoration(
-                            shape: BoxShape.rectangle,
-                            gradient: RadialGradient(
-                              center: const Alignment(-0.8, -0.6),
-                              colors: const [
-                                Color.fromRGBO(9, 7, 130, 1),
-                                Color.fromRGBO(160, 11, 143, 0.91),
-                                Colors.purple,
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.black.withOpacity(0.6),
+                                Colors.black.withOpacity(0.4),
+                                Colors.black.withOpacity(0.4),
                               ],
-                              radius: w * 0.016,
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
                             ),
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(24),
+                            border: Border.all(
+                              color: Colors.orange[300]!.withOpacity(0.8),
+                              width: 0.7,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 1.0,
+                                spreadRadius: 2.0,
+                                color: Colors.deepPurple[200]!.withOpacity(0.3),
+                              ),
+                            ],
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(7.0),
@@ -180,11 +275,22 @@ class _DevelopersPageState extends State<DevelopersPage> {
                                   decoration: BoxDecoration(
                                     image: const DecorationImage(
                                       image: AssetImage(
-                                        "assets/images/frame_developers.jpg",
+                                        "assets/images/frame_developers.png",
                                       ),
                                       fit: BoxFit.cover,
                                     ),
                                     borderRadius: BorderRadius.circular(15),
+                                    border: Border.all(
+                                      color:
+                                          Colors.orange[300]!.withOpacity(0.8),
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        blurRadius: 1.0,
+                                        spreadRadius: 2.0,
+                                        color: Colors.black.withOpacity(0.3),
+                                      ),
+                                    ],
                                   ),
                                   padding: EdgeInsets.all(h * 0.005),
                                   alignment: Alignment.topCenter,
@@ -229,15 +335,15 @@ class _DevelopersPageState extends State<DevelopersPage> {
                                   child: Container(
                                     height: h * 0.04,
                                     width: w * 0.4,
-                                    decoration: BoxDecoration(
-                                      image: const DecorationImage(
-                                        image: AssetImage(
-                                          "assets/images/nameplate1.jpg",
-                                        ),
-                                        fit: BoxFit.cover,
-                                      ),
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
+                                    // decoration: BoxDecoration(
+                                    //   image: const DecorationImage(
+                                    //     image: AssetImage(
+                                    //       "assets/images/nameplate1.jpg",
+                                    //     ),
+                                    //     fit: BoxFit.cover,
+                                    //   ),
+                                    //   borderRadius: BorderRadius.circular(20),
+                                    // ),
                                     child: Align(
                                       alignment: Alignment.center,
                                       child: FittedBox(
@@ -264,8 +370,7 @@ class _DevelopersPageState extends State<DevelopersPage> {
                                       InkWell(
                                         child: const Icon(
                                           FontAwesomeIcons.linkedin,
-                                          color:
-                                              Color.fromARGB(255, 196, 95, 13),
+                                          color: Colors.white,
                                         ),
                                         onTap: () {
                                           _launchUniversalLinkApp(
@@ -278,8 +383,7 @@ class _DevelopersPageState extends State<DevelopersPage> {
                                       InkWell(
                                         child: const Icon(
                                           Icons.mail,
-                                          color:
-                                              Color.fromARGB(255, 196, 95, 13),
+                                          color: Colors.white,
                                         ),
                                         onTap: () async {
                                           String email = Uri.encodeComponent(
@@ -300,8 +404,7 @@ class _DevelopersPageState extends State<DevelopersPage> {
                                       InkWell(
                                         child: const Icon(
                                           FontAwesomeIcons.github,
-                                          color:
-                                              Color.fromARGB(255, 196, 95, 13),
+                                          color: Colors.white,
                                         ),
                                         onTap: () {
                                           _launchUniversalLinkApp(

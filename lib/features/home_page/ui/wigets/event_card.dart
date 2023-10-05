@@ -24,6 +24,10 @@ class EventCard extends StatelessWidget {
     final mediaQuery = MediaQuery.of(context);
     final width = mediaQuery.size.width;
     final height = mediaQuery.size.height;
+    const l = [
+       Color.fromARGB(255, 208, 168, 116),
+       Color.fromARGB(255, 168, 104, 20),
+    ];
     final _cacheManager = CacheManager(Config(
       'my_custom_cache_key',
       stalePeriod: const Duration(days: 7),
@@ -49,26 +53,35 @@ class EventCard extends StatelessWidget {
               SizeConfig.getProportionateScreenHeight(43),
             ),
             child: Container(
+              height: 700,
+              width: SizeConfig.getProportionateScreenWidth(300),
+              padding: EdgeInsets.only(
+                top: SizeConfig.getProportionateScreenHeight(10),
+                left: SizeConfig.getProportionateScreenWidth(10),
+                right: SizeConfig.getProportionateScreenWidth(10),
+                bottom: SizeConfig.getProportionateScreenHeight(10),
+              ),
               margin: EdgeInsets.only(
                 bottom: SizeConfig.getProportionateScreenWidth(53),
               ),
               decoration: BoxDecoration(
+                // color: Colors.black,
                 image: const DecorationImage(
-                  image: AssetImage(AppImages.manuscript),
+                  image: AssetImage('assets/images/manuscript.png'),
                   fit: BoxFit.fill,
                 ),
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                  color: Colors.white,
-                  width: 0.2,
-                ),
+                // border: Border.all(
+                //   color: Colors.white,
+                //   width: 0.2,
+                // ),
               ),
               child: Padding(
                 padding: EdgeInsets.only(
-                  top: SizeConfig.getProportionateScreenHeight(80),
+                  top: SizeConfig.getProportionateScreenHeight(100),
                   left: SizeConfig.getProportionateScreenWidth(10),
                   right: SizeConfig.getProportionateScreenWidth(10),
-                  bottom: SizeConfig.getProportionateScreenHeight(20),
+                  bottom: SizeConfig.getProportionateScreenHeight(40),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -76,24 +89,26 @@ class EventCard extends StatelessWidget {
                   children: [
                     Text(
                       event.name!,
-                      style: AppStyles.bodyTextStyle2()
-                          .copyWith(color: Colors.black),
+                      style: AppStyles.NormalText()
+                          .copyWith(
+                            color: Colors.black,
+                            fontSize: width*0.075),
                       overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
+                      maxLines: 3,
                       // Note: This is issue in flutter -> https://github.com/flutter/flutter/issues/98975
                       strutStyle: StrutStyle(
                         height: 1.2,
                         fontSize: SizeConfig.getProportionateScreenFontSize(15),
                         fontWeight: FontWeight.w600,
-                        fontFamily: 'Panther',
+                        fontFamily: 'Gothica-Book',
                       ),
                     ),
                     Text(
                       event.description!,
-                      style: AppStyles.bodyTextStyle3()
-                          .copyWith(color: Colors.black),
+                      style: AppStyles.NormalText()
+                          .copyWith(color: Colors.black,fontSize: width*0.02),
                       overflow: TextOverflow.ellipsis,
-                      maxLines: 5,
+                      maxLines: 4,
                     ),
                   ],
                 ),
@@ -116,42 +131,70 @@ class EventCard extends StatelessWidget {
             child: Hero(
               tag: 'event${event.id}',
               child: Padding(
-                padding: EdgeInsets.all(0),
+                padding: const EdgeInsets.only(left: 0, top: 10),
                 child: Stack(
                   clipBehavior: Clip.none,
                   children: [
-                    Transform.translate(
-                      offset: Offset(
-                        -width / 8.7,
-                        -width / 8,
-                      ),
-                      child: Image.asset(
-                        AppImages.seal,
-                        width: width / 2,
-                        height: width / 2,
+                    Positioned(
+                      right: 76,
+                      top: 13,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient: RadialGradient(radius: 1, colors: l),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color.fromARGB(255, 232, 230, 230),
+                              spreadRadius: 0,
+                              blurRadius: 5,
+                            ),
+                          ],
+                        ),
+                        width: width / 3.9,
+                        height: width / 3.9,
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            left: SizeConfig.getProportionateScreenWidth(15),
+                            right: SizeConfig.getProportionateScreenWidth(10),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                              left: 17,
+                              right: 12,
+                              top: 10,
+                              bottom: 17,
+                            ),
+                            child: CachedNetworkImage(
+                              imageUrl: event.logo!,
+                              color: Colors.white,
+                              placeholder: (context, url) => Container(),
+                              errorWidget: (context, url, error) => Container(),
+                              cacheManager: _cacheManager,
+                              fadeInDuration: const Duration(milliseconds: 100),
+                              fit: BoxFit.fitWidth,
+                              key: UniqueKey(),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
-                    Container(
-                      width: width / 4,
-                      height: width / 4,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.transparent,
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.all(
-                          SizeConfig.getProportionateScreenWidth(15),
+                    Positioned(
+                      left: 15,
+                      top: -10,
+                      child: Transform.translate(
+                        offset: Offset(
+                          -width / 16,
+                          width / 60,
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: CachedNetworkImage(
-                            imageUrl: event.logo!,
-                            placeholder: (context, url) => Container(),
-                            errorWidget: (context, url, error) => Container(),
-                            cacheManager: _cacheManager,
-                            fadeInDuration: const Duration(milliseconds: 100),
-                            fit: BoxFit.fitWidth,
-                            key: UniqueKey(),
+                        child: SizedBox(
+                          // black color container circular with boxshadow
+                          width: width / 3.1,
+                          height: width / 3.1,
+                          child: FittedBox(
+                            fit: BoxFit.fill,
+                            child: Image.asset(
+                              'assets/images/finalring.png',
+                            ),
                           ),
                         ),
                       ),
@@ -172,7 +215,7 @@ class EventCard extends StatelessWidget {
                 event.mode == 'Online'
                     ? Icons.laptop
                     : Icons.location_on_outlined,
-                color: Colors.white,
+                color: const Color.fromRGBO(165, 42, 42, 1),
               ),
             ),
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pulzion23/constants/styles.dart';
 
 class HalloweenButton extends StatelessWidget {
   final String buttonText;
@@ -61,10 +62,10 @@ class HalloweenButton extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 20.0, right: 25.0),
                   child: Text(
                     buttonText,
-                    style: const TextStyle(
-                      fontSize: 15,
+                    style: AppStyles.NormalText().copyWith(
                       color: Colors.white,
-                      // fontWeight: FontWeight.bold,
+                      fontSize:15,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),

@@ -1,7 +1,7 @@
 class AppImages {
   static const icon = 'assets/images/icon.png';
   static const spaceBackground = 'assets/images/space_bg.jpg';
-  static const spaceBackground2 = 'assets/images/app_background2.png';
+  static const spaceBackground2 = 'assets/images/app_background.jpeg';
   static const djAstronaut = 'assets/images/spaceman_dj.json';
   static const loadingAnimation = 'assets/images/K4YxhYnLEH.json';
   static const astronautWithPlanet = 'assets/images/astronaut_with_planet.json';
@@ -17,7 +17,7 @@ class AppImages {
       'assets/images/event-description-bg.gif';
   static const orangeRocket = 'assets/images/orange_rocket.json';
   static const emptyMan = "assets/images/empty_spaceman.json";
-  static const seal = "assets/images/seal.png";
+  static const seal = "assets/images/frame.png";
   static const cobweb = "assets/images/cobweb.png";
   static const manuscript = "assets/images/manuscript.jpg";
 }

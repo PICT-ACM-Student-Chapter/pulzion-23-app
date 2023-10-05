@@ -177,7 +177,7 @@ class _EventDescriptionState extends State<EventDescription>
                   children: [
                     Text(
                       "PRICE",
-                      style: AppStyles.bodyTextStyle3().copyWith(
+                      style: AppStyles.NormalText().copyWith(
                         color: Theme.of(context).primaryColor,
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
@@ -188,7 +188,7 @@ class _EventDescriptionState extends State<EventDescription>
                       children: [
                         Text(
                           "Rs. ${event.price}",
-                          style: AppStyles.bodyTextStyle3().copyWith(
+                          style: AppStyles.NormalText().copyWith(
                             color: Theme.of(context).primaryColor,
                             fontSize: 24,
                             fontWeight: FontWeight.w700,
@@ -210,7 +210,7 @@ class _EventDescriptionState extends State<EventDescription>
                     : Color.fromARGB(255, 20, 72, 146),
                 icon: Icons.shopping_cart,
                 buttonText: 'Add to Cart',
-                fontsize: 20,
+                fontsize: h*0.01,
                 onPressed: () {
                   if (event.id != null) {
                     BlocProvider.of<CartPageCubit>(
@@ -394,9 +394,9 @@ class _EventDescriptionState extends State<EventDescription>
                             child: Text(
                               event.name!,
                               textAlign: TextAlign.center,
-                              style: AppStyles.bodyTextStyle2().copyWith(
+                              style: AppStyles.NormalText().copyWith(
                                 color: Theme.of(context).primaryColor,
-                                fontSize: 22,
+                                fontSize: 50,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -440,8 +440,8 @@ class _EventDescriptionState extends State<EventDescription>
                               "Description",
                               style: TextStyle(
                                 color: Theme.of(context).primaryColor,
-                                fontFamily: 'Quicksand',
-                                fontSize: 16,
+                                fontFamily: 'Danger-Night',
+                                fontSize: h*0.035,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -449,8 +449,9 @@ class _EventDescriptionState extends State<EventDescription>
                               "Rounds",
                               style: TextStyle(
                                 color: Theme.of(context).primaryColor,
-                                fontFamily: 'Quicksand',
-                                fontSize: 16,
+                                fontFamily: 'Danger-Night',
+                                // fontSize: 20,
+                                fontSize: h*0.035,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -458,8 +459,9 @@ class _EventDescriptionState extends State<EventDescription>
                               "Rules",
                               style: TextStyle(
                                 color: Theme.of(context).primaryColor,
-                                fontFamily: 'Quicksand',
-                                fontSize: 16,
+                                fontFamily: 'Danger-Night',
+                                // fontSize: 20,
+                                fontSize: h*0.035,
                               ),
                             ),
                           ],
@@ -482,11 +484,10 @@ class _EventDescriptionState extends State<EventDescription>
                                 child: Text(
                                   event.tagline!,
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: fontSizeFactor * 8,
+                                  style: AppStyles.NormalText().copyWith(
+                                    fontSize: 30,
                                     fontWeight: FontWeight.bold,
                                     color: Theme.of(context).primaryColor,
-                                    fontStyle: FontStyle.italic,
                                   ),
                                 ),
                               ),
@@ -494,16 +495,18 @@ class _EventDescriptionState extends State<EventDescription>
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
                                   event.description!,
-                                  style: AppStyles.bodyTextStyle3().copyWith(
+                                  style: AppStyles.NormalText().copyWith(
                                     color: Theme.of(context).primaryColor,
+                                    fontSize: 20,
                                   ),
                                 ),
                               ),
+                              SizedBox(height : h*0.05),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
                                   'Team Details',
-                                  style: AppStyles.bodyTextStyle3().copyWith(
+                                  style: AppStyles.NormalText().copyWith(
                                     color: Theme.of(context).primaryColor,
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
@@ -514,8 +517,9 @@ class _EventDescriptionState extends State<EventDescription>
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
                                   event.teams!,
-                                  style: AppStyles.bodyTextStyle3().copyWith(
+                                  style: AppStyles.NormalText().copyWith(
                                     color: Theme.of(context).primaryColor,
+                                    fontSize:20,
                                   ),
                                 ),
                               ),
@@ -523,7 +527,7 @@ class _EventDescriptionState extends State<EventDescription>
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
                                   'Event Leads',
-                                  style: AppStyles.bodyTextStyle3().copyWith(
+                                  style: AppStyles.NormalText().copyWith(
                                     color: Theme.of(context).primaryColor,
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
@@ -538,14 +542,16 @@ class _EventDescriptionState extends State<EventDescription>
                           ),
                           Text(
                             event.rounds ?? '',
-                            style: AppStyles.bodyTextStyle3().copyWith(
+                            style: AppStyles.NormalText().copyWith(
                               color: Theme.of(context).primaryColor,
+                              fontSize: h*0.025,
                             ),
                           ),
                           Text(
                             event.rules ?? '',
-                            style: AppStyles.bodyTextStyle3().copyWith(
+                            style: AppStyles.NormalText().copyWith(
                               color: Theme.of(context).primaryColor,
+                              fontSize: h*0.025,
                             ),
                           ),
                         ],

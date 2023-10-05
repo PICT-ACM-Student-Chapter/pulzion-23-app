@@ -85,22 +85,56 @@ class _HomePageContentState extends State<HomePageContent>
 
                           // child: Transform.rotate(
                           //   angle: pi,
-                          child: Lottie.asset(
-                            AppImages.ufo3,
-                            width: width * 0.16,
-                            height: height * 0.1,
-                          ),
+                          // child: Lottie.asset(
+                          //   'assets/images/Wh.json',
+                          //   width: width * 0.16,
+                          //   height: height * 0.1,
+                          // ),
                           // )
                         ),
                       ),
-                      Center(
-                        child: Text(
-                          "Pulzion '23",
-                          style: AppStyles.bodyTextStyle2().copyWith(
-                            fontSize:
-                                SizeConfig.getProportionateScreenFontSize(30),
+                      Column(
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Pulzion",
+                                style: AppStyles.NormalText().copyWith(
+                                  color:Color.fromARGB(255, 208, 168, 116),
+                                  fontSize:
+                                      SizeConfig.getProportionateScreenFontSize(
+                                          height*0.1),
+                                ),
+                              ),
+                              // Padding(
+                              //   padding: const EdgeInsets.only(bottom: 5),
+                              //   child: Lottie.asset(
+                              //     'assets/images/pn.json',
+                              //     width: width*0.3,
+                              //     height: width*0.2,
+                              //   ),
+                              // ),
+                              // Text(
+                              //   'n',
+                              //   style: AppStyles.TitleText().copyWith(
+                              //     fontSize:
+                              //         SizeConfig.getProportionateScreenFontSize(
+                              //            height*0.1 ),
+                              //   ),
+                              // ),
+                            ],
                           ),
-                        ),
+                          Text(
+                            'Tech or Treat',
+                            style: AppStyles.TitleText().copyWith(
+                               color:Color.fromARGB(255, 208, 168, 116),
+                              fontSize:
+                                  SizeConfig.getProportionateScreenFontSize(height*0.05),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -115,12 +149,12 @@ class _HomePageContentState extends State<HomePageContent>
                         indicator: const BoxDecoration(
                           border: Border(
                             bottom: BorderSide(
-                              color: AppColors.loginPageAccent,
+                               color:Color.fromARGB(255, 208, 168, 116),
                             ),
                           ),
                         ),
                         unselectedLabelColor: AppColors.cardSubtitleTextColor,
-                        labelColor: AppColors.loginPageAccent,
+                        labelColor: Colors.orangeAccent,
                         onTap: (_) {
                           changeAnimation(tabBarController.index);
                         },
@@ -185,11 +219,15 @@ class EventType extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+        final mediaQuery = MediaQuery.of(context);
+    final width = mediaQuery.size.width;
+    final height = mediaQuery.size.height;
     return Text(
       eventType,
       style: TextStyle(
-        fontSize: fontSizeFactor * 7.3,
-        fontFamily: 'QuickSand',
+        fontSize: width*0.075,
+        fontFamily: 'Danger-Night',
+        
       ),
     );
   }
