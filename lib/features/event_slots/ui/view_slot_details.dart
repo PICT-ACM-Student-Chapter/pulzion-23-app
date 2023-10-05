@@ -59,21 +59,17 @@ class _TicketState extends State<ViewSlotDetails> {
             return false;
           },
           builder: (context, state) {
-            return Panorama(
-              sensitivity: 0.4,
-              animSpeed: 0.5,
-              sensorControl: state ? SensorControl.Orientation : SensorControl.None,
-              child: Image.asset(
-                AppImages.spaceBackground,
-                fit: BoxFit.cover,
-              ),
+            return Image.asset(
+              AppImages.spaceBackground2,
+              fit: BoxFit.cover,
             );
           },
         ),
         Scaffold(
           appBar: const CustomAppBar(),
           backgroundColor: Colors.transparent,
-          body: BlocConsumer<RegisteredEventsAndOrdersCubit, RegisteredEventsAndOrdersState>(
+          body: BlocConsumer<RegisteredEventsAndOrdersCubit,
+              RegisteredEventsAndOrdersState>(
             listener: (context, state) {},
             builder: (context, state) {
               log(state.toString());
@@ -84,8 +80,8 @@ class _TicketState extends State<ViewSlotDetails> {
                   ),
                 );
               } else if (state is RegisteredEvents) {
-                final BookedSlotModel bookedSlotModel =
-                    state.bookedEventList.firstWhere((element) => element.id == widget.id);
+                final BookedSlotModel bookedSlotModel = state.bookedEventList
+                    .firstWhere((element) => element.id == widget.id);
 
                 return GlassmorphicContainer(
                   margin: EdgeInsets.only(
@@ -179,7 +175,8 @@ class _TicketState extends State<ViewSlotDetails> {
                                 height: screenheight * 0.02,
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(left: 32, top: 20),
+                                padding:
+                                    const EdgeInsets.only(left: 32, top: 20),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
@@ -226,7 +223,8 @@ class _TicketState extends State<ViewSlotDetails> {
                                 height: screenheight * 0.005,
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(left: 32, bottom: 8),
+                                padding:
+                                    const EdgeInsets.only(left: 32, bottom: 8),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
@@ -264,7 +262,8 @@ class _TicketState extends State<ViewSlotDetails> {
                               ),
                               SizedBox(height: screenheight * 0.02),
                               Padding(
-                                padding: const EdgeInsets.only(left: 32, top: 20),
+                                padding:
+                                    const EdgeInsets.only(left: 32, top: 20),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
@@ -311,7 +310,8 @@ class _TicketState extends State<ViewSlotDetails> {
                                 height: screenheight * 0.005,
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(left: 32, bottom: 8),
+                                padding:
+                                    const EdgeInsets.only(left: 32, bottom: 8),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [

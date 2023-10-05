@@ -88,13 +88,16 @@ class _SignUpState extends State<SignUp> {
             listener: (context, state) async {
               if (state is SignUpSuccess) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text("Sign Up Successful"),
+              SnackBar(
+                    content: Text("Sign Up Successful",style: AppStyles.NormalText().copyWith(
+                      fontSize: 15,
+                    ),),
+
                     backgroundColor: Colors.green,
                   ),
                 );
                 await context.read<CheckLoginCubit>().checkLogin();
-                if (context.mounted) {
+                if (mounted) {
                   while (Navigator.canPop(context)) {
                     Navigator.pop(context);
                   }
@@ -146,7 +149,7 @@ class _SignUpState extends State<SignUp> {
                             ),
                             Text(
                               'Please fill the your information below.',
-                              style: AppStyles.bodyTextStyle3(),
+                              style: AppStyles.NormalText().copyWith( color:Color.fromARGB(255, 208, 168, 116),fontSize: 18),
                             ),
                             LoginSignUpTextField(
                               'First Name',
@@ -683,7 +686,7 @@ class _YearSelectRadioTileState extends State<YearSelectRadioTile> {
                 child: RadioListTile(
                   contentPadding: EdgeInsets.zero,
                   activeColor: AppColors.secondary,
-                  title: Text('FE', style: AppStyles.bodyTextStyle2()),
+                  title: Text('FE', style: AppStyles.NormalText()),
                   value: 1,
                   groupValue: YearSelectRadioTile.yearOfStudy,
                   onChanged: (value) {
@@ -704,7 +707,7 @@ class _YearSelectRadioTileState extends State<YearSelectRadioTile> {
                 child: RadioListTile(
                   contentPadding: EdgeInsets.zero,
                   activeColor: AppColors.secondary,
-                  title: Text('SE', style: AppStyles.bodyTextStyle2()),
+                  title: Text('SE', style: AppStyles.NormalText()),
                   value: 2,
                   groupValue: YearSelectRadioTile.yearOfStudy,
                   onChanged: (value) {
@@ -730,7 +733,7 @@ class _YearSelectRadioTileState extends State<YearSelectRadioTile> {
                 child: RadioListTile(
                   contentPadding: EdgeInsets.zero,
                   activeColor: AppColors.secondary,
-                  title: Text('TE', style: AppStyles.bodyTextStyle2()),
+                  title: Text('TE', style: AppStyles.NormalText()),
                   value: 3,
                   groupValue: YearSelectRadioTile.yearOfStudy,
                   onChanged: (value) {
@@ -751,7 +754,7 @@ class _YearSelectRadioTileState extends State<YearSelectRadioTile> {
                 child: RadioListTile(
                   contentPadding: EdgeInsets.zero,
                   activeColor: AppColors.secondary,
-                  title: Text('BE', style: AppStyles.bodyTextStyle2()),
+                  title: Text('BE', style: AppStyles.NormalText()),
                   value: 4,
                   groupValue: YearSelectRadioTile.yearOfStudy,
                   onChanged: (value) {

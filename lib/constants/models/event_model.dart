@@ -1,3 +1,7 @@
+import 'dart:developer';
+
+import 'package:pulzion23/features/combo_cubit/models/combo_model.dart';
+
 class EventList {
   List<Events>? events;
 
@@ -37,6 +41,7 @@ class Events {
   String? notes;
   String? createdAt;
   String? updatedAt;
+  List<Combo>? offers;
   int? fk_user;
   int? fk_slot;
 
@@ -60,6 +65,7 @@ class Events {
     this.updatedAt,
     this.fk_slot,
     this.fk_user,
+    this.offers,
   });
 
   Events.fromJson(Map<String, dynamic> json) {
@@ -82,6 +88,7 @@ class Events {
     updatedAt = json["updated_at"];
     fk_user = json["fk_user"];
     fk_slot = json["fk_slot"];
+    offers = json['offers'] == null ? null : Combo.getComboList(json['offers']);
   }
 
   Map<String, dynamic> toJson() {
@@ -105,6 +112,7 @@ class Events {
     data["updated_at"] = updatedAt;
     data["fk_user"] = fk_user;
     data["fk_slot"] = fk_slot;
+    data["offers"] = offers;
 
     return data;
   }

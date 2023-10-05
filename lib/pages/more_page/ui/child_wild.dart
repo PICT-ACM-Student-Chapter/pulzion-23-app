@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../constants/styles.dart';
+
 class FrostedTile extends StatelessWidget {
   final IconData tileicon;
   final String tilename;
@@ -48,10 +50,13 @@ class FrostedTile extends StatelessWidget {
             child: CircleAvatar(
               maxRadius: height * 0.025,
               backgroundColor:
-                  const Color.fromARGB(255, 55, 32, 12).withOpacity(0.7),
-              foregroundColor: const Color.fromARGB(255, 187, 102, 10),
+              Color.fromARGB(255, 86, 48, 7).withOpacity(1)
+                 ,
+              foregroundColor:  Color.fromARGB(255, 224, 156, 83)
+                                .withOpacity(0.5),
               child: Center(
                 child: Icon(
+                  color:Color.fromARGB(255, 228, 188, 136),
                   tileicon,
                   size: height * 0.0255,
                 ),
@@ -63,7 +68,7 @@ class FrostedTile extends StatelessWidget {
           ),
           Text(
             tilename,
-            style: TextStyle(
+            style: AppStyles.NormalText().copyWith(
               fontSize: height / 43,
               color: const Color.fromARGB(255, 82, 50, 16),
               fontWeight: FontWeight.bold,

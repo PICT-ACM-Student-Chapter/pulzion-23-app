@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pulzion23/constants/styles.dart';
 
 class HalloweenButton extends StatelessWidget {
   final String buttonText;
@@ -38,10 +39,10 @@ class HalloweenButton extends StatelessWidget {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    color.withOpacity(0.3),
-                    color.withOpacity(0.6),
-                    color.withOpacity(0.7),
-                    color.withOpacity(0.8),
+                    Colors.orange[600]!.withOpacity(0.3),
+                    Colors.orange[700]!.withOpacity(0.6),
+                    Colors.orange[800]!.withOpacity(0.7),
+                    Colors.orange[900]!.withOpacity(0.8),
                   ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
@@ -61,10 +62,10 @@ class HalloweenButton extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 20.0, right: 25.0),
                   child: Text(
                     buttonText,
-                    style: const TextStyle(
-                      fontSize: 15,
+                    style: AppStyles.NormalText().copyWith(
                       color: Colors.white,
-                      // fontWeight: FontWeight.bold,
+                      fontSize:15,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),

@@ -32,8 +32,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                           ),
                         );
                       }),
-                      child: LottieBuilder.asset(
-                          "assets/images/skull_profile.json"),
+                      child:  Lottie.asset("assets/images/profile.json"),
                     )
                   : InkWell(
                       onTap: (() {

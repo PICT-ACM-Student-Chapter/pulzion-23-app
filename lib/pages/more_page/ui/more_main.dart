@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pulzion23/project/cubit/animation_toggle_cubit.dart';
+import '../../../constants/styles.dart';
 import '../../about_us_page/ui/about_us.dart';
 import '../../../constants/images.dart';
 import '../../../constants/urls.dart';
@@ -64,7 +65,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
 
   Future<void> _logout() async {
     await context.read<CheckLoginCubit>().logout();
-    if (context.mounted) {
+    if (mounted) {
       await context.read<CheckLoginCubit>().checkLogin();
     }
   }
@@ -118,23 +119,23 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                     AnimatedTextKit(
                       animatedTexts: [
                         ColorizeAnimatedText(
-                          "Welcome to Pulzion '23",
-                          textStyle: TextStyle(
+                          "Welcome to Pulzion",
+                          textStyle: AppStyles.NormalText().copyWith(
                             fontSize: ht / 45,
                             fontWeight: FontWeight.bold,
                             overflow: TextOverflow.ellipsis,
-                            color: Colors.white,
+                            color: const Color.fromARGB(255, 82, 50, 16),
                           ),
                           // speed: const Duration(seconds: 2),
                           colors: [
                             const Color.fromARGB(255, 82, 50, 16)
-                                .withOpacity(0.1),
+                                .withOpacity(0.5),
                             const Color.fromARGB(255, 82, 50, 16)
                                 .withOpacity(1),
                             const Color.fromARGB(255, 82, 50, 16)
                                 .withOpacity(1),
                             const Color.fromARGB(255, 82, 50, 16)
-                                .withOpacity(0.1),
+                                .withOpacity(0.5),
                             // Colors.deepPurple,
                           ],
                           speed: const Duration(
@@ -151,10 +152,10 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                     AnimatedTextKit(
                       animatedTexts: [
                         TypewriterAnimatedText(
-                          '14 Fun-filled Events',
-                          textStyle: TextStyle(
-                            color: const Color.fromARGB(255, 82, 50, 16)
-                                .withOpacity(0.4),
+                          '10 Fun-filled Events',
+                          textStyle: AppStyles.TitleText().copyWith(
+                            color:
+                                Color.fromARGB(255, 68, 40, 10).withOpacity(1),
                             overflow: TextOverflow.ellipsis,
                             fontSize: ht / 55,
                           ),

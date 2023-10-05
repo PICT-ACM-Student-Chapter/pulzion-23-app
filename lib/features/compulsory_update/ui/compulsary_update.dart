@@ -11,21 +11,18 @@ import '../../../constants/styles.dart';
 import '../../../constants/urls.dart';
 import '../../login_page/ui/widgets/roundedbutton.dart';
 
-
 class CompulsoryUpdatePage extends StatelessWidget {
   const CompulsoryUpdatePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-    
+
     return Stack(
       children: [
-        Panorama(
-          sensitivity: 0.4,
-          animSpeed: 0.5,
-          sensorControl: SensorControl.Orientation,
-          child: Image.asset(AppImages.spaceBackground, fit: BoxFit.cover),
+        Image.asset(
+          AppImages.spaceBackground2,
+          fit: BoxFit.cover,
         ),
         Scaffold(
           backgroundColor: Colors.transparent,
@@ -60,8 +57,7 @@ class CompulsoryUpdatePage extends StatelessWidget {
                   onPressed: () async {
                     if (Platform.isAndroid || Platform.isIOS) {
                       final url = Uri.parse(
-                        EndPoints.playStoreURL ??
-                            'https://pulzion.co.in',
+                        EndPoints.playStoreURL ?? 'https://pulzion.co.in',
                       );
                       launchUrl(
                         url,

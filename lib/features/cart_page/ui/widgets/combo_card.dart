@@ -1,23 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:pulzion23/features/cart_page/ui/widgets/event_card.dart';
 
-
 class Combo_List extends StatelessWidget {
   Combo_List({super.key});
   final List<Map<String, dynamic>> listOfLists = [
     {
       'events': [
-        {'event': 'Codex', 'type': 'Technical'},
-        {'event': 'Insight', 'type': 'Nontechnical'},
+        {
+          'event': 'Codex',
+          'type': 'Technical',
+        },
+        {
+          'event': 'Insight',
+          'type': 'Non-technical',
+        },
       ],
       'actualPrice': 50.0,
       'discountPrice': 20.0,
     },
     {
       'events': [
-        {'event': 'Fandom', 'type': 'Nontechnical'},
-        {'event': 'Insight', 'type': 'Nontechnical'},
-        {'event': 'HireHustle', 'type': 'Technical'},
+        {
+          'event': 'Fandom',
+          'type': 'Non-technical',
+        },
+        {
+          'event': 'Insight',
+          'type': 'Non-technical',
+        },
+        {
+          'event': 'HireHustle',
+          'type': 'Technical',
+        },
       ],
       'actualPrice': 100.0,
       'discountPrice': 70.0,

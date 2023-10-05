@@ -1,10 +1,12 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:pulzion23/features/combo_cubit/cubit/combo_cubit.dart';
 import 'package:pulzion23/features/event_description/ui/widgets/lightOnOff.dart';
 
 import '../../../../config/size_config.dart';
@@ -16,8 +18,13 @@ import '../../../event_description/ui/event_description.dart';
 
 class EventCard extends StatelessWidget {
   final Events event;
+  final List<Events> eventsList;
 
-  const EventCard(this.event, {super.key});
+  const EventCard({
+    required this.eventsList,
+    required this.event,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +43,9 @@ class EventCard extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => DarkSample(event: event),
+            settings: RouteSettings(
+              arguments: eventsList,
+            ),
           ),
         );
       }),
@@ -49,26 +59,35 @@ class EventCard extends StatelessWidget {
               SizeConfig.getProportionateScreenHeight(43),
             ),
             child: Container(
+              height: 700,
+              width: SizeConfig.getProportionateScreenWidth(300),
+              padding: EdgeInsets.only(
+                top: SizeConfig.getProportionateScreenHeight(10),
+                left: SizeConfig.getProportionateScreenWidth(10),
+                right: SizeConfig.getProportionateScreenWidth(10),
+                bottom: SizeConfig.getProportionateScreenHeight(10),
+              ),
               margin: EdgeInsets.only(
                 bottom: SizeConfig.getProportionateScreenWidth(53),
               ),
               decoration: BoxDecoration(
+                // color: Colors.black,
                 image: const DecorationImage(
-                  image: AssetImage(AppImages.manuscript),
+                  image: AssetImage('assets/images/manuscript.png'),
                   fit: BoxFit.fill,
                 ),
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                  color: Colors.white,
-                  width: 0.2,
-                ),
+                // border: Border.all(
+                //   color: Colors.white,
+                //   width: 0.2,
+                // ),
               ),
               child: Padding(
                 padding: EdgeInsets.only(
-                  top: SizeConfig.getProportionateScreenHeight(80),
+                  top: SizeConfig.getProportionateScreenHeight(100),
                   left: SizeConfig.getProportionateScreenWidth(10),
                   right: SizeConfig.getProportionateScreenWidth(10),
-                  bottom: SizeConfig.getProportionateScreenHeight(20),
+                  bottom: SizeConfig.getProportionateScreenHeight(40),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -113,39 +132,48 @@ class EventCard extends StatelessWidget {
           // ),
           Align(
             alignment: Alignment.topLeft,
-            child: Hero(
-              tag: 'event${event.id}',
-              child: Padding(
-                padding: EdgeInsets.all(0),
-                child: Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    Transform.translate(
-                      offset: Offset(
-                        -width / 8.7,
-                        -width / 8,
-                      ),
-                      child: Image.asset(
-                        AppImages.seal,
-                        width: width / 2,
-                        height: width / 2,
-                      ),
-                    ),
-                    Container(
-                      width: width / 4,
-                      height: width / 4,
-                      decoration: const BoxDecoration(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 0, top: 10),
+              child: Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  Positioned(
+                    right: 81,
+                    top: 7,
+                    child: Container(
+                      decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Colors.transparent,
+                        gradient: RadialGradient(radius: 1, colors: [
+                          Colors.orange[600]!,
+                          Colors.black,
+                        ]),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.black,
+                            spreadRadius: 1,
+                            blurRadius: 2,
+                          ),
+                        ],
                       ),
+                      width: width / 3.9,
+                      height: width / 3.9,
                       child: Padding(
-                        padding: EdgeInsets.all(
-                          SizeConfig.getProportionateScreenWidth(15),
+                        padding: EdgeInsets.only(
+                          left: SizeConfig.getProportionateScreenWidth(15),
+                          right: SizeConfig.getProportionateScreenWidth(10),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: CachedNetworkImage(
+                          padding: const EdgeInsets.only(
+                            left: 17,
+                            right: 12,
+                            top: 10,
+                            bottom: 17,
+                          ),
+                          child:
+                              // FlutterLogo()
+                              CachedNetworkImage(
                             imageUrl: event.logo!,
+                            color: Colors.white,
                             placeholder: (context, url) => Container(),
                             errorWidget: (context, url, error) => Container(),
                             cacheManager: _cacheManager,
@@ -156,8 +184,29 @@ class EventCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                  Positioned(
+                    left: 10,
+                    top: -10,
+                    child: Transform.translate(
+                      offset: Offset(
+                        -width / 16,
+                        width / 60,
+                      ),
+                      child: SizedBox(
+                        // black color container circular with boxshadow
+                        width: width / 3.18,
+                        height: width / 3.18,
+                        child: FittedBox(
+                          fit: BoxFit.fill,
+                          child: Image.asset(
+                            'assets/images/ringneww.png',
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -172,7 +221,7 @@ class EventCard extends StatelessWidget {
                 event.mode == 'Online'
                     ? Icons.laptop
                     : Icons.location_on_outlined,
-                color: Colors.white,
+                color: const Color.fromRGBO(165, 42, 42, 1),
               ),
             ),
           ),

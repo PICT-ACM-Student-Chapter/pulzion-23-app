@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glowstone/glowstone.dart';
+import 'package:lottie/lottie.dart';
 import 'package:panorama/panorama.dart';
 
 import '../../../constants/images.dart';
@@ -39,15 +40,9 @@ class ProfilePage extends StatelessWidget {
             return false;
           },
           builder: (context, state) {
-            return Panorama(
-              sensitivity: 0.4,
-              animSpeed: 0.5,
-              sensorControl:
-                  state ? SensorControl.Orientation : SensorControl.None,
-              child: Image.asset(
-                AppImages.spaceBackground,
-                fit: BoxFit.cover,
-              ),
+            return Image.asset(
+              AppImages.spaceBackground2,
+              fit: BoxFit.cover,
             );
           },
         ),
@@ -114,6 +109,7 @@ class ProfilePage extends StatelessWidget {
                                         fontSize: h * 0.025,
                                         color: Colors.white,
                                       ),
+
                                     ),
                                   ),
                                 ),
@@ -129,18 +125,9 @@ class ProfilePage extends StatelessWidget {
                             Container(
                               margin: EdgeInsets.only(left: w * 0.05),
                               padding: EdgeInsets.all(h * 0.01),
-                              child: Glowstone(
-                                color: Colors.white,
-                                velocity: 15,
-                                radius: 5,
-                                child: CircleAvatar(
-                                  radius: w / 14,
-                                  backgroundImage: Image.asset(
-                                    "assets/images/astronaut.jpeg",
-                                  ).image,
-                                  //     as ImageProvider<Object>,
-                                ),
-                              ),
+                              child: Container(
+                                width: w * 0.23,
+                                  child: Lottie.asset('assets/images/bouncepumpkin.json')),
                             ),
                             SizedBox(height: h * 0.1, width: w * 0.1),
                             LimitedBox(
@@ -159,10 +146,20 @@ class ProfilePage extends StatelessWidget {
                                 ),
                               ),
                             ),
+                            Container(
+                              margin: EdgeInsets.only(left: w * 0.05),
+                              padding: EdgeInsets.all(h * 0.01),
+                              child: Container(
+                                  width: w * 0.23,
+                                  child: Lottie.asset('assets/images/bouncepumpkin.json')),
+                            ),
                           ],
                         ),
                       ),
-                      SizedBox(height: h * 0.001),
+                     // SizedBox(height: h * 0.001),
+                      SizedBox(
+                        height: h * 0.04,
+                      ),
                       cardDesign(
                         "USERNAME",
                         h,
@@ -172,6 +169,11 @@ class ProfilePage extends StatelessWidget {
                           Icons.person,
                           color: Colors.white,
                         ),
+                        Image(image: AssetImage('assets/images/skull.png')),
+
+
+
+
                       ),
                       SizedBox(
                         height: h * 0.01,
@@ -185,6 +187,8 @@ class ProfilePage extends StatelessWidget {
                           Icons.email,
                           color: Colors.white,
                         ),
+                        Image(image: AssetImage('assets/images/potion.png')),
+
                       ),
                       SizedBox(
                         height: h * 0.01,
@@ -198,6 +202,8 @@ class ProfilePage extends StatelessWidget {
                           Icons.phone,
                           color: Colors.white,
                         ),
+                        Image(image: AssetImage('assets/images/jar.png')),
+
                       ),
                       SizedBox(
                         height: h * 0.01,
@@ -210,7 +216,9 @@ class ProfilePage extends StatelessWidget {
                         const Icon(
                           Icons.school,
                           color: Colors.white,
-                        ),
+                        ) ,
+                        Image(image: AssetImage('assets/images/hallo.png')),
+
                       ),
                       SizedBox(
                         height: h * 0.01,
@@ -224,6 +232,8 @@ class ProfilePage extends StatelessWidget {
                           Icons.book,
                           color: Colors.white,
                         ),
+                        Image(image: AssetImage('assets/images/rip.png')),
+
                       ),
                       SizedBox(
                         height: h * 0.01,

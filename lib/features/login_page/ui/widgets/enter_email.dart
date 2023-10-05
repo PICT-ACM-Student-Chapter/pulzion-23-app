@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:panorama/panorama.dart';
+import 'package:pulzion23/constants/styles.dart';
+import 'package:pulzion23/constants/widgets/halloween_button.dart';
 import 'package:pulzion23/features/login_page/logic/login_cubit.dart';
 import 'package:pulzion23/features/login_page/ui/login.dart';
 import 'package:pulzion23/features/login_page/ui/widgets/roundedbutton.dart';
@@ -210,13 +212,13 @@ class _GetUserEmailState extends State<GetUserEmail> {
                     padding: const EdgeInsets.all(10.0),
                     child: Column(
                       children: [
-                        const Text(
+                         Text(
                           'Reset Password',
-                          style: TextStyle(
-                            fontSize: 28,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Panther',
+                          style: AppStyles.NormalText().copyWith(
+                            fontSize: 30,
+                            color:Color.fromARGB(255, 208, 168, 116),
+                            // fontWeight: FontWeight.bold,
+                            fontFamily: 'Gothica-Book',
                           ),
                         ),
                         const SizedBox(
@@ -231,14 +233,23 @@ class _GetUserEmailState extends State<GetUserEmail> {
                         const SizedBox(
                           height: 20,
                         ),
-                        RoundedButton(
-                          btnText: 'Send OTP',
-                          onPressed: () async {
-                            email = _email_controller.text;
-                            await BlocProvider.of<LoginCubit>(context)
-                                .sendOTP(_email_controller.text);
-                          },
-                        ),
+                        // RoundedButton(
+                        //   btnText: 'Send OTP',
+                        //   onPressed: () async {
+                        //     email = _email_controller.text;
+                        //     await BlocProvider.of<LoginCubit>(context)
+                        //         .sendOTP(_email_controller.text);
+                        //   },
+                        // ),
+                        SizedBox(
+                          height: 200,
+                          width: 200,
+                          child: HalloweenButton(icon: Icons.email, buttonText:  'Send OTP', onPressed: () async {
+                              email = _email_controller.text;
+                              await BlocProvider.of<LoginCubit>(context)
+                                  .sendOTP(_email_controller.text);
+                            },),
+                        )
                       ],
                     ),
                   ),

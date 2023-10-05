@@ -101,7 +101,7 @@ class _RulePageState extends State<RulePage> {
               ),
             ),
             body: Center(
-              child: ErrorDialog('Response already submitted.'),
+              child: ErrorDialog('Response  submitted.'),
             ),
           )
         : _isLoad
