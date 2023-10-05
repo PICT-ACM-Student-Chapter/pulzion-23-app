@@ -58,7 +58,7 @@ class BottomNavBar extends StatelessWidget {
                 builder: (context, state) {
                   log(EndPoints.mcqStarted.toString());
                   if (state is BottomBarAboutUs) {
-                    return EndPoints.mcqStarted == true
+                    return EndPoints.mcqStarted == false
                         ? const McqLogin()
                         : AboutUsPage(false);
                   } else if (state is BottomBarRegisteredEvents) {
@@ -90,31 +90,31 @@ class BottomNavBar extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.07,
               items: <Widget>[
                 Icon(
-                  EndPoints.mcqStarted == true
+                  EndPoints.mcqStarted == false
                       ? Icons.question_answer
                       : Icons.info,
                   size: 30,
-                  color:  Color.fromARGB(255, 228, 188, 136),
+                  color: const Color.fromARGB(255, 228, 188, 136),
                 ),
-                Icon(
+                const Icon(
                   Icons.calendar_month,
                   size: 30,
                   color: Color.fromARGB(255, 228, 188, 136),
                 ),
-                Icon(
+                const Icon(
                   Icons.home_rounded,
                   size: 30,
-                  color:  Color.fromARGB(255, 228, 188, 136),
+                  color: Color.fromARGB(255, 228, 188, 136),
                 ),
-                Icon(
+                const Icon(
                   Icons.shopping_cart,
                   size: 30,
-                  color:  Color.fromARGB(255, 228, 188, 136),
+                  color: Color.fromARGB(255, 228, 188, 136),
                 ),
-                Icon(
+                const Icon(
                   Icons.more_horiz_rounded,
                   size: 30,
-                  color:  Color.fromARGB(255, 228, 188, 136),
+                  color: Color.fromARGB(255, 228, 188, 136),
                 ),
               ],
               color: Colors.grey.withOpacity(0.2),

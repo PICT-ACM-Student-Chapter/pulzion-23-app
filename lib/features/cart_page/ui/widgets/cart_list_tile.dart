@@ -42,16 +42,15 @@ class CartListTile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-
-                child: 
-                // FlutterLogo()
-                Image.network(
-                  event.logo!,
-                  width: w * 0.15,
-                  height: h * 0.1,
-                ),
-                ),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child:
+                  // FlutterLogo()
+                  Image.network(
+                event.logo!,
+                width: w * 0.15,
+                height: h * 0.1,
+              ),
+            ),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -66,11 +65,11 @@ class CartListTile extends StatelessWidget {
                     ),
                   ),
                   Text(
-
                     "₹ ${event.price}",
-                    style: AppStyles.bodyTextStyle3().copyWith(
+                    style: AppStyles.NormalText().copyWith(
                       color: Colors.white,
-                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 17,
                     ),
                   ),
                 ],

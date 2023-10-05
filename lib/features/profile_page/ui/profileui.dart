@@ -86,27 +86,36 @@ class ProfilePage extends StatelessWidget {
                                   clipper: ClipPathClipper(),
                                   child: Container(
                                     // color: Colors.blue,
-                                    decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            image: AssetImage(
-                                                'assets/images/event_frame.png'),
-                                            fit: BoxFit.fill)),
+                                    decoration: const BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                          'assets/images/event_frame.png',
+                                        ),
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
                                     height: h * 0.23,
                                     child: Center(
                                       child: Row(
                                         children: [
                                           Padding(
                                             padding: const EdgeInsets.fromLTRB(
-                                                40, 0, 20, 20),
-                                            child: Container(
+                                              40,
+                                              0,
+                                              20,
+                                              20,
+                                            ),
+                                            child: SizedBox(
                                               height: h * 0.08,
                                               child: Lottie.asset(
-                                                  'assets/images/pmpr.json'),
+                                                'assets/images/pmpr.json',
+                                              ),
                                             ),
                                           ),
                                           Padding(
                                             padding: const EdgeInsets.only(
-                                                bottom: 25),
+                                              bottom: 25,
+                                            ),
                                             child: Text(
                                               'Aditi Date',
                                               style: AppStyles.TitleText(
@@ -119,7 +128,7 @@ class ProfilePage extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),

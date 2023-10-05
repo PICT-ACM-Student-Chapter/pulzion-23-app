@@ -130,7 +130,7 @@ class _HomePageContentState extends State<HomePageContent>
                           Text(
                             'Tech or Treat',
                             style: AppStyles.TitleText().copyWith(
-                               color:Color.fromARGB(255, 208, 168, 116),
+                               color:const Color.fromARGB(255, 208, 168, 116),
                               fontSize:
                                   SizeConfig.getProportionateScreenFontSize(height*0.05),
                             ),

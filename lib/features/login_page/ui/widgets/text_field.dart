@@ -10,7 +10,7 @@ class LoginSignUpTextField extends StatelessWidget {
   final TextEditingController controller;
   final bool obscureText;
 
-  LoginSignUpTextField(
+  const LoginSignUpTextField(
     this.hintText,
     this.icon, {
     super.key,
@@ -23,6 +23,7 @@ class LoginSignUpTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 7, bottom: 7),
       child: Container(
+        height: MediaQuery.of(context).size.height * 0.06,
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -52,14 +53,14 @@ class LoginSignUpTextField extends StatelessWidget {
           style: (AppStyles.NormalText().copyWith(
             color: Colors.white,
             fontWeight: FontWeight.w400,
-            fontSize: 20,
+            fontSize: 17,
           )),
           cursorColor: Colors.white,
           decoration: InputDecoration(
             hintText: hintText,
             hintStyle: AppStyles.NormalText().copyWith(
               color: Colors.white,
-              fontSize: 20,
+              fontSize: 17,
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(25.0),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pulzion23/constants/styles.dart';
 import 'package:pulzion23/features/cart_page/cubit/cart_page_cubit.dart';
 import '../../../../constants/widgets/halloween_button.dart';
 import 'combo_card.dart';
@@ -107,10 +108,10 @@ class _AnimatedPromptState extends State<AnimatedPrompt>
                   widget.title,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.start,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                  style: AppStyles.NormalText().copyWith(
                     color: Colors.black,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 20,
                   ),
                 ),
               ),
@@ -119,10 +120,10 @@ class _AnimatedPromptState extends State<AnimatedPrompt>
                 child: Text(
                   widget.subtitle,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey[600],
+                  style: AppStyles.NormalText().copyWith(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 20,
                   ),
                 ),
               ),
@@ -161,11 +162,12 @@ class _AnimatedPromptState extends State<AnimatedPrompt>
                         ),
                       ],
                     ),
-                    child: const Center(
+                    child: Center(
                       child: Text(
                         "View Offers",
-                        style: TextStyle(
+                        style: AppStyles.NormalText().copyWith(
                           color: Colors.white,
+                          fontWeight: FontWeight.w400,
                           fontSize: 15,
                         ),
                       ),
@@ -273,11 +275,12 @@ class _AnimatedPromptState extends State<AnimatedPrompt>
                         ),
                       ],
                     ),
-                    child: const Center(
+                    child: Center(
                       child: Text(
                         "Delete",
-                        style: TextStyle(
+                        style: AppStyles.NormalText().copyWith(
                           color: Colors.white,
+                          fontWeight: FontWeight.w400,
                           fontSize: 15,
                         ),
                       ),

@@ -88,11 +88,13 @@ class _SignUpState extends State<SignUp> {
             listener: (context, state) async {
               if (state is SignUpSuccess) {
                 ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                    content: Text("Sign Up Successful",style: AppStyles.NormalText().copyWith(
-                      fontSize: 15,
-                    ),),
-
+                  SnackBar(
+                    content: Text(
+                      "Sign Up Successful",
+                      style: AppStyles.NormalText().copyWith(
+                        fontSize: 15,
+                      ),
+                    ),
                     backgroundColor: Colors.green,
                   ),
                 );
@@ -129,27 +131,33 @@ class _SignUpState extends State<SignUp> {
             builder: (context, state) {
               return state is SignUpLoading
                   ? const Center(child: Loader())
-                  : SingleChildScrollView(
-                      child: Container(
-                        margin: const EdgeInsets.only(
-                          top: 20,
-                          left: 20,
-                          right: 20,
-                          bottom: 20,
-                        ),
-                        height: MediaQuery.of(context).size.height,
+                  : Container(
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                      ),
+                      height: MediaQuery.of(context).size.height,
+                      child: SingleChildScrollView(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               'Create Account',
-                              style: AppStyles.NormalText()
-                                  .copyWith(fontSize: 30,color: Color.fromARGB(255, 228, 188, 136)),
+                              style: AppStyles.NormalText().copyWith(
+                                fontSize: 30,
+                                color: const Color.fromARGB(255, 228, 188, 136),
+                              ),
                             ),
-                            Text(
-                              'Please fill the your information below.',
-                              style: AppStyles.NormalText().copyWith( color:Color.fromARGB(255, 208, 168, 116),fontSize: 18),
+                            Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Text(
+                                'Please fill the your information below.',
+                                style: AppStyles.NormalText().copyWith(
+                                  color:
+                                      const Color.fromARGB(255, 208, 168, 116),
+                                  fontSize: 18,
+                                ),
+                              ),
                             ),
                             LoginSignUpTextField(
                               'First Name',
@@ -164,16 +172,18 @@ class _SignUpState extends State<SignUp> {
                               obscureText: false,
                             ),
                             Center(
-                              child: Padding(
+                              child: Container(
+                                margin: const EdgeInsets.all(8),
                                 padding: const EdgeInsets.only(top: 8),
                                 child: CSCPicker(
                                   // defaultCountry: CscCountry.India,
-
-                                  selectedItemStyle: const TextStyle(
+                                  selectedItemStyle:
+                                      AppStyles.NormalText().copyWith(
                                     color: Colors.white,
-                                    fontSize: 16,
                                     fontWeight: FontWeight.w400,
+                                    fontSize: 17,
                                   ),
+
                                   onCountryChanged: (country) {
                                     setState(() {
                                       log(country.toString());
@@ -182,11 +192,18 @@ class _SignUpState extends State<SignUp> {
                                     });
                                   },
                                   countryDropdownLabel: address,
+                                  dropdownItemStyle:
+                                      AppStyles.NormalText().copyWith(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 17,
+                                  ),
+                                  dropdownDialogRadius: 10.0,
                                   countrySearchPlaceholder: address,
                                   dropdownHeadingStyle: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.w400,
-                                    fontSize: 20,
+                                    fontSize: 17,
                                   ),
                                   showCities: false,
                                   showStates: false,
@@ -200,7 +217,7 @@ class _SignUpState extends State<SignUp> {
                                       begin: Alignment.centerLeft,
                                       end: Alignment.centerRight,
                                     ),
-                                    borderRadius: BorderRadius.circular(24),
+                                    borderRadius: BorderRadius.circular(15),
                                     border: Border.all(
                                       color:
                                           Colors.orange[700]!.withOpacity(0.8),
@@ -466,7 +483,7 @@ class _SignUpState extends State<SignUp> {
                                               BorderRadius.circular(24),
                                         ),
                                         child: LoginSignUpTextField(
-                                          'enter college name',
+                                          'Enter College Name',
                                           Icons.school,
                                           controller: othercollegeController,
                                           obscureText: false,
@@ -685,8 +702,14 @@ class _YearSelectRadioTileState extends State<YearSelectRadioTile> {
                 ),
                 child: RadioListTile(
                   contentPadding: EdgeInsets.zero,
-                  activeColor:  Color.fromARGB(255, 228, 188, 136),
-                  title: Text('FE', style: AppStyles.NormalText().copyWith(color:Colors.white)),
+                  activeColor: Color.fromARGB(255, 228, 188, 136),
+                  title: Text(
+                    'FE',
+                    style: AppStyles.NormalText().copyWith(
+                      color: Colors.white,
+                      fontSize: 25,
+                    ),
+                  ),
                   value: 1,
                   groupValue: YearSelectRadioTile.yearOfStudy,
                   onChanged: (value) {
@@ -707,9 +730,13 @@ class _YearSelectRadioTileState extends State<YearSelectRadioTile> {
                 child: RadioListTile(
                   contentPadding: EdgeInsets.zero,
                   activeColor: Color.fromARGB(255, 228, 188, 136),
-                  title: Text('SE', style: AppStyles.NormalText().copyWith(
-                    color: Colors.white
-                  )),
+                  title: Text(
+                    'SE',
+                    style: AppStyles.NormalText().copyWith(
+                      color: Colors.white,
+                      fontSize: 25,
+                    ),
+                  ),
                   value: 2,
                   groupValue: YearSelectRadioTile.yearOfStudy,
                   onChanged: (value) {
@@ -735,8 +762,13 @@ class _YearSelectRadioTileState extends State<YearSelectRadioTile> {
                 child: RadioListTile(
                   contentPadding: EdgeInsets.zero,
                   activeColor: Color.fromARGB(255, 228, 188, 136),
-                  title: Text('TE', style: AppStyles.NormalText().copyWith(
-                    color: Colors.white,)),
+                  title: Text(
+                    'TE',
+                    style: AppStyles.NormalText().copyWith(
+                      color: Colors.white,
+                      fontSize: 25,
+                    ),
+                  ),
                   value: 3,
                   groupValue: YearSelectRadioTile.yearOfStudy,
                   onChanged: (value) {
@@ -757,9 +789,13 @@ class _YearSelectRadioTileState extends State<YearSelectRadioTile> {
                 child: RadioListTile(
                   contentPadding: EdgeInsets.zero,
                   activeColor: Color.fromARGB(255, 228, 188, 136),
-                  title: Text('BE', style: AppStyles.NormalText().copyWith(
-                    color:Colors.white,
-                  )),
+                  title: Text(
+                    'BE',
+                    style: AppStyles.NormalText().copyWith(
+                      color: Colors.white,
+                      fontSize: 25,
+                    ),
+                  ),
                   value: 4,
                   groupValue: YearSelectRadioTile.yearOfStudy,
                   onChanged: (value) {

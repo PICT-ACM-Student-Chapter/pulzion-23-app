@@ -17,8 +17,6 @@ import '../../../../constants/styles.dart';
 import 'cart_list_tile.dart';
 import '../../../../constants/widgets/empty_page.dart';
 
-
-
 class CartPageContent extends StatefulWidget {
   final CartItemList? eventList;
 
@@ -546,7 +544,10 @@ class _CartPageContentState extends State<CartPageContent> {
                 clipBehavior: Clip.none,
                 children: [
                   Container(
-                    margin: EdgeInsets.symmetric(horizontal: w * 0.1),
+                    margin: EdgeInsets.symmetric(
+                      horizontal: w * 0.08,
+                      vertical: h * 0.02,
+                    ),
                     height: h * 0.1,
                     decoration: BoxDecoration(
                       color: Colors.transparent,
