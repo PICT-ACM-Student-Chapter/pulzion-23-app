@@ -6,7 +6,6 @@ import 'package:pulzion23/constants/widgets/halloween_button.dart';
 import '../../../cart_page/cubit/cart_page_cubit.dart';
 import '../../../login_page/cubit/check_login_cubit.dart';
 import '../../../login_page/ui/login_signup_intro.dart';
-import 'button.dart';
 import 'loading_button.dart';
 
 class DynamicButton extends StatelessWidget {
@@ -93,7 +92,7 @@ class DynamicButton extends StatelessWidget {
                               if (event.id != null) {
                                 BlocProvider.of<CartPageCubit>(
                                   context,
-                                ).addCartItem(event.id!);
+                                ).addCartItem(event.id!, null);
                               }
                             },
                           ),
@@ -112,7 +111,7 @@ class DynamicButton extends StatelessWidget {
                           if (event.id != null) {
                             BlocProvider.of<CartPageCubit>(
                               context,
-                            ).addCartItem(event.id!);
+                            ).addCartItem(event.id!, null);
                           }
                         },
                       ),

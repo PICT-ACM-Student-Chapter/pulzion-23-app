@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pulzion23/constants/models/event_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+
 class ContactCard extends StatelessWidget {
   final Events event;
   const ContactCard({super.key, required this.event});

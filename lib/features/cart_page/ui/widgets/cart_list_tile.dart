@@ -24,7 +24,7 @@ class CartListTile extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: AppColors.eventCardGradientList.elementAt(
-              event.id! % AppColors.eventCardGradientList.length,
+              3 % AppColors.eventCardGradientList.length,
             ),
           ),
           borderRadius: const BorderRadius.all(
@@ -42,13 +42,15 @@ class CartListTile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Image.network(
-                event.logo!,
-                width: w * 0.15,
-                height: h * 0.1,
-              ),
-            ),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: 
+                // FlutterLogo()
+                Image.network(
+                  event.logo!,
+                  width: w * 0.15,
+                  height: h * 0.1,
+                ),
+                ),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -63,7 +65,7 @@ class CartListTile extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "₹${event.price!}",
+                    "₹ ${event.price}",
                     style: AppStyles.bodyTextStyle3().copyWith(
                       color: Colors.white,
                       fontSize: 14,

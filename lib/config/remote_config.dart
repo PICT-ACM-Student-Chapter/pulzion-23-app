@@ -9,7 +9,8 @@ Future<void> remoteConfig() async {
     minimumFetchInterval: const Duration(hours: 1),
   ));
   await remoteConfig.fetchAndActivate();
-  EndPoints.baseUrl = remoteConfig.getString('BaseUrl');
+  EndPoints.baseUrl = "https://staging.api.pulzion.co.in";
+  // EndPoints.baseUrl = remoteConfig.getString('BaseUrl');
   // 'https://ems-test-server.onrender.com';
   EndPoints.sampleToken = remoteConfig.getString('SampleToken');
   EndPoints.appLatestStableVersion =
@@ -18,7 +19,8 @@ Future<void> remoteConfig() async {
   EndPoints.websiteURL = remoteConfig.getString('websiteUrl');
   EndPoints.playStoreURL = remoteConfig.getString('playstoreUrl');
   EndPoints.sponsorsUrl = remoteConfig.getString('sponsorsUrl');
-  EndPoints.acceptingPayment = remoteConfig.getBool('AcceptPayment');
+  EndPoints.acceptingPayment = true;
+  // remoteConfig.getBool('AcceptPayment');
   EndPoints.mcqStarted = remoteConfig.getBool('mcqStarted');
   EndPoints.mcqBaseUrl = remoteConfig.getString('mcqBaseUrl');
   EndPoints.referralLink = remoteConfig.getString('ReferalLink');

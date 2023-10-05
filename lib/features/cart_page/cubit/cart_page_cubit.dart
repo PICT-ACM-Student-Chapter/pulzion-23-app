@@ -79,10 +79,12 @@ class CartPageCubit extends Cubit<CartPageState> {
       var data = jsonDecode(response.body);
 
       if ((response.statusCode / 100).floor() == 2) {
+        sc.hideCurrentSnackBar();
         sc.showSnackBar(
           const SnackBar(
             content: Text('Registered Successfully'),
             backgroundColor: Colors.green,
+            duration: Duration(seconds: 2),
           ),
         );
       } else {
@@ -104,7 +106,7 @@ class CartPageCubit extends Cubit<CartPageState> {
     }
   }
 
-  Future<void> addCartItem(int id) async {
+  Future<bool> addCartItem(int id, int? combo_id) async {
     emit(CartPageLoading());
     Response? response;
     try {
@@ -116,7 +118,11 @@ class CartPageCubit extends Cubit<CartPageState> {
           "Content-Type": "application/json",
           "Authorization": "Bearer $token",
         },
-        body: jsonEncode({'event_id': id}),
+        body: jsonEncode(
+          combo_id == null
+              ? {'event_id': id}
+              : {'event_id': id, 'combo_id': combo_id},
+        ),
       );
 
       var data = jsonDecode(response.body);
@@ -125,10 +131,14 @@ class CartPageCubit extends Cubit<CartPageState> {
         log('Add item response status code: ${response.statusCode}');
         log('Add item response data message: ${data['msg']}');
         emit(CartItemAdded(data['msg'].toString()));
+
+        return true;
       } else {
         log('Add item response status code: ${response.statusCode}');
         log('Add item response error: ${data['error']}');
         emit(CartItemNotAdded(data['error'].toString()));
+
+        return false;
       }
     } catch (e) {
       if (response == null) {
@@ -138,6 +148,8 @@ class CartPageCubit extends Cubit<CartPageState> {
         log('Load cart exception: $e');
         emit(CartPageError(e.toString()));
       }
+
+      return false;
     }
   }
   //sendtransactionid -> 1. sending 2. sent 3. error

@@ -7,7 +7,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+import 'package:pulzion23/features/splash_screen/Splash_Screen.dart';
+import 'package:pulzion23/features/combo_cubit/cubit/combo_cubit.dart';
 import 'package:pulzion23/features/event_slots/logic/booked_slot_cubit.dart';
+import 'package:pulzion23/features/splash_screen/cubit/splash_cubit.dart';
 import 'package:pulzion23/project/cubit/animation_toggle_cubit.dart';
 import 'package:pulzion23/services/mcq_user_provider.dart';
 
@@ -58,7 +61,11 @@ Future<void> main() async {
     Bloc.observer = PulzionBlocObserver();
   }
 
-  runApp(ChangeNotifierProvider(create: (context) => MCQUserProvider(),child: Pulzion23App(),));
+  runApp(ChangeNotifierProvider(
+    create: (context) => MCQUserProvider(),
+    child:
+        BlocProvider(create: (context) => SplashCubit(), child: SplashScreen()),
+  ));
 }
 
 class Pulzion23App extends StatelessWidget {
@@ -66,7 +73,6 @@ class Pulzion23App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return MultiBlocProvider(
       providers: [
         BlocProvider(

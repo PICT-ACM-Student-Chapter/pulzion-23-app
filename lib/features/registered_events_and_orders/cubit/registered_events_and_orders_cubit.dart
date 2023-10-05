@@ -49,6 +49,7 @@ class RegisteredEventsAndOrdersCubit
         List<Events> registeredEvents =
             dataEve['events'].map<Events>((e) => Events.fromJson(e)).toList();
         log(response.body);
+
         emit(RegisteredEventsAndOrdersLoaded(
           registeredEvents,
           registeredOrders,

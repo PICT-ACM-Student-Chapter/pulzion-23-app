@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pulzion23/features/combo_cubit/cubit/combo_cubit.dart';
 
 import '../../../../constants/models/event_model.dart';
 import 'event_card.dart';
@@ -27,7 +29,10 @@ class EventGridView extends StatelessWidget {
             left: mediaQuery.size.width * 0.02,
             right: mediaQuery.size.width * 0.02,
           ),
-          child: EventCard(event),
+          child: EventCard(
+            event: event,
+            eventsList: eventList,
+          ),
         );
       }),
     );

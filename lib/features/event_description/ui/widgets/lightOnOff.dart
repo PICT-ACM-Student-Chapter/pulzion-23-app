@@ -1,5 +1,7 @@
 import 'dart:math' as Math;
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pulzion23/features/combo_cubit/cubit/combo_cubit.dart';
 import 'package:pulzion23/features/event_description/ui/event_description.dart';
 import '../../../../constants/models/event_model.dart';
 
@@ -19,6 +21,7 @@ class _DarkSampleState extends State<DarkSample> {
 
     return DarkTransition(
       childBuilder: (context, x) => EventDescription(
+        eventsList: ModalRoute.of(context)!.settings.arguments as List<Events>,
         event: widget.event,
         isDark: isDark,
         getTheme: () => isDark ? _darkTheme : _lightTheme,

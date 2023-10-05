@@ -3,7 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 import 'package:pulzion23/constants/urls.dart';
+import 'package:pulzion23/constants/widgets/halloween_button.dart';
 import 'package:pulzion23/features/cart_page/cubit/cart_page_cubit.dart';
+import 'package:pulzion23/features/cart_page/ui/widgets/animated_prompt.dart';
+import 'package:pulzion23/features/cart_page/ui/widgets/combo_card.dart';
+import 'package:pulzion23/features/home_page/ui/wigets/event_card.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -332,7 +336,7 @@ class _CartPageContentState extends State<CartPageContent> {
                                             _referral,
                                           );
                                         } catch (e) {
-                                          // print(e.toString());
+                                          print(e.toString());
                                         }
                                         Navigator.of(context).pop();
                                       },
@@ -585,61 +589,50 @@ class _CartPageContentState extends State<CartPageContent> {
                         Row(
                           children: [
                             Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                gradient: const LinearGradient(
-                                  colors: [
-                                    Color(0xff07f49e),
-                                    Color(0xff42047e),
-                                  ],
-                                  begin: Alignment.centerLeft,
-                                  end: Alignment.centerRight,
-                                ),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                child: InkWell(
-                                  onTap: () async {
-                                    if (EndPoints.acceptingPayment ?? true) {
-                                      await _getReferralCodes()
-                                          .then((value) async {
-                                        await _launchPaymentURL().then((value) {
-                                          _showBottomSheet(context);
-                                        });
+                              height: 200,
+                              width: 200,
+                              padding: const EdgeInsets.only(top: 17.0),
+                              child: HalloweenButton(
+                                icon: Icons.shopping_cart,
+                                buttonText: "Checkout",
+                                onPressed: () async {
+                                  if (EndPoints.acceptingPayment ?? true) {
+                                    await _getReferralCodes()
+                                        .then((value) async {
+                                      await _launchPaymentURL().then((value) {
+                                        _showBottomSheet(context);
                                       });
-                                    } else {
-                                      ScaffoldMessenger.of(context)
-                                          .hideCurrentSnackBar();
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        const SnackBar(
-                                          content: Text(
-                                            "We are currently not accepting payments...",
-                                          ),
-                                          backgroundColor: Colors.red,
+                                    });
+                                  } else {
+                                    ScaffoldMessenger.of(context)
+                                        .hideCurrentSnackBar();
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          "We are currently not accepting payments...",
                                         ),
-                                      );
-                                    }
-                                  },
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Text(
-                                        "Checkout",
-                                        style:
-                                            AppStyles.bodyTextStyle3().copyWith(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                        backgroundColor: Colors.red,
                                       ),
-                                      const Icon(
-                                        Icons.shopping_cart,
-                                        color: Colors.white,
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                                    );
+                                  }
+                                },
+                                // child: Row(
+                                //   mainAxisAlignment:
+                                //       MainAxisAlignment.spaceEvenly,
+                                //   children: [
+                                //     Text(
+                                //       "Checkout",
+                                //       style:
+                                //           AppStyles.bodyTextStyle3().copyWith(
+                                //         fontSize: 18,
+                                //         fontWeight: FontWeight.bold,
+                                //       ),
+                                //     ),
+                                //     const Icon(
+                                //       Icons.shopping_cart,
+                                //       color: Colors.white,
+                                //     ),
+                                // ],
                               ),
                             ),
                           ],
@@ -686,24 +679,52 @@ class _CartPageContentState extends State<CartPageContent> {
                                               top: 16.0,
                                             ),
                                             child: Text(
-                                              "Items",
+                                              "Events",
                                               style: AppStyles.bodyTextStyle2()
                                                   .copyWith(
                                                 color: Colors.white,
-                                                fontSize: 18,
+                                                fontSize: 22,
                                                 fontWeight: FontWeight.w700,
                                               ),
                                             ),
                                           ),
-                                          CartListTile(widget
-                                              .eventList!.cartItems![index]),
+                                          AnimatedPrompt(
+                                            id: widget.eventList!
+                                                .cartItems![index].id!,
+                                            title: widget.eventList!
+                                                .cartItems![index].name!,
+                                            subtitle: widget.eventList!
+                                                .cartItems![index].price
+                                                .toString(),
+                                            image: Image.network(
+                                              widget.eventList!
+                                                  .cartItems![index].logo!,
+                                              width: w * 0.15,
+                                              height: h * 0.1,
+                                              color: Colors.white,
+                                            ),
+                                          ),
                                         ],
                                       )
-                                    : CartListTile(
-                                        widget.eventList!.cartItems![index],
+                                    : AnimatedPrompt(
+                                        id: widget
+                                            .eventList!.cartItems![index].id!,
+                                        title: widget
+                                            .eventList!.cartItems![index].name!,
+                                        subtitle: widget
+                                            .eventList!.cartItems![index].price
+                                            .toString(),
+                                        image: Image.network(
+                                          widget.eventList!.cartItems![index]
+                                              .logo!,
+                                          width: w * 0.15,
+                                          height: h * 0.1,
+                                          color: Colors.white,
+                                        ),
                                       );
                               },
-                              itemCount: widget.eventList!.cartItems!.length,
+                              itemCount:
+                                  widget.eventList?.cartItems?.length ?? 0,
                             ),
                           ),
                           Positioned(

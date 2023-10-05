@@ -126,7 +126,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                             fontSize: ht / 45,
                             fontWeight: FontWeight.bold,
                             overflow: TextOverflow.ellipsis,
-                            color: Colors.white,
+                            color: const Color.fromARGB(255, 82, 50, 16),
                           ),
                           // speed: const Duration(seconds: 2),
                           colors: [

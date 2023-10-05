@@ -21,19 +21,24 @@ class CartPageFinal extends StatelessWidget {
             ? BlocConsumer<CartPageCubit, CartPageState>(
                 listener: (context, state) {
                   if (state is CartItemDeleted) {
+                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(state.message),
                         backgroundColor: Colors.green,
+                        duration: const Duration(seconds: 2),
                       ),
                     );
 
                     BlocProvider.of<CartPageCubit>(context).loadCart();
                   } else if (state is CartItemNotDeleted) {
+                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(state.message),
                         backgroundColor: Colors.red,
+                        duration: const Duration(seconds: 2),
                       ),
                     );
 
