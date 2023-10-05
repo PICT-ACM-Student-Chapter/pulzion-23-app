@@ -82,16 +82,9 @@ class MyTicketView extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(th * 0.07),
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Colors.blueGrey.withOpacity(0.3),
-                Colors.blueGrey.withOpacity(0.5),
-                // Colors.white24,
-                // Colors.white24,
-              ],
-            ),
+            image: DecorationImage(
+                image: AssetImage("assets/images/ticket1.jpg"),
+                fit: BoxFit.fill),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -197,7 +190,8 @@ class MyTicketView extends StatelessWidget {
                             MaterialPageRoute(
                               builder: (context) => BlocProvider(
                                 create: (context) =>
-                                    RegisteredEventsAndOrdersCubit()..getOnlyRegisteredEvents(),
+                                    RegisteredEventsAndOrdersCubit()
+                                      ..getOnlyRegisteredEvents(),
                                 child: ViewSlotDetails(
                                   id: id,
                                   logo: logo,
@@ -212,10 +206,12 @@ class MyTicketView extends StatelessWidget {
                               builder: (ctx) => MultiBlocProvider(
                                 providers: [
                                   BlocProvider(
-                                    create: (context) => EventSlotsCubit()..getAvailableSlots(id),
+                                    create: (context) => EventSlotsCubit()
+                                      ..getAvailableSlots(id),
                                   ),
                                   BlocProvider.value(
-                                    value: BlocProvider.of<RegisteredEventsAndOrdersCubit>(
+                                    value: BlocProvider.of<
+                                        RegisteredEventsAndOrdersCubit>(
                                       context,
                                     ),
                                   ),
@@ -234,7 +230,9 @@ class MyTicketView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Icon(
-                        isBooked != null ? Icons.remove_red_eye_rounded : Icons.pin_drop_rounded,
+                        isBooked != null
+                            ? Icons.remove_red_eye_rounded
+                            : Icons.pin_drop_rounded,
                         color: Colors.white,
                       ),
                       Text(

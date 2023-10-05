@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../../../constants/images.dart';
 import '../../../login_page/cubit/check_login_cubit.dart';
@@ -31,9 +32,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                           ),
                         );
                       }),
-                      child: const CircleAvatar(
-                        backgroundImage: AssetImage(AppImages.person),
-                      ),
+                      child: LottieBuilder.asset(
+                          "assets/images/skull_profile.json"),
                     )
                   : InkWell(
                       onTap: (() {

@@ -94,27 +94,24 @@ class LoginSignupBody extends StatelessWidget {
               borderRadius: const BorderRadius.all(
                 Radius.circular(20),
               ),
-              border: const Border.fromBorderSide(
-                BorderSide(
-                  // color: AppColors.cardBorder,
-                  width: 0.2,
-                ),
+              // border: const Border.fromBorderSide(
+              //   BorderSide(
+              //     // color: AppColors.cardBorder,
+              //     width: 0.2,
+              //   ),
+              // ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(14),
+              child: Container(
+                // height: ,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(25),
+                    image: DecorationImage(
+                        image: AssetImage('assets/images/login_page_gif.gif'),
+                        fit: BoxFit.fill)),
               ),
             ),
-        child: Padding(
-          padding: const EdgeInsets.all(14),
-          child: Container(
-            // height: ,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(25),
-                image: DecorationImage(
-                    image: AssetImage('assets/images/registergif.gif'),
-                    fit:BoxFit.fill
-
-                )
-            ),
-            ),
-        ),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -138,21 +135,27 @@ class LoginSignupBody extends StatelessWidget {
             height: size.height * 0.075,
             width: size.width * 0.6,
             decoration: BoxDecoration(
-              image: DecorationImage(
-                  colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.4),BlendMode.dstATop),
-                  image:AssetImage('assets/images/textfield.jpg'),
-              fit: BoxFit.fill
+              gradient: LinearGradient(
+                colors: [
+                  Colors.black.withOpacity(0.6),
+                  Colors.black.withOpacity(0.4),
+                  Colors.black.withOpacity(0.4),
+                ],
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
               ),
-              color: AppColors.primary.withAlpha(200),
-              borderRadius: const BorderRadius.all(
-                Radius.circular(20),
+              borderRadius: BorderRadius.circular(24),
+              border: Border.all(
+                color: Colors.orange[700]!.withOpacity(0.8),
+                width: 0.7,
               ),
-              border: const Border.fromBorderSide(
-                BorderSide(
-                  color: AppColors.cardBorder,
-                  width: 1.5,
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 1.0,
+                  spreadRadius: 2.0,
+                  color: Colors.yellow[900]!.withOpacity(0.3),
                 ),
-              ),
+              ],
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -183,7 +186,7 @@ class LoginSignupBody extends StatelessWidget {
                   ),
                 ),
                 const VerticalDivider(
-                  color: AppColors.cardBorder,
+                  color: Color.fromARGB(255, 167, 74, 3),
                   width: 2,
                   thickness: 2,
                   indent: 8.0,

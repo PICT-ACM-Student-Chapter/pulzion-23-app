@@ -1,6 +1,7 @@
 class AppImages {
   static const icon = 'assets/images/icon.png';
   static const spaceBackground = 'assets/images/space_bg.jpg';
+  static const spaceBackground2 = 'assets/images/app_background.jpeg';
   static const djAstronaut = 'assets/images/spaceman_dj.json';
   static const loadingAnimation = 'assets/images/loading-animation.json';
   static const astronautWithPlanet = 'assets/images/astronaut_with_planet.json';
