@@ -21,7 +21,6 @@ class _DarkSampleState extends State<DarkSample> {
 
     return DarkTransition(
       childBuilder: (context, x) => EventDescription(
-        eventsList: ModalRoute.of(context)!.settings.arguments as List<Events>,
         event: widget.event,
         isDark: isDark,
         getTheme: () => isDark ? _darkTheme : _lightTheme,

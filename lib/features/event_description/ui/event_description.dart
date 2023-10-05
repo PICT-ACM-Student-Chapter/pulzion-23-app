@@ -9,6 +9,7 @@ import 'package:pulzion23/constants/widgets/halloween_button.dart';
 import 'package:pulzion23/constants/widgets/loader.dart';
 import 'package:pulzion23/features/combo_cubit/cubit/combo_cubit.dart';
 import 'package:pulzion23/features/combo_cubit/models/combo_model.dart';
+import 'package:pulzion23/features/event_description/ui/widgets/offer_card.dart';
 import "package:share_plus/share_plus.dart";
 import '../../../constants/urls.dart';
 import '../../cart_page/cubit/cart_page_cubit.dart';
@@ -120,9 +121,7 @@ class EventDescription extends StatefulWidget {
   final Events? event;
   final Function()? onChange;
   final Function()? getTheme;
-  final List<Events>? eventsList;
   const EventDescription({
-    this.eventsList,
     required this.isDark,
     required this.event,
     required this.onChange,
@@ -609,7 +608,7 @@ class _EventDescriptionState extends State<EventDescription>
                                           ? 0
                                           : event.offers!.length,
                                   itemBuilder: (context, index) {
-                                    final combo = event.offers![index];
+                                    final comboo = event.offers![index];
 
                                     return InkWell(
                                       onTap: () async {
@@ -620,10 +619,12 @@ class _EventDescriptionState extends State<EventDescription>
                                             BlocProvider.of<CartPageCubit>(
                                           context,
                                         );
-                                        for (int eventID
-                                            in combo.comboEventID!) {
+                                        for (ComboDetails eventCombo
+                                            in comboo.comboDetailsList!) {
                                           if (!await bc.addCartItem(
-                                              eventID, null)) {
+                                            int.parse(eventCombo.id),
+                                            null,
+                                          )) {
                                             sc.showSnackBar(
                                                SnackBar(
                                                 content: Text(
@@ -634,12 +635,14 @@ class _EventDescriptionState extends State<EventDescription>
                                                 ),
                                               ),
                                             );
-                                            for (int eventID2
-                                                in combo.comboEventID!) {
-                                              if (eventID2 == eventID) {
+                                            for (ComboDetails eventCombo2
+                                                in comboo.comboDetailsList!) {
+                                              if (eventCombo2.id ==
+                                                  eventCombo.id) {
                                                 break;
                                               }
-                                              await bc.deleteItem(eventID2);
+                                              await bc.deleteItem(
+                                                  int.parse(eventCombo2.id));
                                             }
                                             break;
                                           }
@@ -648,9 +651,12 @@ class _EventDescriptionState extends State<EventDescription>
                                           );
                                         }
                                       },
-                                      child: OfferCard(
-                                        combo: combo,
-                                        eventsList: widget.eventsList,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 10, horizontal: 30),
+                                        child: OfferCard(
+                                          combo: comboo,
+                                        ),
                                       ),
                                     );
                                   },
@@ -664,80 +670,6 @@ class _EventDescriptionState extends State<EventDescription>
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-// ignore: must_be_immutable
-class OfferCard extends StatefulWidget {
-  Combo combo;
-  List<Events>? eventsList;
-  OfferCard({
-    required this.combo,
-    required this.eventsList,
-    super.key,
-  });
-
-  @override
-  State<OfferCard> createState() => _OfferCardState();
-}
-
-class _OfferCardState extends State<OfferCard> {
-  Events? getEvent(int eventID) {
-    for (var event in widget.eventsList!) {
-      if (event.id == eventID) {
-        return event;
-      }
-    }
-
-    return null;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    log(widget.combo.comboName!);
-
-    return Card(
-      color: Colors.deepPurple[900],
-      child: Column(
-        children: [
-          Text(
-            widget.combo.comboName ?? "",
-            style:AppStyles.NormalText().copyWith(
-              color: Theme.of(context).primaryColor,
-              fontSize :10,
-            ),
-          ),
-          Column(
-            children: widget.combo.comboEventID == null
-                ? const [
-                    EmptyPage(errorMessage: "", title: "No offers available")
-                  ]
-                : widget.combo.comboEventID!.map(
-                    (e) {
-                      final Events? event = getEvent(e);
-                      if (event != null) {
-                        log(event.name!);
-
-                        return ListTile(
-                          leading: Image.network(event.logo!),
-                          title: Text(event.name!),
-                          trailing: Text(
-                            "Rs. ${widget.combo.comboTotalPrice}",
-                            style: AppStyles.NormalText().copyWith(
-                              color: Theme.of(context).primaryColor,
-                              fontSize:10,
-                            ),
-                          ),
-                        );
-                      } else {
-                        return Container();
-                      }
-                    },
-                  ).toList(),
-          ),
-        ],
       ),
     );
   }

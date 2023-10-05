@@ -228,7 +228,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                             iconSize: height / 22,
                           ),
                           const VerticalDivider(
-                            color: Colors.white54,
+                            color: const Color.fromARGB(255, 82, 50, 16),
                           ),
                           IconButton(
                             onPressed: () {
@@ -243,7 +243,8 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                             icon: const FaIcon(FontAwesomeIcons.linkedin),
                           ),
                           const VerticalDivider(
-                            color: Colors.white54,
+                            width: 3,
+                            color: Color.fromARGB(255, 82, 50, 16),
                           ),
                           IconButton(
                             onPressed: () {
@@ -258,7 +259,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                             icon: const FaIcon(FontAwesomeIcons.facebook),
                           ),
                           const VerticalDivider(
-                            color: Colors.white54,
+                            color: Color.fromARGB(255, 82, 50, 16),
                           ),
                           IconButton(
                             onPressed: () {
@@ -297,7 +298,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
               //   ),
               //   child: SwitchListTile(
               //     secondary: CircleAvatar(
-              //       backgroundColor: Colors.white54,
+              //       backgroundColor: const Color.fromARGB(255, 82, 50, 16),
               //       child: Icon(
               //         Icons.animation_outlined,
               //         color: Colors.black,
@@ -314,7 +315,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
               //     ),
               //     activeColor: Colors.white,
               //     inactiveThumbColor: Colors.white,
-              //     inactiveTrackColor: Colors.white54,
+              //     inactiveTrackColor: const Color.fromARGB(255, 82, 50, 16),
               //     value: _animationstoggle,
               //     onChanged: (val) {
               //       BlocProvider.of<GlobalParameterCubit>(context)

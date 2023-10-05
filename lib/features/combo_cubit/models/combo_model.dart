@@ -1,20 +1,30 @@
 import 'dart:developer';
 
+class ComboDetails {
+  final String id;
+  final String name;
+  final String logo;
+
+  ComboDetails({
+    required this.id,
+    required this.name,
+    required this.logo,
+  });
+}
+
 class Combo {
   String? comboName;
   int? comboID;
   String? comboTotalPrice;
   String? comboDiscountedPrice;
   bool? comboStatus;
-  List<dynamic>? comboEventID;
-  List<dynamic>? comboEventName;
+  List<ComboDetails>? comboDetailsList;
   // Map<String, String>? terms_c;
 
   Combo({
     this.comboName,
     this.comboID,
-    this.comboEventID,
-    this.comboEventName,
+    this.comboDetailsList,
     this.comboDiscountedPrice,
     this.comboStatus,
     this.comboTotalPrice,
@@ -24,8 +34,7 @@ class Combo {
   Combo.fromJson(Map<String, dynamic> json) {
     comboID = json['id'];
     comboName = json['combo_name'];
-    comboEventID = json['array_of_evid'];
-    comboEventName = Combo.getComboEventName(json['array_of_evname']);
+    comboDetailsList = Combo.getComboEventDetails(json['array_of_evname']);
     comboTotalPrice = json['total_price'];
     comboDiscountedPrice = json['discounted_price'];
     comboStatus = json['status'];
@@ -45,15 +54,19 @@ class Combo {
     return l;
   }
 
-  static List<dynamic>? getComboEventName(List<dynamic>? json) {
+  static List<ComboDetails>? getComboEventDetails(List<dynamic>? json) {
     if (json == null || json == []) {
       return [];
     }
-    List<dynamic> l = [];
+    log(json.toString());
+    List<ComboDetails> l = [];
     for (var element in json) {
-      l.add(element['name']);
+      ComboDetails comboDetails = ComboDetails(
+          id: element['id'].toString(),
+          name: element['name'],
+          logo: element['logo']);
+      l.add(comboDetails);
     }
-
     return l;
   }
 }

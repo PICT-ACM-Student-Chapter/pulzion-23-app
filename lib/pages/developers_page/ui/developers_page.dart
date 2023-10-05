@@ -93,7 +93,9 @@ class _DevelopersPageState extends State<DevelopersPage> {
                   Stack(
                     children: [
                       Positioned(
-                        top: h / 20,
+                        top: h / 25,
+                        left: h / 100,
+                        right: h / 90,
                         child: Center(
                           child: Align(
                             alignment: Alignment.center,
@@ -105,25 +107,39 @@ class _DevelopersPageState extends State<DevelopersPage> {
                                 bottom: h * 0.015,
                               ),
                               decoration: BoxDecoration(
-                                shape: BoxShape.rectangle,
-                                gradient: RadialGradient(
-                                  center: const Alignment(-0.8, -0.6),
-                                  colors: const [
-                                    Color.fromRGBO(9, 7, 130, 1),
-                                    Color.fromRGBO(160, 11, 143, 0.91),
-                                    Colors.purple,
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Colors.black.withOpacity(0.6),
+                                    Colors.black.withOpacity(0.4),
+                                    Colors.black.withOpacity(0.4),
                                   ],
-                                  radius: w * 0.016,
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight,
                                 ),
-                                borderRadius: BorderRadius.circular(30),
+                                borderRadius: BorderRadius.circular(24),
+                                border: Border.all(
+                                  color: Colors.orange[700]!.withOpacity(0.8),
+                                  width: 0.7,
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    blurRadius: 1.0,
+                                    spreadRadius: 2.0,
+                                    color: Colors.yellow[900]!.withOpacity(0.3),
+                                  ),
+                                ],
                               ),
-                              child: FittedBox(
-                                clipBehavior: Clip.hardEdge,
-                                fit: BoxFit.contain,
-                                child: Text(
-                                  "Developers Page",
-                                  style: AppStyles.bodyTextStyle2()
-                                      .copyWith(fontSize: 25),
+                              child: Center(
+                                child: FittedBox(
+                                  clipBehavior: Clip.hardEdge,
+                                  fit: BoxFit.contain,
+                                  child: Text(
+                                    "Developers Page",
+                                    style: AppStyles.TitleText().copyWith(
+                                        fontSize: 47,
+                                        color: const Color.fromARGB(
+                                            255, 236, 182, 101)),
+                                  ),
                                 ),
                               ),
                             ),
@@ -131,47 +147,55 @@ class _DevelopersPageState extends State<DevelopersPage> {
                         ),
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Transform(
-                            alignment: Alignment.center,
-                            transform: Matrix4.rotationY(math.pi),
-                            child: SizedBox(
-                              height: h / 8,
-                              child: Lottie.asset(AppImages.errorSpaceman),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 78, top: 13),
+                            child: Transform(
+                              alignment: Alignment.center,
+                              transform: Matrix4.rotationY(math.pi),
+                              child: SizedBox(
+                                height: h / 8,
+                                child: Image.asset("assets/images/cobweb1.gif"),
+                              ),
                             ),
                           ),
-                          SizedBox(
-                            height: h / 8,
-                            child: Lottie.asset(AppImages.errorSpaceman),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 75, top: 10),
+                            child: SizedBox(
+                              height: h / 8,
+                              child: Image.asset("assets/images/cobweb1.gif"),
+                            ),
                           ),
                         ],
                       ),
                     ],
                   ),
-// SizedBox(height: h/5,
-//   width: w*0.5,),
+                  // SizedBox(
+                  //   height: h / 5,
+                  //   width: w * 0.5,
+                  // ),
                   Row(
                     children: [
                       SizedBox(
                         height: h * 0.1,
                         width: w * 0.24,
-                        child: Lottie.asset(AppImages.errorSpaceman),
+                        child: Lottie.asset("assets/images/fly_pumpkin.json"),
                       ),
                       SizedBox(
                         height: h * 0.1,
                         width: w * 0.23,
-                        child: Lottie.asset(AppImages.errorSpaceman),
+                        child: Lottie.asset("assets/images/fly_pumpkin.json"),
                       ),
                       SizedBox(
                         height: h * 0.1,
                         width: w * 0.24,
-                        child: Lottie.asset(AppImages.errorSpaceman),
+                        child: Lottie.asset("assets/images/fly_pumpkin.json"),
                       ),
                       SizedBox(
                         height: h * 0.1,
                         width: w * 0.23,
-                        child: Lottie.asset(AppImages.errorSpaceman),
+                        child: Lottie.asset("assets/images/fly_pumpkin.json"),
                       ),
                     ],
                   ),
@@ -192,20 +216,27 @@ class _DevelopersPageState extends State<DevelopersPage> {
                         return Container(
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                            shape: BoxShape.rectangle,
-                            gradient: RadialGradient(
-                              center: const Alignment(-0.8, -0.6),
+                            gradient: LinearGradient(
                               colors: [
-                                Colors.purple.withOpacity(0.1),
-                                Colors.purple.withOpacity(0),
+                                Colors.black.withOpacity(0.6),
+                                Colors.black.withOpacity(0.4),
+                                Colors.black.withOpacity(0.4),
                               ],
-                              radius: w * 0.016,
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
                             ),
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(24),
                             border: Border.all(
-                              color: Colors.orange,
-                              width: 0.5,
+                              color: Colors.orange[700]!.withOpacity(0.8),
+                              width: 0.7,
                             ),
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 1.0,
+                                spreadRadius: 2.0,
+                                color: Colors.yellow[900]!.withOpacity(0.3),
+                              ),
+                            ],
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(0.0),
@@ -318,9 +349,10 @@ class _DevelopersPageState extends State<DevelopersPage> {
                                         child: Text(
                                           developersList[index]
                                               .name, // the names of the users are to be entered here in the child
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                          ),
+                                          style: AppStyles.NormalText()
+                                              .copyWith(
+                                                  color: Colors.white,
+                                                  fontSize: 15),
                                         ),
                                       ),
                                     ),
@@ -403,5 +435,3 @@ class _DevelopersPageState extends State<DevelopersPage> {
     );
   }
 }
-
-
