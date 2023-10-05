@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pulzion23/constants/widgets/halloween_button.dart';
+import 'package:pulzion23/features/event_description/ui/widgets/contact_card.dart';
 import "package:share_plus/share_plus.dart";
 import '../../../constants/urls.dart';
 import '../../cart_page/cubit/cart_page_cubit.dart';
@@ -531,10 +532,11 @@ class _EventDescriptionState extends State<EventDescription>
                                   ),
                                 ),
                               ),
-                              // Padding(
-                              //   padding: const EdgeInsets.all(8.0),
-                              //   child: ContactCard(event: event),
-                              // ),
+                              Container(
+                                height: 500,
+                                padding: const EdgeInsets.all(8.0),
+                                child: ContactCard(event: event),
+                              ),
                             ],
                           ),
                           Text(
