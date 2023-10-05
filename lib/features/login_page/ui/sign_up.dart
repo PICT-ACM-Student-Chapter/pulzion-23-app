@@ -50,7 +50,7 @@ class _SignUpState extends State<SignUp> {
     collegeController.dispose();
   }
 
-  bool isOpen = false;
+  bool isOpen = true;
   String selectOption = 'Select College';
   // late String? valueChoose;
   List<String> colleges = ["PICT", "Other"];
@@ -144,8 +144,8 @@ class _SignUpState extends State<SignUp> {
                           children: [
                             Text(
                               'Create Account',
-                              style: AppStyles.NormalText()
-                                  .copyWith(fontSize:30, color:Color.fromARGB(255, 208, 168, 116), ),
+                              style: AppStyles.bodyTextStyle2()
+                                  .copyWith(fontSize: 30),
                             ),
                             Text(
                               'Please fill the your information below.',
@@ -168,9 +168,10 @@ class _SignUpState extends State<SignUp> {
                                 padding: const EdgeInsets.only(top: 8),
                                 child: CSCPicker(
                                   // defaultCountry: CscCountry.India,
-                                  selectedItemStyle: AppStyles.NormalText().copyWith(
+
+                                  selectedItemStyle: const TextStyle(
                                     color: Colors.white,
-                                    fontSize: 20,
+                                    fontSize: 16,
                                     fontWeight: FontWeight.w400,
                                   ),
                                   onCountryChanged: (country) {
@@ -182,7 +183,7 @@ class _SignUpState extends State<SignUp> {
                                   },
                                   countryDropdownLabel: address,
                                   countrySearchPlaceholder: address,
-                                  dropdownHeadingStyle: AppStyles.NormalText().copyWith(
+                                  dropdownHeadingStyle: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.w400,
                                     fontSize: 20,
@@ -223,156 +224,257 @@ class _SignUpState extends State<SignUp> {
                               controller: phoneController,
                               obscureText: false,
                             ),
-                            Column(
-                              children: [
-                                InkWell(
-                                  onTap: () => {
-                                    setState(() {
-                                      isOpen = !isOpen;
-                                    }),
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top: 8.0),
-                                    child: Container(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.07,
-                                      decoration: BoxDecoration(
-                                        gradient: LinearGradient(
-                                          colors: [
-                                            Colors.black.withOpacity(0.6),
-                                            Colors.black.withOpacity(0.4),
-                                            Colors.black.withOpacity(0.4),
-                                          ],
-                                          begin: Alignment.centerLeft,
-                                          end: Alignment.centerRight,
-                                        ),
-                                        borderRadius: BorderRadius.circular(24),
-                                        border: Border.all(
-                                          color: Colors.orange[700]!
-                                              .withOpacity(0.8),
-                                          width: 0.7,
-                                        ),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            blurRadius: 1.0,
-                                            spreadRadius: 2.0,
-                                            color: Colors.yellow[900]!
-                                                .withOpacity(0.3),
-                                          ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 8.0),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          Colors.black.withOpacity(0.6),
+                                          Colors.black.withOpacity(0.4),
+                                          Colors.black.withOpacity(0.4),
                                         ],
-                                        // image: DecorationImage(
-                                        //   colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.6),BlendMode.dstATop),
-                                        //     image: AssetImage('assets/images/fields.jpg'),
-                                        //     fit: BoxFit.fill),
-
-                                        // borderRadius: const BorderRadius.all(
-                                        //   Radius.circular(25.0),
-                                        // ),
-                                        // color: AppColors.primary.withAlpha(100),
-                                        // border: Border.all(
-                                        //   color: Colors.black26,
-                                        //   width: 2.0,
-                                        // ),
+                                        begin: Alignment.centerLeft,
+                                        end: Alignment.centerRight,
                                       ),
-                                      child: Row(
-                                        // mainAxisAlignment:
-                                        //     MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          const SizedBox(
-                                            width: 8,
-                                          ),
-                                          const Icon(
-                                            Icons.school_outlined,
-                                            color: Colors
-                                                .white, // add custom icons also
-                                          ),
-                                          const SizedBox(
-                                            width: 15,
-                                          ),
-                                          Text(
-                                            selectOption,
-                                            style: (AppStyles.NormalText().copyWith(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 20,
-                                            )),
-                                          ),
-                                          const Spacer(
-                                            flex: 10,
-                                          ),
-                                          Icon(
-                                            isOpen
-                                                ? Icons.keyboard_arrow_up_sharp
-                                                : Icons
-                                                    .keyboard_arrow_down_sharp,
-                                            color: Colors.white,
-                                          ),
-                                          const Spacer(
-                                            flex: 1,
-                                          ),
-                                        ],
+                                      borderRadius: BorderRadius.circular(24),
+                                      border: Border.all(
+                                        color: Colors.orange[700]!
+                                            .withOpacity(0.8),
+                                        width: 0.7,
                                       ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          blurRadius: 1.0,
+                                          spreadRadius: 2.0,
+                                          color: Colors.yellow[900]!
+                                              .withOpacity(0.3),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.3,
+                                          child: Theme(
+                                            data: ThemeData(
+                                              unselectedWidgetColor:
+                                                  Colors.white,
+                                            ),
+                                            child: RadioListTile(
+                                              contentPadding: EdgeInsets.zero,
+                                              activeColor: AppColors.secondary,
+                                              title: Text(
+                                                'PICT',
+                                                style:
+                                                    AppStyles.bodyTextStyle2(),
+                                              ),
+                                              value: 1,
+                                              groupValue: YearSelectRadioTile
+                                                  .yearOfStudy,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  YearSelectRadioTile
+                                                      .yearOfStudy = value!;
+                                                  YearSelectRadioTile
+                                                          .yearOfStudyString =
+                                                      'PICT';
+                                                  isOpen = true;
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.4,
+                                          child: Theme(
+                                            data: ThemeData(
+                                              unselectedWidgetColor:
+                                                  Colors.white,
+                                            ),
+                                            child: RadioListTile(
+                                              contentPadding: EdgeInsets.zero,
+                                              activeColor: AppColors.secondary,
+                                              title: Text(
+                                                'Other',
+                                                style:
+                                                    AppStyles.bodyTextStyle2(),
+                                              ),
+                                              value: 2,
+                                              groupValue: YearSelectRadioTile
+                                                  .yearOfStudy,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  YearSelectRadioTile
+                                                      .yearOfStudy = value!;
+                                                  YearSelectRadioTile
+                                                          .yearOfStudyString =
+                                                      'Other';
+                                                  isOpen = false;
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ),
-                                if (isOpen)
-                                  ListView(
-                                    primary: true,
-                                    shrinkWrap: true,
-                                    children: colleges
-                                        .map((e) => Container(
-                                              decoration: BoxDecoration(
-                                                color: selectOption == e
-                                                    ? AppColors.primary
-                                                        .withAlpha(100)
-                                                    : Colors.white,
-                                                borderRadius:
-                                                    const BorderRadius.all(
-                                                  Radius.circular(25.0),
-                                                ),
-                                                border: Border.all(
-                                                  color: AppColors.primary
-                                                      .withAlpha(100),
-                                                  width: 5.0,
-                                                ),
-                                              ),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: InkWell(
-                                                  onTap: () {
-                                                    selectOption = e;
-                                                    setState(() {
-                                                      isOpen = false;
-                                                    });
-                                                  },
-                                                  child: Text(e),
-                                                ),
-                                              ),
-                                            ))
-                                        .toList(),
-                                  ),
-                                if (selectOption == 'Other')
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 8.0),
-                                    child: Container(
-                                      decoration: BoxDecoration(
+                                  // InkWell(
+                                  //   onTap: () => {
+                                  //     setState(() {
+                                  //       isOpen = !isOpen;
+                                  //     }),
+                                  //   },
+                                  // child: Padding(
+                                  //   padding: const EdgeInsets.only(top: 8.0),
+                                  //   child: Container(
+                                  //     height:
+                                  //         MediaQuery.of(context).size.height *
+                                  //             0.07,
+                                  //     decoration: BoxDecoration(
+                                  //       gradient: LinearGradient(
+                                  //         colors: [
+                                  //           Colors.black.withOpacity(0.6),
+                                  //           Colors.black.withOpacity(0.4),
+                                  //           Colors.black.withOpacity(0.4),
+                                  //         ],
+                                  //         begin: Alignment.centerLeft,
+                                  //         end: Alignment.centerRight,
+                                  //       ),
+                                  //       borderRadius: BorderRadius.circular(24),
+                                  //       border: Border.all(
+                                  //         color: Colors.orange[700]!
+                                  //             .withOpacity(0.8),
+                                  //         width: 0.7,
+                                  //       ),
+                                  //       boxShadow: [
+                                  //         BoxShadow(
+                                  //           blurRadius: 1.0,
+                                  //           spreadRadius: 2.0,
+                                  //           color: Colors.yellow[900]!
+                                  //               .withOpacity(0.3),
+                                  //         ),
+                                  //       ],
+                                  //       // image: DecorationImage(
+                                  //       //   colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.6),BlendMode.dstATop),
+                                  //       //     image: AssetImage('assets/images/fields.jpg'),
+                                  //       //     fit: BoxFit.fill),
+
+                                  //       // borderRadius: const BorderRadius.all(
+                                  //       //   Radius.circular(25.0),
+                                  //       // ),
+                                  //       // color: AppColors.primary.withAlpha(100),
+                                  //       // border: Border.all(
+                                  //       //   color: Colors.black26,
+                                  //       //   width: 2.0,
+                                  //       // ),
+                                  //     ),
+                                  //     child: Row(
+                                  //       // mainAxisAlignment:
+                                  //       //     MainAxisAlignment.spaceBetween,
+                                  //       children: [
+                                  //         const SizedBox(
+                                  //           width: 8,
+                                  //         ),
+                                  //         const Icon(
+                                  //           Icons.school_outlined,
+                                  //           color: Colors
+                                  //               .white, // add custom icons also
+                                  //         ),
+                                  //         const SizedBox(
+                                  //           width: 15,
+                                  //         ),
+                                  //         Text(
+                                  //           selectOption,
+                                  //           style: (const TextStyle(
+                                  //             color: Colors.white,
+                                  //             fontWeight: FontWeight.w400,
+                                  //             fontSize: 16,
+                                  //           )),
+                                  //         ),
+                                  //         const Spacer(
+                                  //           flex: 10,
+                                  //         ),
+                                  //         Icon(
+                                  //           isOpen
+                                  //               ? Icons.keyboard_arrow_up_sharp
+                                  //               : Icons
+                                  //                   .keyboard_arrow_down_sharp,
+                                  //           color: Colors.white,
+                                  //         ),
+                                  //         const Spacer(
+                                  //           flex: 1,
+                                  //         ),
+                                  //       ],
+                                  //     ),
+                                  //   ),
+                                  // ),
+                                  // ),
+                                  // if (isOpen)
+                                  //   ListView(
+                                  //     primary: true,
+                                  //     shrinkWrap: true,
+                                  //     children: colleges
+                                  //         .map((e) => Container(
+                                  //               decoration: BoxDecoration(
+                                  //                 color: selectOption == e
+                                  //                     ? AppColors.primary
+                                  //                         .withAlpha(100)
+                                  //                     : Colors.white,
+                                  //                 borderRadius:
+                                  //                     const BorderRadius.all(
+                                  //                   Radius.circular(25.0),
+                                  //                 ),
+                                  //                 border: Border.all(
+                                  //                   color: AppColors.primary
+                                  //                       .withAlpha(100),
+                                  //                   width: 5.0,
+                                  //                 ),
+                                  //               ),
+                                  //               child: Padding(
+                                  //                 padding:
+                                  //                     const EdgeInsets.all(8.0),
+                                  //                 child: InkWell(
+                                  //                   onTap: () {
+                                  //                     selectOption = e;
+                                  //                     setState(() {
+                                  //                       isOpen = false;
+                                  //                     });
+                                  //                   },
+                                  //                   child: Text(e),
+                                  //                 ),
+                                  //               ),
+                                  //             ))
+                                  //         .toList(),
+                                  //   ),
+                                  if (!isOpen)
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 8.0),
+                                      child: Container(
+                                        decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(24),
-                                          image: DecorationImage(
-                                              image: AssetImage(
-                                                  'assets/images/textfield.jpg'),
-                                              fit: BoxFit.fill)),
-                                      child: LoginSignUpTextField(
-                                        'enter college name',
-                                        Icons.school,
-                                        controller: othercollegeController,
-                                        obscureText: false,
+                                        ),
+                                        child: LoginSignUpTextField(
+                                          'enter college name',
+                                          Icons.school,
+                                          controller: othercollegeController,
+                                          obscureText: false,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                              ],
+                                ],
+                              ),
                             ),
                             const YearSelectRadioTile(),
                             LoginSignUpTextField(
@@ -397,7 +499,16 @@ class _SignUpState extends State<SignUp> {
                               child: Padding(
                                 padding: const EdgeInsets.only(top: 4),
                                 child: Container(
-                                  
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(24),
+                                    image: const DecorationImage(
+                                      // colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.7),BlendMode.dstATop),
+                                      image: AssetImage(
+                                        'assets/images/pumpkin.jpg',
+                                      ),
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
                                   child: Container(
                                     padding: const EdgeInsets.only(
                                       left: 90,

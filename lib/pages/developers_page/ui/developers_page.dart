@@ -151,7 +151,6 @@ class _DevelopersPageState extends State<DevelopersPage> {
                   ),
 // SizedBox(height: h/5,
 //   width: w*0.5,),
-
                   Row(
                     children: [
                       SizedBox(
@@ -404,3 +403,5 @@ class _DevelopersPageState extends State<DevelopersPage> {
     );
   }
 }
+
+

@@ -43,6 +43,7 @@ class CartListTile extends StatelessWidget {
           children: [
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
+
                 child: 
                 // FlutterLogo()
                 Image.network(
@@ -57,7 +58,7 @@ class CartListTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    event.name!,
+                    "codex",
                     style: AppStyles.bodyTextStyle3().copyWith(
                       color: Colors.white,
                       fontSize: 18,
@@ -65,6 +66,7 @@ class CartListTile extends StatelessWidget {
                     ),
                   ),
                   Text(
+
                     "₹ ${event.price}",
                     style: AppStyles.bodyTextStyle3().copyWith(
                       color: Colors.white,
