@@ -1,10 +1,12 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:pulzion23/features/combo_cubit/cubit/combo_cubit.dart';
 import 'package:pulzion23/features/event_description/ui/widgets/lightOnOff.dart';
 
 import '../../../../config/size_config.dart';
@@ -16,18 +18,19 @@ import '../../../event_description/ui/event_description.dart';
 
 class EventCard extends StatelessWidget {
   final Events event;
+  final List<Events> eventsList;
 
-  const EventCard(this.event, {super.key});
+  const EventCard({
+    required this.eventsList,
+    required this.event,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final width = mediaQuery.size.width;
     final height = mediaQuery.size.height;
-    const l = [
-      Color.fromARGB(255, 208, 168, 116),
-      Color.fromARGB(255, 168, 104, 20),
-    ];
     final _cacheManager = CacheManager(Config(
       'my_custom_cache_key',
       stalePeriod: const Duration(days: 7),
@@ -40,6 +43,9 @@ class EventCard extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => DarkSample(event: event),
+            settings: RouteSettings(
+              arguments: eventsList,
+            ),
           ),
         );
       }),
@@ -89,24 +95,24 @@ class EventCard extends StatelessWidget {
                   children: [
                     Text(
                       event.name!,
-                      style: AppStyles.NormalText().copyWith(
-                          color: Colors.black, fontSize: width * 0.075),
+                      style: AppStyles.bodyTextStyle2()
+                          .copyWith(color: Colors.black),
                       overflow: TextOverflow.ellipsis,
-                      maxLines: 3,
+                      maxLines: 1,
                       // Note: This is issue in flutter -> https://github.com/flutter/flutter/issues/98975
                       strutStyle: StrutStyle(
                         height: 1.2,
                         fontSize: SizeConfig.getProportionateScreenFontSize(15),
                         fontWeight: FontWeight.w600,
-                        fontFamily: 'Gothica-Book',
+                        fontFamily: 'Panther',
                       ),
                     ),
                     Text(
                       event.description!,
-                      style: AppStyles.NormalText().copyWith(
-                          color: Colors.black, fontSize: width * 0.02),
+                      style: AppStyles.bodyTextStyle3()
+                          .copyWith(color: Colors.black),
                       overflow: TextOverflow.ellipsis,
-                      maxLines: 4,
+                      maxLines: 5,
                     ),
                   ],
                 ),
@@ -126,79 +132,81 @@ class EventCard extends StatelessWidget {
           // ),
           Align(
             alignment: Alignment.topLeft,
-            child: Hero(
-              tag: 'event${event.id}',
-              child: Padding(
-                padding: const EdgeInsets.only(left: 0, top: 10),
-                child: Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    Positioned(
-                      right: 76,
-                      top: 13,
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          gradient: RadialGradient(radius: 1, colors: l),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color.fromARGB(255, 232, 230, 230),
-                              spreadRadius: 0,
-                              blurRadius: 5,
-                            ),
-                          ],
+            child: Padding(
+              padding: const EdgeInsets.only(left: 0, top: 10),
+              child: Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  Positioned(
+                    right: 81,
+                    top: 7,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        gradient: RadialGradient(radius: 1, colors: [
+                          Colors.orange[600]!,
+                          Colors.black,
+                        ]),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.black,
+                            spreadRadius: 1,
+                            blurRadius: 2,
+                          ),
+                        ],
+                      ),
+                      width: width / 3.9,
+                      height: width / 3.9,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          left: SizeConfig.getProportionateScreenWidth(15),
+                          right: SizeConfig.getProportionateScreenWidth(10),
                         ),
-                        width: width / 3.9,
-                        height: width / 3.9,
                         child: Padding(
-                          padding: EdgeInsets.only(
-                            left: SizeConfig.getProportionateScreenWidth(15),
-                            right: SizeConfig.getProportionateScreenWidth(10),
+                          padding: const EdgeInsets.only(
+                            left: 17,
+                            right: 12,
+                            top: 10,
+                            bottom: 17,
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                              left: 17,
-                              right: 12,
-                              top: 10,
-                              bottom: 17,
-                            ),
-                            child: CachedNetworkImage(
-                              imageUrl: event.logo!,
-                              color: Colors.white,
-                              placeholder: (context, url) => Container(),
-                              errorWidget: (context, url, error) => Container(),
-                              cacheManager: _cacheManager,
-                              fadeInDuration: const Duration(milliseconds: 100),
-                              fit: BoxFit.fitWidth,
-                              key: UniqueKey(),
-                            ),
+                          child:
+                              // FlutterLogo()
+                              CachedNetworkImage(
+                            imageUrl: event.logo!,
+                            color: Colors.white,
+                            placeholder: (context, url) => Container(),
+                            errorWidget: (context, url, error) => Container(),
+                            cacheManager: _cacheManager,
+                            fadeInDuration: const Duration(milliseconds: 100),
+                            fit: BoxFit.fitWidth,
+                            key: UniqueKey(),
                           ),
                         ),
                       ),
                     ),
-                    Positioned(
-                      left: 15,
-                      top: -10,
-                      child: Transform.translate(
-                        offset: Offset(
-                          -width / 16,
-                          width / 60,
-                        ),
-                        child: SizedBox(
-                          // black color container circular with boxshadow
-                          width: width / 3.1,
-                          height: width / 3.1,
-                          child: FittedBox(
-                            fit: BoxFit.fill,
-                            child: Image.asset(
-                              'assets/images/ringneww.png',
-                            ),
+                  ),
+                  Positioned(
+                    left: 10,
+                    top: -10,
+                    child: Transform.translate(
+                      offset: Offset(
+                        -width / 16,
+                        width / 60,
+                      ),
+                      child: SizedBox(
+                        // black color container circular with boxshadow
+                        width: width / 3.18,
+                        height: width / 3.18,
+                        child: FittedBox(
+                          fit: BoxFit.fill,
+                          child: Image.asset(
+                            'assets/images/ringneww.png',
                           ),
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

@@ -217,7 +217,7 @@ class _EventDescriptionState extends State<EventDescription>
                     : Color.fromARGB(255, 20, 72, 146),
                 icon: Icons.shopping_cart,
                 buttonText: 'Add to Cart',
-                fontsize: h*0.01,
+                fontsize: h * 0.01,
                 onPressed: () {
                   if (event.id != null) {
                     BlocProvider.of<CartPageCubit>(
@@ -448,7 +448,7 @@ class _EventDescriptionState extends State<EventDescription>
                               style: TextStyle(
                                 color: Theme.of(context).primaryColor,
                                 fontFamily: 'Danger-Night',
-                                fontSize: h*0.035,
+                                fontSize: h * 0.035,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -458,7 +458,7 @@ class _EventDescriptionState extends State<EventDescription>
                                 color: Theme.of(context).primaryColor,
                                 fontFamily: 'Danger-Night',
                                 // fontSize: 20,
-                                fontSize: h*0.035,
+                                fontSize: h * 0.035,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -468,7 +468,7 @@ class _EventDescriptionState extends State<EventDescription>
                                 color: Theme.of(context).primaryColor,
                                 fontFamily: 'Danger-Night',
                                 // fontSize: 20,
-                                fontSize: h*0.035,
+                                fontSize: h * 0.035,
                               ),
                             ),
                             Text(
@@ -516,7 +516,7 @@ class _EventDescriptionState extends State<EventDescription>
                                   ),
                                 ),
                               ),
-                              SizedBox(height : h*0.05),
+                              SizedBox(height: h * 0.05),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
@@ -534,7 +534,7 @@ class _EventDescriptionState extends State<EventDescription>
                                   event.teams!,
                                   style: AppStyles.NormalText().copyWith(
                                     color: Theme.of(context).primaryColor,
-                                    fontSize:20,
+                                    fontSize: 20,
                                   ),
                                 ),
                               ),
@@ -559,14 +559,14 @@ class _EventDescriptionState extends State<EventDescription>
                             event.rounds ?? '',
                             style: AppStyles.NormalText().copyWith(
                               color: Theme.of(context).primaryColor,
-                              fontSize: h*0.025,
+                              fontSize: h * 0.025,
                             ),
                           ),
                           Text(
                             event.rules ?? '',
                             style: AppStyles.NormalText().copyWith(
                               color: Theme.of(context).primaryColor,
-                              fontSize: h*0.025,
+                              fontSize: h * 0.025,
                             ),
                           ),
                           event.offers == null || event.offers!.isEmpty
