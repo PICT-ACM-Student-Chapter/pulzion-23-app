@@ -1,13 +1,20 @@
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pulzion23/constants/widgets/empty_page.dart';
+import 'package:pulzion23/constants/widgets/error_dialog.dart';
 import 'package:pulzion23/constants/widgets/halloween_button.dart';
+import 'package:pulzion23/constants/widgets/loader.dart';
+import 'package:pulzion23/features/combo_cubit/cubit/combo_cubit.dart';
+import 'package:pulzion23/features/combo_cubit/models/combo_model.dart';
 import "package:share_plus/share_plus.dart";
 import '../../../constants/urls.dart';
 import '../../cart_page/cubit/cart_page_cubit.dart';
 import '../../../config/size_config.dart';
 import '../../../constants/models/event_model.dart';
+import '../ui/widgets/contact_card.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/styles.dart';
@@ -19,94 +26,92 @@ Widget getEventLogo(
   double fontSizeFactor,
   bool isDark,
 ) {
-  return Hero(
-    tag: 'event${event.id}',
-    child: Stack(
-      children: [
-        Positioned(
-          left: w / 3.7,
-          top: w / 7,
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12.0),
-              boxShadow: [
-                BoxShadow(
-                  color: isDark
-                      ? Colors.black.withOpacity(0.5)
-                      : const Color.fromARGB(255, 4, 15, 30).withOpacity(0.5),
-                  blurRadius: 1.0,
-                  spreadRadius: 7.0,
-                  offset: const Offset(0.0, 0.0),
-                ),
-              ],
-            ),
-            child: Container(
-              width: w / 2.6,
-              height: w / 2.6,
-              padding: EdgeInsets.all(
-                SizeConfig.getProportionateScreenWidth(15),
+  return Stack(
+    children: [
+      Positioned(
+        left: w / 3.7,
+        top: w / 7,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12.0),
+            boxShadow: [
+              BoxShadow(
+                color: isDark
+                    ? Colors.black.withOpacity(0.5)
+                    : const Color.fromARGB(255, 4, 15, 30).withOpacity(0.5),
+                blurRadius: 1.0,
+                spreadRadius: 7.0,
+                offset: const Offset(0.0, 0.0),
               ),
-              decoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                gradient: RadialGradient(
-                  radius: fontSizeFactor * 0.5,
-                  colors: [
-                    const Color.fromARGB(255, 4, 15, 30).withOpacity(0.15),
-                    Colors.black,
+            ],
+          ),
+          child: Container(
+            width: w / 2.6,
+            height: w / 2.6,
+            padding: EdgeInsets.all(
+              SizeConfig.getProportionateScreenWidth(15),
+            ),
+            decoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              gradient: RadialGradient(
+                radius: fontSizeFactor * 0.5,
+                colors: [
+                  const Color.fromARGB(255, 4, 15, 30).withOpacity(0.15),
+                  Colors.black,
+                ],
+              ),
+            ),
+            child: Padding(
+              padding: EdgeInsets.all(
+                SizeConfig.getProportionateScreenWidth(27),
+              ),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 1000),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  boxShadow: [
+                    BoxShadow(
+                      color: isDark
+                          ? Colors.black.withAlpha(60)
+                          : Colors.orange.withAlpha(50),
+                      blurRadius: 30.0,
+                      spreadRadius: 10.0,
+                      offset: const Offset(
+                        0.0,
+                        0.0,
+                      ),
+                    ),
                   ],
                 ),
-              ),
-              child: Padding(
-                padding: EdgeInsets.all(
-                  SizeConfig.getProportionateScreenWidth(27),
-                ),
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 1000),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    boxShadow: [
-                      BoxShadow(
-                        color: isDark
-                            ? Colors.black.withAlpha(60)
-                            : Colors.orange.withAlpha(50),
-                        blurRadius: 30.0,
-                        spreadRadius: 10.0,
-                        offset: const Offset(
-                          0.0,
-                          0.0,
-                        ),
-                      ),
-                    ],
-                  ),
-                  child: Image.network(
-                    event.logo!,
-                    fit: BoxFit.fitWidth,
-                  ),
+                child: Image.network(
+                  color: Colors.white,
+                  event.logo!,
+                  fit: BoxFit.fitWidth,
                 ),
               ),
             ),
           ),
         ),
-        Align(
-          alignment: Alignment.center,
-          child: SizedBox(
-            width: w / 1.45,
-            height: w / 1.45,
-            child: Image.asset(
-              'assets/images/halloween_frame.png',
-            ),
+      ),
+      Align(
+        alignment: Alignment.center,
+        child: SizedBox(
+          width: w / 1.45,
+          height: w / 1.45,
+          child: Image.asset(
+            'assets/images/halloween_frame.png',
           ),
         ),
-        // Align(
-        //   alignment: Alignment.center,
-        //   child: SizedBox(
-        //     width: w / 1.45,
-        //     height: w / 1.45,
-        //     child: MaskFilter.blur(),
-        //   ),
-        // ),
-      ],
-    ),
+      ),
+      // Align(
+      //   alignment: Alignment.center,
+      //   child: SizedBox(
+      //     width: w / 1.45,
+      //     height: w / 1.45,
+      //     child: MaskFilter.blur(),
+      //   ),
+      // ),
+    ],
   );
 }
 
@@ -115,7 +120,9 @@ class EventDescription extends StatefulWidget {
   final Events? event;
   final Function()? onChange;
   final Function()? getTheme;
+  final List<Events>? eventsList;
   const EventDescription({
+    this.eventsList,
     required this.isDark,
     required this.event,
     required this.onChange,
@@ -130,7 +137,7 @@ class EventDescription extends StatefulWidget {
 class _EventDescriptionState extends State<EventDescription>
     with TickerProviderStateMixin {
   late final TabController tabBarController =
-      TabController(length: 3, vsync: this);
+      TabController(length: 4, vsync: this);
 
   @override
   void dispose() {
@@ -215,7 +222,7 @@ class _EventDescriptionState extends State<EventDescription>
                   if (event.id != null) {
                     BlocProvider.of<CartPageCubit>(
                       context,
-                    ).addCartItem(event.id!);
+                    ).addCartItem(event.id!, null);
                   }
                 },
               ),
@@ -423,7 +430,7 @@ class _EventDescriptionState extends State<EventDescription>
                     Padding(
                       padding: const EdgeInsets.only(bottom: 12.0),
                       child: DefaultTabController(
-                        length: 2,
+                        length: 4,
                         child: TabBar(
                           labelPadding: const EdgeInsets.all(12),
                           controller: tabBarController,
@@ -437,7 +444,7 @@ class _EventDescriptionState extends State<EventDescription>
                           unselectedLabelColor: AppColors.cardSubtitleTextColor,
                           tabs: [
                             Text(
-                              "Description",
+                              "Details",
                               style: TextStyle(
                                 color: Theme.of(context).primaryColor,
                                 fontFamily: 'Danger-Night',
@@ -462,6 +469,14 @@ class _EventDescriptionState extends State<EventDescription>
                                 fontFamily: 'Danger-Night',
                                 // fontSize: 20,
                                 fontSize: h*0.035,
+                              ),
+                            ),
+                            Text(
+                              "Offers",
+                              style: TextStyle(
+                                color: Theme.of(context).primaryColor,
+                                fontFamily: 'Quicksand',
+                                fontSize: 16,
                               ),
                             ),
                           ],
@@ -534,10 +549,10 @@ class _EventDescriptionState extends State<EventDescription>
                                   ),
                                 ),
                               ),
-                              // Padding(
-                              //   padding: const EdgeInsets.all(8.0),
-                              //   child: ContactCard(event: event),
-                              // ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ContactCard(event: event),
+                              ),
                             ],
                           ),
                           Text(
@@ -554,6 +569,66 @@ class _EventDescriptionState extends State<EventDescription>
                               fontSize: h*0.025,
                             ),
                           ),
+                          event.offers == null || event.offers!.isEmpty
+                              ? Center(
+                                  child: EmptyPage(
+                                    errorMessage:
+                                        "No offers available for ${event.name}",
+                                    title: "",
+                                  ),
+                                )
+                              : ListView.builder(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: event.offers == null
+                                      ? 0
+                                      : event.offers == null
+                                          ? 0
+                                          : event.offers!.length,
+                                  itemBuilder: (context, index) {
+                                    final combo = event.offers![index];
+
+                                    return InkWell(
+                                      onTap: () async {
+                                        // add to cart
+                                        final sc =
+                                            ScaffoldMessenger.of(context);
+                                        final bc =
+                                            BlocProvider.of<CartPageCubit>(
+                                          context,
+                                        );
+                                        for (int eventID
+                                            in combo.comboEventID!) {
+                                          if (!await bc.addCartItem(
+                                              eventID, null)) {
+                                            sc.showSnackBar(
+                                              const SnackBar(
+                                                content: Text(
+                                                  'Some items in the combo are already in the cart',
+                                                ),
+                                              ),
+                                            );
+                                            for (int eventID2
+                                                in combo.comboEventID!) {
+                                              if (eventID2 == eventID) {
+                                                break;
+                                              }
+                                              await bc.deleteItem(eventID2);
+                                            }
+                                            break;
+                                          }
+                                          await Future.delayed(
+                                            const Duration(milliseconds: 200),
+                                          );
+                                        }
+                                      },
+                                      child: OfferCard(
+                                        combo: combo,
+                                        eventsList: widget.eventsList,
+                                      ),
+                                    );
+                                  },
+                                ),
                         ],
                       ),
                     ),
@@ -563,6 +638,78 @@ class _EventDescriptionState extends State<EventDescription>
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+// ignore: must_be_immutable
+class OfferCard extends StatefulWidget {
+  Combo combo;
+  List<Events>? eventsList;
+  OfferCard({
+    required this.combo,
+    required this.eventsList,
+    super.key,
+  });
+
+  @override
+  State<OfferCard> createState() => _OfferCardState();
+}
+
+class _OfferCardState extends State<OfferCard> {
+  Events? getEvent(int eventID) {
+    for (var event in widget.eventsList!) {
+      if (event.id == eventID) {
+        return event;
+      }
+    }
+
+    return null;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    log(widget.combo.comboName!);
+
+    return Card(
+      color: Colors.deepPurple[900],
+      child: Column(
+        children: [
+          Text(
+            widget.combo.comboName ?? "",
+            style: AppStyles.bodyTextStyle3().copyWith(
+              color: Theme.of(context).primaryColor,
+            ),
+          ),
+          Column(
+            children: widget.combo.comboEventID == null
+                ? const [
+                    EmptyPage(errorMessage: "", title: "No offers available")
+                  ]
+                : widget.combo.comboEventID!.map(
+                    (e) {
+                      final Events? event = getEvent(e);
+                      if (event != null) {
+                        log(event.name!);
+
+                        return ListTile(
+                          leading: Image.network(event.logo!),
+                          title: Text(event.name!),
+                          trailing: Text(
+                            "Rs. ${widget.combo.comboTotalPrice}",
+                            style: AppStyles.bodyTextStyle3().copyWith(
+                              color: Theme.of(context).primaryColor,
+                            ),
+                          ),
+                        );
+                      } else {
+                        return Container();
+                      }
+                    },
+                  ).toList(),
+          ),
+        ],
       ),
     );
   }

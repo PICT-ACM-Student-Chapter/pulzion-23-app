@@ -106,11 +106,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                   }),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(ht),
-                    child: Lottie.asset(
-                    
-                           "assets/images/pumpkin_cat.json"
-                    
-                    ),
+                    child: Lottie.asset("assets/images/pumpkin_cat.json"),
                   ),
                 ),
                 const SizedBox(
@@ -127,7 +123,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                             fontSize: ht / 45,
                             fontWeight: FontWeight.bold,
                             overflow: TextOverflow.ellipsis,
-                            color: Colors.black,
+                            color: const Color.fromARGB(255, 82, 50, 16),
                           ),
                           // speed: const Duration(seconds: 2),
                           colors: [
@@ -157,8 +153,8 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                         TypewriterAnimatedText(
                           '10 Fun-filled Events',
                           textStyle: AppStyles.TitleText().copyWith(
-                            color: Color.fromARGB(255, 68, 40, 10)
-                                .withOpacity(1),
+                            color:
+                                Color.fromARGB(255, 68, 40, 10).withOpacity(1),
                             overflow: TextOverflow.ellipsis,
                             fontSize: ht / 55,
                           ),

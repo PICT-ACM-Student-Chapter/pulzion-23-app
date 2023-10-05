@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:panorama/panorama.dart';
+import 'package:pulzion23/features/combo_cubit/cubit/combo_cubit.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../config/size_config.dart';
@@ -180,7 +181,9 @@ class _HomePageContentState extends State<HomePageContent>
                             .where((element) => element.type == "Technical")
                             .toList()),
                         EventGridView(state.events.events!
-                            .where((element) => element.type == "Non Technical")
+                            .where(
+                              (element) => element.type == "Non Technical",
+                            )
                             .toList()),
                       ],
                     ),

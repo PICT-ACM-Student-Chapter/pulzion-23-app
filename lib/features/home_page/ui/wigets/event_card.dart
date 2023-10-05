@@ -25,8 +25,8 @@ class EventCard extends StatelessWidget {
     final width = mediaQuery.size.width;
     final height = mediaQuery.size.height;
     const l = [
-       Color.fromARGB(255, 208, 168, 116),
-       Color.fromARGB(255, 168, 104, 20),
+      Color.fromARGB(255, 208, 168, 116),
+      Color.fromARGB(255, 168, 104, 20),
     ];
     final _cacheManager = CacheManager(Config(
       'my_custom_cache_key',
@@ -89,10 +89,8 @@ class EventCard extends StatelessWidget {
                   children: [
                     Text(
                       event.name!,
-                      style: AppStyles.NormalText()
-                          .copyWith(
-                            color: Colors.black,
-                            fontSize: width*0.075),
+                      style: AppStyles.NormalText().copyWith(
+                          color: Colors.black, fontSize: width * 0.075),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 3,
                       // Note: This is issue in flutter -> https://github.com/flutter/flutter/issues/98975
@@ -105,8 +103,8 @@ class EventCard extends StatelessWidget {
                     ),
                     Text(
                       event.description!,
-                      style: AppStyles.NormalText()
-                          .copyWith(color: Colors.black,fontSize: width*0.02),
+                      style: AppStyles.NormalText().copyWith(
+                          color: Colors.black, fontSize: width * 0.02),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 4,
                     ),
@@ -193,7 +191,7 @@ class EventCard extends StatelessWidget {
                           child: FittedBox(
                             fit: BoxFit.fill,
                             child: Image.asset(
-                              'assets/images/finalring.png',
+                              'assets/images/ringneww.png',
                             ),
                           ),
                         ),
