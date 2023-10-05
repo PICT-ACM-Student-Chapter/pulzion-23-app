@@ -25,37 +25,48 @@ class EmptyPage extends StatelessWidget {
       clipBehavior: Clip.none,
       children: [
         Container(
-          height: size.height * 0.35,
+          height: size.height * 0.4,
           width: size.width * 0.6,
           decoration: BoxDecoration(
-            color: AppColors.primary.withAlpha(150),
-            borderRadius: const BorderRadius.all(
-              Radius.circular(20),
+            gradient: LinearGradient(
+              colors: [
+                Colors.black.withOpacity(0.6),
+                Colors.black.withOpacity(0.4),
+                Colors.black.withOpacity(0.4),
+              ],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
             ),
-            border: const Border.fromBorderSide(
-              BorderSide(
-                color: AppColors.cardBorder,
-                width: 0.2,
+            borderRadius: BorderRadius.circular(24),
+            border: Border.all(
+              color: Colors.orange[700]!.withOpacity(0.8),
+              width: 0.7,
+            ),
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 1.0,
+                spreadRadius: 2.0,
+                color: Colors.yellow[900]!.withOpacity(0.3),
               ),
-            ),
+            ],
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: size.height * 0.1),
-              Text(
-                title,
-                style: AppStyles.bodyTextStyle2().copyWith(fontSize: 20),
-                textAlign: TextAlign.center,
-              ),
+              SizedBox(height: size.height * 0.2),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.only(top: 20.0),
                 child: Text(
+                  title,
+                  style: AppStyles.bodyTextStyle2().copyWith(fontSize: 20),
                   textAlign: TextAlign.center,
-                  errorMessage,
-                  style: AppStyles.bodyTextStyle3(),
                 ),
+              ),
+              Text(
+                textAlign: TextAlign.center,
+                errorMessage,
+                style: AppStyles.bodyTextStyle3(),
               ),
               if (refreshFunction != null)
                 TextButton(
@@ -84,7 +95,7 @@ class EmptyPage extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: size.height * 0.165,
+          bottom: size.height * 0.1,
           child: Lottie.asset(
             AppImages.emptyMan,
             height: size.height * 0.35,

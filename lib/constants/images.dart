@@ -16,7 +16,7 @@ class AppImages {
   static const eventDescriptionBackground =
       'assets/images/event-description-bg.gif';
   static const orangeRocket = 'assets/images/orange_rocket.json';
-  static const emptyMan = "assets/images/empty_spaceman.json";
+  static const emptyMan = "assets/images/empty_page.json";
   static const flyPumpkin = "assets/images/fly_pumpkin.json";
   static const seal = "assets/images/frame.png";
   static const cobweb = "assets/images/cobweb.png";

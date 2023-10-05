@@ -8,7 +8,7 @@ Widget cardDesign(
   double w,
   var value,
   Widget iconWidget,
-  Image img,
+  // Image img,
 ) {
   return Center(
     child: Stack(
@@ -18,17 +18,19 @@ Widget cardDesign(
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                CircleAvatar(
-                  backgroundColor: Colors.transparent,
-                  //radius: h * 0.045,
-                  radius: h * 0.055,
-                  child: img,
-                ),
-                
+                // CircleAvatar(
+                //   backgroundColor: Colors.transparent,
+                //   //radius: h * 0.045,
+                //   radius: h * 0.055,
+                //   // child: img,
+                // ),
+
                 Container(
+                  // width
                   padding: EdgeInsets.only(top: h * 0.001),
                   margin: EdgeInsets.only(top: h * 0.008, bottom: h * 0.01),
                   decoration: BoxDecoration(
+                    // height: h * 0.065,
                     shape: BoxShape.rectangle,
                     gradient: LinearGradient(
                       colors: [
@@ -45,14 +47,14 @@ Widget cardDesign(
                       width: 0.7,
                     ),
                     boxShadow: [
-                    BoxShadow(
-                    blurRadius: 1.0,
-                    spreadRadius: 2.0,
-                    color: Colors.yellow[900]!.withOpacity(0.3),
-                  ),
-                 ],
+                      BoxShadow(
+                        blurRadius: 1.0,
+                        spreadRadius: 2.0,
+                        color: Colors.yellow[900]!.withOpacity(0.3),
+                      ),
+                    ],
 
-                  // image: DecorationImage(
+                    // image: DecorationImage(
                     //   image: AssetImage('assets/images/finaltxtbg.jpg'),
                     //   fit: BoxFit.fill,
                     //   alignment: Alignment(1, 0),
@@ -67,13 +69,11 @@ Widget cardDesign(
                     //   // width: h * 0.001,
                     //   width: h * 0.001,
                     // ),
-
-
                   ),
 
                   height: h * 0.065,
-                 // width: w - w * 0.15,
-                    width: w - w * 0.25,
+                  // width: w - w * 0.15,
+                  width: w - w * 0.10,
                   child: Row(
                     children: [
                       Padding(
@@ -112,7 +112,7 @@ Widget cardDesign(
             padding: EdgeInsets.symmetric(horizontal: h * 0.01),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(h * 0.01),
-             // color: const Color.fromARGB(255, 28, 52, 71),
+              // color: const Color.fromARGB(255, 28, 52, 71),
               image: DecorationImage(
                 image: AssetImage('assets/images/paper_torn.png'),
                 fit: BoxFit.fill,

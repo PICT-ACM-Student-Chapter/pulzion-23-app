@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pulzion23/constants/widgets/empty_page.dart';
 import 'package:pulzion23/project/cubit/animation_toggle_cubit.dart';
 import '../../../constants/styles.dart';
 import '../../about_us_page/ui/about_us.dart';
