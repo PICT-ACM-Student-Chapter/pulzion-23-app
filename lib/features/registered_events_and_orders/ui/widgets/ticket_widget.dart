@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pulzion23/constants/models/booked_slot_model.dart';
+import 'package:pulzion23/constants/widgets/halloween_button.dart';
 import 'package:pulzion23/features/event_slots/ui/booked_window.dart';
 import 'package:pulzion23/features/event_slots/ui/view_slot_details.dart';
 import 'package:pulzion23/features/home_page/logic/event_details_cubit_cubit.dart';
@@ -83,7 +84,9 @@ class MyTicketView extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(th * 0.07),
             image: DecorationImage(
-                image: AssetImage("assets/images/ticket1.jpg"),
+                colorFilter: ColorFilter.mode(
+                    Colors.black.withOpacity(0.8), BlendMode.dstATop),
+                image: AssetImage("assets/images/ticket2.jpeg"),
                 fit: BoxFit.fill),
           ),
           child: Column(
@@ -175,15 +178,17 @@ class MyTicketView extends StatelessWidget {
                       ),
               ),
               Container(
-                margin: const EdgeInsets.all(16),
-                padding: const EdgeInsets.all(12),
-                width: tw * 0.5,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Colors.black26,
-                ),
-                child: InkWell(
-                  onTap: () {
+                // margin: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(10),
+                width: tw * 0.6,
+                height: th * 0.2,
+
+                child: HalloweenButton(
+                  buttonText: isBooked != null ? 'View Details' : 'Book Slot',
+                  icon: isBooked != null
+                      ? Icons.remove_red_eye_rounded
+                      : Icons.pin_drop_rounded,
+                  onPressed: () {
                     isBooked != null
                         ? Navigator.push(
                             context,
@@ -225,25 +230,25 @@ class MyTicketView extends StatelessWidget {
                             ),
                           );
                   },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(
-                        isBooked != null
-                            ? Icons.remove_red_eye_rounded
-                            : Icons.pin_drop_rounded,
-                        color: Colors.white,
-                      ),
-                      Text(
-                        isBooked != null ? 'View Details' : 'Book Slot',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'QuickSand',
-                        ),
-                      ),
-                    ],
-                  ),
+                  // child: Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //   crossAxisAlignment: CrossAxisAlignment.center,
+                  //   children: [
+                  //     Icon(
+                  //       isBooked != null
+                  //           ? Icons.remove_red_eye_rounded
+                  //           : Icons.pin_drop_rounded,
+                  //       color: Colors.white,
+                  //     ),
+                  //     Text(
+                  //       isBooked != null ? 'View Details' : 'Book Slot',
+                  //       style: const TextStyle(
+                  //         color: Colors.white,
+                  //         fontFamily: 'QuickSand',
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                 ),
               ),
             ],
