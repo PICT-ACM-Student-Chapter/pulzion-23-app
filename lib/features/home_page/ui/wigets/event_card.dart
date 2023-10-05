@@ -95,22 +95,20 @@ class EventCard extends StatelessWidget {
                   children: [
                     Text(
                       event.name!,
-                      style: AppStyles.bodyTextStyle2()
-                          .copyWith(color: Colors.black),
+                      style: AppStyles.NormalText().copyWith(color: Colors.black,fontSize: height*0.03),
                       overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
+                      maxLines: 2,
                       // Note: This is issue in flutter -> https://github.com/flutter/flutter/issues/98975
                       strutStyle: StrutStyle(
                         height: 1.2,
                         fontSize: SizeConfig.getProportionateScreenFontSize(15),
                         fontWeight: FontWeight.w600,
-                        fontFamily: 'Panther',
+                        // fontFamily: 'Panther',
                       ),
                     ),
                     Text(
                       event.description!,
-                      style: AppStyles.bodyTextStyle3()
-                          .copyWith(color: Colors.black),
+                      style: AppStyles.NormalText().copyWith(color: Colors.black,fontSize: height*0.01),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 5,
                     ),

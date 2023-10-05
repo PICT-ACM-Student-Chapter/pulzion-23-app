@@ -144,8 +144,8 @@ class _SignUpState extends State<SignUp> {
                           children: [
                             Text(
                               'Create Account',
-                              style: AppStyles.bodyTextStyle2()
-                                  .copyWith(fontSize: 30),
+                              style: AppStyles.NormalText()
+                                  .copyWith(fontSize: 30,color: Color.fromARGB(255, 228, 188, 136)),
                             ),
                             Text(
                               'Please fill the your information below.',
@@ -685,8 +685,8 @@ class _YearSelectRadioTileState extends State<YearSelectRadioTile> {
                 ),
                 child: RadioListTile(
                   contentPadding: EdgeInsets.zero,
-                  activeColor: AppColors.secondary,
-                  title: Text('FE', style: AppStyles.NormalText()),
+                  activeColor:  Color.fromARGB(255, 228, 188, 136),
+                  title: Text('FE', style: AppStyles.NormalText().copyWith(color:Colors.white)),
                   value: 1,
                   groupValue: YearSelectRadioTile.yearOfStudy,
                   onChanged: (value) {
@@ -706,8 +706,10 @@ class _YearSelectRadioTileState extends State<YearSelectRadioTile> {
                 ),
                 child: RadioListTile(
                   contentPadding: EdgeInsets.zero,
-                  activeColor: AppColors.secondary,
-                  title: Text('SE', style: AppStyles.NormalText()),
+                  activeColor: Color.fromARGB(255, 228, 188, 136),
+                  title: Text('SE', style: AppStyles.NormalText().copyWith(
+                    color: Colors.white
+                  )),
                   value: 2,
                   groupValue: YearSelectRadioTile.yearOfStudy,
                   onChanged: (value) {
@@ -732,8 +734,9 @@ class _YearSelectRadioTileState extends State<YearSelectRadioTile> {
                 ),
                 child: RadioListTile(
                   contentPadding: EdgeInsets.zero,
-                  activeColor: AppColors.secondary,
-                  title: Text('TE', style: AppStyles.NormalText()),
+                  activeColor: Color.fromARGB(255, 228, 188, 136),
+                  title: Text('TE', style: AppStyles.NormalText().copyWith(
+                    color: Colors.white,)),
                   value: 3,
                   groupValue: YearSelectRadioTile.yearOfStudy,
                   onChanged: (value) {
@@ -753,8 +756,10 @@ class _YearSelectRadioTileState extends State<YearSelectRadioTile> {
                 ),
                 child: RadioListTile(
                   contentPadding: EdgeInsets.zero,
-                  activeColor: AppColors.secondary,
-                  title: Text('BE', style: AppStyles.NormalText()),
+                  activeColor: Color.fromARGB(255, 228, 188, 136),
+                  title: Text('BE', style: AppStyles.NormalText().copyWith(
+                    color:Colors.white,
+                  )),
                   value: 4,
                   groupValue: YearSelectRadioTile.yearOfStudy,
                   onChanged: (value) {

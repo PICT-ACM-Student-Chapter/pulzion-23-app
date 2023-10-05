@@ -8,6 +8,8 @@ import 'package:widget_circular_animator/widget_circular_animator.dart';
 import 'package:panorama/panorama.dart';
 import '../../../constants/images.dart';
 import '../../../project/cubit/animation_toggle_cubit.dart';
+import '../../../constants/styles.dart';
+
 import 'dart:math';
 
 class AboutUsPage extends StatefulWidget {
@@ -37,7 +39,7 @@ class _AboutUsPageState extends State<AboutUsPage> with SingleTickerProviderStat
 
       _animationController?.repeat();
     } else {
-      print('fuck off!');
+      print('');
     }
 
   }
@@ -86,7 +88,7 @@ class _AboutUsPageState extends State<AboutUsPage> with SingleTickerProviderStat
             constraints: BoxConstraints.expand(),
             decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage("assets/images/app_background2.png"),
+                  image: AssetImage("assets/images/app_background.jpeg"),
                   fit: BoxFit.cover,
                 ),
             ),
@@ -140,18 +142,18 @@ class _AboutUsPageState extends State<AboutUsPage> with SingleTickerProviderStat
                                     children: [
                                       Countup(
                                         begin: 0,
-                                        end: 14,
+                                        end: 10,
                                         duration: const Duration(seconds: 1),
                                         separator: ',',
-                                        style: TextStyle(
-                                          fontFamily: 'Quicksand',
+                                        style: AppStyles.NormalText().copyWith(
+                                          // fontFamily: 'Quicksand',
                                           color: Colors.black,
                                           fontSize: width / 13,
                                         ),
                                       ),
                                       Text(
                                         "EVENTS",
-                                        style: TextStyle(
+                                        style: AppStyles.NormalText().copyWith(
                                           fontSize: width / 26,
                                           color: Colors.black,
                                         ),
@@ -201,15 +203,15 @@ class _AboutUsPageState extends State<AboutUsPage> with SingleTickerProviderStat
                                         end: 300,
                                         duration: const Duration(seconds: 1),
                                         separator: ',',
-                                        style: TextStyle(
+                                        style: AppStyles.NormalText().copyWith(
                                           color: Colors.black,
                                           fontSize: width / 13,
                                         ),
                                       ),
                                       Text(
                                         "VOLUNTEERS",
-                                        style: TextStyle(
-                                          fontFamily: 'Quicksand',
+                                        style: AppStyles.NormalText().copyWith(
+                                          // fontFamily: 'Quicksand',
                                           fontSize: width / 28,
                                           color: Colors.black,
                                         ),
@@ -234,9 +236,9 @@ class _AboutUsPageState extends State<AboutUsPage> with SingleTickerProviderStat
                         padding: EdgeInsets.only(top: height / 20),
                         child: Text(
                           "ABOUT PULZION",
-                          style: TextStyle(
+                          style: AppStyles.NormalText().copyWith(
                             fontSize: width / 12,
-                            fontFamily: 'Panther',
+                            // fontFamily: 'Panther',
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
@@ -247,8 +249,8 @@ class _AboutUsPageState extends State<AboutUsPage> with SingleTickerProviderStat
                         child: Text(
                           aboutPulzion,
                           textAlign: TextAlign.justify,
-                          style: TextStyle(
-                            fontFamily: 'Quicksand',
+                          style: AppStyles.NormalText().copyWith(
+                            // fontFamily: ,
                             fontSize: width / 19,
                             color: Colors.white,
                           ),
@@ -259,8 +261,8 @@ class _AboutUsPageState extends State<AboutUsPage> with SingleTickerProviderStat
                         child: Text(
                           "CONTACT US",
                           textAlign: TextAlign.justify,
-                          style: TextStyle(
-                            fontFamily: 'Panther',
+                          style: AppStyles.NormalText().copyWith(
+                            // fontFamily: 'Panther',
                             fontSize: width / 13,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -285,7 +287,7 @@ class _AboutUsPageState extends State<AboutUsPage> with SingleTickerProviderStat
                               child: Text(
                                 "Pritika Rohera",
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
+                                style: AppStyles.NormalText().copyWith(
                                   fontFamily: 'Quicksand',
                                   fontSize: width / 22,
                                   color: Colors.white,
@@ -296,8 +298,8 @@ class _AboutUsPageState extends State<AboutUsPage> with SingleTickerProviderStat
                             Text(
                               " :  +91 80870 69750",
                               // textAlign: TextAlign.justify,
-                              style: TextStyle(
-                                fontFamily: 'Quicksand',
+                              style: AppStyles.NormalText().copyWith(
+                                // fontFamily: 'Quicksand',
                                 fontSize: width / 20,
                                 color: Colors.white,
                               ),
@@ -321,8 +323,8 @@ class _AboutUsPageState extends State<AboutUsPage> with SingleTickerProviderStat
                             child: Text(
                               "Samarth Mali",
                               textAlign: TextAlign.justify,
-                              style: TextStyle(
-                                fontFamily: 'Quicksand',
+                              style: AppStyles.NormalText().copyWith(
+                                // fontFamily: 'Quicksand',
                                 fontSize: width / 22,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
@@ -332,8 +334,8 @@ class _AboutUsPageState extends State<AboutUsPage> with SingleTickerProviderStat
                           Text(
                             ":  +91 91563 31100",
                             textAlign: TextAlign.justify,
-                            style: TextStyle(
-                              fontFamily: 'Quicksand',
+                            style: AppStyles.NormalText().copyWith(
+                              // fontFamily: 'Quicksand',
                               fontSize: width / 20,
                               color: Colors.white,
                             ),

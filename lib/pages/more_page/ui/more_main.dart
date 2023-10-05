@@ -111,7 +111,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                   ),
                 ),
                 const SizedBox(
-                  width: 40,
+                  width: 10,
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -121,7 +121,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                         ColorizeAnimatedText(
                           "Welcome to Pulzion",
                           textStyle: AppStyles.NormalText().copyWith(
-                            fontSize: ht / 45,
+                            fontSize: ht / 30,
                             fontWeight: FontWeight.bold,
                             overflow: TextOverflow.ellipsis,
                             color: const Color.fromARGB(255, 82, 50, 16),
@@ -153,11 +153,11 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                       animatedTexts: [
                         TypewriterAnimatedText(
                           '10 Fun-filled Events',
-                          textStyle: AppStyles.TitleText().copyWith(
+                          textStyle: AppStyles.NormalText().copyWith(
                             color:
                                 Color.fromARGB(255, 68, 40, 10).withOpacity(1),
                             overflow: TextOverflow.ellipsis,
-                            fontSize: ht / 55,
+                            fontSize: ht / 40,
                           ),
                           speed: const Duration(
                             milliseconds: 100,

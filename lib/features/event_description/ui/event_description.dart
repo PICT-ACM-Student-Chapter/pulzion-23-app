@@ -184,7 +184,7 @@ class _EventDescriptionState extends State<EventDescription>
                   children: [
                     Text(
                       "PRICE",
-                      style: AppStyles.bodyTextStyle3().copyWith(
+                      style: AppStyles.NormalText().copyWith(
                         color: Theme.of(context).primaryColor,
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
@@ -195,7 +195,7 @@ class _EventDescriptionState extends State<EventDescription>
                       children: [
                         Text(
                           "Rs. ${event.price}",
-                          style: AppStyles.bodyTextStyle3().copyWith(
+                          style: AppStyles.NormalText().copyWith(
                             color: Theme.of(context).primaryColor,
                             fontSize: 24,
                             fontWeight: FontWeight.w700,
@@ -401,9 +401,9 @@ class _EventDescriptionState extends State<EventDescription>
                             child: Text(
                               event.name!,
                               textAlign: TextAlign.center,
-                              style: AppStyles.bodyTextStyle2().copyWith(
+                              style: AppStyles.NormalText().copyWith(
                                 color: Theme.of(context).primaryColor,
-                                fontSize: 22,
+                                fontSize: h*0.04,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -445,36 +445,36 @@ class _EventDescriptionState extends State<EventDescription>
                           tabs: [
                             Text(
                               "Details",
-                              style: TextStyle(
+                              style: AppStyles.TitleText().copyWith(
                                 color: Theme.of(context).primaryColor,
-                                fontFamily: 'Quicksand',
-                                fontSize: 16,
+                                // fontFamily: 'Quicksand',
+                                fontSize: h*0.03,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
                             Text(
                               "Rounds",
-                              style: TextStyle(
+                              style:AppStyles.TitleText().copyWith(
                                 color: Theme.of(context).primaryColor,
-                                fontFamily: 'Quicksand',
-                                fontSize: 16,
+                                // fontFamily: 'Quicksand',
+                                fontSize: h*0.03,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
                             Text(
                               "Rules",
-                              style: TextStyle(
+                              style: AppStyles.TitleText().copyWith(
                                 color: Theme.of(context).primaryColor,
-                                fontFamily: 'Quicksand',
-                                fontSize: 16,
+                                // fontFamily: 'Quicksand',
+                                fontSize: h*0.03,
                               ),
                             ),
                             Text(
                               "Offers",
-                              style: TextStyle(
+                              style: AppStyles.TitleText().copyWith(
                                 color: Theme.of(context).primaryColor,
-                                fontFamily: 'Quicksand',
-                                fontSize: 16,
+                                // fontFamily: 'Quicksand',
+                                fontSize: h*0.028,
                               ),
                             ),
                           ],
@@ -505,8 +505,9 @@ class _EventDescriptionState extends State<EventDescription>
                                     //   color: Theme.of(context).primaryColor,
                                     //   fontStyle: FontStyle.italic,
                                     // ),
-                                    style: AppStyles.bodyTextStyle3().copyWith(
+                                    style: AppStyles.NormalText().copyWith(
                                       color: Theme.of(context).primaryColor,
+                                      fontSize : 30
                                     ),
                                   ),
                                 ),
@@ -515,8 +516,9 @@ class _EventDescriptionState extends State<EventDescription>
                                   child: Text(
                                     event.description!,
                                     
-                                    style: AppStyles.bodyTextStyle3().copyWith(
+                                    style:AppStyles.NormalText().copyWith(
                                       color: Theme.of(context).primaryColor,
+                                      fontSize : 15
                                     ),
                                   ),
                                 ),
@@ -529,8 +531,9 @@ class _EventDescriptionState extends State<EventDescription>
                                     //   fontSize: 18,
                                     //   fontWeight: FontWeight.bold,
                                     // ),
-                                    style: AppStyles.bodyTextStyle3().copyWith(
+                                    style: AppStyles.NormalText().copyWith(
                                       color: Theme.of(context).primaryColor,
+                                      fontSize:  25,
                                     ),
                                   ),
                                 ),
@@ -541,8 +544,9 @@ class _EventDescriptionState extends State<EventDescription>
                                     // style: AppStyles.bodyTextStyle3().copyWith(
                                     //   color: Theme.of(context).primaryColor,
                                     // ),
-                                    style: AppStyles.bodyTextStyle3().copyWith(
+                                    style: AppStyles.NormalText().copyWith(
                                       color: Theme.of(context).primaryColor,
+                                      fontSize : 20
                                     ),
                                   ),
                                 ),
@@ -555,8 +559,9 @@ class _EventDescriptionState extends State<EventDescription>
                                     //   fontSize: 18,
                                     //   fontWeight: FontWeight.bold,
                                     // ),
-                                    style: AppStyles.bodyTextStyle3().copyWith(
+                                    style: AppStyles.NormalText().copyWith(
                                       color: Theme.of(context).primaryColor,
+                                      fontSize : 20
                                     ),
                                   ),
                                 ),
@@ -575,14 +580,16 @@ class _EventDescriptionState extends State<EventDescription>
                           // ),
                           Text(
                             event.rounds ?? '',
-                            style: AppStyles.bodyTextStyle3().copyWith(
+                            style: AppStyles.NormalText().copyWith(
                               color: Theme.of(context).primaryColor,
+                              fontSize : 15,
                             ),
                           ),
                           Text(
                             event.rules ?? '',
-                            style: AppStyles.bodyTextStyle3().copyWith(
+                            style: AppStyles.NormalText().copyWith(
                               color: Theme.of(context).primaryColor,
+                              fontSize : 15,
                             ),
                           ),
                           event.offers == null || event.offers!.isEmpty
@@ -618,9 +625,12 @@ class _EventDescriptionState extends State<EventDescription>
                                           if (!await bc.addCartItem(
                                               eventID, null)) {
                                             sc.showSnackBar(
-                                              const SnackBar(
+                                               SnackBar(
                                                 content: Text(
-                                                  'Some items in the combo are already in the cart',
+                                                  'Some items in the combo are already in the cart',style:  AppStyles.NormalText().copyWith(
+                              color: Theme.of(context).primaryColor,
+                              fontSize: 10
+                            ),
                                                 ),
                                               ),
                                             );
@@ -694,8 +704,9 @@ class _OfferCardState extends State<OfferCard> {
         children: [
           Text(
             widget.combo.comboName ?? "",
-            style: AppStyles.bodyTextStyle3().copyWith(
+            style:AppStyles.NormalText().copyWith(
               color: Theme.of(context).primaryColor,
+              fontSize :10,
             ),
           ),
           Column(
@@ -714,8 +725,9 @@ class _OfferCardState extends State<OfferCard> {
                           title: Text(event.name!),
                           trailing: Text(
                             "Rs. ${widget.combo.comboTotalPrice}",
-                            style: AppStyles.bodyTextStyle3().copyWith(
+                            style: AppStyles.NormalText().copyWith(
                               color: Theme.of(context).primaryColor,
+                              fontSize:10,
                             ),
                           ),
                         );

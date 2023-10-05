@@ -182,7 +182,7 @@ class LoginSignupBody extends StatelessWidget {
                     child: Center(
                       child: Text(
                         'Register',
-                        style: AppStyles.bodyTextStyle3().copyWith(
+                        style: AppStyles.NormalText().copyWith(
                           fontSize: 15,
                           color: AppColors.cardTitleTextColor,
                         ),
@@ -213,7 +213,7 @@ class LoginSignupBody extends StatelessWidget {
                     child: Center(
                       child: Text(
                         'Sign In',
-                        style: AppStyles.bodyTextStyle3().copyWith(
+                        style: AppStyles.NormalText().copyWith(
                           fontSize: 15,
                           color: AppColors.cardTitleTextColor,
                         ),
