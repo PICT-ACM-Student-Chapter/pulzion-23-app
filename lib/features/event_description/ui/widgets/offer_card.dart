@@ -24,7 +24,7 @@ class _OfferCardState extends State<OfferCard> {
   Widget build(BuildContext context) {
     if (widget.combo.comboDetailsList == null ||
         widget.combo.comboDetailsList!.isEmpty) {
-      return Container();
+      return SizedBox();
     } else {
       return Container(
         decoration: BoxDecoration(
