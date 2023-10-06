@@ -33,7 +33,7 @@ class PastOrdersCards extends StatelessWidget {
               return Container(
                 margin: EdgeInsets.symmetric(
                   horizontal: w * 0.025,
-                  vertical: h * 0.0075,
+                  vertical: h * 0.015,
                 ),
                 padding: EdgeInsets.symmetric(
                   horizontal: w * 0.025,
@@ -41,23 +41,46 @@ class PastOrdersCards extends StatelessWidget {
                 ),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: AppColors.eventCardGradientList.elementAt(
-                      orders[index].id! %
-                          AppColors.eventCardGradientList.length,
+                    colors: [
+                      Colors.black.withOpacity(0.6),
+                      Colors.black.withOpacity(0.4),
+                      Colors.black.withOpacity(0.4),
+                    ],
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                  ),
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    color: Colors.orange[700]!.withOpacity(0.8),
+                    width: 0.7,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 1.0,
+                      spreadRadius: 2.0,
+                      color: Colors.yellow[900]!.withOpacity(0.3),
                     ),
-                  ),
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                  border: const Border.fromBorderSide(
-                    BorderSide(
-                      color: AppColors.cardBorder,
-                      width: 0.2,
-                    ),
-                  ),
+                  ],
                 ),
+                // decoration: BoxDecoration(
+                //   gradient: LinearGradient(
+                //     begin: Alignment.topLeft,
+                //     end: Alignment.bottomRight,
+                //     colors: AppColors.eventCardGradientList.elementAt(
+                //       orders[index].id! %
+                //           AppColors.eventCardGradientList.length,
+                //     ),
+                //   ),
+                //   borderRadius: const BorderRadius.all(
+                //     Radius.circular(20),
+                //   ),
+                //   border: const Border.fromBorderSide(
+                //     BorderSide(
+                //       color: AppColors.cardBorder,
+                //       width: 0.2,
+                //     ),
+                //   ),
+                // ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.center,

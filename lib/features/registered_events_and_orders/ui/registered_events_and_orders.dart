@@ -83,10 +83,10 @@ class _RegisteredEventsAndOrdersState extends State<RegisteredEventsAndOrders>
                     Center(
                       child: Text(
                         "Your Events",
-                        style: AppStyles.bodyTextStyle2().copyWith(
-                          fontSize:
-                              SizeConfig.getProportionateScreenFontSize(30),
-                        ),
+                        style: AppStyles.TitleText().copyWith(
+                            fontSize:
+                                SizeConfig.getProportionateScreenFontSize(60),
+                            color: Color.fromARGB(255, 208, 168, 116)),
                       ),
                     ),
                     Padding(
