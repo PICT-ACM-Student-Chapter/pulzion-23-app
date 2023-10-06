@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:panorama/panorama.dart';
 import 'package:pulzion23/features/combo_cubit/cubit/combo_cubit.dart';
+import 'package:pulzion23/features/home_page/ui/wigets/animation.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../config/size_config.dart';
@@ -59,153 +60,292 @@ class _HomePageContentState extends State<HomePageContent>
     final width = mediaQuery.size.width;
     final height = mediaQuery.size.height;
     final fontSizeFactor = height / width;
+    log("HEREEEE");
 
-    return BlocBuilder<EventDetailsCubitCubit, EventDetailsCubitState>(
-      builder: (context, state) {
-        if (state is EventDetailsCubitLoaded) {
-          return Sizer(
-            builder: ((context, orientation, deviceType) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      // ufo position
-                      Positioned(
-                        top: height * 0.03,
-                        left: width * 0.038,
-                        width: width - width * 0.405,
-                        child: AnimatedAlign(
-                          curve: Curves.easeInCubic,
-                          duration: const Duration(milliseconds: 1000),
-                          alignment: a == 0
-                              ? Alignment.centerLeft
-                              : Alignment.centerRight,
+    return Stack(
+      children: [BlocBuilder<EventDetailsCubitCubit, EventDetailsCubitState>(
+        builder: (context, state) {
+          log('EVENT DETAIL ANIMATION STATE ' + state.toString());
+          if (state is EventDetailsCubitLoaded) {
 
-                          // child: Transform.rotate(
-                          //   angle: pi,
-                          // child: Lottie.asset(
-                          //   'assets/images/Wh.json',
-                          //   width: width * 0.16,
-                          //   height: height * 0.1,
-                          // ),
-                          // )
-                        ),
-                      ),
-                      Column(
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Pulzion",
-                                style: AppStyles.NormalText().copyWith(
-                                  color:Color.fromARGB(255, 208, 168, 116),
-                                  fontSize:
-                                      SizeConfig.getProportionateScreenFontSize(
-                                          height*0.1),
-                                ),
-                              ),
-                              // Padding(
-                              //   padding: const EdgeInsets.only(bottom: 5),
-                              //   child: Lottie.asset(
-                              //     'assets/images/pn.json',
-                              //     width: width*0.3,
-                              //     height: width*0.2,
-                              //   ),
-                              // ),
-                              // Text(
-                              //   'n',
-                              //   style: AppStyles.TitleText().copyWith(
-                              //     fontSize:
-                              //         SizeConfig.getProportionateScreenFontSize(
-                              //            height*0.1 ),
-                              //   ),
-                              // ),
-                            ],
-                          ),
-                          Text(
-                            'Tech or Treat',
-                            style: AppStyles.TitleText().copyWith(
-                               color:const Color.fromARGB(255, 208, 168, 116),
-                              fontSize:
-                                  SizeConfig.getProportionateScreenFontSize(height*0.05),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0),
-                    child: DefaultTabController(
-                      length: 2,
-                      child: TabBar(
-                        labelPadding: const EdgeInsets.all(12),
-                        controller: tabBarController,
-                        indicator: const BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                               color:Color.fromARGB(255, 208, 168, 116),
-                            ),
-                          ),
-                        ),
-                        unselectedLabelColor: AppColors.cardSubtitleTextColor,
-                        labelColor: Colors.orangeAccent,
-                        onTap: (_) {
-                          changeAnimation(tabBarController.index);
-                        },
-                        tabs: [
-                          EventType(
-                            eventType: "Tech Events",
-                            fontSizeFactor: fontSizeFactor,
-                          ),
-                          EventType(
-                            eventType: "Non-Tech Events",
-                            fontSizeFactor: fontSizeFactor,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: TabBarView(
-                      physics: const BouncingScrollPhysics(),
-                      controller: tabBarController,
+            return Sizer(
+              builder: (context, orientation, deviceType) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Stack(
+                      clipBehavior: Clip.none,
                       children: [
-                        EventGridView(state.events.events!
-                            .where((element) => element.type == "Technical")
-                            .toList()),
-                        EventGridView(state.events.events!
-                            .where(
-                              (element) => element.type == "Non Technical",
-                            )
-                            .toList()),
+                        // ufo position
+                        Positioned(
+                          top: height * 0.03,
+                          left: width * 0.038,
+                          width: width - width * 0.405,
+                          child: AnimatedAlign(
+                            curve: Curves.easeInCubic,
+                            duration: const Duration(milliseconds: 1000),
+                            alignment: a == 0
+                                ? Alignment.centerLeft
+                                : Alignment.centerRight,
+    
+                            // child: Transform.rotate(
+                            //   angle: pi,
+                            // child: Lottie.asset(
+                            //   'assets/images/Wh.json',
+                            //   width: width * 0.16,
+                            //   height: height * 0.1,
+                            // ),
+                            // )
+                          ),
+                        ),
+                        Column(
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Pulzion",
+                                  style: AppStyles.NormalText().copyWith(
+                                    color:Color.fromARGB(255, 208, 168, 116),
+                                    fontSize:
+                                        SizeConfig.getProportionateScreenFontSize(
+                                            height*0.1),
+                                  ),
+                                ),
+                                // Padding(
+                                //   padding: const EdgeInsets.only(bottom: 5),
+                                //   child: Lottie.asset(
+                                //     'assets/images/pn.json',
+                                //     width: width*0.3,
+                                //     height: width*0.2,
+                                //   ),
+                                // ),
+                                // Text(
+                                //   'n',
+                                //   style: AppStyles.TitleText().copyWith(
+                                //     fontSize:
+                                //         SizeConfig.getProportionateScreenFontSize(
+                                //            height*0.1 ),
+                                //   ),
+                                // ),
+                              ],
+                            ),
+                            Text(
+                              'Tech or Treat',
+                              style: AppStyles.TitleText().copyWith(
+                                 color:const Color.fromARGB(255, 208, 168, 116),
+                                fontSize:
+                                    SizeConfig.getProportionateScreenFontSize(height*0.05),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const TranslateImage(),
                       ],
                     ),
-                  ),
-                ],
-              );
-            }),
-          );
-        } else if (state is EventDetailsCubitLoading) {
-          return Center(child: Lottie.asset(AppImages.loadingAnimation));
-        } else {
-          return Center(
-            child: ErrorDialog(
-              'Error while fetching data from server',
-              refreshFunction: () {
-                log("refreshing");
-                context.read<EventDetailsCubitCubit>().getEventsDetails();
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0),
+                      child: DefaultTabController(
+                        length: 2,
+                        child: TabBar(
+                          labelPadding: const EdgeInsets.all(12),
+                          controller: tabBarController,
+                          indicator: const BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                 color:Color.fromARGB(255, 208, 168, 116),
+                              ),
+                            ),
+                          ),
+                          unselectedLabelColor: AppColors.cardSubtitleTextColor,
+                          labelColor: Colors.orangeAccent,
+                          onTap: (_) {
+                            changeAnimation(tabBarController.index);
+                          },
+                          tabs: [
+                            EventType(
+                              eventType: "Tech Events",
+                              fontSizeFactor: fontSizeFactor,
+                            ),
+                            EventType(
+                              eventType: "Non-Tech Events",
+                              fontSizeFactor: fontSizeFactor,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: TabBarView(
+                        physics: const BouncingScrollPhysics(),
+                        controller: tabBarController,
+                        children: [
+                          EventGridView(state.events.events!
+                              .where((element) => element.type == "Technical")
+                              .toList()),
+                          EventGridView(state.events.events!
+                              .where(
+                                (element) => element.type == "Non Technical",
+                              )
+                              .toList()),
+                        ],
+                      ),
+                    ),
+                  ],
+                );
               },
-            ),
-          );
-        }
-      },
+            );
+          } else if (state is EventDetailsAnimation) {
+             return Sizer(
+              builder: (context, orientation, deviceType) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        // ufo position
+                        Positioned(
+                          top: height * 0.03,
+                          left: width * 0.038,
+                          width: width - width * 0.405,
+                          child: AnimatedAlign(
+                            curve: Curves.easeInCubic,
+                            duration: const Duration(milliseconds: 1000),
+                            alignment: a == 0
+                                ? Alignment.centerLeft
+                                : Alignment.centerRight,
+    
+                            // child: Transform.rotate(
+                            //   angle: pi,
+                            // child: Lottie.asset(
+                            //   'assets/images/Wh.json',
+                            //   width: width * 0.16,
+                            //   height: height * 0.1,
+                            // ),
+                            // )
+                          ),
+                        ),
+                        Column(
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Pulzion",
+                                  style: AppStyles.NormalText().copyWith(
+                                    color:Color.fromARGB(255, 208, 168, 116),
+                                    fontSize:
+                                        SizeConfig.getProportionateScreenFontSize(
+                                            height*0.1),
+                                  ),
+                                ),
+                                // Padding(
+                                //   padding: const EdgeInsets.only(bottom: 5),
+                                //   child: Lottie.asset(
+                                //     'assets/images/pn.json',
+                                //     width: width*0.3,
+                                //     height: width*0.2,
+                                //   ),
+                                // ),
+                                // Text(
+                                //   'n',
+                                //   style: AppStyles.TitleText().copyWith(
+                                //     fontSize:
+                                //         SizeConfig.getProportionateScreenFontSize(
+                                //            height*0.1 ),
+                                //   ),
+                                // ),
+                              ],
+                            ),
+                            Text(
+                              'Tech or Treat',
+                              style: AppStyles.TitleText().copyWith(
+                                 color:const Color.fromARGB(255, 208, 168, 116),
+                                fontSize:
+                                    SizeConfig.getProportionateScreenFontSize(height*0.05),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0),
+                      child: DefaultTabController(
+                        length: 2,
+                        child: TabBar(
+                          labelPadding: const EdgeInsets.all(12),
+                          controller: tabBarController,
+                          indicator: const BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                 color:Color.fromARGB(255, 208, 168, 116),
+                              ),
+                            ),
+                          ),
+                          unselectedLabelColor: AppColors.cardSubtitleTextColor,
+                          labelColor: Colors.orangeAccent,
+                          onTap: (_) {
+                            changeAnimation(tabBarController.index);
+                          },
+                          tabs: [
+                            EventType(
+                              eventType: "Tech Events",
+                              fontSizeFactor: fontSizeFactor,
+                            ),
+                            EventType(
+                              eventType: "Non-Tech Events",
+                              fontSizeFactor: fontSizeFactor,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: TabBarView(
+                        physics: const BouncingScrollPhysics(),
+                        controller: tabBarController,
+                        children: [
+                          EventGridView(state.events.events!
+                              .where((element) => element.type == "Technical")
+                              .toList()),
+                          EventGridView(state.events.events!
+                              .where(
+                                (element) => element.type == "Non Technical",
+                              )
+                              .toList()),
+                        ],
+                      ),
+                    ),
+                  ],
+                );
+              },
+            );
+          }
+          else if (state is EventDetailsCubitLoading) {
+            return Center(child: Lottie.asset(AppImages.loadingAnimation));
+          } 
+          else {
+            return Center(
+              child: ErrorDialog(
+                'Error while fetching data from server',
+                refreshFunction: () {
+                  log("refreshing");
+                  context.read<EventDetailsCubitCubit>().getEventsDetails();
+                },
+              ),
+            );
+          }
+        },
+      ),
+      ],
     );
   }
 }
