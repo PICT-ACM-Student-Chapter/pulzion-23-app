@@ -41,9 +41,14 @@ class ProfilePage extends StatelessWidget {
             return false;
           },
           builder: (context, state) {
-            return Image.asset(
-              AppImages.spaceBackground2,
-              fit: BoxFit.cover,
+            return Container(
+              constraints: BoxConstraints.expand(),
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/app_background.jpeg"),
+                  fit: BoxFit.cover,
+                ),
+              ),
             );
           },
         ),
@@ -117,11 +122,16 @@ class ProfilePage extends StatelessWidget {
                                               bottom: 25,
                                             ),
                                             child: Text(
-                                              'Aditi Date',
+                                              "${state.user.firstName!} ${state.user.lastName!}",
                                               style: AppStyles.TitleText(
                                                       // fontSize: 30,
+
                                                       )
-                                                  .copyWith(fontSize: 45),
+                                                  .copyWith(
+                                                fontSize: 45,
+                                                color: const Color.fromARGB(
+                                                    255, 82, 50, 16),
+                                              ),
                                             ),
                                           ),
                                         ],

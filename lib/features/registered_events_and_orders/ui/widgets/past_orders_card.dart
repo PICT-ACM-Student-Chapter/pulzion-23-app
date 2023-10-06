@@ -26,14 +26,17 @@ class PastOrdersCards extends StatelessWidget {
         : ListView.builder(
             itemCount: orders.length,
             itemBuilder: (context, index) {
-              Color statusColor = orders[index].status == "rejected"
-                  ? Colors.red
-                  : Colors.yellow;
+              Color statusColor = Colors.yellow;
+              if (orders[index].status?.toLowerCase() == "accepted") {
+                statusColor = Colors.green.shade500;
+              } else if (orders[index].status?.toLowerCase() == "rejected") {
+                statusColor = Colors.red;
+              }
 
               return Container(
                 margin: EdgeInsets.symmetric(
-                  horizontal: w * 0.025,
-                  vertical: h * 0.0075,
+                  horizontal: w * 0.05,
+                  vertical: h * 0.02,
                 ),
                 padding: EdgeInsets.symmetric(
                   horizontal: w * 0.025,
@@ -41,22 +44,26 @@ class PastOrdersCards extends StatelessWidget {
                 ),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: AppColors.eventCardGradientList.elementAt(
-                      orders[index].id! %
-                          AppColors.eventCardGradientList.length,
+                    colors: [
+                      Colors.black.withOpacity(0.6),
+                      Colors.black.withOpacity(0.4),
+                      Colors.black.withOpacity(0.4),
+                    ],
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                  ),
+                  borderRadius: BorderRadius.circular(24),
+                  border: Border.all(
+                    color: Colors.orange[700]!.withOpacity(0.8),
+                    width: 0.7,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 1.0,
+                      spreadRadius: 2.0,
+                      color: Colors.yellow[900]!.withOpacity(0.3),
                     ),
-                  ),
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                  border: const Border.fromBorderSide(
-                    BorderSide(
-                      color: AppColors.cardBorder,
-                      width: 0.2,
-                    ),
-                  ),
+                  ],
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -74,8 +81,10 @@ class PastOrdersCards extends StatelessWidget {
                                 ),
                                 child: Text(
                                   'Transaction ID: ${orders[index].transactionId}',
-                                  style: AppStyles.bodyTextStyle3().copyWith(
-                                    color: statusColor,
+                                  style: AppStyles.NormalText().copyWith(
+                                    color: const Color.fromARGB(
+                                        255, 208, 168, 116),
+                                    fontWeight: FontWeight.w400,
                                     fontSize: 18,
                                   ),
                                 ),
@@ -89,10 +98,11 @@ class PastOrdersCards extends StatelessWidget {
                                   vertical: 2.0,
                                 ),
                                 child: Text(
-                                  orders[index].events![index1],
-                                  style: AppStyles.bodyTextStyle3().copyWith(
+                                  '- ${orders[index].events![index1]}',
+                                  style: AppStyles.NormalText().copyWith(
                                     color: Colors.white,
-                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 15,
                                   ),
                                 ),
                               ),
@@ -103,14 +113,18 @@ class PastOrdersCards extends StatelessWidget {
                       children: [
                         Text(
                           "₹${orders[index].amount.toString()}",
-                          style: AppStyles.bodyTextStyle3().copyWith(
+                          style: AppStyles.NormalText().copyWith(
                             color: Colors.white,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 17,
                           ),
                         ),
                         Text(
                           (orders[index].status ?? "Rejected").toUpperCase(),
-                          style: AppStyles.bodyTextStyle3().copyWith(
+                          style: AppStyles.NormalText().copyWith(
                             color: statusColor,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 13,
                           ),
                         ),
                       ],

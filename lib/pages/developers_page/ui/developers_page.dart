@@ -78,7 +78,15 @@ class _DevelopersPageState extends State<DevelopersPage> {
             return false;
           },
           builder: (context, state) {
-            return Image.asset(AppImages.spaceBackground2, fit: BoxFit.cover);
+            return Container(
+              constraints: BoxConstraints.expand(),
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/app_background.jpeg"),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            );
           },
         ),
         SafeArea(
@@ -90,10 +98,17 @@ class _DevelopersPageState extends State<DevelopersPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  // SizedBox(
+                  //   height: h / 5,
+                  //   width: w * 0.5,
+                  // ),
+                  SizedBox(
+                      height: h / 10,
+                      child: Lottie.asset("assets/images/happy.json")),
                   Stack(
                     children: [
                       Positioned(
-                        top: h / 25,
+                        top: h / 30,
                         left: h / 100,
                         right: h / 90,
                         child: Center(
@@ -136,7 +151,7 @@ class _DevelopersPageState extends State<DevelopersPage> {
                                   child: Text(
                                     "Developers Page",
                                     style: AppStyles.TitleText().copyWith(
-                                        fontSize: 47,
+                                        fontSize: 45,
                                         color: const Color.fromARGB(
                                             255, 236, 182, 101)),
                                   ),
@@ -146,57 +161,22 @@ class _DevelopersPageState extends State<DevelopersPage> {
                           ),
                         ),
                       ),
-                      Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 78, top: 13),
-                            child: Transform(
-                              alignment: Alignment.center,
-                              transform: Matrix4.rotationY(math.pi),
-                              child: SizedBox(
-                                height: h / 8,
-                                child: Image.asset("assets/images/cobweb1.gif"),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 75, top: 10),
-                            child: SizedBox(
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
                               height: h / 8,
-                              child: Image.asset("assets/images/cobweb1.gif"),
+                              child: Lottie.asset("assets/images/webs.json"),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  // SizedBox(
-                  //   height: h / 5,
-                  //   width: w * 0.5,
-                  // ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        height: h * 0.1,
-                        width: w * 0.24,
-                        child: Lottie.asset("assets/images/fly_pumpkin.json"),
-                      ),
-                      SizedBox(
-                        height: h * 0.1,
-                        width: w * 0.23,
-                        child: Lottie.asset("assets/images/fly_pumpkin.json"),
-                      ),
-                      SizedBox(
-                        height: h * 0.1,
-                        width: w * 0.24,
-                        child: Lottie.asset("assets/images/fly_pumpkin.json"),
-                      ),
-                      SizedBox(
-                        height: h * 0.1,
-                        width: w * 0.23,
-                        child: Lottie.asset("assets/images/fly_pumpkin.json"),
-                      ),
+                            SizedBox(
+                              height: h / 8,
+                              child: Lottie.asset("assets/images/webs.json"),
+                            ),
+                          ],
+                        ),
+                      )
                     ],
                   ),
                   Expanded(
@@ -225,7 +205,7 @@ class _DevelopersPageState extends State<DevelopersPage> {
                               begin: Alignment.centerLeft,
                               end: Alignment.centerRight,
                             ),
-                            borderRadius: BorderRadius.circular(24),
+                            borderRadius: BorderRadius.circular(10),
                             border: Border.all(
                               color: Colors.orange[700]!.withOpacity(0.8),
                               width: 0.7,
@@ -239,18 +219,18 @@ class _DevelopersPageState extends State<DevelopersPage> {
                             ],
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.all(0.0),
+                            padding: const EdgeInsets.all(5.0),
                             child: Column(
                               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
                                   decoration: BoxDecoration(
-                                    // image: const DecorationImage(
-                                    //   image: AssetImage(
-                                    //     "assets/images/frame-3.png",
-                                    //   ),
-                                    //   fit: BoxFit.cover,
-                                    // ),
+                                    image: const DecorationImage(
+                                      image: AssetImage(
+                                        "assets/images/hallo_frame1.jpeg",
+                                      ),
+                                      fit: BoxFit.cover,
+                                    ),
                                     borderRadius: BorderRadius.circular(10),
                                     border: Border.all(
                                       color: Colors.transparent,
@@ -259,41 +239,48 @@ class _DevelopersPageState extends State<DevelopersPage> {
                                   ),
                                   padding: EdgeInsets.all(h * 0.005),
                                   alignment: Alignment.topCenter,
-                                  height: h * 0.252,
+                                  height: h * 0.25,
                                   child: Padding(
                                     padding: const EdgeInsets.all(5),
-                                    child: Container(
-                                      padding: const EdgeInsets.all(1),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                          color: Colors.black,
-                                          width: 1.5,
-                                        ),
-                                      ),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(7),
-                                        child: CachedNetworkImage(
-                                          imageUrl:
-                                              developersList[index].imageUrl,
-                                          placeholder: (context, url) =>
-                                              Image.asset(
-                                            'assets/images/placeholder_person.png',
+                                    child: WidgetCircularAnimator(
+                                      innerColor: Colors.transparent,
+                                      outerColor: Colors.transparent,
+                                      child: Container(
+                                        padding: const EdgeInsets.all(4),
+                                        // decoration: BoxDecoration(
+                                        //   borderRadius:
+                                        //       BorderRadius.circular(10),
+                                        //   border: Border.all(
+                                        //     color: Colors.black,
+                                        //     width: 1.5,
+                                        //   ),
+                                        // ),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(80),
+                                          child: CachedNetworkImage(
+                                            imageUrl:
+                                                developersList[index].imageUrl,
+                                            placeholder: (context, url) =>
+                                                Image.asset(
+                                              'assets/images/placeholder_person.png',
+                                            ),
+                                            errorWidget:
+                                                (context, url, error) =>
+                                                    Container(),
+                                            cacheManager: _cacheManager,
+                                            fadeInDuration: const Duration(
+                                                milliseconds: 100),
+                                            fit: BoxFit.fitWidth,
+                                            key: UniqueKey(),
                                           ),
-                                          errorWidget: (context, url, error) =>
-                                              Container(),
-                                          cacheManager: _cacheManager,
-                                          fadeInDuration:
-                                              const Duration(milliseconds: 100),
-                                          fit: BoxFit.fitWidth,
-                                          key: UniqueKey(),
                                         ),
                                       ),
                                     ),
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(top: 0),
+                                  padding: const EdgeInsets.only(top: 6),
                                   child: Container(
                                     height: h * 0.04,
                                     width: w * 0.4,
