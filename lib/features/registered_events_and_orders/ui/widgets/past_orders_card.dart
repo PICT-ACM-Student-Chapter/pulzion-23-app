@@ -52,7 +52,7 @@ class PastOrdersCards extends StatelessWidget {
                     begin: Alignment.centerLeft,
                     end: Alignment.centerRight,
                   ),
-                  borderRadius: BorderRadius.circular(24),
+                  borderRadius: BorderRadius.circular(20),
                   border: Border.all(
                     color: Colors.orange[700]!.withOpacity(0.8),
                     width: 0.7,
@@ -65,6 +65,25 @@ class PastOrdersCards extends StatelessWidget {
                     ),
                   ],
                 ),
+                // decoration: BoxDecoration(
+                //   gradient: LinearGradient(
+                //     begin: Alignment.topLeft,
+                //     end: Alignment.bottomRight,
+                //     colors: AppColors.eventCardGradientList.elementAt(
+                //       orders[index].id! %
+                //           AppColors.eventCardGradientList.length,
+                //     ),
+                //   ),
+                //   borderRadius: const BorderRadius.all(
+                //     Radius.circular(20),
+                //   ),
+                //   border: const Border.fromBorderSide(
+                //     BorderSide(
+                //       color: AppColors.cardBorder,
+                //       width: 0.2,
+                //     ),
+                //   ),
+                // ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.center,

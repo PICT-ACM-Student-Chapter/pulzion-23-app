@@ -73,7 +73,7 @@ class EventCard extends StatelessWidget {
               decoration: BoxDecoration(
                 // color: Colors.black,
                 image: const DecorationImage(
-                  image: AssetImage('assets/images/manuscript.png'),
+                  image: AssetImage('assets/images/manu_frame.png'),
                   fit: BoxFit.fill,
                 ),
                 borderRadius: BorderRadius.circular(10),

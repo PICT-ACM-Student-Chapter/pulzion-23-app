@@ -91,7 +91,7 @@ Widget getEventLogo(
           width: w / 1.45,
           height: w / 1.45,
           child: Image.asset(
-            'assets/images/halloween_frame.png',
+            'assets/images/app_frame.png',
           ),
         ),
       ),

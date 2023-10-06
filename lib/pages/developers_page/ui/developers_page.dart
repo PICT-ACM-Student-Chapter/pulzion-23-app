@@ -103,8 +103,9 @@ class _DevelopersPageState extends State<DevelopersPage> {
                   //   width: w * 0.5,
                   // ),
                   SizedBox(
-                      height: h / 10,
-                      child: Lottie.asset("assets/images/happy.json")),
+                    height: h / 10,
+                    child: Lottie.asset("assets/images/happy.json"),
+                  ),
                   Stack(
                     children: [
                       Positioned(
@@ -119,7 +120,7 @@ class _DevelopersPageState extends State<DevelopersPage> {
                                 left: h * 0.05,
                                 right: h * 0.05,
                                 top: h * 0.02,
-                                bottom: h * 0.015,
+                                bottom: h * 0.02,
                               ),
                               decoration: BoxDecoration(
                                 gradient: LinearGradient(
@@ -151,9 +152,10 @@ class _DevelopersPageState extends State<DevelopersPage> {
                                   child: Text(
                                     "Developers Page",
                                     style: AppStyles.TitleText().copyWith(
-                                        fontSize: 45,
-                                        color: const Color.fromARGB(
-                                            255, 236, 182, 101)),
+                                      fontSize: 45,
+                                      color: const Color.fromARGB(
+                                          255, 236, 182, 101),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -187,7 +189,7 @@ class _DevelopersPageState extends State<DevelopersPage> {
                                     Orientation.landscape
                                 ? w * 0.25
                                 : w * 0.5,
-                        childAspectRatio: 1 / h * 500,
+                        childAspectRatio: 1 / h * 470,
                         crossAxisSpacing: h * 0.015,
                         mainAxisSpacing: h * 0.015,
                       ),

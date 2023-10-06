@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
@@ -23,7 +24,6 @@ class EventDetailsCubitCubit extends Cubit<EventDetailsCubitState> {
       eventList.events?.forEach((e) {
         log(e.offers?.length.toString() ?? e.name!);
       });
-
       emit(EventDetailsCubitLoaded(eventList));
     } catch (e) {
       log(e.toString());
