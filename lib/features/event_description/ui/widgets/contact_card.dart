@@ -59,8 +59,31 @@ class MyWidget extends StatelessWidget {
       onTap: () => openWhatsAppChat(
         extractPhoneNumbers(phone),
       ),
-      child: Card(
-        color: Colors.white.withOpacity(0.16),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Colors.black.withOpacity(0.6),
+              Colors.black.withOpacity(0.4),
+              Colors.black.withOpacity(0.4),
+            ],
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+          ),
+          borderRadius: BorderRadius.circular(24),
+          border: Border.all(
+            color: Colors.orange[700]!.withOpacity(0.8),
+            width: 0.7,
+          ),
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 1.0,
+              spreadRadius: 2.0,
+              color: Colors.yellow[900]!.withOpacity(0.3),
+            ),
+          ],
+        ),
+        // color: Colors.white.withOpacity(0.16),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

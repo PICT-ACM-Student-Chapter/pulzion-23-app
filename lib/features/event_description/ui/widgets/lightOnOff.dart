@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as Math;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,6 +15,31 @@ class DarkSample extends StatefulWidget {
 
 class _DarkSampleState extends State<DarkSample> {
   bool isDark = false;
+  int isFirst = 0;
+  late Timer t1, t2;
+
+  @override
+  void initState() {
+    super.initState();
+    t1 = Timer(const Duration(milliseconds: 1000), () {
+      setState(() {
+        isDark = !isDark;
+      });
+    });
+    t2 = Timer(const Duration(milliseconds: 2000), () {
+      setState(() {
+        isDark = !isDark;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    if (t1.isActive) t1.cancel();
+    if (t2.isActive) t2.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;

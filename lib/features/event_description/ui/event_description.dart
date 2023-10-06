@@ -1,15 +1,8 @@
-import 'dart:developer';
-import 'dart:ui';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pulzion23/constants/widgets/empty_page.dart';
-import 'package:pulzion23/constants/widgets/error_dialog.dart';
 import 'package:pulzion23/constants/widgets/halloween_button.dart';
-import 'package:pulzion23/constants/widgets/loader.dart';
-import 'package:pulzion23/features/combo_cubit/cubit/combo_cubit.dart';
-import 'package:pulzion23/features/combo_cubit/models/combo_model.dart';
-import 'package:pulzion23/features/event_description/ui/widgets/offer_card.dart';
 import "package:share_plus/share_plus.dart";
 import '../../../constants/urls.dart';
 import '../../cart_page/cubit/cart_page_cubit.dart';
@@ -19,7 +12,6 @@ import '../ui/widgets/contact_card.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/styles.dart';
-import 'widgets/event_mode.dart';
 
 Widget getEventLogo(
   Events event,
@@ -137,6 +129,7 @@ class _EventDescriptionState extends State<EventDescription>
   //!change the length of tab controller from 3 to 4 afterwards
   late final TabController tabBarController =
       TabController(length: 3, vsync: this);
+
 
   @override
   void dispose() {
@@ -531,7 +524,8 @@ class _EventDescriptionState extends State<EventDescription>
                                     // ),
                                     style: AppStyles.NormalText().copyWith(
                                       color: Theme.of(context).primaryColor,
-                                      fontSize: 25,
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ),
@@ -543,8 +537,9 @@ class _EventDescriptionState extends State<EventDescription>
                                     //   color: Theme.of(context).primaryColor,
                                     // ),
                                     style: AppStyles.NormalText().copyWith(
-                                        color: Theme.of(context).primaryColor,
-                                        fontSize: 20),
+                                      color: Theme.of(context).primaryColor,
+                                      fontSize: 18,
+                                    ),
                                   ),
                                 ),
                                 Padding(
@@ -557,12 +552,18 @@ class _EventDescriptionState extends State<EventDescription>
                                     //   fontWeight: FontWeight.bold,
                                     // ),
                                     style: AppStyles.NormalText().copyWith(
-                                        color: Theme.of(context).primaryColor,
-                                        fontSize: 20),
+                                      color: Theme.of(context).primaryColor,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal:
+                                        MediaQuery.of(context).size.width * 0.1,
+                                    vertical: 0.0,
+                                  ),
                                   child: ContactCard(event: event),
                                 ),
                               ],
