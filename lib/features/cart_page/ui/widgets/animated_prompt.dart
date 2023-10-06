@@ -81,7 +81,7 @@ class _AnimatedPromptState extends State<AnimatedPrompt>
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
-                width: widgWidth * 0.08,
+                width: widgWidth * 0.07,
               ),
               ScaleTransition(
                 scale: _containerScalingAnimation,
@@ -98,9 +98,9 @@ class _AnimatedPromptState extends State<AnimatedPrompt>
                   ),
                 ),
               ),
-              SizedBox(
-                width: widgWidth * 0.05,
-              ),
+              // SizedBox(
+              //   width: widgWidth * 0.05,
+              // ),
               SizedBox(
                 width: widgWidth * 0.55,
                 height: widgWidth * 0.07,
@@ -116,9 +116,9 @@ class _AnimatedPromptState extends State<AnimatedPrompt>
                 ),
               ),
               SizedBox(
-                width: widgWidth * 0.08,
+                // width: widgWidth * 0.08,
                 child: Text(
-                  widget.subtitle,
+                  "₹" + widget.subtitle,
                   textAlign: TextAlign.center,
                   style: AppStyles.NormalText().copyWith(
                     color: Colors.black,
@@ -134,114 +134,114 @@ class _AnimatedPromptState extends State<AnimatedPrompt>
               SizedBox(
                 width: widgWidth / 4,
               ),
+              // // SizedBox(
+              // //   height: widgWidth / 9,
+              // //   width: widgWidth / 4,
+              // //   child: InkWell(
+              // //     child: Container(
+              // //       decoration: BoxDecoration(
+              // //         gradient: LinearGradient(
+              // //           colors: [
+              // //             Colors.black.withOpacity(0.6),
+              // //             Colors.black.withOpacity(0.4),
+              // //             Colors.black.withOpacity(0.4),
+              // //           ],
+              // //           begin: Alignment.centerLeft,
+              // //           end: Alignment.centerRight,
+              // //         ),
+              // //         borderRadius: BorderRadius.circular(12),
+              // //         border: Border.all(
+              // //           color: Colors.orange[700]!.withOpacity(0.8),
+              // //           width: 0.7,
+              // //         ),
+              // //         boxShadow: [
+              // //           BoxShadow(
+              // //             blurRadius: 1.0,
+              // //             spreadRadius: 2.0,
+              // //             color: Colors.yellow[900]!.withOpacity(0.3),
+              // //           ),
+              // //         ],
+              // //       ),
+              // //       child: Center(
+              // //         child: Text(
+              // //           "View Offers",
+              // //           style: AppStyles.NormalText().copyWith(
+              // //             color: Colors.white,
+              // //             fontWeight: FontWeight.w400,
+              // //             fontSize: 15,
+              // //           ),
+              // //         ),
+              // //       ),
+              // //     ),
+              // //     onTap: () {
+              // //       showDialog(
+              // //         context: context,
+              // //         builder: (BuildContext context) {
+              // //           return Center(
+              // //             child: SingleChildScrollView(
+              // //               child: AlertDialog(
+              // //                 shape: RoundedRectangleBorder(
+              // //                   borderRadius: BorderRadius.circular(14),
+              // //                 ),
+              // //                 backgroundColor: Colors.orange.shade300,
+              // //                 content: SizedBox(
+              // //                   height: widgWidth,
+              // //                   width: widgWidth /
+              // //                       10, // Adjust the height as needed
+              // //                   child: Column(
+              // //                     children: <Widget>[
+              // //                       Row(
+              // //                         children: [
+              // //                           Padding(
+              // //                             padding: const EdgeInsets.all(10),
+              // //                             child: Container(
+              // //                               height: widgWidth / 12,
+              // //                               width: widgWidth / 2.5,
+              // //                               decoration: BoxDecoration(
+              // //                                 borderRadius:
+              // //                                     BorderRadius.circular(18),
+              // //                                 color: const Color.fromARGB(
+              // //                                     255, 234, 195, 94),
+              // //                               ),
+              // //                               child: const Center(
+              // //                                 child: Text(
+              // //                                   'Combo Offers',
+              // //                                   style: TextStyle(
+              // //                                     fontSize: 20.0,
+              // //                                     fontWeight: FontWeight.bold,
+              // //                                     color: Color.fromARGB(
+              // //                                         255, 33, 17, 10),
+              // //                                   ),
+              // //                                 ),
+              // //                               ),
+              // //                             ),
+              // //                           ),
+              // //                           Padding(
+              // //                             padding:
+              // //                                 const EdgeInsets.only(left: 10),
+              // //                             child: IconButton(
+              // //                               onPressed: () {
+              // //                                 Navigator.of(context).pop();
+              // //                               },
+              // //                               icon: const Icon(Icons.close),
+              // //                             ),
+              // //                           ),
+              // //                         ],
+              // //                       ),
+              // //                       Combo_List(),
+              // //                     ],
+              // //                   ),
+              // //                 ),
+              //               ),
+              //             ),
+              //           );
+              //         },
+              //       );
+              //     },
+              //   ),
+              // ),
               SizedBox(
-                height: widgWidth / 9,
-                width: widgWidth / 4,
-                child: InkWell(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Colors.black.withOpacity(0.6),
-                          Colors.black.withOpacity(0.4),
-                          Colors.black.withOpacity(0.4),
-                        ],
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                      ),
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                        color: Colors.orange[700]!.withOpacity(0.8),
-                        width: 0.7,
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 1.0,
-                          spreadRadius: 2.0,
-                          color: Colors.yellow[900]!.withOpacity(0.3),
-                        ),
-                      ],
-                    ),
-                    child: Center(
-                      child: Text(
-                        "View Offers",
-                        style: AppStyles.NormalText().copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 15,
-                        ),
-                      ),
-                    ),
-                  ),
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return Center(
-                          child: SingleChildScrollView(
-                            child: AlertDialog(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(14),
-                              ),
-                              backgroundColor: Colors.orange.shade300,
-                              content: SizedBox(
-                                height: widgWidth,
-                                width: widgWidth /
-                                    10, // Adjust the height as needed
-                                child: Column(
-                                  children: <Widget>[
-                                    Row(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(10),
-                                          child: Container(
-                                            height: widgWidth / 12,
-                                            width: widgWidth / 2.5,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(18),
-                                              color: const Color.fromARGB(
-                                                  255, 234, 195, 94),
-                                            ),
-                                            child: const Center(
-                                              child: Text(
-                                                'Combo Offers',
-                                                style: TextStyle(
-                                                  fontSize: 20.0,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Color.fromARGB(
-                                                      255, 33, 17, 10),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 10),
-                                          child: IconButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            icon: const Icon(Icons.close),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Combo_List(),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    );
-                  },
-                ),
-              ),
-              SizedBox(
-                width: widgWidth / 10,
+                width: widgWidth / 7,
               ),
               SizedBox(
                 height: widgWidth / 9,

@@ -134,8 +134,9 @@ class EventDescription extends StatefulWidget {
 
 class _EventDescriptionState extends State<EventDescription>
     with TickerProviderStateMixin {
+  //!change the length of tab controller from 3 to 4 afterwards
   late final TabController tabBarController =
-      TabController(length: 4, vsync: this);
+      TabController(length: 3, vsync: this);
 
   @override
   void dispose() {
@@ -468,15 +469,15 @@ class _EventDescriptionState extends State<EventDescription>
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            Text(
-                              "Offers",
-                              style: AppStyles.TitleText().copyWith(
-                                color: Theme.of(context).primaryColor,
-                                // fontFamily: 'Quicksand',
-                                fontSize: h * 0.028,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
+                            // Text(
+                            //   "Offers",
+                            //   style: AppStyles.TitleText().copyWith(
+                            //     color: Theme.of(context).primaryColor,
+                            //     // fontFamily: 'Quicksand',
+                            //     fontSize: h * 0.028,
+                            //     fontWeight: FontWeight.w500,
+                            //   ),
+                            // ),
                           ],
                         ),
                       ),
@@ -507,7 +508,7 @@ class _EventDescriptionState extends State<EventDescription>
                                     // ),
                                     style: AppStyles.NormalText().copyWith(
                                         color: Theme.of(context).primaryColor,
-                                        fontSize: 30),
+                                        fontSize: 20),
                                   ),
                                 ),
                                 Padding(
@@ -587,79 +588,79 @@ class _EventDescriptionState extends State<EventDescription>
                               fontSize: 15,
                             ),
                           ),
-                          event.offers == null || event.offers!.isEmpty
-                              ? Center(
-                                  child: EmptyPage(
-                                    errorMessage:
-                                        "No offers available for ${event.name}",
-                                    title: "",
-                                  ),
-                                )
-                              : ListView.builder(
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: event.offers == null
-                                      ? 0
-                                      : event.offers == null
-                                          ? 0
-                                          : event.offers!.length,
-                                  itemBuilder: (context, index) {
-                                    final comboo = event.offers![index];
+                          // event.offers == null || event.offers!.isEmpty
+                          //     ? Center(
+                          //         child: EmptyPage(
+                          //           errorMessage:
+                          //               "No offers available for ${event.name}",
+                          //           title: "",
+                          //         ),
+                          //       )
+                          //     : ListView.builder(
+                          //         physics: const NeverScrollableScrollPhysics(),
+                          //         shrinkWrap: true,
+                          //         itemCount: event.offers == null
+                          //             ? 0
+                          //             : event.offers == null
+                          //                 ? 0
+                          //                 : event.offers!.length,
+                          //         itemBuilder: (context, index) {
+                          //           final comboo = event.offers![index];
 
-                                    return InkWell(
-                                      onTap: () async {
-                                        // add to cart
-                                        final sc =
-                                            ScaffoldMessenger.of(context);
-                                        final bc =
-                                            BlocProvider.of<CartPageCubit>(
-                                          context,
-                                        );
-                                        for (ComboDetails eventCombo
-                                            in comboo.comboDetailsList!) {
-                                          if (!await bc.addCartItem(
-                                            int.parse(eventCombo.id),
-                                            null,
-                                          )) {
-                                            sc.showSnackBar(
-                                              SnackBar(
-                                                content: Text(
-                                                  'Some items in the combo are already in the cart',
-                                                  style: AppStyles.NormalText()
-                                                      .copyWith(
-                                                          color:
-                                                              Theme.of(context)
-                                                                  .primaryColor,
-                                                          fontSize: 10),
-                                                ),
-                                              ),
-                                            );
-                                            for (ComboDetails eventCombo2
-                                                in comboo.comboDetailsList!) {
-                                              if (eventCombo2.id ==
-                                                  eventCombo.id) {
-                                                break;
-                                              }
-                                              await bc.deleteItem(
-                                                  int.parse(eventCombo2.id));
-                                            }
-                                            break;
-                                          }
-                                          await Future.delayed(
-                                            const Duration(milliseconds: 200),
-                                          );
-                                        }
-                                      },
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 10, horizontal: 30),
-                                        child: OfferCard(
-                                          combo: comboo,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
+                          //           return InkWell(
+                          //             onTap: () async {
+                          //               // add to cart
+                          //               final sc =
+                          //                   ScaffoldMessenger.of(context);
+                          //               final bc =
+                          //                   BlocProvider.of<CartPageCubit>(
+                          //                 context,
+                          //               );
+                          //               for (ComboDetails eventCombo
+                          //                   in comboo.comboDetailsList!) {
+                          //                 if (!await bc.addCartItem(
+                          //                   int.parse(eventCombo.id),
+                          //                   null,
+                          //                 )) {
+                          //                   sc.showSnackBar(
+                          //                     SnackBar(
+                          //                       content: Text(
+                          //                         'Some items in the combo are already in the cart',
+                          //                         style: AppStyles.NormalText()
+                          //                             .copyWith(
+                          //                                 color:
+                          //                                     Theme.of(context)
+                          //                                         .primaryColor,
+                          //                                 fontSize: 10),
+                          //                       ),
+                          //                     ),
+                          //                   );
+                          //                   for (ComboDetails eventCombo2
+                          //                       in comboo.comboDetailsList!) {
+                          //                     if (eventCombo2.id ==
+                          //                         eventCombo.id) {
+                          //                       break;
+                          //                     }
+                          //                     await bc.deleteItem(
+                          //                         int.parse(eventCombo2.id));
+                          //                   }
+                          //                   break;
+                          //                 }
+                          //                 await Future.delayed(
+                          //                   const Duration(milliseconds: 200),
+                          //                 );
+                          //               }
+                          //             },
+                          //             child: Padding(
+                          //               padding: const EdgeInsets.symmetric(
+                          //                   vertical: 10, horizontal: 30),
+                          //               child: OfferCard(
+                          //                 combo: comboo,
+                          //               ),
+                          //             ),
+                          //           );
+                          //         },
+                          //       ),
                         ],
                       ),
                     ),

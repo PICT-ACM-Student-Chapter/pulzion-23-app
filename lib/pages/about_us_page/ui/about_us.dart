@@ -177,9 +177,8 @@ class _AboutUsPageState extends State<AboutUsPage>
                                     width: width / 2.6,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      image: DecorationImage(
-                                          image: AssetImage(
-                                              "assets/images/hehe.png")),
+                                      color: const Color.fromARGB(
+                                          255, 228, 188, 136),
                                     ),
                                     child: Column(
                                       mainAxisAlignment:
@@ -237,12 +236,8 @@ class _AboutUsPageState extends State<AboutUsPage>
                                     width: width / 2.6,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      image: DecorationImage(
-                                        image: AssetImage(
-                                          "assets/images/hehe.png",
-                                        ),
-                                        fit: BoxFit.cover,
-                                      ),
+                                      color: const Color.fromARGB(
+                                          255, 228, 188, 136),
                                     ),
                                     child: Column(
                                       mainAxisAlignment:

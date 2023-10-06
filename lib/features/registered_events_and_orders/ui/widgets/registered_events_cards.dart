@@ -26,13 +26,16 @@ class RegisteredEventsCards extends StatelessWidget {
             ),
           )
         : ListView.builder(
-            itemBuilder: (context, index) => MyTicketView(
-              id: registeredEvents[index].id!,
-              name: registeredEvents[index].name!,
-              description: registeredEvents[index].description!,
-              eventType: registeredEvents[index].type!,
-              logo: registeredEvents[index].logo!,
-              isBooked: registeredEvents[index].fk_slot,
+            itemBuilder: (context, index) => Padding(
+              padding: const EdgeInsets.all(10),
+              child: MyTicketView(
+                id: registeredEvents[index].id!,
+                name: registeredEvents[index].name!,
+                description: registeredEvents[index].description!,
+                eventType: registeredEvents[index].type!,
+                logo: registeredEvents[index].logo!,
+                isBooked: registeredEvents[index].fk_slot,
+              ),
             ),
             itemCount: registeredEvents.length,
           );

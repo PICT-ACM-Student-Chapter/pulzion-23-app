@@ -154,22 +154,23 @@ class _CartPageContentState extends State<CartPageContent> {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Text(
+                            Text(
                               'Enter UPI Transaction ID:',
-                              style: TextStyle(
+                              style: AppStyles.NormalText().copyWith(
                                 color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 15,
                               ),
                             ),
                             const SizedBox(
                               height: 5,
                             ),
-                            const Text(
+                            Text(
                               '(PhonePe Users enter UTR number)',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.grey,
+                              style: AppStyles.NormalText().copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 15,
                               ),
                             ),
                             const SizedBox(height: 16),
@@ -216,21 +217,24 @@ class _CartPageContentState extends State<CartPageContent> {
                                     onSaved: (newValue) {
                                       _transactionId = newValue!;
                                     },
-                                    decoration: const InputDecoration(
+                                    decoration: InputDecoration(
                                       hintText: 'Transaction ID',
-                                      hintStyle: TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 16,
+                                      hintStyle:
+                                          AppStyles.NormalText().copyWith(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 15,
                                       ),
                                       border: InputBorder.none,
-                                      icon: Icon(
+                                      icon: const Icon(
                                         Icons.credit_card,
                                         color: Colors.grey,
                                       ),
                                     ),
-                                    style: const TextStyle(
-                                      fontSize: 16,
+                                    style: AppStyles.NormalText().copyWith(
                                       color: Colors.white,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 15,
                                     ),
                                   ),
                                 ),
@@ -239,12 +243,12 @@ class _CartPageContentState extends State<CartPageContent> {
                             const SizedBox(
                               height: 20,
                             ),
-                            const Text(
+                            Text(
                               'Enter Referral Code (Optional):',
-                              style: TextStyle(
+                              style: AppStyles.NormalText().copyWith(
                                 color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 15,
                               ),
                             ),
                             const SizedBox(height: 16),
@@ -321,40 +325,97 @@ class _CartPageContentState extends State<CartPageContent> {
                                   child: SizedBox(
                                     height: MediaQuery.of(context).size.height *
                                         0.06,
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        if (!_formKey.currentState!
-                                            .validate()) {
-                                          return;
-                                        }
-                                        _formKey.currentState!.save();
-                                        try {
-                                          BlocProvider.of<CartPageCubit>(
-                                            context,
-                                          ).sendTransactionID(
-                                            _transactionId,
-                                            _referral,
-                                          );
-                                        } catch (e) {
-                                          print(e.toString());
-                                        }
-                                        Navigator.of(context).pop();
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        padding: const EdgeInsets.symmetric(),
-                                        textStyle:
-                                            const TextStyle(fontSize: 18),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Colors.black.withOpacity(0.6),
+                                            Colors.black.withOpacity(0.4),
+                                            Colors.black.withOpacity(0.4),
+                                          ],
+                                          begin: Alignment.centerLeft,
+                                          end: Alignment.centerRight,
                                         ),
-                                        backgroundColor:
-                                            Colors.blue.withOpacity(0.5),
+                                        borderRadius: BorderRadius.circular(24),
+                                        border: Border.all(
+                                          color: Colors.orange[700]!
+                                              .withOpacity(0.8),
+                                          width: 0.7,
+                                        ),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            blurRadius: 1.0,
+                                            spreadRadius: 2.0,
+                                            color: Colors.yellow[900]!
+                                                .withOpacity(0.3),
+                                          ),
+                                        ],
                                       ),
-                                      child: const Text(
-                                        'Submit',
-                                        style: TextStyle(
-                                          fontSize: 16,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          gradient: LinearGradient(
+                                            colors: [
+                                              Colors.black.withOpacity(0.6),
+                                              Colors.black.withOpacity(0.4),
+                                              Colors.black.withOpacity(0.4),
+                                            ],
+                                            begin: Alignment.centerLeft,
+                                            end: Alignment.centerRight,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(24),
+                                          border: Border.all(
+                                            color: Colors.orange[700]!
+                                                .withOpacity(0.8),
+                                            width: 0.7,
+                                          ),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              blurRadius: 1.0,
+                                              spreadRadius: 2.0,
+                                              color: Colors.yellow[900]!
+                                                  .withOpacity(0.3),
+                                            ),
+                                          ],
+                                        ),
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            if (!_formKey.currentState!
+                                                .validate()) {
+                                              return;
+                                            }
+                                            _formKey.currentState!.save();
+                                            try {
+                                              BlocProvider.of<CartPageCubit>(
+                                                context,
+                                              ).sendTransactionID(
+                                                _transactionId,
+                                                _referral,
+                                              );
+                                            } catch (e) {
+                                              print(e.toString());
+                                            }
+                                            Navigator.of(context).pop();
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            padding:
+                                                const EdgeInsets.symmetric(),
+                                            textStyle:
+                                                const TextStyle(fontSize: 18),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            backgroundColor: Colors.transparent,
+                                          ),
+                                          child: Text(
+                                            'Submit',
+                                            style:
+                                                AppStyles.NormalText().copyWith(
+                                              color: Colors.white,
+                                              fontSize: 15,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -369,113 +430,147 @@ class _CartPageContentState extends State<CartPageContent> {
                                   child: SizedBox(
                                     height: MediaQuery.of(context).size.height *
                                         0.06,
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        final cost =
-                                            widget.eventList!.cartItems!.fold(
-                                          0,
-                                          (previousValue, element) =>
-                                              previousValue + element.price!,
-                                        );
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Colors.black.withOpacity(0.6),
+                                            Colors.black.withOpacity(0.4),
+                                            Colors.black.withOpacity(0.4),
+                                          ],
+                                          begin: Alignment.centerLeft,
+                                          end: Alignment.centerRight,
+                                        ),
+                                        borderRadius: BorderRadius.circular(24),
+                                        border: Border.all(
+                                          color: Colors.orange[700]!
+                                              .withOpacity(0.8),
+                                          width: 0.7,
+                                        ),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            blurRadius: 1.0,
+                                            spreadRadius: 2.0,
+                                            color: Colors.yellow[900]!
+                                                .withOpacity(0.3),
+                                          ),
+                                        ],
+                                      ),
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          final cost =
+                                              widget.eventList!.cartItems!.fold(
+                                            0,
+                                            (previousValue, element) =>
+                                                previousValue + element.price!,
+                                          );
 
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return AlertDialog(
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              title: const Text(
-                                                'QR Code',
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  fontFamily: 'Panther',
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                              content: Container(
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(16),
-                                                  border: Border.all(
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return AlertDialog(
+                                                backgroundColor:
+                                                    const Color.fromRGBO(
+                                                        0, 0, 0, 0),
+                                                title: Text(
+                                                  'QR Code',
+                                                  textAlign: TextAlign.center,
+                                                  style: AppStyles.NormalText()
+                                                      .copyWith(
+                                                    fontWeight: FontWeight.bold,
                                                     color: Colors.white,
-                                                    width: 2,
-                                                  ),
-                                                  gradient: LinearGradient(
-                                                    begin: Alignment.topLeft,
-                                                    end: Alignment.bottomRight,
-                                                    colors: [
-                                                      Colors.black
-                                                          .withOpacity(0.3),
-                                                      Colors.black
-                                                          .withOpacity(0.2),
-                                                      Colors.black
-                                                          .withOpacity(0.1),
-                                                    ],
                                                   ),
                                                 ),
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.62,
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.62,
-                                                child: Align(
-                                                  alignment: Alignment.center,
-                                                  child: QrImageView(
-                                                    data:
-                                                        'upi://pay?pa=pictscholarship@jsb&pn=PICT&am=$cost&tn=Pulzion&cu=INR',
-                                                    version: QrVersions.auto,
-                                                    foregroundColor:
-                                                        Colors.white,
-                                                    size: MediaQuery.of(context)
-                                                            .size
-                                                            .width *
-                                                        0.6,
+                                                content: Container(
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            16),
+                                                    border: Border.all(
+                                                      color: Colors.white,
+                                                      width: 2,
+                                                    ),
+                                                    gradient: LinearGradient(
+                                                      begin: Alignment.topLeft,
+                                                      end:
+                                                          Alignment.bottomRight,
+                                                      colors: [
+                                                        Colors.black
+                                                            .withOpacity(0.3),
+                                                        Colors.black
+                                                            .withOpacity(0.2),
+                                                        Colors.black
+                                                            .withOpacity(0.1),
+                                                      ],
+                                                    ),
                                                   ),
-                                                ),
-                                              ),
-                                              actions: [
-                                                Align(
-                                                  alignment: Alignment.center,
-                                                  child: TextButton(
-                                                    onPressed: () {
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                    },
-                                                    child: const Text(
-                                                      'Close',
-                                                      style: TextStyle(
-                                                        fontFamily: 'QuickSand',
-                                                        color: Colors.white,
-                                                      ),
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.62,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.62,
+                                                  child: Align(
+                                                    alignment: Alignment.center,
+                                                    child: QrImageView(
+                                                      data:
+                                                          'upi://pay?pa=pictscholarship@jsb&pn=PICT&am=$cost&tn=Pulzion&cu=INR',
+                                                      version: QrVersions.auto,
+                                                      foregroundColor:
+                                                          Colors.white,
+                                                      size:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.6,
                                                     ),
                                                   ),
                                                 ),
-                                              ],
-                                            );
-                                          },
-                                        );
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        padding: const EdgeInsets.symmetric(
-                                          vertical: 16,
+                                                actions: [
+                                                  Align(
+                                                    alignment: Alignment.center,
+                                                    child: TextButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                      child: Text(
+                                                        'Close',
+                                                        style: AppStyles
+                                                                .NormalText()
+                                                            .copyWith(
+                                                          color: Colors.white,
+                                                          fontSize: 15,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          padding: const EdgeInsets.symmetric(
+                                            vertical: 16,
+                                          ),
+                                          textStyle:
+                                              const TextStyle(fontSize: 18),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                          backgroundColor: Colors.transparent,
                                         ),
-                                        textStyle:
-                                            const TextStyle(fontSize: 18),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
-                                        backgroundColor:
-                                            Colors.blue.withOpacity(0.5),
-                                      ),
-                                      child: const Text(
-                                        'Generate QR Code',
-                                        style: TextStyle(
-                                          fontSize: 14,
+                                        child: Text(
+                                          'Generate QR Code',
+                                          style:
+                                              AppStyles.NormalText().copyWith(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -550,7 +645,6 @@ class _CartPageContentState extends State<CartPageContent> {
                     ),
                     height: h * 0.1,
                     decoration: BoxDecoration(
-                      color: Colors.transparent,
                       borderRadius: const BorderRadius.all(
                         Radius.circular(
                           15,
@@ -562,7 +656,7 @@ class _CartPageContentState extends State<CartPageContent> {
                       ),
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(
@@ -573,7 +667,7 @@ class _CartPageContentState extends State<CartPageContent> {
                             children: [
                               Text(
                                 "TOTAL : ₹${widget.eventList == null || widget.eventList!.cartItems == null ? 0 : widget.eventList!.cartItems!.fold(0, (previousValue, element) => previousValue + element.price!)} ",
-                                style: AppStyles.bodyTextStyle3().copyWith(
+                                style: AppStyles.NormalText().copyWith(
                                   color: Colors.white,
                                   fontSize: 18,
                                   fontWeight: FontWeight.w700,
@@ -581,7 +675,7 @@ class _CartPageContentState extends State<CartPageContent> {
                               ),
                               Text(
                                 "(${widget.eventList == null || widget.eventList!.cartItems == null ? 0 : widget.eventList!.cartItems!.length} items)",
-                                style: AppStyles.bodyTextStyle3().copyWith(
+                                style: AppStyles.NormalText().copyWith(
                                   color: Colors.white,
                                   fontSize: 12,
                                 ),
@@ -593,7 +687,7 @@ class _CartPageContentState extends State<CartPageContent> {
                           children: [
                             Container(
                               height: 200,
-                              width: 200,
+                              width: 150,
                               padding: const EdgeInsets.only(top: 17.0),
                               child: HalloweenButton(
                                 icon: Icons.shopping_cart,
@@ -643,16 +737,16 @@ class _CartPageContentState extends State<CartPageContent> {
                       ],
                     ),
                   ),
-                  Positioned(
-                    top: -h * 0.05,
-                    left: w * 0.025,
-                    child: Lottie.asset(
-                      AppImages.orangeRocket,
-                      fit: BoxFit.cover,
-                      height: 0.1,
-                      width: w * 0.2,
-                    ),
-                  ),
+                  // Positioned(
+                  //   top: -h * 0.05,
+                  //   left: w * 0.025,
+                  //   child: Lottie.asset(
+                  //     // AppImages.orangeRocket,
+                  //     fit: BoxFit.cover,
+                  //     height: 0.1,
+                  //     width: w * 0.2,
+                  //   ),
+                  // ),
                 ],
               ),
               Expanded(
@@ -679,14 +773,15 @@ class _CartPageContentState extends State<CartPageContent> {
                                         children: [
                                           Padding(
                                             padding: const EdgeInsets.only(
-                                              top: 16.0,
+                                              top: 10.0,
+                                              bottom: 10.0,
                                             ),
                                             child: Text(
-                                              "Events",
-                                              style: AppStyles.bodyTextStyle2()
+                                              "EVENTS",
+                                              style: AppStyles.NormalText()
                                                   .copyWith(
                                                 color: Colors.white,
-                                                fontSize: 22,
+                                                fontSize: 35,
                                                 fontWeight: FontWeight.w700,
                                               ),
                                             ),
