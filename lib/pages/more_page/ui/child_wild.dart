@@ -6,7 +6,7 @@ import '../../../constants/styles.dart';
 class FrostedTile extends StatelessWidget {
   final IconData tileicon;
   final String tilename;
-
+  final Widget? child;
   final String? url;
   final VoidCallback? onTap;
 
@@ -23,6 +23,7 @@ class FrostedTile extends StatelessWidget {
     super.key,
     required this.tilename,
     required this.tileicon,
+    this.child,
     this.url,
     this.onTap,
   });
@@ -41,41 +42,42 @@ class FrostedTile extends StatelessWidget {
                 // If Both URL and onTap are not present then do nothing
                 null;
               },
-      child: Row(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(
-              left: height / 90,
-            ),
-            child: CircleAvatar(
-              maxRadius: height * 0.025,
-              backgroundColor:
-              Color.fromARGB(255, 86, 48, 7).withOpacity(1)
-                 ,
-              foregroundColor:  Color.fromARGB(255, 224, 156, 83)
-                                .withOpacity(0.5),
-              child: Center(
-                child: Icon(
-                  color:Color.fromARGB(255, 228, 188, 136),
-                  tileicon,
-                  size: height * 0.0255,
+      child: (child == null)
+          ? Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: height / 90,
+                  ),
+                  child: CircleAvatar(
+                    maxRadius: height * 0.025,
+                    backgroundColor:
+                        const Color.fromARGB(255, 86, 48, 7).withOpacity(1),
+                    foregroundColor: const Color.fromARGB(255, 224, 156, 83)
+                        .withOpacity(0.5),
+                    child: Center(
+                      child: Icon(
+                        color: const Color.fromARGB(255, 228, 188, 136),
+                        tileicon,
+                        size: height * 0.0255,
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
-          SizedBox(
-            width: height / 40,
-          ),
-          Text(
-            tilename,
-            style: AppStyles.NormalText().copyWith(
-              fontSize: height / 43,
-              color: const Color.fromARGB(255, 82, 50, 16),
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
+                SizedBox(
+                  width: height / 40,
+                ),
+                Text(
+                  tilename,
+                  style: AppStyles.NormalText().copyWith(
+                    fontSize: height / 43,
+                    color: const Color.fromARGB(255, 82, 50, 16),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            )
+          : child!,
     );
   }
 }

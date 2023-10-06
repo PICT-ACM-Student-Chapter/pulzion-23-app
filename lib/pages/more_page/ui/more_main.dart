@@ -34,7 +34,8 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
   bool isRocket = true;
   double _opacity = 1.0;
   bool imgC = true;
-  late bool _animationstoggle;
+  late bool _soundToggle;
+  late bool _splashToggle;
 
   void setRocket() {
     setState(() {
@@ -183,7 +184,8 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     // final SensorControl sensorControl = SensorControl.AbsoluteOrientation;
-    _animationstoggle = BlocProvider.of<GlobalParameterCubit>(context).state;
+    _soundToggle = BlocProvider.of<GlobalParameterCubit>(context).controller;
+    _splashToggle = BlocProvider.of<SplashCubit>(context).isSplashScreen;
 
     return Stack(
       children: [
@@ -282,54 +284,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                 ),
               ),
 
-              //This is for toogle animation
-
-              // Container(
-              //   height: height / 13,
-              //   margin: EdgeInsets.all(height / 60),
-              //   decoration: BoxDecoration(
-              //     borderRadius: BorderRadius.circular(15),
-              //     gradient: LinearGradient(
-              //       begin: Alignment.topCenter,
-              //       end: Alignment.bottomCenter,
-              //       colors: [
-              //         Colors.black.withOpacity(0.15),
-              //         Colors.white.withOpacity(0.15),
-              //       ],
-              //     ),
-              //   ),
-              //   child: SwitchListTile(
-              //     secondary: CircleAvatar(
-              //       backgroundColor: const Color.fromARGB(255, 82, 50, 16),
-              //       child: Icon(
-              //         Icons.animation_outlined,
-              //         color: Colors.black,
-              //         size: height / 43,
-              //       ),
-              //     ),
-              //     title: Text(
-              //       'Toggle Animations',
-              //       style: TextStyle(
-              //         fontWeight: FontWeight.bold,
-              //         color: Colors.white70,
-              //         fontSize: height / 47,
-              //       ),
-              //     ),
-              //     activeColor: Colors.white,
-              //     inactiveThumbColor: Colors.white,
-              //     inactiveTrackColor: const Color.fromARGB(255, 82, 50, 16),
-              //     value: _animationstoggle,
-              //     onChanged: (val) {
-              //       BlocProvider.of<GlobalParameterCubit>(context)
-              //           .toggleParameter()
-              //           .then((value) => {
-              //                 setState(() {
-              //                   _animationstoggle = val;
-              //                 }),
-              //               });
-              //     },
-              //   ),
-              // ),
+              //!This is for toogle animation
 
               BlocBuilder<CheckLoginCubit, CheckLoginState>(
                 builder: (context, state) {
@@ -424,7 +379,51 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                   f.insert(0, [
                     FrostedTile(
                       tilename: "Sound",
-                      tileicon: Icons.play_arrow,
+                      tileicon: Icons.audio_file,
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 15.0),
+                        child: SwitchListTile(
+                          secondary: Padding(
+                            padding: const EdgeInsets.only(bottom: 10.0),
+                            child: CircleAvatar(
+                              maxRadius: height * 0.025,
+                              backgroundColor:
+                                  const Color.fromARGB(255, 82, 50, 16),
+                              child: Icon(
+                                Icons.music_note_outlined,
+                                color: const Color.fromARGB(255, 228, 188, 136),
+                                size: height * 0.025,
+                              ),
+                            ),
+                          ),
+                          title: Padding(
+                            padding: const EdgeInsets.only(bottom: 10.0),
+                            child: Text(
+                              'Background Music',
+                              style: AppStyles.NormalText().copyWith(
+                                fontSize: height / 50,
+                                color: const Color.fromARGB(255, 82, 50, 16),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          activeColor: const Color.fromARGB(255, 196, 117, 15),
+                          inactiveThumbColor: Colors.white,
+                          inactiveTrackColor: Colors.grey.shade800,
+                          activeTrackColor:
+                              const Color.fromARGB(255, 82, 50, 16),
+                          value: _soundToggle,
+                          onChanged: (val) {
+                            BlocProvider.of<GlobalParameterCubit>(context)
+                                .toggleParameter()
+                                .then((value) => {
+                                      setState(() {
+                                        _soundToggle = val;
+                                      }),
+                                    });
+                          },
+                        ),
+                      ),
                       onTap: () {
                         BlocProvider.of<GlobalParameterCubit>(context)
                             .toggleParameter();
@@ -436,6 +435,46 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                     FrostedTile(
                       tilename: "Splash Screen",
                       tileicon: Icons.phone,
+                      child: SwitchListTile(
+                        secondary: Padding(
+                          padding: const EdgeInsets.only(bottom: 10.0),
+                          child: CircleAvatar(
+                            maxRadius: height * 0.025,
+                            backgroundColor:
+                                const Color.fromARGB(255, 82, 50, 16),
+                            child: Icon(
+                              Icons.phone_android,
+                              color: const Color.fromARGB(255, 228, 188, 136),
+                              size: height * 0.0255,
+                            ),
+                          ),
+                        ),
+                        title: Padding(
+                          padding: const EdgeInsets.only(bottom: 10.0),
+                          child: Text(
+                            'Splash Screen',
+                            style: AppStyles.NormalText().copyWith(
+                              fontSize: height / 43,
+                              color: const Color.fromARGB(255, 82, 50, 16),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        activeColor: const Color.fromARGB(255, 196, 117, 15),
+                        inactiveThumbColor: Colors.white,
+                        inactiveTrackColor: Colors.grey.shade800,
+                        activeTrackColor: const Color.fromARGB(255, 82, 50, 16),
+                        value: _splashToggle,
+                        onChanged: (val) {
+                          BlocProvider.of<SplashCubit>(context)
+                              .toggleParameter()
+                              .then((value) => {
+                                    setState(() {
+                                      _splashToggle = val;
+                                    }),
+                                  });
+                        },
+                      ),
                       onTap: () {
                         BlocProvider.of<SplashCubit>(context).toggleParameter();
                       },

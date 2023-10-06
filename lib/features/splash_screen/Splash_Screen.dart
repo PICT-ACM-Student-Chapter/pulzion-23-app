@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:pulzion23/constants/widgets/loader.dart';
 import 'package:pulzion23/features/splash_screen/cubit/splash_cubit.dart';
 import 'package:pulzion23/main.dart';
@@ -33,10 +34,6 @@ class _SplashScreenState extends State<SplashScreen> {
             // BlocProvider.of<GlobalParameterCubit>(context).soundOnOff();
 
             return const Pulzion23App();
-          } else if (state is SplashVideoEnded) {
-            BlocProvider.of<SplashCubit>(context).dispose();
-
-            return const Loader();
           } else if (state is SplashStart) {
             BlocProvider.of<SplashCubit>(context).start();
             final _controller =
@@ -49,9 +46,13 @@ class _SplashScreenState extends State<SplashScreen> {
                 child: VideoPlayer(_controller),
               ),
             );
+          } else if (state is SplashLoading) {
+            return Center(
+              child: Lottie.asset('assets/images/K4YxhYnLEH.json', width: 200),
+            );
           }
 
-          return const Loader();
+          return ErrorWidget("Something went wrong");
         },
       ),
     );

@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 
 class GlobalParameterCubit extends Cubit<bool> {
-  late bool _controller;
+   bool _controller = true;
 
   bool get controller => _controller;
 
@@ -13,19 +13,6 @@ class GlobalParameterCubit extends Cubit<bool> {
 
   GlobalParameterCubit() : super(true) {
     init();
-  }
-
-  void initializeAudioPlayer() {
-    _audioPlayer = AssetsAudioPlayer();
-    _audioPlayer!
-        .open(
-          Audio("assets/audios/halloween_sound.mp3"),
-          autoStart: true,
-          showNotification: false,
-          loopMode: LoopMode.playlist,
-        )
-        .then((value) {})
-        .catchError((error) {});
   }
 
   Future<void> init() async {
@@ -39,7 +26,7 @@ class GlobalParameterCubit extends Cubit<bool> {
       _audioPlayer!
           .open(
             Audio("assets/audios/halloween_sound.mp3"),
-            autoStart: true,
+            autoStart: _controller,
             showNotification: false,
             loopMode: LoopMode.playlist,
           )

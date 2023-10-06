@@ -7,6 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+import 'package:pulzion23/constants/widgets/empty_page.dart';
+import 'package:pulzion23/constants/widgets/loader.dart';
 import 'package:pulzion23/features/splash_screen/Splash_Screen.dart';
 import 'package:pulzion23/features/event_slots/logic/booked_slot_cubit.dart';
 import 'package:pulzion23/features/splash_screen/cubit/splash_cubit.dart';
@@ -147,23 +149,15 @@ class _Pulzion23AppState extends State<Pulzion23App>
           ],
           child: BlocBuilder<CompulsoryUpdateCubit, CompulsoryUpdateState>(
             builder: (context, state) {
+              log(state.toString());
               if (state is CompulsoryUpdateLoading) {
-                return Scaffold(
-                  body: Center(
-                    child:
-                        Center(child: Lottie.asset(AppImages.loadingAnimation)),
-                  ),
-                );
+                return const Loader();
               } else if (state is CompulsoryUpdateNeeded) {
                 return const CompulsoryUpdatePage();
               } else if (state is CompulsoryUpdateNotNeeded) {
                 return const BottomNavBar();
               } else {
-                return const Scaffold(
-                  body: Center(
-                    child: Text('Error'),
-                  ),
-                );
+                return ErrorWidget("Something went wrong");
               }
             },
           ),

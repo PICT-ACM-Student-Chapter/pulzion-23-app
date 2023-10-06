@@ -9,32 +9,29 @@ part 'splash_state.dart';
 class SplashCubit extends Cubit<SplashState> {
   SplashCubit() : super(SplashPreInitial());
 
-  late bool isSplash;
+  bool _isSplash = true;
   late VideoPlayerController _controller;
 
   VideoPlayerController get controller => _controller;
 
-  bool get isSplashScreen => isSplash;
+  bool get isSplashScreen => _isSplash;
 
   Future<void> checkSplash() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    isSplash = prefs.getBool('splashController') ?? true;
-    if (isSplash) {
+    _isSplash = prefs.getBool('splashController') ?? true;
+    if (_isSplash) {
       emit(SplashInitial());
     } else {
       emit(NoSplashScreen());
     }
   }
 
-  void dispose() async {
-    await _controller.dispose();
-    emit(SplashScreenDone());
-  }
-
   void start() async {
-    _controller.addListener(() {
+    _controller.addListener(() async {
       if (_controller.value.position == _controller.value.duration) {
-        emit(SplashVideoEnded());
+        emit(SplashLoading());
+        await _controller.dispose();
+        emit(SplashScreenDone());
       }
     });
     await _controller.play();
@@ -43,10 +40,10 @@ class SplashCubit extends Cubit<SplashState> {
   Future<void> toggleParameter() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     bool getController = prefs.getBool('splashController') ?? true;
-    log("Splash screen before value $isSplash");
-    isSplash = !getController;
-    log("Splash screen after value $isSplash");
-    await prefs.setBool('splashController', isSplash);
+    // log("Splash screen before value $_isSplash");
+    _isSplash = !getController;
+    // log("Splash screen after value $_isSplash");
+    await prefs.setBool('splashController', _isSplash);
   }
 
   Future<void> init() async {
