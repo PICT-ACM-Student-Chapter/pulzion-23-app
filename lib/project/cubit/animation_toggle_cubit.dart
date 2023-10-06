@@ -1,23 +1,81 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
 
 class GlobalParameterCubit extends Cubit<bool> {
-  bool _controller = true;
+  late bool _controller;
+
+  bool get controller => _controller;
+
+  AssetsAudioPlayer? _audioPlayer = null;
+
   GlobalParameterCubit() : super(true) {
     init();
   }
 
+  void initializeAudioPlayer() {
+    _audioPlayer = AssetsAudioPlayer();
+    _audioPlayer!
+        .open(
+          Audio("assets/audios/halloween_sound.mp3"),
+          autoStart: true,
+          showNotification: false,
+          loopMode: LoopMode.playlist,
+        )
+        .then((value) {})
+        .catchError((error) {});
+  }
+
   Future<void> init() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    _controller = prefs.getBool('controller') ?? true;
+    bool? check = prefs.getBool('soundController');
+
+    _controller = check ?? true;
+
+    if (_audioPlayer == null) {
+      _audioPlayer = AssetsAudioPlayer();
+      _audioPlayer!
+          .open(
+            Audio("assets/audios/halloween_sound.mp3"),
+            autoStart: true,
+            showNotification: false,
+            loopMode: LoopMode.playlist,
+          )
+          .then((value) {})
+          .catchError((error) {});
+    }
+    soundOnOff(_audioPlayer, _controller);
     emit(_controller);
+  }
+
+  static void soundOnOff(AssetsAudioPlayer? _audioAssets, bool _controller) {
+    if (_controller) {
+      if (!_audioAssets!.isPlaying.value) {
+        _audioAssets.play();
+      }
+    } else {
+      if (_audioAssets!.isPlaying.value) {
+        _audioAssets.stop();
+      }
+    }
   }
 
   Future<void> toggleParameter() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool getController = prefs.getBool('controller') ?? true;
+    bool getController = prefs.getBool('soundController') ?? _controller;
     _controller = !getController;
-    await prefs.setBool('controller', _controller);
+    soundOnOff(_audioPlayer, _controller);
+    await prefs.setBool('soundController', _controller);
     emit(_controller);
+  }
+
+  void stopSound() {
+    if (_audioPlayer != null) {
+      if (_audioPlayer!.isPlaying.value) {
+        _audioPlayer!.stop();
+      }
+    }
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pulzion23/constants/widgets/empty_page.dart';
+import 'package:pulzion23/features/splash_screen/cubit/splash_cubit.dart';
 import 'package:pulzion23/project/cubit/animation_toggle_cubit.dart';
 import '../../../constants/styles.dart';
 import '../../about_us_page/ui/about_us.dart';
@@ -419,6 +420,27 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                       ],
                     );
                   }
+
+                  f.insert(0, [
+                    FrostedTile(
+                      tilename: "Sound",
+                      tileicon: Icons.play_arrow,
+                      onTap: () {
+                        BlocProvider.of<GlobalParameterCubit>(context)
+                            .toggleParameter();
+                      },
+                    ),
+                  ]);
+
+                  f.insert(0, [
+                    FrostedTile(
+                      tilename: "Splash Screen",
+                      tileicon: Icons.phone,
+                      onTap: () {
+                        BlocProvider.of<SplashCubit>(context).toggleParameter();
+                      },
+                    ),
+                  ]);
 
                   return Expanded(
                     flex: 3,

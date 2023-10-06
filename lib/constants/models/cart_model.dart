@@ -1,12 +1,20 @@
+import 'dart:developer';
+
 class CartItemList {
   List<CartItem>? cartItems;
 
   CartItemList({this.cartItems});
 
   CartItemList.fromJson(Map<String, dynamic> json) {
-    cartItems = json["events"] == null
-        ? null
-        : (json["events"] as List).map((e) => CartItem.fromJson(e)).toList();
+    if (json["events"] == null) {
+      cartItems = null;
+    } else {
+      cartItems = [];
+      json["events"][0].forEach((key, value) {
+        final cItem = CartItem.fromJson(value);
+        cartItems?.add(cItem);
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -23,7 +31,7 @@ class CartItemList {
     cartItems?.forEach((element) {
       ids.add(element.id!);
     });
-    
+
     return ids;
   }
 }

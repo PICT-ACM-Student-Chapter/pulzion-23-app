@@ -60,13 +60,54 @@ Future<void> main() async {
 
   runApp(ChangeNotifierProvider(
     create: (context) => MCQUserProvider(),
-    child:
-        BlocProvider(create: (context) => SplashCubit(), child: SplashScreen()),
+    child: MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => SplashCubit()),
+        BlocProvider(create: (context) => GlobalParameterCubit()),
+      ],
+      child: SplashScreen(),
+    ),
   ));
 }
 
-class Pulzion23App extends StatelessWidget {
+class Pulzion23App extends StatefulWidget {
   const Pulzion23App({super.key});
+
+  @override
+  State<Pulzion23App> createState() => _Pulzion23AppState();
+}
+
+class _Pulzion23AppState extends State<Pulzion23App>
+    with WidgetsBindingObserver {
+  late AppLifecycleState appLifecycle;
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    appLifecycle = state;
+    log(state.toString());
+    setState(() {});
+    if (state == AppLifecycleState.paused ||
+        state == AppLifecycleState.detached) {
+      //stop your audio player
+      BlocProvider.of<GlobalParameterCubit>(context).stopSound();
+    } else if (state == AppLifecycleState.resumed) {
+      //start or resume your audio player
+      // BlocProvider.of<GlobalParameterCubit>(context).initializeAudioPlayer();
+      BlocProvider.of<GlobalParameterCubit>(context).init();
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,9 +121,6 @@ class Pulzion23App extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => CartPageCubit()..loadCart(),
-        ),
-        BlocProvider(
-          create: (context) => GlobalParameterCubit(),
         ),
         BlocProvider(
           create: (context) => EventSlotsCubit(),
