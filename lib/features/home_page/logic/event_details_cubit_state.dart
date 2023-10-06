@@ -16,9 +16,3 @@ class EventDetailsCubitLoaded extends EventDetailsCubitState {
 class EventDetailsCubitError extends EventDetailsCubitState {
   EventDetailsCubitError(String error);
 }
-
-class EventDetailsAnimation extends EventDetailsCubitState {
-   final EventList events;
-
-  EventDetailsAnimation(this.events);
-}

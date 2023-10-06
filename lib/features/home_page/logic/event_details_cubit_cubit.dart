@@ -25,10 +25,6 @@ class EventDetailsCubitCubit extends Cubit<EventDetailsCubitState> {
         log(e.offers?.length.toString() ?? e.name!);
       });
       emit(EventDetailsCubitLoaded(eventList));
-
-      Timer(const Duration(seconds: 3), () {
-        emit(EventDetailsAnimation(eventList));
-      });
     } catch (e) {
       log(e.toString());
       emit(EventDetailsCubitError('Error'));
