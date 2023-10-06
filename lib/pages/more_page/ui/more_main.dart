@@ -99,75 +99,76 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
               right: ht / 100,
               bottom: ht / 40,
             ),
-            child: Row(
+            child: Stack(
               children: [
-                SizedBox(
-                  height: ht / 80,
-                  width: ht / 80,
-                ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(ht),
-                  child: Lottie.asset(
-                    "assets/images/potion.json",
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          AnimatedTextKit(
+                            animatedTexts: [
+                              ColorizeAnimatedText(
+                                "Welcome to Pulzion",
+                                textAlign: TextAlign.left,
+                                textStyle: AppStyles.NormalText().copyWith(
+                                  fontSize: ht / 35,
+                                  fontWeight: FontWeight.bold,
+                                  overflow: TextOverflow.ellipsis,
+                                  color: const Color.fromARGB(255, 82, 50, 16),
+                                ),
+                                // speed: const Duration(seconds: 2),
+                                colors: [
+                                  const Color.fromARGB(255, 82, 50, 16)
+                                      .withOpacity(0.5),
+                                  const Color.fromARGB(255, 82, 50, 16)
+                                      .withOpacity(1),
+                                  const Color.fromARGB(255, 82, 50, 16)
+                                      .withOpacity(1),
+                                  const Color.fromARGB(255, 82, 50, 16)
+                                      .withOpacity(0.5),
+                                  // Colors.deepPurple,
+                                ],
+                                speed: const Duration(
+                                  milliseconds: 300,
+                                ),
+                              ),
+                            ],
+                            repeatForever: true,
+                            pause: Duration.zero,
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.005,
+                          ),
+                          AnimatedTextKit(
+                            animatedTexts: [
+                              TypewriterAnimatedText(
+                                '10 Fun-filled Events',
+                                textStyle: AppStyles.NormalText().copyWith(
+                                  color: Color.fromARGB(255, 68, 40, 10)
+                                      .withOpacity(1),
+                                  overflow: TextOverflow.ellipsis,
+                                  fontSize: ht / 47,
+                                ),
+                                speed: const Duration(
+                                  milliseconds: 100,
+                                ),
+                              ),
+                            ],
+                            totalRepeatCount: 3,
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    AnimatedTextKit(
-                      animatedTexts: [
-                        ColorizeAnimatedText(
-                          "Welcome to Pulzion",
-                          textStyle: AppStyles.NormalText().copyWith(
-                            fontSize: ht / 30,
-                            fontWeight: FontWeight.bold,
-                            overflow: TextOverflow.ellipsis,
-                            color: const Color.fromARGB(255, 82, 50, 16),
-                          ),
-                          // speed: const Duration(seconds: 2),
-                          colors: [
-                            const Color.fromARGB(255, 82, 50, 16)
-                                .withOpacity(0.5),
-                            const Color.fromARGB(255, 82, 50, 16)
-                                .withOpacity(1),
-                            const Color.fromARGB(255, 82, 50, 16)
-                                .withOpacity(1),
-                            const Color.fromARGB(255, 82, 50, 16)
-                                .withOpacity(0.5),
-                            // Colors.deepPurple,
-                          ],
-                          speed: const Duration(
-                            milliseconds: 300,
-                          ),
-                        ),
-                      ],
-                      repeatForever: true,
-                      pause: Duration.zero,
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.005,
-                    ),
-                    AnimatedTextKit(
-                      animatedTexts: [
-                        TypewriterAnimatedText(
-                          '10 Fun-filled Events',
-                          textStyle: AppStyles.NormalText().copyWith(
-                            color:
-                                Color.fromARGB(255, 68, 40, 10).withOpacity(1),
-                            overflow: TextOverflow.ellipsis,
-                            fontSize: ht / 40,
-                          ),
-                          speed: const Duration(
-                            milliseconds: 100,
-                          ),
-                        ),
-                      ],
-                      totalRepeatCount: 3,
-                    ),
-                  ],
+                Lottie.asset(
+                  "assets/images/potion.json",
+                  height: ht / 7,
+                  width: ht / 7,
                 ),
               ],
             ),

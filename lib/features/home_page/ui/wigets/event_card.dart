@@ -73,7 +73,7 @@ class EventCard extends StatelessWidget {
               decoration: BoxDecoration(
                 // color: Colors.black,
                 image: const DecorationImage(
-                  image: AssetImage('assets/images/manuscript.png'),
+                  image: AssetImage('assets/images/manu_frame.png'),
                   fit: BoxFit.fill,
                 ),
                 borderRadius: BorderRadius.circular(10),
@@ -84,18 +84,19 @@ class EventCard extends StatelessWidget {
               ),
               child: Padding(
                 padding: EdgeInsets.only(
-                  top: SizeConfig.getProportionateScreenHeight(100),
+                  top: SizeConfig.getProportionateScreenHeight(80),
                   left: SizeConfig.getProportionateScreenWidth(10),
                   right: SizeConfig.getProportionateScreenWidth(10),
-                  bottom: SizeConfig.getProportionateScreenHeight(40),
+                  bottom: SizeConfig.getProportionateScreenHeight(30),
                 ),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       event.name!,
-                      style: AppStyles.NormalText().copyWith(color: Colors.black,fontSize: height*0.03),
+                      style: AppStyles.NormalText().copyWith(
+                          color: Colors.black, fontSize: height * 0.03),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                       // Note: This is issue in flutter -> https://github.com/flutter/flutter/issues/98975
@@ -108,7 +109,8 @@ class EventCard extends StatelessWidget {
                     ),
                     Text(
                       event.description!,
-                      style: AppStyles.NormalText().copyWith(color: Colors.black,fontSize: height*0.01),
+                      style: AppStyles.NormalText().copyWith(
+                          color: Colors.black, fontSize: height * 0.012),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 5,
                     ),

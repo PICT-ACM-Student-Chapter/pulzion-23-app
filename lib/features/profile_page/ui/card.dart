@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:glowstone/glowstone.dart';
+import 'package:pulzion23/constants/styles.dart';
 
 Widget cardDesign(
   //design for the fields
@@ -28,7 +29,7 @@ Widget cardDesign(
                 Container(
                   // width
                   padding: EdgeInsets.only(top: h * 0.001),
-                  margin: EdgeInsets.only(top: h * 0.008, bottom: h * 0.01),
+                  margin: EdgeInsets.only(top: h * 0.02, bottom: h * 0.01),
                   decoration: BoxDecoration(
                     // height: h * 0.065,
                     shape: BoxShape.rectangle,
@@ -87,10 +88,9 @@ Widget cardDesign(
                           child: Center(
                             child: Text(
                               value.toString(),
-                              style: TextStyle(
+                              style: AppStyles.NormalText().copyWith(
                                 fontSize: h * 0.025,
                                 color: Colors.white,
-                                fontFamily: 'QuickSand',
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -106,32 +106,42 @@ Widget cardDesign(
           ),
         ),
         Positioned(
-          top: h * 0.001,
+          top: h * 0.01,
           left: h * 0.04,
+          // child: Container(
+          //   padding: EdgeInsets.symmetric(horizontal: h * 0.01),
+          //   decoration: BoxDecoration(
+          // color: Colors.transparent,
+          // borderRadius: BorderRadius.circular(h * 0.01),
+          // color: const Color.fromARGB(255, 28, 52, 71),
+          //   image: DecorationImage(
+          //     image: AssetImage('assets/images/paper_torn.png'),
+          //     fit: BoxFit.fill,
+          //     alignment: Alignment(1, 0),
+          //   ),
+          //   border: Border.all(
+          //     color: Colors.transparent,
+          //     // width: h * 0.001,
+          //     //width: h * 0.001,
+          //   ),
+          // ),
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: h * 0.01),
+            width: w / 4,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(h * 0.01),
-              // color: const Color.fromARGB(255, 28, 52, 71),
-              image: DecorationImage(
-                image: AssetImage('assets/images/paper_torn.png'),
-                fit: BoxFit.fill,
-                alignment: Alignment(1, 0),
-              ),
-              border: Border.all(
-                color: Colors.transparent,
-                // width: h * 0.001,
-                //width: h * 0.001,
-              ),
+              borderRadius: BorderRadius.circular(10),
+              color: Color.fromARGB(255, 227, 125, 52),
             ),
-            child: Text(
-              data.toString(),
-              style: const TextStyle(
-                color: Colors.black,
-                fontFamily: 'QuickSand',
+            child: Center(
+              child: Text(
+                (data.toString()[0].toUpperCase() +
+                    data.toString().substring(1).toLowerCase()),
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
+          //   ),
         ),
       ],
     ),

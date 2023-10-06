@@ -78,7 +78,15 @@ class _DevelopersPageState extends State<DevelopersPage> {
             return false;
           },
           builder: (context, state) {
-            return Image.asset(AppImages.spaceBackground2, fit: BoxFit.cover);
+            return Container(
+              constraints: BoxConstraints.expand(),
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/app_background.jpeg"),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            );
           },
         ),
         SafeArea(
@@ -90,6 +98,13 @@ class _DevelopersPageState extends State<DevelopersPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  // SizedBox(
+                  //   height: h / 5,
+                  //   width: w * 0.5,
+                  // ),
+                  SizedBox(
+                      height: h / 10,
+                      child: Lottie.asset("assets/images/happy.json")),
                   Stack(
                     children: [
                       Positioned(
@@ -161,16 +176,9 @@ class _DevelopersPageState extends State<DevelopersPage> {
                             ),
                           ],
                         ),
-                      ),
+                      )
                     ],
                   ),
-                  // SizedBox(
-                  //   height: h / 5,
-                  //   width: w * 0.5,
-                  // ),
-                  SizedBox(
-                      height: h / 8,
-                      child: Lottie.asset("assets/images/happy.json")),
                   Expanded(
                     child: GridView.builder(
                       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(

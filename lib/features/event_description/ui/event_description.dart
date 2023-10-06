@@ -37,9 +37,8 @@ Widget getEventLogo(
             borderRadius: BorderRadius.circular(12.0),
             boxShadow: [
               BoxShadow(
-                color: isDark
-                    ? Colors.black.withOpacity(0.5)
-                    : const Color.fromARGB(255, 4, 15, 30).withOpacity(0.5),
+                color: isDark ? Colors.black.withOpacity(0.5) : Colors.black,
+                // : const Color.fromARGB(255, 4, 15, 30).withOpacity(0.5),
                 blurRadius: 1.0,
                 spreadRadius: 7.0,
                 offset: const Offset(0.0, 0.0),
@@ -100,7 +99,7 @@ Widget getEventLogo(
           width: w / 1.45,
           height: w / 1.45,
           child: Image.asset(
-            'assets/images/halloween_frame.png',
+            'assets/images/app_frame.png',
           ),
         ),
       ),
@@ -153,11 +152,11 @@ class _EventDescriptionState extends State<EventDescription>
     final fontSizeFactor = h / w;
 
     return Scaffold(
-      backgroundColor:
-          // widget.getTheme != null
-          // ? widget.getTheme!().scaffoldBackgroundColor
-          // :
-          const Color.fromARGB(255, 13, 69, 115).withOpacity(0.2),
+      backgroundColor: Colors.black,
+      // widget.getTheme != null
+      // ? widget.getTheme!().scaffoldBackgroundColor
+      // :
+      // const Color.fromARGB(255, 13, 69, 115).withOpacity(0.2),
       bottomNavigationBar: Container(
         margin: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -212,8 +211,8 @@ class _EventDescriptionState extends State<EventDescription>
               width: w / 2.2,
               child: HalloweenButton(
                 color: widget.isDark
-                    ? Color.fromARGB(255, 6, 24, 49)
-                    : Color.fromARGB(255, 20, 72, 146),
+                    ? const Color.fromARGB(255, 6, 24, 49)
+                    : const Color.fromARGB(255, 20, 72, 146),
                 icon: Icons.shopping_cart,
                 buttonText: 'Add to Cart',
                 fontsize: 20,
@@ -335,7 +334,8 @@ class _EventDescriptionState extends State<EventDescription>
                     borderRadius: BorderRadius.circular(12.0),
                     gradient: RadialGradient(
                       colors: [
-                        const Color.fromARGB(255, 13, 69, 115).withOpacity(0.1),
+                        Colors.orange.shade900.withOpacity(0.9),
+                        // const Color.fromARGB(255, 13, 69, 115).withOpacity(0.1),
                         Colors.black,
                       ],
                       radius: 0.65,
@@ -344,8 +344,7 @@ class _EventDescriptionState extends State<EventDescription>
                       BoxShadow(
                         color: widget.isDark
                             ? Colors.black.withOpacity(0.5)
-                            : const Color.fromARGB(255, 4, 15, 30)
-                                .withOpacity(0.5),
+                            : Colors.orange.withOpacity(0.12),
                         // color: const Color.fromARGB(255, 13, 69, 115)
                         //     .withOpacity(0.4),
                         blurRadius: 10.0,
@@ -386,15 +385,15 @@ class _EventDescriptionState extends State<EventDescription>
                             duration: const Duration(milliseconds: 1000),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(12.0),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: widget.isDark
-                                      ? Colors.transparent
-                                      : Colors.orange[700]!.withOpacity(0.25),
-                                  blurRadius: 15.0,
-                                  spreadRadius: 0.0,
-                                ),
-                              ],
+                              // boxShadow: [
+                              //   BoxShadow(
+                              //     color: widget.isDark
+                              //         ? Colors.transparent
+                              //         : Colors.orange[700]!.withOpacity(0.25),
+                              //     blurRadius: 15.0,
+                              //     spreadRadius: 0.0,
+                              //   ),
+                              // ],
                             ),
                             padding: const EdgeInsets.all(10),
                             child: Text(
@@ -402,7 +401,7 @@ class _EventDescriptionState extends State<EventDescription>
                               textAlign: TextAlign.center,
                               style: AppStyles.NormalText().copyWith(
                                 color: Theme.of(context).primaryColor,
-                                fontSize: h*0.04,
+                                fontSize: h * 0.04,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -447,16 +446,16 @@ class _EventDescriptionState extends State<EventDescription>
                               style: AppStyles.TitleText().copyWith(
                                 color: Theme.of(context).primaryColor,
                                 // fontFamily: 'Quicksand',
-                                fontSize: h*0.03,
+                                fontSize: h * 0.03,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
                             Text(
                               "Rounds",
-                              style:AppStyles.TitleText().copyWith(
+                              style: AppStyles.TitleText().copyWith(
                                 color: Theme.of(context).primaryColor,
                                 // fontFamily: 'Quicksand',
-                                fontSize: h*0.03,
+                                fontSize: h * 0.03,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -465,7 +464,8 @@ class _EventDescriptionState extends State<EventDescription>
                               style: AppStyles.TitleText().copyWith(
                                 color: Theme.of(context).primaryColor,
                                 // fontFamily: 'Quicksand',
-                                fontSize: h*0.03,
+                                fontSize: h * 0.03,
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
                             Text(
@@ -473,7 +473,8 @@ class _EventDescriptionState extends State<EventDescription>
                               style: AppStyles.TitleText().copyWith(
                                 color: Theme.of(context).primaryColor,
                                 // fontFamily: 'Quicksand',
-                                fontSize: h*0.028,
+                                fontSize: h * 0.028,
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
                           ],
@@ -505,20 +506,17 @@ class _EventDescriptionState extends State<EventDescription>
                                     //   fontStyle: FontStyle.italic,
                                     // ),
                                     style: AppStyles.NormalText().copyWith(
-                                      color: Theme.of(context).primaryColor,
-                                      fontSize : 30
-                                    ),
+                                        color: Theme.of(context).primaryColor,
+                                        fontSize: 30),
                                   ),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
                                     event.description!,
-                                    
-                                    style:AppStyles.NormalText().copyWith(
-                                      color: Theme.of(context).primaryColor,
-                                      fontSize : 15
-                                    ),
+                                    style: AppStyles.NormalText().copyWith(
+                                        color: Theme.of(context).primaryColor,
+                                        fontSize: 15),
                                   ),
                                 ),
                                 Padding(
@@ -532,7 +530,7 @@ class _EventDescriptionState extends State<EventDescription>
                                     // ),
                                     style: AppStyles.NormalText().copyWith(
                                       color: Theme.of(context).primaryColor,
-                                      fontSize:  25,
+                                      fontSize: 25,
                                     ),
                                   ),
                                 ),
@@ -544,9 +542,8 @@ class _EventDescriptionState extends State<EventDescription>
                                     //   color: Theme.of(context).primaryColor,
                                     // ),
                                     style: AppStyles.NormalText().copyWith(
-                                      color: Theme.of(context).primaryColor,
-                                      fontSize : 20
-                                    ),
+                                        color: Theme.of(context).primaryColor,
+                                        fontSize: 20),
                                   ),
                                 ),
                                 Padding(
@@ -559,9 +556,8 @@ class _EventDescriptionState extends State<EventDescription>
                                     //   fontWeight: FontWeight.bold,
                                     // ),
                                     style: AppStyles.NormalText().copyWith(
-                                      color: Theme.of(context).primaryColor,
-                                      fontSize : 20
-                                    ),
+                                        color: Theme.of(context).primaryColor,
+                                        fontSize: 20),
                                   ),
                                 ),
                                 Padding(
@@ -581,14 +577,14 @@ class _EventDescriptionState extends State<EventDescription>
                             event.rounds ?? '',
                             style: AppStyles.NormalText().copyWith(
                               color: Theme.of(context).primaryColor,
-                              fontSize : 15,
+                              fontSize: 15,
                             ),
                           ),
                           Text(
                             event.rules ?? '',
                             style: AppStyles.NormalText().copyWith(
                               color: Theme.of(context).primaryColor,
-                              fontSize : 15,
+                              fontSize: 15,
                             ),
                           ),
                           event.offers == null || event.offers!.isEmpty
@@ -626,12 +622,15 @@ class _EventDescriptionState extends State<EventDescription>
                                             null,
                                           )) {
                                             sc.showSnackBar(
-                                               SnackBar(
+                                              SnackBar(
                                                 content: Text(
-                                                  'Some items in the combo are already in the cart',style:  AppStyles.NormalText().copyWith(
-                              color: Theme.of(context).primaryColor,
-                              fontSize: 10
-                            ),
+                                                  'Some items in the combo are already in the cart',
+                                                  style: AppStyles.NormalText()
+                                                      .copyWith(
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .primaryColor,
+                                                          fontSize: 10),
                                                 ),
                                               ),
                                             );

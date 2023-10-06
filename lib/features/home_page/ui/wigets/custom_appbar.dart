@@ -32,7 +32,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                           ),
                         );
                       }),
-                      child:  Lottie.asset("assets/images/profile.json"),
+                      child: Lottie.asset("assets/images/profile.json"),
                     )
                   : InkWell(
                       onTap: (() {
@@ -47,9 +47,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                           ),
                         );
                       }),
-                      child: const CircleAvatar(
-                        backgroundImage: AssetImage(AppImages.person),
-                      ),
+                      child: Lottie.asset("assets/images/profile.json"),
                     );
             },
           ),

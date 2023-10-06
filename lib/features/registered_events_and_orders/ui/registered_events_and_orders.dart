@@ -103,29 +103,27 @@ class _RegisteredEventsAndOrdersState extends State<RegisteredEventsAndOrders>
                           indicator: const BoxDecoration(
                             border: Border(
                               bottom: BorderSide(
-                                color: AppColors.loginPageAccent,
+                                color: Color.fromARGB(255, 208, 168, 116),
                               ),
                             ),
                           ),
                           unselectedLabelColor: AppColors.cardSubtitleTextColor,
-                          labelColor: AppColors.loginPageAccent,
+                          labelColor: Color.fromARGB(255, 208, 168, 116),
                           tabs: [
                             Text(
                               'Registered Events',
-                              style: TextStyle(
-                                fontSize:
-                                    SizeConfig.getProportionateScreenFontSize(
-                                  12,
-                                ),
+                              style: AppStyles.NormalText().copyWith(
+                                color: const Color.fromARGB(255, 208, 168, 116),
+                                fontWeight: FontWeight.w400,
+                                fontSize: 15,
                               ),
                             ),
                             Text(
                               'Past Orders',
-                              style: TextStyle(
-                                fontSize:
-                                    SizeConfig.getProportionateScreenFontSize(
-                                  12,
-                                ),
+                              style: AppStyles.NormalText().copyWith(
+                                color: const Color.fromARGB(255, 208, 168, 116),
+                                fontWeight: FontWeight.w400,
+                                fontSize: 15,
                               ),
                             ),
                           ],

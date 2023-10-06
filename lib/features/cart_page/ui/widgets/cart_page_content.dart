@@ -572,7 +572,12 @@ class _CartPageContentState extends State<CartPageContent> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "TOTAL : ₹${widget.eventList == null || widget.eventList!.cartItems == null ? 0 : widget.eventList!.cartItems!.fold(0, (previousValue, element) => previousValue + element.price!)} ",
+                                "TOTAL : ₹${widget.eventList == null || widget.eventList!.cartItems == null ? 0 : widget.eventList!.cartItems!.fold(0, (previousValue, element) {
+                                  if (element.price==null) {
+                                    return 0;
+                                  } else {
+                                  return previousValue + element.price!;} 
+                                } )} ",
                                 style: AppStyles.bodyTextStyle3().copyWith(
                                   color: Colors.white,
                                   fontSize: 18,
@@ -675,7 +680,7 @@ class _CartPageContentState extends State<CartPageContent> {
                             child: ListView.builder(
                               itemBuilder: (context, index) {
                                 return index == 0
-                                    ? Column(
+                                    ?Column(
                                         children: [
                                           Padding(
                                             padding: const EdgeInsets.only(
@@ -691,6 +696,7 @@ class _CartPageContentState extends State<CartPageContent> {
                                               ),
                                             ),
                                           ),
+                                         
                                           AnimatedPrompt(
                                             id: widget.eventList!
                                                 .cartItems![index].id!,
@@ -707,6 +713,7 @@ class _CartPageContentState extends State<CartPageContent> {
                                               color: Colors.white,
                                             ),
                                           ),
+                                          
                                         ],
                                       )
                                     : AnimatedPrompt(
@@ -725,7 +732,9 @@ class _CartPageContentState extends State<CartPageContent> {
                                           color: Colors.white,
                                         ),
                                       );
+                            
                               },
+        
                               itemCount:
                                   widget.eventList?.cartItems?.length ?? 0,
                             ),
