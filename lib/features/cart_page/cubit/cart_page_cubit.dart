@@ -113,7 +113,9 @@ class CartPageCubit extends Cubit<CartPageState> {
       const storage = FlutterSecureStorage();
       var token = await storage.read(key: 'token');
       response = await http.post(
-        Uri.parse(EndPoints.cart),
+        Uri.parse(
+          id == 1 ? EndPoints.userRegister : EndPoints.cart,
+        ),
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer $token",

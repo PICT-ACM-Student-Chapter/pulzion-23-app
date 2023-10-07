@@ -27,7 +27,7 @@ class ContactCard extends StatelessWidget {
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
 
-    List<String> leads = event.notes!.split(',');
+    List<String> leads = event.notes!.split('\n');
     List<String> names = [];
     List<String> phones = [];
     for (String lead in leads) {
@@ -59,6 +59,7 @@ class MyWidget extends StatelessWidget {
         extractPhoneNumbers(phone),
       ),
       child: Container(
+        margin: const EdgeInsets.all(5),
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -69,7 +70,7 @@ class MyWidget extends StatelessWidget {
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
           ),
-          borderRadius: BorderRadius.circular(24),
+          borderRadius: BorderRadius.circular(15),
           border: Border.all(
             color: Colors.orange[700]!.withOpacity(0.8),
             width: 0.7,

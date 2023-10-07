@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pulzion23/config/size_config.dart';
+import 'package:pulzion23/constants/styles.dart';
 import 'package:pulzion23/constants/widgets/halloween_button.dart';
 import 'package:pulzion23/features/event_slots/ui/booked_window.dart';
 import 'package:pulzion23/features/event_slots/ui/view_slot_details.dart';
@@ -83,8 +85,8 @@ class MyTicketView extends StatelessWidget {
             borderRadius: BorderRadius.circular(th * 0.07),
             image: DecorationImage(
               colorFilter: ColorFilter.mode(
-                Colors.black.withOpacity(0.7),
-                BlendMode.dstATop,
+                Colors.white.withOpacity(0.2),
+                BlendMode.overlay,
               ),
               image: const AssetImage(
                 "assets/images/ticket2.jpeg",
@@ -104,14 +106,18 @@ class MyTicketView extends StatelessWidget {
                     SizedBox(
                       height: 75,
                       width: 75,
-                      child: CachedNetworkImage(
-                        imageUrl: logo,
-                        placeholder: (context, url) => Container(),
-                        errorWidget: (context, url, error) => Container(),
-                        cacheManager: _cacheManager,
-                        fadeInDuration: const Duration(milliseconds: 100),
-                        fit: BoxFit.fitWidth,
-                        key: UniqueKey(),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: CachedNetworkImage(
+                          imageUrl: logo,
+                          color: Colors.black,
+                          placeholder: (context, url) => Container(),
+                          errorWidget: (context, url, error) => Container(),
+                          cacheManager: _cacheManager,
+                          fadeInDuration: const Duration(milliseconds: 100),
+                          fit: BoxFit.fitWidth,
+                          key: UniqueKey(),
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -128,21 +134,26 @@ class MyTicketView extends StatelessWidget {
                             child: Text(
                               name,
                               softWrap: true,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 25,
+                              style: AppStyles.NormalText().copyWith(
+                                fontSize:
+                                    SizeConfig.getProportionateScreenFontSize(
+                                  25,
+                                ),
                                 overflow: TextOverflow.ellipsis,
+                                color: Colors.black,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
                           Text(
                             eventType,
-                            style: const TextStyle(
-                              fontSize: 15,
-                              color: Colors.white70,
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.italic,
+                            style: AppStyles.NormalText().copyWith(
+                              fontSize:
+                                  SizeConfig.getProportionateScreenFontSize(
+                                17,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                              color: Colors.black,
                             ),
                           ),
                         ],
@@ -155,27 +166,33 @@ class MyTicketView extends StatelessWidget {
                 lineThickness: tw / 170,
                 dashGapLength: tw / 50,
                 dashLength: tw / 30,
-                dashColor: Colors.white.withOpacity(0.5),
+                dashColor: Colors.black.withOpacity(0.7),
               ),
-              Expanded(child: Container()),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.05,
+              ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 16),
                 child: isBooked != null
-                    ? const Text(
+                    ? Text(
                         "You have booked slot for this event",
-                        style: TextStyle(
-                          fontFamily: 'QuickSand',
-                          fontSize: 15,
-                          color: Colors.white,
+                        style: AppStyles.NormalText().copyWith(
+                          fontSize: SizeConfig.getProportionateScreenFontSize(
+                            20,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                          color: Colors.black,
                         ),
                         textAlign: TextAlign.center,
                       )
-                    : const Text(
+                    : Text(
                         "Registered : You haven't booked a slot for this event",
-                        style: TextStyle(
-                          fontFamily: 'QuickSand',
-                          fontSize: 15,
-                          color: Colors.white,
+                        style: AppStyles.NormalText().copyWith(
+                          fontSize: SizeConfig.getProportionateScreenFontSize(
+                            13,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                          color: Colors.black,
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -187,7 +204,7 @@ class MyTicketView extends StatelessWidget {
                 height: th * 0.2,
 
                 child: HalloweenButton(
-                  color: Colors.purple[800]!,
+                  color: Colors.black,
                   isColor: true,
                   buttonText: isBooked != null ? 'View Details' : 'Book Slot',
                   icon: isBooked != null

@@ -205,7 +205,7 @@ class _EventDescriptionState extends State<EventDescription>
                     ? const Color.fromARGB(255, 6, 24, 49)
                     : const Color.fromARGB(255, 20, 72, 146),
                 icon: Icons.shopping_cart,
-                buttonText: 'Add to Cart',
+                buttonText: event.id == 1 ? 'Register' : 'Add to Cart',
                 fontsize: 20,
                 onPressed: () {
                   if (event.id != null) {

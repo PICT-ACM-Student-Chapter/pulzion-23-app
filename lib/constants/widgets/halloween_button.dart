@@ -42,10 +42,10 @@ class HalloweenButton extends StatelessWidget {
                 gradient: LinearGradient(
                   colors: isColor
                       ? [
-                          Colors.deepPurple[600]!.withOpacity(0.3),
-                          Colors.deepPurple[700]!.withOpacity(0.6),
-                          Colors.deepPurple[800]!.withOpacity(0.7),
-                          Colors.deepPurple[900]!.withOpacity(0.8),
+                          color.withOpacity(0.3),
+                          color.withOpacity(0.6),
+                          color.withOpacity(0.7),
+                          color.withOpacity(0.8),
                         ]
                       : [
                           Colors.orange[600]!.withOpacity(0.3),
