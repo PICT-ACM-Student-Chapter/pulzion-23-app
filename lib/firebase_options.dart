@@ -26,10 +26,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -53,10 +50,19 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAvLmV4eqSi2K_D4IuowK4E3yusBeXDWFg',
-    appId: '1:1073515270647:android:25e107d563aab7cd865ef2',
-    messagingSenderId: '1073515270647',
-    projectId: 'fcmtestserver-86214',
-    storageBucket: 'fcmtestserver-86214.appspot.com',
+    apiKey: 'AIzaSyAH8--kh-eWvc2XGtYI39kqR2Rtvric8PE',
+    appId: '1:234069676610:android:aa1279b9105b44094b93db',
+    messagingSenderId: '234069676610',
+    projectId: 'pulzion-tech-or-treat',
+    storageBucket: 'pulzion-tech-or-treat.appspot.com',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyDcz8T5Yrjf36aWPr5bGfxqK0o-6YdPVZk',
+    appId: '1:234069676610:ios:d1adde5224286a1f4b93db',
+    messagingSenderId: '234069676610',
+    projectId: 'pulzion-tech-or-treat',
+    storageBucket: 'pulzion-tech-or-treat.appspot.com',
+    iosBundleId: 'com.pasc.pulzion23',
   );
 }
