@@ -99,10 +99,12 @@ class LoginSignupBody extends StatelessWidget {
               child: Container(
                 // height: ,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25),
-                    image: const DecorationImage(
-                        image: AssetImage('assets/images/login_page_gif.gif'),
-                        fit: BoxFit.fill)),
+                  borderRadius: BorderRadius.circular(25),
+                  image: const DecorationImage(
+                    image: AssetImage('assets/images/login_page_gif.gif'),
+                    fit: BoxFit.fill,
+                  ),
+                ),
               ),
             ),
           ),
@@ -112,19 +114,27 @@ class LoginSignupBody extends StatelessWidget {
             children: [
               Text(
                 'Pulzion',
-                style: AppStyles.NormalText().copyWith(
+                style: AppStyles.TitleText().copyWith(
                   color: const Color.fromARGB(255, 208, 168, 116),
-                  fontSize: SizeConfig.getProportionateScreenFontSize(35),
+                  fontSize: SizeConfig.getProportionateScreenFontSize(50),
                 ),
               ),
               Text(
                 'Tech or Treat',
                 style: AppStyles.TitleText().copyWith(
-                  color: const Color.fromARGB(255, 208, 168, 116),
+                  color: const Color.fromARGB(255, 186, 112, 16),
                   fontSize: SizeConfig.getProportionateScreenFontSize(35),
                 ),
               ),
               const SizedBox(height: 10),
+              Text(
+                '27th, 28th and 29th October',
+                style: AppStyles.NormalText().copyWith(
+                  color: const Color.fromARGB(255, 186, 112, 16),
+                  fontSize: SizeConfig.getProportionateScreenFontSize(15),
+                ),
+              ),
+              const SizedBox(height: 15),
               Text(
                 textAlign: TextAlign.center,
                 'A 3-day event that includes a plethora of events and workshops, and is a platform for students to showcase their talents and skills.',

@@ -68,7 +68,7 @@ class _CartPageContentState extends State<CartPageContent> {
             padding: MediaQuery.of(context).viewInsets,
             child: GlassmorphicContainer(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.58,
+              height: MediaQuery.of(context).size.height * 0.4,
               borderRadius: 10,
               blur: 10,
               alignment: Alignment.center,
@@ -132,7 +132,7 @@ class _CartPageContentState extends State<CartPageContent> {
                     alignment: Alignment.center,
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.9,
-                      height: MediaQuery.of(context).size.height * 0.45,
+                      height: MediaQuery.of(context).size.height * 0.32,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
                         gradient: LinearGradient(
@@ -167,8 +167,7 @@ class _CartPageContentState extends State<CartPageContent> {
                               '(PhonePe Users enter UTR number)',
                               style: AppStyles.NormalText().copyWith(
                                 color: Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
                               ),
                             ),
                             const SizedBox(height: 16),
@@ -246,80 +245,80 @@ class _CartPageContentState extends State<CartPageContent> {
                             const SizedBox(
                               height: 20,
                             ),
-                            Text(
-                              'Enter Referral Code (Optional):',
-                              style: AppStyles.NormalText().copyWith(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            GlassmorphicContainer(
-                              width: MediaQuery.of(context).size.width * 0.8,
-                              height: MediaQuery.of(context).size.height * 0.07,
-                              borderRadius: 16,
-                              blur: 10,
-                              alignment: Alignment.center,
-                              border: 1,
-                              linearGradient: LinearGradient(
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                                colors: [
-                                  Colors.white.withOpacity(0.1),
-                                  Colors.white.withOpacity(0.05),
-                                ],
-                              ),
-                              borderGradient: LinearGradient(
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                                colors: [
-                                  Colors.white.withOpacity(0.5),
-                                  Colors.white.withOpacity(0.2),
-                                ],
-                              ),
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
-                                child: DropdownButtonFormField<String>(
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                      borderSide: BorderSide.none,
-                                    ),
-                                  ),
-                                  style: AppStyles.NormalText().copyWith(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  elevation: 10,
-                                  borderRadius: BorderRadius.circular(20),
-                                  value: _referral,
-                                  dropdownColor: Colors.black.withOpacity(0.9),
-                                  items: referralCodes
-                                      .map<DropdownMenuItem<String>>(
-                                    (String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Text(
-                                          value,
-                                          style:
-                                              AppStyles.NormalText().copyWith(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ).toList(),
-                                  onChanged: (String? newValue) {
-                                    setSheetState(() {
-                                      _referral = newValue!;
-                                    });
-                                  },
-                                ),
-                              ),
-                            ),
+                            // Text(
+                            //   'Enter Referral Code (Optional):',
+                            //   style: AppStyles.NormalText().copyWith(
+                            //     color: Colors.white,
+                            //     fontSize: 20,
+                            //     fontWeight: FontWeight.bold,
+                            //   ),
+                            // ),
+                            // const SizedBox(height: 16),
+                            // GlassmorphicContainer(
+                            //   width: MediaQuery.of(context).size.width * 0.8,
+                            //   height: MediaQuery.of(context).size.height * 0.07,
+                            //   borderRadius: 16,
+                            //   blur: 10,
+                            //   alignment: Alignment.center,
+                            //   border: 1,
+                            //   linearGradient: LinearGradient(
+                            //     begin: Alignment.topLeft,
+                            //     end: Alignment.bottomRight,
+                            //     colors: [
+                            //       Colors.white.withOpacity(0.1),
+                            //       Colors.white.withOpacity(0.05),
+                            //     ],
+                            //   ),
+                            //   borderGradient: LinearGradient(
+                            //     begin: Alignment.topLeft,
+                            //     end: Alignment.bottomRight,
+                            //     colors: [
+                            //       Colors.white.withOpacity(0.5),
+                            //       Colors.white.withOpacity(0.2),
+                            //     ],
+                            //   ),
+                            //   child: Padding(
+                            //     padding:
+                            //         const EdgeInsets.symmetric(horizontal: 16),
+                            //     child: DropdownButtonFormField<String>(
+                            //       decoration: InputDecoration(
+                            //         border: OutlineInputBorder(
+                            //           borderRadius: BorderRadius.circular(20),
+                            //           borderSide: BorderSide.none,
+                            //         ),
+                            //       ),
+                            //       style: AppStyles.NormalText().copyWith(
+                            //         color: Colors.white,
+                            //         fontWeight: FontWeight.bold,
+                            //       ),
+                            //       elevation: 10,
+                            //       borderRadius: BorderRadius.circular(20),
+                            //       value: _referral,
+                            //       dropdownColor: Colors.black.withOpacity(0.9),
+                            //       items: referralCodes
+                            //           .map<DropdownMenuItem<String>>(
+                            //         (String value) {
+                            //           return DropdownMenuItem<String>(
+                            //             value: value,
+                            //             child: Text(
+                            //               value,
+                            //               style:
+                            //                   AppStyles.NormalText().copyWith(
+                            //                 color: Colors.white,
+                            //                 fontWeight: FontWeight.bold,
+                            //               ),
+                            //             ),
+                            //           );
+                            //         },
+                            //       ).toList(),
+                            //       onChanged: (String? newValue) {
+                            //         setSheetState(() {
+                            //           _referral = newValue!;
+                            //         });
+                            //       },
+                            //     ),
+                            //   ),
+                            // ),
                             // const SizedBox(height: 24),
                             const SizedBox(height: 24),
                             Row(
@@ -700,11 +699,13 @@ class _CartPageContentState extends State<CartPageContent> {
                                     ScaffoldMessenger.of(context)
                                         .hideCurrentSnackBar();
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
+                                      SnackBar(
                                         content: Text(
                                           "We are currently not accepting payments...",
+                                          style: AppStyles.NormalText(),
                                         ),
-                                        backgroundColor: Color.fromARGB(255, 78, 48, 21),
+                                        backgroundColor: const Color.fromARGB(
+                                            255, 78, 48, 21),
                                       ),
                                     );
                                   }
@@ -838,15 +839,17 @@ class _CartPageContentState extends State<CartPageContent> {
                                       content: Text(
                                         "We are currently not accepting payments...",
                                       ),
-                                      backgroundColor: Color.fromARGB(255, 78, 48, 21),
+                                      backgroundColor:
+                                          Color.fromARGB(255, 78, 48, 21),
                                     ),
                                   );
                                 }
                               },
-                              backgroundColor: Colors.white12,
+                              backgroundColor:
+                                  const Color.fromARGB(255, 122, 73, 9),
                               child: const Icon(
                                 Icons.payment,
-                                color: Colors.white,
+                                color: Color.fromARGB(255, 228, 188, 136),
                               ),
                             ),
                           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pulzion23/config/size_config.dart';
 import 'package:pulzion23/constants/styles.dart';
 import 'package:pulzion23/constants/widgets/halloween_button.dart';
 import 'package:pulzion23/features/login_page/logic/login_cubit.dart';
@@ -129,79 +130,94 @@ class _GetUserEmailState extends State<GetUserEmail> {
                     padding: const EdgeInsets.all(10.0),
                     child: Column(
                       children: [
-                        const Text(
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        Text(
                           'Enter new Password',
-                          style: TextStyle(
-                            fontSize: 25,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Panther',
+                          style: AppStyles.NormalText().copyWith(
+                            color: const Color.fromARGB(255, 208, 168, 116),
+                            fontSize:
+                                SizeConfig.getProportionateScreenFontSize(30),
                           ),
                         ),
                         const SizedBox(
                           height: 50,
                         ),
                         Form(
-                          child: Column(
-                            children: [
-                              LoginSignUpTextField(
-                                'Enter your OTP',
-                                Icons.message,
-                                controller: _otp_controller,
-                                obscureText: false,
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              LoginSignUpTextField(
-                                'Enter new password',
-                                Icons.password,
-                                controller: _password_controller,
-                                obscureText: true,
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              LoginSignUpTextField(
-                                'Confirm Password',
-                                Icons.lock,
-                                controller: _confirm_password_controller,
-                                obscureText: true,
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                            ],
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                LoginSignUpTextField(
+                                  'Enter your OTP',
+                                  Icons.message,
+                                  controller: _otp_controller,
+                                  obscureText: false,
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                LoginSignUpTextField(
+                                  'Enter new password',
+                                  Icons.password,
+                                  controller: _password_controller,
+                                  obscureText: true,
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                LoginSignUpTextField(
+                                  'Confirm Password',
+                                  Icons.lock,
+                                  controller: _confirm_password_controller,
+                                  obscureText: true,
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         const SizedBox(
                           height: 20,
                         ),
-                        RoundedButton(
-                          btnText: 'Reset',
-                          onPressed: () async {
-                            if (_password_controller.text !=
-                                _confirm_password_controller.text) {
-                              ScaffoldMessenger.of(context)
-                                  .hideCurrentSnackBar();
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text(
-                                    "Passwords do not match!",
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: MediaQuery.of(context).size.width / 3.5,
+                          ),
+                          height: 200,
+                          child: HalloweenButton(
+                            icon: Icons.password,
+                            buttonText: 'Reset',
+                            onPressed: () async {
+                              if (_password_controller.text !=
+                                  _confirm_password_controller.text) {
+                                ScaffoldMessenger.of(context)
+                                    .hideCurrentSnackBar();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                      "Passwords do not match!",
+                                    ),
+                                    backgroundColor:
+                                        Color.fromARGB(255, 78, 48, 21),
                                   ),
-                                  backgroundColor: Color.fromARGB(255, 78, 48, 21),
-                                ),
-                              );
+                                );
 
-                              return;
-                            }
-                            await BlocProvider.of<LoginCubit>(context)
-                                .resetPassword(
-                              _otp_controller.text,
-                              _password_controller.text,
-                              email,
-                            );
-                          },
+                                return;
+                              }
+                              await BlocProvider.of<LoginCubit>(context)
+                                  .resetPassword(
+                                _otp_controller.text,
+                                _password_controller.text,
+                                email,
+                              );
+                            },
+                          ),
                         ),
                       ],
                     ),

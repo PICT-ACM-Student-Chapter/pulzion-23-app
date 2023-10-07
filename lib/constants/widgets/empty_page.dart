@@ -9,9 +9,11 @@ class EmptyPage extends StatelessWidget {
   final String title;
   final String errorMessage;
   final VoidCallback? refreshFunction;
+  final String asset;
 
   const EmptyPage({
     required this.errorMessage,
+    this.asset = AppImages.emptyMan,
     super.key,
     this.refreshFunction,
     required this.title,
@@ -100,7 +102,7 @@ class EmptyPage extends StatelessWidget {
         Positioned(
           bottom: size.height * 0.1,
           child: Lottie.asset(
-            AppImages.emptyMan,
+            asset,
             height: size.height * 0.35,
             width: size.width * 0.6,
           ),

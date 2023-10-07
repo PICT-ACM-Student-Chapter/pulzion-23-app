@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pulzion23/constants/images.dart';
+import 'package:pulzion23/constants/widgets/empty_page.dart';
 import 'package:pulzion23/constants/widgets/halloween_button.dart';
+import 'package:pulzion23/features/combo_cubit/models/combo_model.dart';
+import 'package:pulzion23/features/event_description/ui/widgets/event_mode.dart';
+import 'package:pulzion23/features/event_description/ui/widgets/offer_card.dart';
 import "package:share_plus/share_plus.dart";
 import '../../../constants/urls.dart';
 import '../../cart_page/cubit/cart_page_cubit.dart';
@@ -124,9 +129,8 @@ class EventDescription extends StatefulWidget {
 
 class _EventDescriptionState extends State<EventDescription>
     with TickerProviderStateMixin {
-  //!change the length of tab controller from 3 to 4 afterwards
   late final TabController tabBarController =
-      TabController(length: 3, vsync: this);
+      TabController(length: 4, vsync: this);
 
   @override
   void dispose() {
@@ -386,7 +390,7 @@ class _EventDescriptionState extends State<EventDescription>
                               //   ),
                               // ],
                             ),
-                            padding: const EdgeInsets.all(10),
+                            // padding: const EdgeInsets.all(10),
                             child: Text(
                               event.name!,
                               textAlign: TextAlign.center,
@@ -401,10 +405,11 @@ class _EventDescriptionState extends State<EventDescription>
                             width: w,
                             height: h / 50,
                           ),
-                          //!to add mode
-                          // Align(
-                          //     alignment: Alignment.centerRight,
-                          //     child: EventMode(event: event)),
+                          Container(
+                            margin: const EdgeInsets.only(bottom: 20),
+                            alignment: Alignment.center,
+                            child: EventMode(event: event),
+                          ),
                         ],
                       ),
                     ],
@@ -459,15 +464,15 @@ class _EventDescriptionState extends State<EventDescription>
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            // Text(
-                            //   "Offers",
-                            //   style: AppStyles.TitleText().copyWith(
-                            //     color: Theme.of(context).primaryColor,
-                            //     // fontFamily: 'Quicksand',
-                            //     fontSize: h * 0.028,
-                            //     fontWeight: FontWeight.w500,
-                            //   ),
-                            // ),
+                            Text(
+                              "Offers",
+                              style: AppStyles.TitleText().copyWith(
+                                color: Theme.of(context).primaryColor,
+                                // fontFamily: 'Quicksand',
+                                fontSize: h * 0.028,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -566,12 +571,6 @@ class _EventDescriptionState extends State<EventDescription>
                               ],
                             ),
                           ),
-                          // Text(
-                          //   'kjdbfkjbsdfkjv',
-                          //   style: AppStyles.bodyTextStyle3().copyWith(
-                          //     color: Theme.of(context).primaryColor,
-                          //   ),
-                          // ),
                           Text(
                             event.rounds ?? '',
                             style: AppStyles.NormalText().copyWith(
@@ -586,6 +585,18 @@ class _EventDescriptionState extends State<EventDescription>
                               fontSize: 15,
                             ),
                           ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 30.0),
+                            child: Text(
+                              'Offers for ${event.name} coming soon!!',
+                              textAlign: TextAlign.center,
+                              style: AppStyles.NormalText().copyWith(
+                                color: Theme.of(context).primaryColor,
+                                fontSize: 20,
+                              ),
+                            ),
+                          ),
+
                           // event.offers == null || event.offers!.isEmpty
                           //     ? Center(
                           //         child: EmptyPage(
@@ -649,16 +660,16 @@ class _EventDescriptionState extends State<EventDescription>
                           //                 );
                           //               }
                           //             },
-                          //             child: Padding(
-                          //               padding: const EdgeInsets.symmetric(
-                          //                   vertical: 10, horizontal: 30),
-                          //               child: OfferCard(
-                          //                 combo: comboo,
-                          //               ),
-                          //             ),
-                          //           );
-                          //         },
+                          //       child: Padding(
+                          //         padding: const EdgeInsets.symmetric(
+                          //             vertical: 10, horizontal: 30),
+                          //         child: OfferCard(
+                          //           combo: comboo,
+                          //         ),
                           //       ),
+                          //     );
+                          //   },
+                          // ),
                         ],
                       ),
                     ),

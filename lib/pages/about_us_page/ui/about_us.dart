@@ -443,7 +443,7 @@ class _AboutUsPageState extends State<AboutUsPage>
                                   );
                                 },
                                 icon: Icon(
-                                  FontAwesomeIcons.twitter,
+                                  FontAwesomeIcons.twitch,
                                   size: width / 10,
                                   color: const Color.fromARGB(255, 196, 95, 13),
                                 ),

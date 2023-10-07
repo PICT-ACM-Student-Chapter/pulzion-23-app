@@ -60,7 +60,7 @@ class BottomNavBar extends StatelessWidget {
                 builder: (context, state) {
                   log(EndPoints.mcqStarted.toString());
                   if (state is BottomBarAboutUs) {
-                    return EndPoints.mcqStarted == false
+                    return EndPoints.mcqStarted == true
                         ? const McqLogin()
                         : AboutUsPage(false);
                   } else if (state is BottomBarRegisteredEvents) {
@@ -92,7 +92,7 @@ class BottomNavBar extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.07,
               items: <Widget>[
                 Icon(
-                  EndPoints.mcqStarted == false
+                  EndPoints.mcqStarted == true
                       ? Icons.question_answer
                       : Icons.info,
                   size: 30,
@@ -120,7 +120,7 @@ class BottomNavBar extends StatelessWidget {
                 ),
               ],
               color: Colors.grey.withOpacity(0.2),
-              buttonBackgroundColor: Color.fromARGB(255, 122, 73, 9),
+              buttonBackgroundColor: const Color.fromARGB(255, 122, 73, 9),
               backgroundColor: Colors.transparent,
               animationCurve: Curves.easeInOut,
               animationDuration: const Duration(milliseconds: 400),
