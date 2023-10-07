@@ -9,8 +9,7 @@ Future<void> remoteConfig() async {
     minimumFetchInterval: const Duration(hours: 1),
   ));
   await remoteConfig.fetchAndActivate();
-  EndPoints.baseUrl =
-      "https://api.pulzion.co.in";
+  EndPoints.baseUrl = "https://api.pulzion.co.in";
   EndPoints.sampleToken = remoteConfig.getString('SampleToken');
   EndPoints.appLatestStableVersion =
       remoteConfig.getString('AppLatestStableVersion');
@@ -18,6 +17,7 @@ Future<void> remoteConfig() async {
   EndPoints.websiteURL = remoteConfig.getString('websiteUrl');
   EndPoints.playStoreURL = remoteConfig.getString('playstoreUrl');
   EndPoints.sponsorsUrl = remoteConfig.getString('sponsorsUrl');
+  //! change in release (review)
   EndPoints.acceptingPayment = true;
   // remoteConfig.getBool('AcceptPayment');
   EndPoints.mcqStarted = remoteConfig.getBool('mcqStarted');

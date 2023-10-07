@@ -9,21 +9,20 @@ class BookedSlotModel {
       certificate_url;
   int? id, fk_event, fk_user, fk_slot, capacity;
 
-  BookedSlotModel({
-    this.ticket_id,
-    this.created_at,
-    this.updated_at,
-    this.start_time,
-    this.end_time,
-    this.year,
-    this.certificate_url,
-    this.id,
-    this.fk_event,
-    this.fk_user,
-    this.fk_slot,
-    this.capacity,
-    this.mode
-  });
+  BookedSlotModel(
+      {this.ticket_id,
+      this.created_at,
+      this.updated_at,
+      this.start_time,
+      this.end_time,
+      this.year,
+      this.certificate_url,
+      this.id,
+      this.fk_event,
+      this.fk_user,
+      this.fk_slot,
+      this.capacity,
+      this.mode});
 
   BookedSlotModel.fromJson(Map<String, dynamic> data) {
     ticket_id = data["ticket_id"];

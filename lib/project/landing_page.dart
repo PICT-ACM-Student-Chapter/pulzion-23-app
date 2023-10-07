@@ -3,14 +3,10 @@ import 'dart:developer';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:panorama/panorama.dart';
 import 'package:pulzion23/constants/urls.dart';
-import 'package:pulzion23/constants/widgets/loader.dart';
-import 'package:pulzion23/features/combo_cubit/cubit/combo_cubit.dart';
 import 'package:pulzion23/features/mcq/presentation/pages/mcq_login.dart';
 
 import '../config/size_config.dart';
-import '../constants/images.dart';
 import '../features/cart_page/cubit/cart_page_cubit.dart';
 import '../features/cart_page/ui/cart_page_final.dart';
 import '../features/home_page/ui/home_page_final.dart';
@@ -44,7 +40,7 @@ class BottomNavBar extends StatelessWidget {
           },
           builder: (context, state) {
             return Container(
-              constraints: BoxConstraints.expand(),
+              constraints: const BoxConstraints.expand(),
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("assets/images/app_background.jpeg"),

@@ -6,12 +6,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:pulzion23/constants/styles.dart';
 // import 'package:pulzion22_app/constants/constants.dart';
 import '../../../../constants/colors.dart';
-import '../../../../constants/images.dart';
 import '../../../../constants/mcqconstants.dart';
 import '../../../../services/mcq_user_provider.dart';
 import 'event_list.dart';
@@ -67,16 +65,16 @@ class _McqLoginState extends State<McqLogin> {
     }
   }
 
-  String _email = '';
+  final String _email = '';
   String password = '';
   String _inputPassword = "";
-  String _error = '';
+  final String _error = '';
   bool _hidePassword = true;
   bool _isLoading = false;
 
   final GlobalKey<FormState> _formKey = GlobalKey();
-  String _initialCountry = 'IN';
-  PhoneNumber _number = PhoneNumber(isoCode: 'IN');
+  final String _initialCountry = 'IN';
+  final PhoneNumber _number = PhoneNumber(isoCode: 'IN');
 
   final TextEditingController _emailid = TextEditingController();
   final TextEditingController _pass = TextEditingController();
@@ -117,7 +115,8 @@ class _McqLoginState extends State<McqLogin> {
               height: height * 0.05,
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 15.0, bottom: 15.0),
+              padding: const EdgeInsets.only(
+                  left: 15.0, right: 15.0, top: 15.0, bottom: 15.0),
               child: TextFormField(
                 autocorrect: false,
                 textCapitalization: TextCapitalization.none,
@@ -153,12 +152,14 @@ class _McqLoginState extends State<McqLogin> {
                   ),
                   filled: true,
                   fillColor: const Color(0xff46526d),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 15.0),
+              padding:
+                  const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 15.0),
               child: SizedBox(
                 height: 80,
                 child: TextFormField(
@@ -171,7 +172,9 @@ class _McqLoginState extends State<McqLogin> {
                   obscureText: _hidePassword,
                   validator: (val) => val!.isEmpty
                       ? 'Please enter password'
-                      : (val.length < 8 ? 'Password must be at least 8 characters long!' : null),
+                      : (val.length < 8
+                          ? 'Password must be at least 8 characters long!'
+                          : null),
                   style: const TextStyle(
                     color: AppColors.white,
                   ),
@@ -184,7 +187,8 @@ class _McqLoginState extends State<McqLogin> {
                     hintText: 'Password',
                     suffixIcon: GestureDetector(
                       child: _hidePassword
-                          ? const Icon(Icons.visibility_off, color: Colors.black)
+                          ? const Icon(Icons.visibility_off,
+                              color: Colors.black)
                           : const Icon(
                               Icons.visibility,
                               color: Colors.grey,
@@ -207,7 +211,8 @@ class _McqLoginState extends State<McqLogin> {
                     ),
                     filled: true,
                     fillColor: const Color(0xff46526d),
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
                   ),
                 ),
               ),

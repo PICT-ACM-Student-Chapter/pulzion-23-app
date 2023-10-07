@@ -2,14 +2,11 @@
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import 'package:pulzion23/constants/images.dart';
 // import 'package:pulzion22_app/constants/constants.dart';
 
 // import 'package:pulzion22_app/widgets/timer.dart';
@@ -46,12 +43,12 @@ class _SingleQuestionState extends State<SingleQuestion> {
 
   Future _markAnswer(int ans, String questionID, int questionIndex) async {
     try {
-      final _mcqUser = Provider.of<MCQUserProvider>(context, listen: false);
+      final mcqUser = Provider.of<MCQUserProvider>(context, listen: false);
       final url = Uri.parse(Constants.MARK_ANSWER_URL);
       final response = await http.patch(
         url,
         headers: {
-          'Authorization': 'Token ${_mcqUser.mcqtoken}',
+          'Authorization': 'Token ${mcqUser.mcqtoken}',
           "Content-Type": "application/json",
         },
         body: jsonEncode({
@@ -85,12 +82,12 @@ class _SingleQuestionState extends State<SingleQuestion> {
 
   Future _toggleBookMark(int questionIndex) async {
     try {
-      final _mcqUser = Provider.of<MCQUserProvider>(context, listen: false);
+      final mcqUser = Provider.of<MCQUserProvider>(context, listen: false);
       final url = Uri.parse(Constants.MARK_ANSWER_URL);
       final response = await http.patch(
         url,
         headers: {
-          'Authorization': 'Token ${_mcqUser.mcqtoken}',
+          'Authorization': 'Token ${mcqUser.mcqtoken}',
           "Content-Type": "application/json",
         },
         body: jsonEncode({
@@ -121,10 +118,10 @@ class _SingleQuestionState extends State<SingleQuestion> {
 
   Future _getQuestion() async {
     try {
-      final _mcqUser = Provider.of<MCQUserProvider>(context, listen: false);
+      final mcqUser = Provider.of<MCQUserProvider>(context, listen: false);
       final url = Uri.parse(Constants.GET_MCQS_URL + widget.id);
       final response = await http.get(url, headers: {
-        'Authorization': 'Token ${_mcqUser.mcqtoken}',
+        'Authorization': 'Token ${mcqUser.mcqtoken}',
       });
       if (response.statusCode == 200) {
         questions = jsonDecode(response.body);
@@ -198,13 +195,13 @@ class _SingleQuestionState extends State<SingleQuestion> {
   }
 
   Future _autoSubmitQuiz() async {
-    var _mcqUser = Provider.of<MCQUserProvider>(context, listen: false);
+    var mcqUser = Provider.of<MCQUserProvider>(context, listen: false);
 
     Map<String, String> headers = {
-      'Authorization': 'Token ${_mcqUser.mcqtoken}',
+      'Authorization': 'Token ${mcqUser.mcqtoken}',
     };
     try {
-      final url = Uri.parse(Constants.SUBMIT_MCQ + (_mcqUser.mcqId as String));
+      final url = Uri.parse(Constants.SUBMIT_MCQ + (mcqUser.mcqId as String));
       final response = await http.get(
         url,
         headers: headers,
@@ -275,7 +272,8 @@ class _SingleQuestionState extends State<SingleQuestion> {
     final minutes = twoDigits(duration.inMinutes.remainder(60));
     final seconds = twoDigits(duration.inSeconds.remainder(60));
     final hours = twoDigits(duration.inHours.remainder(24));
-    if (minutes == '00' && seconds == '00' && hours == '00') {//TODO
+    if (minutes == '00' && seconds == '00' && hours == '00') {
+      //TODO
       Future.delayed(
         Duration.zero,
         (() => {
@@ -292,7 +290,7 @@ class _SingleQuestionState extends State<SingleQuestion> {
     }
 
     return Text(
-      '$hours:$minutes:$seconds',//TODO
+      '$hours:$minutes:$seconds', //TODO
       style: TextStyle(fontSize: MediaQuery.of(context).size.height * 0.025),
     );
   }
@@ -527,7 +525,8 @@ class _SingleQuestionState extends State<SingleQuestion> {
                                                       ''
                                               ? FadeInImage(
                                                   placeholder: AssetImage(
-                                                      'assets/images/loading.jpeg',),
+                                                    'assets/images/loading.jpeg',
+                                                  ),
                                                   image: NetworkImage(
                                                     questions[index]
                                                             ['fk_question']

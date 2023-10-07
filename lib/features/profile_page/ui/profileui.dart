@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:glowstone/glowstone.dart';
 import 'package:lottie/lottie.dart';
-import 'package:panorama/panorama.dart';
 import 'package:pulzion23/constants/styles.dart';
 
-import '../../../constants/images.dart';
 import '../../../project/cubit/animation_toggle_cubit.dart';
 import '../../../constants/widgets/error_dialog.dart';
 import '../../../constants/widgets/loader.dart';
@@ -42,7 +39,7 @@ class ProfilePage extends StatelessWidget {
           },
           builder: (context, state) {
             return Container(
-              constraints: BoxConstraints.expand(),
+              constraints: const BoxConstraints.expand(),
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("assets/images/app_background.jpeg"),
@@ -56,24 +53,23 @@ class ProfilePage extends StatelessWidget {
           padding: EdgeInsets.only(
             top: MediaQuery.of(context).padding.top,
           ),
-          child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: BlocConsumer<ProfileCubit, ProfileState>(
-              listener: (context, state) {
-                if (state is ProfileError) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(state.message),
-                    ),
-                  );
-                }
-              },
-              builder: (context, state) {
-                if (state is ProfileLoaded) {
-                  return Column(
+          child: BlocConsumer<ProfileCubit, ProfileState>(
+            listener: (context, state) {
+              if (state is ProfileError) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(state.message),
+                  ),
+                );
+              }
+            },
+            builder: (context, state) {
+              if (state is ProfileLoaded) {
+                return SingleChildScrollView(
+                  child: Column(
                     children: [
                       Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        // crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Container(
                             padding: EdgeInsets.only(top: h * 0.00),
@@ -144,153 +140,122 @@ class ProfilePage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      // Padding(
-                      //   padding: const EdgeInsets.only(top: 1),
-                      //   child: Row(
-                      //     children: [
-                      //       Container(
-                      //         margin: EdgeInsets.only(left: w * 0.05),
-                      //         padding: EdgeInsets.all(h * 0.01),
-                      //         child: Container(
-                      //             width: w * 0.23,
-                      //             child: Lottie.asset(
-                      //                 'assets/images/bouncepumpkin.json')),
-                      //       ),
-                      //       SizedBox(height: h * 0.1, width: w * 0.1),
-                      //       LimitedBox(
-                      //         maxWidth: w - w * 0.4,
-                      //         child: FittedBox(
-                      //           fit: BoxFit.scaleDown,
-                      //           child: Text(
-                      //             "${state.user.firstName!} ${state.user.lastName!}",
-                      //             style: TextStyle(
-                      //               fontSize: w * 0.08,
-                      //               fontWeight: FontWeight.bold,
-                      //               color: Colors.white,
-                      //               fontFamily: 'QuickSand',
-                      //             ),
-                      //             textAlign: TextAlign.center,
-                      //           ),
-                      //         ),
-                      //       ),
-                      //       Container(
-                      //         margin: EdgeInsets.only(left: w * 0.05),
-                      //         padding: EdgeInsets.all(h * 0.01),
-                      //         child: Container(
-                      //             width: w * 0.23,
-                      //             child: Lottie.asset(
-                      //                 'assets/images/bouncepumpkin.json')),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
-                      // SizedBox(height: h * 0.001),
                       SizedBox(
                         height: h * 0.04,
                       ),
-                      cardDesign(
-                        "USERNAME",
-                        h,
-                        w,
-                        state.user.email!.split('@')[0],
-                        const Icon(
-                          Icons.person,
-                          color: Colors.white,
+                      Container(
+                        child: cardDesign(
+                          "USERNAME",
+                          h,
+                          w,
+                          state.user.email!.split('@')[0],
+                          const Icon(
+                            Icons.person,
+                            color: Colors.white,
+                          ),
+                          // Image(image: AssetImage('assets/images/skull.png')),
                         ),
-                        // Image(image: AssetImage('assets/images/skull.png')),
                       ),
                       SizedBox(
                         height: h * 0.01,
                       ),
-                      cardDesign(
-                        "EMAIL",
-                        h,
-                        w,
-                        state.user.email!,
-                        const Icon(
-                          Icons.email,
-                          color: Colors.white,
+                      Container(
+                        child: cardDesign(
+                          "EMAIL",
+                          h,
+                          w,
+                          state.user.email!,
+                          const Icon(
+                            Icons.email,
+                            color: Colors.white,
+                          ),
+                          // Image(image: AssetImage('assets/images/potion.png')),
                         ),
-                        // Image(image: AssetImage('assets/images/potion.png')),
                       ),
                       SizedBox(
                         height: h * 0.01,
                       ),
-                      cardDesign(
-                        "CONTACT NO.",
-                        h,
-                        w,
-                        state.user.mobileNumber,
-                        const Icon(
-                          Icons.phone,
-                          color: Colors.white,
+                      Container(
+                        child: cardDesign(
+                          "CONTACT NO.",
+                          h,
+                          w,
+                          state.user.mobileNumber,
+                          const Icon(
+                            Icons.phone,
+                            color: Colors.white,
+                          ),
+                          // Image(image: AssetImage('assets/images/jar.png')),
                         ),
-                        // Image(image: AssetImage('assets/images/jar.png')),
                       ),
                       SizedBox(
                         height: h * 0.01,
                       ),
-                      cardDesign(
-                        "YEAR",
-                        h,
-                        w,
-                        state.user.year,
-                        const Icon(
-                          Icons.school,
-                          color: Colors.white,
+                      Container(
+                        child: cardDesign(
+                          "YEAR",
+                          h,
+                          w,
+                          state.user.year,
+                          const Icon(
+                            Icons.school,
+                            color: Colors.white,
+                          ),
+                          // Image(image: AssetImage('assets/images/hallo.png')),
                         ),
-                        // Image(image: AssetImage('assets/images/hallo.png')),
                       ),
                       SizedBox(
                         height: h * 0.01,
                       ),
-                      cardDesign(
-                        "COLLEGE",
-                        h,
-                        w,
-                        state.user.college,
-                        const Icon(
-                          Icons.book,
-                          color: Colors.white,
+                      Container(
+                        child: cardDesign(
+                          "COLLEGE",
+                          h,
+                          w,
+                          state.user.college,
+                          const Icon(
+                            Icons.book,
+                            color: Colors.white,
+                          ),
+                          // Image(image: AssetImage('assets/images/rip.png')),
                         ),
-                        // Image(image: AssetImage('assets/images/rip.png')),
                       ),
                       SizedBox(
                         height: h * 0.01,
                       ),
-                      // SizedBox(height: 0.0000001, width: double.infinity),
-                    ],
-                  );
-                } else if (state is ProfileError) {
-                  return Column(
-                    children: [
-                      SizedBox(
-                        height: h * 0.3,
-                      ),
-                      Center(
-                        child: ErrorDialog(
-                          state.message,
-                          refreshFunction: () {
-                            context.read<ProfileCubit>().getUser();
-                          },
-                        ),
-                      ),
-                    ],
-                  );
-                }
-
-                return Center(
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: h * 0.3,
-                      ),
-                      const Loader(),
+                      SizedBox(height: 0.0000001, width: double.infinity),
                     ],
                   ),
                 );
-              },
-            ),
+              } else if (state is ProfileError) {
+                return Column(
+                  children: [
+                    SizedBox(
+                      height: h * 0.3,
+                    ),
+                    Center(
+                      child: ErrorDialog(
+                        state.message,
+                        refreshFunction: () {
+                          context.read<ProfileCubit>().getUser();
+                        },
+                      ),
+                    ),
+                  ],
+                );
+              }
+
+              return Center(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: h * 0.3,
+                    ),
+                    const Loader(),
+                  ],
+                ),
+              );
+            },
           ),
         ),
       ]),

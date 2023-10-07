@@ -1,12 +1,9 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:panorama/panorama.dart';
 import 'package:provider/provider.dart';
 import 'package:pulzion23/constants/colors.dart';
 import 'package:pulzion23/constants/styles.dart';
@@ -14,10 +11,8 @@ import 'package:pulzion23/constants/styles.dart';
 // import 'package:pulzion22_app/screens/mcq/mcq_event_model.dart';
 // import 'package:pulzion22_app/services/mcq_user_provider.dart';
 
-import '../../../../constants/images.dart';
 import '../../../../constants/mcqcolors.dart';
 import '../../../../constants/mcqconstants.dart';
-import '../../../../project/cubit/animation_toggle_cubit.dart';
 import '../../../../services/mcq_user_provider.dart';
 // import '../../constants/constants.dart';
 // import '../../theme/app_colors.dart';
@@ -35,10 +30,10 @@ class _MCQEventListState extends State<MCQEventList> {
   bool _isLoad = true;
 
   Future _getMCQEventList() async {
-    var _mcqUser = Provider.of<MCQUserProvider>(context, listen: false);
+    var mcqUser = Provider.of<MCQUserProvider>(context, listen: false);
 
     Map<String, String> headers = {
-      'Authorization': 'Token ${_mcqUser.mcqtoken}',
+      'Authorization': 'Token ${mcqUser.mcqtoken}',
     };
     try {
       final url = Uri.parse(Constants.GET_MCQ_EVENTS);
@@ -56,7 +51,8 @@ class _MCQEventListState extends State<MCQEventList> {
         });
       } else {
         var result = jsonDecode(response.body);
-        var error = result['error'] ?? 'There is some problem currently not possible!';
+        var error =
+            result['error'] ?? 'There is some problem currently not possible!';
         throw error;
       }
     } catch (error) {
@@ -102,7 +98,8 @@ class _MCQEventListState extends State<MCQEventList> {
                         )
                       : Padding(
                           padding: EdgeInsets.symmetric(
-                            horizontal: MediaQuery.of(context).size.width * 0.02,
+                            horizontal:
+                                MediaQuery.of(context).size.width * 0.02,
                           ),
                           child: InkWell(
                             onTap: () {
@@ -139,24 +136,33 @@ class _MCQEventListState extends State<MCQEventList> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
                                     children: [
                                       Text(
-                                        MCQList.mcqEventList[i].fkEvent!.name as String,
+                                        MCQList.mcqEventList[i].fkEvent!.name
+                                            as String,
                                         style: TextStyle(
-                                          fontSize: MediaQuery.of(context).size.height * 0.03,
+                                          fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.03,
                                           color: Colors.white,
                                         ),
                                       ),
                                       SizedBox(
-                                        height: MediaQuery.of(context).size.height * 0.018,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.018,
                                       ),
                                       MCQList.mcqEventList[i].started == true
                                           ? Text(
                                               'Started',
                                               style: TextStyle(
-                                                fontSize:
-                                                    MediaQuery.of(context).size.height * 0.025,
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.025,
                                                 color: Colors.green,
                                               ),
                                             )
@@ -170,37 +176,49 @@ class _MCQEventListState extends State<MCQEventList> {
                                     ],
                                   ),
                                   SizedBox(
-                                    height: MediaQuery.of(context).size.height * 0.02,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.02,
                                   ),
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
                                     children: [
                                       Text(
                                         'Start Time',
                                         style: TextStyle(
-                                          fontSize: MediaQuery.of(context).size.height * 0.022,
+                                          fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.022,
                                           color: MCQAppColors.COLOR_SWATCH2,
                                         ),
                                       ),
                                       Text(
                                         'End Time',
                                         style: TextStyle(
-                                          fontSize: MediaQuery.of(context).size.height * 0.022,
+                                          fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.022,
                                           color: MCQAppColors.COLOR_SWATCH2,
                                         ),
                                       ),
                                     ],
                                   ),
                                   SizedBox(
-                                    height: MediaQuery.of(context).size.height * 0.02,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.02,
                                   ),
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
                                     children: [
                                       Text(
                                         DateFormat('dd E  kk:mm a')
                                             .format(DateTime.parse(MCQList
-                                                    .mcqEventList[i].fkEvent!.startTime as String)
+                                                    .mcqEventList[i]
+                                                    .fkEvent!
+                                                    .startTime as String)
                                                 .toLocal())
                                             .toString(),
                                         style: const TextStyle(
@@ -211,7 +229,9 @@ class _MCQEventListState extends State<MCQEventList> {
                                       Text(
                                         DateFormat('dd E  kk:mm a')
                                             .format(DateTime.parse(MCQList
-                                                    .mcqEventList[i].fkEvent!.endTime as String)
+                                                    .mcqEventList[i]
+                                                    .fkEvent!
+                                                    .endTime as String)
                                                 .toLocal())
                                             .toString(),
                                         style: const TextStyle(

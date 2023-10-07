@@ -3,13 +3,14 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
-import 'package:pulzion23/constants/widgets/loader.dart';
 import 'package:pulzion23/features/splash_screen/cubit/splash_cubit.dart';
 import 'package:pulzion23/main.dart';
 import 'package:pulzion23/project/cubit/animation_toggle_cubit.dart';
 import 'package:video_player/video_player.dart';
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -36,14 +37,13 @@ class _SplashScreenState extends State<SplashScreen> {
             return const Pulzion23App();
           } else if (state is SplashStart) {
             BlocProvider.of<SplashCubit>(context).start();
-            final _controller =
-                BlocProvider.of<SplashCubit>(context).controller;
+            final controller = BlocProvider.of<SplashCubit>(context).controller;
 
             return Center(
               child: AspectRatio(
                 aspectRatio: MediaQuery.of(context).size.width /
                     MediaQuery.of(context).size.height,
-                child: VideoPlayer(_controller),
+                child: VideoPlayer(controller),
               ),
             );
           } else if (state is SplashLoading) {

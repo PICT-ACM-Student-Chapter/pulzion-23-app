@@ -1,20 +1,11 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:lottie/lottie.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:pulzion23/features/combo_cubit/cubit/combo_cubit.dart';
 import 'package:pulzion23/features/event_description/ui/widgets/lightOnOff.dart';
 
 import '../../../../config/size_config.dart';
-import '../../../../constants/colors.dart';
-import '../../../../constants/images.dart';
 import '../../../../constants/models/event_model.dart';
 import '../../../../constants/styles.dart';
-import '../../../event_description/ui/event_description.dart';
 
 class EventCard extends StatelessWidget {
   final Events event;
@@ -31,7 +22,7 @@ class EventCard extends StatelessWidget {
     final mediaQuery = MediaQuery.of(context);
     final width = mediaQuery.size.width;
     final height = mediaQuery.size.height;
-    final _cacheManager = CacheManager(Config(
+    final cacheManager = CacheManager(Config(
       'my_custom_cache_key',
       stalePeriod: const Duration(days: 7),
       maxNrOfCacheObjects: 100,
@@ -176,7 +167,7 @@ class EventCard extends StatelessWidget {
                             color: Colors.white,
                             placeholder: (context, url) => Container(),
                             errorWidget: (context, url, error) => Container(),
-                            cacheManager: _cacheManager,
+                            cacheManager: cacheManager,
                             fadeInDuration: const Duration(milliseconds: 100),
                             fit: BoxFit.fitWidth,
                             key: UniqueKey(),

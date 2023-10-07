@@ -66,5 +66,4 @@ class AppStyles {
       color: AppColors.cardTitleTextColor,
     );
   }
-
 }

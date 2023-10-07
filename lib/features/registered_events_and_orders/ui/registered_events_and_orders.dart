@@ -86,7 +86,7 @@ class _RegisteredEventsAndOrdersState extends State<RegisteredEventsAndOrders>
                         style: AppStyles.TitleText().copyWith(
                             fontSize:
                                 SizeConfig.getProportionateScreenFontSize(60),
-                            color: Color.fromARGB(255, 208, 168, 116)),
+                            color: const Color.fromARGB(255, 208, 168, 116)),
                       ),
                     ),
                     Padding(
@@ -108,7 +108,7 @@ class _RegisteredEventsAndOrdersState extends State<RegisteredEventsAndOrders>
                             ),
                           ),
                           unselectedLabelColor: AppColors.cardSubtitleTextColor,
-                          labelColor: Color.fromARGB(255, 208, 168, 116),
+                          labelColor: const Color.fromARGB(255, 208, 168, 116),
                           tabs: [
                             Text(
                               'Registered Events',

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pulzion23/constants/styles.dart';
 import 'package:pulzion23/features/cart_page/cubit/cart_page_cubit.dart';
-import '../../../../constants/widgets/halloween_button.dart';
-import 'combo_card.dart';
 
 class AnimatedPrompt extends StatefulWidget {
   final int id;
@@ -118,7 +116,7 @@ class _AnimatedPromptState extends State<AnimatedPrompt>
               SizedBox(
                 // width: widgWidth * 0.08,
                 child: Text(
-                  "₹" + widget.subtitle,
+                  "₹${widget.subtitle}",
                   textAlign: TextAlign.center,
                   style: AppStyles.NormalText().copyWith(
                     color: Colors.black,

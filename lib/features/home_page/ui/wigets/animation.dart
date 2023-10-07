@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -44,7 +43,7 @@ class _TranslateImageState extends State<TranslateImage>
         AnimationController(vsync: this, duration: const Duration(seconds: 2));
 
     for (int i = 1; i <= 16; i++) {
-      Animation<Offset> _translation = Tween(
+      Animation<Offset> translation = Tween(
         begin: Offset(
           translationOffsets[i - 1][0],
           translationOffsets[i - 1][1],
@@ -53,7 +52,7 @@ class _TranslateImageState extends State<TranslateImage>
       ).animate(
         CurvedAnimation(parent: _animationController, curve: Curves.linear),
       );
-      ani.add(_translation);
+      ani.add(translation);
     }
     _animationController.repeat();
 

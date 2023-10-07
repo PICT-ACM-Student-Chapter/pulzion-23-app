@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../../../constants/images.dart';
 import '../../../login_page/cubit/check_login_cubit.dart';
 import '../../../login_page/ui/login_signup_intro.dart';
 import '../../../profile_page/cubit/profile_cubit.dart';

@@ -87,13 +87,15 @@ class _QuestionGridState extends State<QuestionGrid> {
                     ),
                   ),
                   onPressed: () async {
-                    var _mcqUser = Provider.of<MCQUserProvider>(context, listen: false);
+                    var mcqUser =
+                        Provider.of<MCQUserProvider>(context, listen: false);
 
                     Map<String, String> headers = {
-                      'Authorization': 'Token ${_mcqUser.mcqtoken}',
+                      'Authorization': 'Token ${mcqUser.mcqtoken}',
                     };
                     try {
-                      final url = Uri.parse(Constants.SUBMIT_MCQ + (_mcqUser.mcqId as String));
+                      final url = Uri.parse(
+                          Constants.SUBMIT_MCQ + (mcqUser.mcqId as String));
                       final response = await http.get(
                         url,
                         headers: headers,
@@ -111,7 +113,8 @@ class _QuestionGridState extends State<QuestionGrid> {
                       } else {
                         var result = jsonDecode(response.body);
                         log(result.toString());
-                        var error = result['error'] ?? 'There is some problem currently';
+                        var error = result['error'] ??
+                            'There is some problem currently';
                         throw error;
                       }
                     } catch (error) {

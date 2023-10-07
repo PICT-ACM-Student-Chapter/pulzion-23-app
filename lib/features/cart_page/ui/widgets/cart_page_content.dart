@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lottie/lottie.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 import 'package:pulzion23/constants/urls.dart';
 import 'package:pulzion23/constants/widgets/halloween_button.dart';
 import 'package:pulzion23/features/cart_page/cubit/cart_page_cubit.dart';
 import 'package:pulzion23/features/cart_page/ui/widgets/animated_prompt.dart';
-import 'package:pulzion23/features/cart_page/ui/widgets/combo_card.dart';
-import 'package:pulzion23/features/home_page/ui/wigets/event_card.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
-import '../../../../constants/images.dart';
 import '../../../../constants/models/cart_model.dart';
 import '../../../../constants/styles.dart';
-import 'cart_list_tile.dart';
 import '../../../../constants/widgets/empty_page.dart';
 
 class CartPageContent extends StatefulWidget {

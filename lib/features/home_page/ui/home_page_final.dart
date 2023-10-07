@@ -1,11 +1,9 @@
-import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:panorama/panorama.dart';
-import 'package:pulzion23/features/combo_cubit/cubit/combo_cubit.dart';
 import 'package:pulzion23/features/home_page/ui/wigets/animation.dart';
 import 'package:sizer/sizer.dart';
 
@@ -109,7 +107,7 @@ class _HomePageContentState extends State<HomePageContent>
                                       Text(
                                         "Pulzion",
                                         style: AppStyles.NormalText().copyWith(
-                                          color: Color.fromARGB(
+                                          color: const Color.fromARGB(
                                               255, 208, 168, 116),
                                           fontSize: SizeConfig
                                               .getProportionateScreenFontSize(

@@ -5,10 +5,8 @@ abstract class RegisteredEventsAndOrdersState {}
 class RegisteredEventsAndOrdersLoaded extends RegisteredEventsAndOrdersState {
   List<RegisteredEvent> registeredOrders;
   List<Events> registeredEvents;
-  RegisteredEventsAndOrdersLoaded(this.registeredEvents,this.registeredOrders);
+  RegisteredEventsAndOrdersLoaded(this.registeredEvents, this.registeredOrders);
 }
-
-
 
 class RegisteredEventsAndOrdersError extends RegisteredEventsAndOrdersState {
   final String errorMessage;

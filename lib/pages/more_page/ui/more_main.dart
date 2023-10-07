@@ -4,12 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pulzion23/constants/widgets/empty_page.dart';
 import 'package:pulzion23/features/splash_screen/cubit/splash_cubit.dart';
 import 'package:pulzion23/project/cubit/animation_toggle_cubit.dart';
 import '../../../constants/styles.dart';
 import '../../about_us_page/ui/about_us.dart';
-import '../../../constants/images.dart';
 import '../../../constants/urls.dart';
 import '../../../features/login_page/ui/login_signup_intro.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -150,7 +148,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                               TypewriterAnimatedText(
                                 '10 Fun-filled Events',
                                 textStyle: AppStyles.NormalText().copyWith(
-                                  color: Color.fromARGB(255, 68, 40, 10)
+                                  color: const Color.fromARGB(255, 68, 40, 10)
                                       .withOpacity(1),
                                   overflow: TextOverflow.ellipsis,
                                   fontSize: ht / 47,
@@ -232,7 +230,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                             iconSize: height / 22,
                           ),
                           const VerticalDivider(
-                            color: const Color.fromARGB(255, 82, 50, 16),
+                            color: Color.fromARGB(255, 82, 50, 16),
                           ),
                           IconButton(
                             onPressed: () {

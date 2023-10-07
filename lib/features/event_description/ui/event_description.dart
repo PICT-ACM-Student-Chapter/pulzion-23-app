@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pulzion23/constants/widgets/halloween_button.dart';
@@ -129,7 +127,6 @@ class _EventDescriptionState extends State<EventDescription>
   //!change the length of tab controller from 3 to 4 afterwards
   late final TabController tabBarController =
       TabController(length: 3, vsync: this);
-
 
   @override
   void dispose() {

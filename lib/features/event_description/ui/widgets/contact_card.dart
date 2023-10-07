@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pulzion23/constants/models/event_model.dart';
@@ -51,7 +50,7 @@ class ContactCard extends StatelessWidget {
 class MyWidget extends StatelessWidget {
   final String name;
   final String phone;
-  MyWidget({required this.name, required this.phone});
+  const MyWidget({super.key, required this.name, required this.phone});
 
   @override
   Widget build(BuildContext context) {

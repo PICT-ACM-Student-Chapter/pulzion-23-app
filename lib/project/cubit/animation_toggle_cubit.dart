@@ -1,15 +1,13 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 
 class GlobalParameterCubit extends Cubit<bool> {
-   bool _controller = true;
+  bool _controller = true;
 
   bool get controller => _controller;
 
-  AssetsAudioPlayer? _audioPlayer = null;
+  AssetsAudioPlayer? _audioPlayer;
 
   GlobalParameterCubit() : super(true) {
     init();
@@ -37,14 +35,14 @@ class GlobalParameterCubit extends Cubit<bool> {
     emit(_controller);
   }
 
-  static void soundOnOff(AssetsAudioPlayer? _audioAssets, bool _controller) {
-    if (_controller) {
-      if (!_audioAssets!.isPlaying.value) {
-        _audioAssets.play();
+  static void soundOnOff(AssetsAudioPlayer? audioAssets, bool controller) {
+    if (controller) {
+      if (!audioAssets!.isPlaying.value) {
+        audioAssets.play();
       }
     } else {
-      if (_audioAssets!.isPlaying.value) {
-        _audioAssets.stop();
+      if (audioAssets!.isPlaying.value) {
+        audioAssets.stop();
       }
     }
   }

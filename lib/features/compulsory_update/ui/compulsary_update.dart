@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:panorama/panorama.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../config/size_config.dart';

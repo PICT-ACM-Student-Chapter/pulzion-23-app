@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lottie/lottie.dart';
 import 'package:panorama/panorama.dart';
 import '../../../project/cubit/animation_toggle_cubit.dart';
 
@@ -83,9 +82,9 @@ class LoginSignupBody extends StatelessWidget {
           Container(
             height: size.height * 0.4,
             width: size.height * 0.5,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.transparent,
-              borderRadius: const BorderRadius.all(
+              borderRadius: BorderRadius.all(
                 Radius.circular(20),
               ),
               // border: const Border.fromBorderSide(
@@ -101,7 +100,7 @@ class LoginSignupBody extends StatelessWidget {
                 // height: ,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(25),
-                    image: DecorationImage(
+                    image: const DecorationImage(
                         image: AssetImage('assets/images/login_page_gif.gif'),
                         fit: BoxFit.fill)),
               ),
@@ -114,14 +113,14 @@ class LoginSignupBody extends StatelessWidget {
               Text(
                 'Pulzion',
                 style: AppStyles.NormalText().copyWith(
-                   color:Color.fromARGB(255, 208, 168, 116),
+                  color: const Color.fromARGB(255, 208, 168, 116),
                   fontSize: SizeConfig.getProportionateScreenFontSize(35),
                 ),
               ),
               Text(
                 'Tech or Treat',
                 style: AppStyles.TitleText().copyWith(
-                   color:Color.fromARGB(255, 208, 168, 116),
+                  color: const Color.fromARGB(255, 208, 168, 116),
                   fontSize: SizeConfig.getProportionateScreenFontSize(35),
                 ),
               ),
@@ -131,7 +130,7 @@ class LoginSignupBody extends StatelessWidget {
                 'A 3-day event that includes a plethora of events and workshops, and is a platform for students to showcase their talents and skills.',
                 style: AppStyles.NormalText().copyWith(
                   fontSize: SizeConfig.getProportionateScreenFontSize(15),
-                   color:Color.fromARGB(255, 208, 168, 116),
+                  color: const Color.fromARGB(255, 208, 168, 116),
                 ),
               ),
             ],

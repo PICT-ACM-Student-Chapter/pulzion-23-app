@@ -22,7 +22,7 @@ class McqStatus {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     if (fkEvent != null) {
       data['fk_event'] = fkEvent!.toJson();
@@ -59,7 +59,7 @@ class FkEvent {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['name'] = name;
     data['start_time'] = startTime;

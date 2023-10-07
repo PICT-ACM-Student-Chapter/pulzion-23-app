@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pulzion23/constants/models/booked_slot_model.dart';
 import 'package:pulzion23/constants/widgets/halloween_button.dart';
 import 'package:pulzion23/features/event_slots/ui/booked_window.dart';
 import 'package:pulzion23/features/event_slots/ui/view_slot_details.dart';
-import 'package:pulzion23/features/home_page/logic/event_details_cubit_cubit.dart';
 import 'package:pulzion23/features/registered_events_and_orders/cubit/registered_events_and_orders_cubit.dart';
 import '../../../event_slots/logic/booked_slot_cubit.dart';
 import 'package:ticket_widget/ticket_widget.dart';

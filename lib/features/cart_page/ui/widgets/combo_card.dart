@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pulzion23/features/cart_page/ui/widgets/event_card.dart';
 
 class Combo_List extends StatelessWidget {
   Combo_List({super.key});
@@ -83,8 +82,8 @@ class Combo_List extends StatelessWidget {
                     return ListTile(
                       title: Text(
                         eventName,
-                        style:
-                            const TextStyle(color: Color.fromARGB(255, 105, 48, 27)),
+                        style: const TextStyle(
+                            color: Color.fromARGB(255, 105, 48, 27)),
                       ),
                       subtitle: Text(
                         eventType,
@@ -124,11 +123,12 @@ class Combo_List extends StatelessWidget {
                         width: w / 9,
                       ),
                       IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.shopping_cart,
-                            color: Color.fromARGB(255, 105, 48, 27),
-                          ),),
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.shopping_cart,
+                          color: Color.fromARGB(255, 105, 48, 27),
+                        ),
+                      ),
                     ],
                   ),
                 ),

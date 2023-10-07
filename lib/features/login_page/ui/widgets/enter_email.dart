@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:panorama/panorama.dart';
 import 'package:pulzion23/constants/styles.dart';
 import 'package:pulzion23/constants/widgets/halloween_button.dart';
 import 'package:pulzion23/features/login_page/logic/login_cubit.dart';
@@ -50,7 +49,7 @@ class _GetUserEmailState extends State<GetUserEmail> {
           },
           builder: (context, state) {
             return Container(
-              constraints: BoxConstraints.expand(),
+              constraints: const BoxConstraints.expand(),
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("assets/images/app_background.jpeg"),

@@ -6,7 +6,6 @@ import 'package:panorama/panorama.dart';
 import 'package:pulzion23/constants/widgets/halloween_button.dart';
 
 import '../../../project/cubit/animation_toggle_cubit.dart';
-import '../../../constants/images.dart';
 import '../../../constants/styles.dart';
 import '../../../constants/widgets/loader.dart';
 import 'widgets/go_back_button.dart';
@@ -14,7 +13,6 @@ import 'widgets/go_back_button.dart';
 import '../../../constants/colors.dart';
 import '../cubit/check_login_cubit.dart';
 import '../logic/sign_up_cubit.dart';
-import 'widgets/roundedbutton.dart';
 import 'widgets/text_field.dart';
 import 'package:csc_picker/csc_picker.dart';
 
@@ -71,7 +69,7 @@ class _SignUpState extends State<SignUp> {
           },
           builder: (context, state) {
             return Container(
-              constraints: BoxConstraints.expand(),
+              constraints: const BoxConstraints.expand(),
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("assets/images/app_background.jpeg"),
@@ -181,7 +179,7 @@ class _SignUpState extends State<SignUp> {
                                 margin: const EdgeInsets.all(8),
                                 padding: const EdgeInsets.only(top: 8),
                                 child: CSCPicker(
-                                  // defaultCountry: CscCountry.India,
+                                  defaultCountry: CscCountry.India,
                                   selectedItemStyle:
                                       AppStyles.NormalText().copyWith(
                                     color: Colors.white,
@@ -707,7 +705,7 @@ class _YearSelectRadioTileState extends State<YearSelectRadioTile> {
                 ),
                 child: RadioListTile(
                   contentPadding: EdgeInsets.zero,
-                  activeColor: Color.fromARGB(255, 228, 188, 136),
+                  activeColor: const Color.fromARGB(255, 228, 188, 136),
                   title: Text(
                     'FE',
                     style: AppStyles.NormalText().copyWith(
@@ -734,7 +732,7 @@ class _YearSelectRadioTileState extends State<YearSelectRadioTile> {
                 ),
                 child: RadioListTile(
                   contentPadding: EdgeInsets.zero,
-                  activeColor: Color.fromARGB(255, 228, 188, 136),
+                  activeColor: const Color.fromARGB(255, 228, 188, 136),
                   title: Text(
                     'SE',
                     style: AppStyles.NormalText().copyWith(
@@ -766,7 +764,7 @@ class _YearSelectRadioTileState extends State<YearSelectRadioTile> {
                 ),
                 child: RadioListTile(
                   contentPadding: EdgeInsets.zero,
-                  activeColor: Color.fromARGB(255, 228, 188, 136),
+                  activeColor: const Color.fromARGB(255, 228, 188, 136),
                   title: Text(
                     'TE',
                     style: AppStyles.NormalText().copyWith(
@@ -793,7 +791,7 @@ class _YearSelectRadioTileState extends State<YearSelectRadioTile> {
                 ),
                 child: RadioListTile(
                   contentPadding: EdgeInsets.zero,
-                  activeColor: Color.fromARGB(255, 228, 188, 136),
+                  activeColor: const Color.fromARGB(255, 228, 188, 136),
                   title: Text(
                     'BE',
                     style: AppStyles.NormalText().copyWith(

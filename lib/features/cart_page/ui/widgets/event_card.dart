@@ -149,8 +149,9 @@ class _AnimatedPromptState extends State<AnimatedPrompt>
                             child: AlertDialog(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(14)),
-                              backgroundColor: const Color.fromARGB(143, 90, 54, 5),
-                              content: Container(
+                              backgroundColor:
+                                  const Color.fromARGB(143, 90, 54, 5),
+                              content: SizedBox(
                                 height: widgWidth,
                                 width: widgWidth /
                                     10, // Adjust the height as needed

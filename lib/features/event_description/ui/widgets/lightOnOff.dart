@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:math' as Math;
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pulzion23/features/combo_cubit/cubit/combo_cubit.dart';
 import 'package:pulzion23/features/event_description/ui/event_description.dart';
 import '../../../../constants/models/event_model.dart';
 
@@ -70,8 +68,8 @@ ThemeData _darkTheme = ThemeData(
   cardColor: Colors.black,
   canvasColor: Colors.black,
   textTheme: const TextTheme(
-    bodyText1: TextStyle(color: Colors.white),
-    bodyText2: TextStyle(color: Colors.white),
+    bodyLarge: TextStyle(color: Colors.white),
+    bodyMedium: TextStyle(color: Colors.white),
   ),
 );
 
@@ -82,8 +80,8 @@ ThemeData _lightTheme = ThemeData(
   cardColor: Colors.white,
   canvasColor: Colors.white,
   textTheme: const TextTheme(
-    bodyText1: TextStyle(color: Colors.black),
-    bodyText2: TextStyle(color: Colors.black),
+    bodyLarge: TextStyle(color: Colors.black),
+    bodyMedium: TextStyle(color: Colors.black),
   ),
 );
 

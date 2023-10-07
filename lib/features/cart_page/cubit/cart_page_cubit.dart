@@ -106,7 +106,7 @@ class CartPageCubit extends Cubit<CartPageState> {
     }
   }
 
-  Future<bool> addCartItem(int id, int? combo_id) async {
+  Future<bool> addCartItem(int id, int? comboId) async {
     emit(CartPageLoading());
     Response? response;
     try {
@@ -119,9 +119,9 @@ class CartPageCubit extends Cubit<CartPageState> {
           "Authorization": "Bearer $token",
         },
         body: jsonEncode(
-          combo_id == null
+          comboId == null
               ? {'event_id': id}
-              : {'event_id': id, 'combo_id': combo_id},
+              : {'event_id': id, 'combo_id': comboId},
         ),
       );
 
@@ -157,15 +157,15 @@ class CartPageCubit extends Cubit<CartPageState> {
   // button for transaction id
 
   List<int> getTransactionID() {
-    List<int> event_id = [];
+    List<int> eventId = [];
     for (var cartItem in eventList.cartItems!) {
-      event_id.add(cartItem.id!);
+      eventId.add(cartItem.id!);
     }
 
-    return event_id;
+    return eventId;
   }
 
-  Future<void> sendTransactionID(String tr_id, String? referral) async {
+  Future<void> sendTransactionID(String trId, String? referral) async {
     emit(SendingTransaction());
     try {
       const storage = FlutterSecureStorage();
@@ -178,7 +178,7 @@ class CartPageCubit extends Cubit<CartPageState> {
         },
         body: jsonEncode({
           'event_id': getTransactionID(),
-          'transaction_id': tr_id,
+          'transaction_id': trId,
           'referal_code': referral ?? '',
         }),
       );

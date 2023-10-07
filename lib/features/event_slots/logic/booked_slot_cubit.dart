@@ -11,7 +11,7 @@ part 'booked_slot_state.dart';
 class EventSlotsCubit extends Cubit<EventSlotStateCubit> {
   EventSlotsCubit() : super(EventSlotLoadingState());
 
-  Future<void> getAvailableSlots(int event_id) async {
+  Future<void> getAvailableSlots(int eventId) async {
     emit(EventSlotLoadingState());
     try {
       const storage = FlutterSecureStorage();
@@ -19,7 +19,7 @@ class EventSlotsCubit extends Cubit<EventSlotStateCubit> {
 
       var response = await http.get(
         Uri.parse(
-          "${EndPoints.getSlots}$event_id",
+          "${EndPoints.getSlots}$eventId",
         ),
         headers: {
           "Content-Type": "application/json",
@@ -43,7 +43,7 @@ class EventSlotsCubit extends Cubit<EventSlotStateCubit> {
 
       EventSlot slotList = EventSlot.fromJson(data);
 
-      if (slotList.slots!.length == 0) {
+      if (slotList.slots!.isEmpty) {
         emit(NoAvailableSlots());
 
         return;
@@ -85,8 +85,8 @@ class EventSlotsCubit extends Cubit<EventSlotStateCubit> {
   //   }
   // }
 
-  Future<void> bookSlot(String event_id, String slot_id) async {
-    log('event_id: $event_id, slot_id: $slot_id');
+  Future<void> bookSlot(String eventId, String slotId) async {
+    log('event_id: $eventId, slot_id: $slotId');
     emit(EventSlotLoadingState());
     const storage = FlutterSecureStorage();
     var token = await storage.read(key: 'token');
@@ -102,8 +102,8 @@ class EventSlotsCubit extends Cubit<EventSlotStateCubit> {
           },
           body: jsonEncode(
             {
-              "event_id": int.parse(event_id),
-              "slot_id": int.parse(slot_id),
+              "event_id": int.parse(eventId),
+              "slot_id": int.parse(slotId),
             },
           ),
         );

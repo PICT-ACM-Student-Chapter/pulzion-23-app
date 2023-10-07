@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 class CartItemList {
   List<CartItem>? cartItems;
 

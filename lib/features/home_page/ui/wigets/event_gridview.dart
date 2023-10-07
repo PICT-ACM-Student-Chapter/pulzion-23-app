@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pulzion23/features/combo_cubit/cubit/combo_cubit.dart';
 
 import '../../../../constants/models/event_model.dart';
 import 'event_card.dart';

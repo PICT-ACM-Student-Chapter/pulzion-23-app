@@ -1,13 +1,8 @@
 import 'package:countup/countup.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pulzion23/features/home_page/ui/wigets/custom_appbar.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:widget_circular_animator/widget_circular_animator.dart';
-import 'package:panorama/panorama.dart';
-import '../../../constants/images.dart';
-import '../../../project/cubit/animation_toggle_cubit.dart';
 import '../../../constants/styles.dart';
 
 import 'dart:math';
@@ -88,7 +83,7 @@ class _AboutUsPageState extends State<AboutUsPage>
       body: Stack(
         children: [
           Container(
-            constraints: BoxConstraints.expand(),
+            constraints: const BoxConstraints.expand(),
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("assets/images/app_background.jpeg"),
@@ -175,10 +170,9 @@ class _AboutUsPageState extends State<AboutUsPage>
                                     // width: 95.0,
                                     height: height / 8,
                                     width: width / 2.6,
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
-                                      color: const Color.fromARGB(
-                                          255, 228, 188, 136),
+                                      color: Color.fromARGB(255, 228, 188, 136),
                                     ),
                                     child: Column(
                                       mainAxisAlignment:
@@ -212,7 +206,7 @@ class _AboutUsPageState extends State<AboutUsPage>
                                 ),
                                 RotationTransition(
                                   turns: _rotation,
-                                  child: Container(
+                                  child: SizedBox(
                                     width: width / 2.26,
                                     child: Image.asset(
                                         "assets/images/aboutusframe.png"),
@@ -234,10 +228,9 @@ class _AboutUsPageState extends State<AboutUsPage>
                                   child: Container(
                                     height: height / 8,
                                     width: width / 2.6,
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
-                                      color: const Color.fromARGB(
-                                          255, 228, 188, 136),
+                                      color: Color.fromARGB(255, 228, 188, 136),
                                     ),
                                     child: Column(
                                       mainAxisAlignment:
@@ -271,7 +264,7 @@ class _AboutUsPageState extends State<AboutUsPage>
                                 ),
                                 RotationTransition(
                                   turns: _rotation,
-                                  child: Container(
+                                  child: SizedBox(
                                     width: width / 2.26,
                                     child: Image.asset(
                                         "assets/images/aboutusframe.png"),
@@ -378,7 +371,7 @@ class _AboutUsPageState extends State<AboutUsPage>
                           icon: const Icon(
                             FontAwesomeIcons.whatsapp,
                           ),
-                          color: Color.fromARGB(255, 196, 95, 13),
+                          color: const Color.fromARGB(255, 196, 95, 13),
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: width / 200),
@@ -417,7 +410,7 @@ class _AboutUsPageState extends State<AboutUsPage>
                               icon: Icon(
                                 FontAwesomeIcons.facebook,
                                 size: width / 10,
-                                color: Color.fromARGB(255, 196, 95, 13),
+                                color: const Color.fromARGB(255, 196, 95, 13),
                               ),
                             ),
                             Padding(
@@ -431,7 +424,7 @@ class _AboutUsPageState extends State<AboutUsPage>
                                 icon: Icon(
                                   FontAwesomeIcons.instagram,
                                   size: width / 10,
-                                  color: Color.fromARGB(255, 196, 95, 13),
+                                  color: const Color.fromARGB(255, 196, 95, 13),
                                 ),
                               ),
                             ),
@@ -446,7 +439,7 @@ class _AboutUsPageState extends State<AboutUsPage>
                                 icon: Icon(
                                   FontAwesomeIcons.linkedin,
                                   size: width / 10,
-                                  color: Color.fromARGB(255, 196, 95, 13),
+                                  color: const Color.fromARGB(255, 196, 95, 13),
                                 ),
                               ),
                             ),
@@ -461,7 +454,7 @@ class _AboutUsPageState extends State<AboutUsPage>
                                 icon: Icon(
                                   FontAwesomeIcons.twitter,
                                   size: width / 10,
-                                  color: Color.fromARGB(255, 196, 95, 13),
+                                  color: const Color.fromARGB(255, 196, 95, 13),
                                 ),
                               ),
                             ),

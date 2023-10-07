@@ -1,7 +1,4 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import '../../../../constants/colors.dart';
 import '../../../../constants/styles.dart';
 
 class LoginSignUpTextField extends StatelessWidget {

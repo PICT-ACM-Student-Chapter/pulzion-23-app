@@ -4,7 +4,6 @@ import 'package:panorama/panorama.dart';
 import 'package:pulzion23/constants/colors.dart';
 import 'package:pulzion23/constants/widgets/empty_page.dart';
 import 'package:pulzion23/features/event_slots/ui/view_slot_details.dart';
-import 'package:pulzion23/features/home_page/logic/event_details_cubit_cubit.dart';
 import 'package:pulzion23/features/registered_events_and_orders/cubit/registered_events_and_orders_cubit.dart';
 import '../../../constants/models/slot_model.dart';
 import 'package:pulzion23/constants/images.dart';
@@ -20,7 +19,7 @@ class BookSlots extends StatefulWidget {
   final String name;
   final String logo;
 
-  BookSlots({
+  const BookSlots({
     super.key,
     required this.id,
     required this.name,

@@ -1,10 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
-import '../../../../constants/models/event_model.dart';
 import '../../../../constants/styles.dart';
-import '../../../../constants/widgets/empty_page.dart';
 import '../../../combo_cubit/models/combo_model.dart';
 
 // ignore: must_be_immutable
@@ -24,12 +20,12 @@ class _OfferCardState extends State<OfferCard> {
   Widget build(BuildContext context) {
     if (widget.combo.comboDetailsList == null ||
         widget.combo.comboDetailsList!.isEmpty) {
-      return SizedBox();
+      return const SizedBox();
     } else {
       return Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          color: Color.fromARGB(255, 133, 134, 141).withOpacity(0.5),
+          color: const Color.fromARGB(255, 133, 134, 141).withOpacity(0.5),
         ),
         child: Column(
           children: [
@@ -72,7 +68,7 @@ class _OfferCardState extends State<OfferCard> {
                           ),
                           Text(
                             event.name,
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                           ),
                           const Expanded(
                             child: SizedBox(),

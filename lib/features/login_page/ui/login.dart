@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
-import 'package:lottie/lottie.dart';
-import 'package:panorama/panorama.dart';
 import 'package:pulzion23/constants/widgets/halloween_button.dart';
 import 'package:pulzion23/features/login_page/ui/widgets/enter_email.dart';
 
-import '../../../constants/colors.dart';
-import '../../../constants/images.dart';
 import '../../../constants/styles.dart';
 import '../../../constants/widgets/loader.dart';
 import '../cubit/check_login_cubit.dart';
 import '../logic/login_cubit.dart';
 import 'widgets/go_back_button.dart';
-import 'widgets/roundedbutton.dart';
 import 'widgets/text_field.dart';
 import '../../../project/cubit/animation_toggle_cubit.dart';
 
@@ -53,13 +47,14 @@ class _LoginState extends State<Login> {
           },
           builder: (context, state) {
             return Container(
-              constraints: BoxConstraints.expand(),
+              constraints: const BoxConstraints.expand(),
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("assets/images/app_background.jpeg"),
                   fit: BoxFit.cover,
                 ),
-              ),);
+              ),
+            );
           },
         ),
         Scaffold(
@@ -87,8 +82,7 @@ class _LoginState extends State<Login> {
                 }
               }
               if (state is LoginFailure) {
-
-                if(mounted) {
+                if (mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(state.message),
@@ -119,13 +113,17 @@ class _LoginState extends State<Login> {
                         ),
                         Text(
                           'Login',
-                          style:
-                              AppStyles.NormalText().copyWith(fontSize: 30,color:Color.fromARGB(255, 208, 168, 116),),
+                          style: AppStyles.NormalText().copyWith(
+                            fontSize: 30,
+                            color: const Color.fromARGB(255, 208, 168, 116),
+                          ),
                         ),
                         Text(
                           'Please sign in to continue.',
-                          style:
-                             AppStyles.NormalText().copyWith(fontSize: 15,color:Color.fromARGB(255, 208, 168, 116),),
+                          style: AppStyles.NormalText().copyWith(
+                            fontSize: 15,
+                            color: const Color.fromARGB(255, 208, 168, 116),
+                          ),
                         ),
                         LoginSignUpTextField(
                           'Email',
@@ -154,7 +152,7 @@ class _LoginState extends State<Login> {
                               );
                             },
                             child: Padding(
-                              padding: EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8.0),
                               child: Text(
                                 'Forgot Password?',
                                 style: AppStyles.NormalText().copyWith(

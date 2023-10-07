@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 import 'package:lottie/lottie.dart';
-import 'package:panorama/panorama.dart';
 import 'package:pulzion23/constants/images.dart';
 import 'package:pulzion23/constants/models/booked_slot_model.dart';
-import 'package:pulzion23/features/home_page/logic/event_details_cubit_cubit.dart';
 import 'package:intl/intl.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -22,7 +20,7 @@ class ViewSlotDetails extends StatefulWidget {
   final String logo;
   final String name;
 
-  ViewSlotDetails({
+  const ViewSlotDetails({
     Key? key,
     required this.id,
     required this.logo,

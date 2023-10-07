@@ -4,7 +4,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-import 'package:panorama/panorama.dart';
 import 'package:provider/provider.dart';
 import 'package:pulzion23/constants/styles.dart';
 import 'package:pulzion23/constants/widgets/error_dialog.dart';
@@ -16,7 +15,6 @@ import 'package:pulzion23/features/mcq/presentation/pages/questionPageBuilder.da
 // ignore_for_file:prefer_const_literals_to_create_immutables
 // ignore_for_file: prefer_const_constructors
 
-import '../../../../constants/images.dart';
 import '../../../../constants/mcqconstants.dart';
 import '../../../../services/mcq_user_provider.dart';
 import 'mcq_event_statusmodel.dart';
@@ -38,10 +36,10 @@ class _RulePageState extends State<RulePage> {
   bool _isError = false;
 
   Future _getMCQEventDetails() async {
-    var _mcqUser = Provider.of<MCQUserProvider>(context, listen: false);
+    var mcqUser = Provider.of<MCQUserProvider>(context, listen: false);
 
     Map<String, String> headers = {
-      'Authorization': 'Token ${_mcqUser.mcqtoken}',
+      'Authorization': 'Token ${mcqUser.mcqtoken}',
     };
     try {
       final url = Uri.parse(Constants.GET_MCQ_EVENT_DETAILS + widget.id);
@@ -50,7 +48,7 @@ class _RulePageState extends State<RulePage> {
         headers: headers,
       );
       if (response.statusCode == 200) {
-        _mcqUser.setId(widget.id);
+        mcqUser.setId(widget.id);
         var result = await jsonDecode(response.body);
         McqStatus.clearFunction();
         McqStatus.fromJson(result);
@@ -112,7 +110,8 @@ class _RulePageState extends State<RulePage> {
                   child: RuleBox(
                     id: widget.id,
                     isFinished: McqStatus.finished as bool,
-                    endTime: DateTime.parse(McqStatus.fkEvent!.endTime as String),
+                    endTime:
+                        DateTime.parse(McqStatus.fkEvent!.endTime as String),
                   ),
                 ),
               );
@@ -125,13 +124,17 @@ class RuleBox extends StatelessWidget {
   final String id;
   final DateTime endTime;
 
-  const RuleBox({Key? key, required this.id, required this.isFinished, required this.endTime})
+  const RuleBox(
+      {Key? key,
+      required this.id,
+      required this.isFinished,
+      required this.endTime})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     log(DateTime.parse(McqStatus.fkEvent!.endTime as String).toString());
-    
+
     return Container(
       height: MediaQuery.of(context).size.height * 0.75,
       margin: EdgeInsets.all(20),
@@ -204,9 +207,10 @@ class RuleBox extends StatelessWidget {
                     //
                     // primary:Color.fromARGB(255, 36, 69, 119),
                     // primary: Color(0xff0a3b58),
-                    primary: const Color(0xFF031F4B),
+                    backgroundColor: const Color(0xFF031F4B),
                     // primary: const Color(0xff1b3357),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25)),
                   ),
                   onPressed: () {
                     if (isFinished) {
@@ -219,7 +223,7 @@ class RuleBox extends StatelessWidget {
                         msg: "Quiz begins!",
                         backgroundColor: Colors.blue.shade600,
                       );
-                      log('Time left'+endTime.difference(DateTime.now()).inSeconds.toString());
+                      log('Time left${endTime.difference(DateTime.now()).inSeconds}');
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(

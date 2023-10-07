@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import '../../../../constants/models/registered_event.dart';
-import '../../../../constants/colors.dart';
 import '../../../../constants/styles.dart';
 import '../../../../constants/widgets/empty_page.dart';
 

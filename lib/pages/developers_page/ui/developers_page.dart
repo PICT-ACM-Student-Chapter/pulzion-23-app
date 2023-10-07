@@ -5,14 +5,11 @@ import '../../../constants/styles.dart';
 import '../../../features/home_page/ui/wigets/custom_appbar.dart';
 import 'package:widget_circular_animator/widget_circular_animator.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:panorama/panorama.dart';
 import 'info.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../../constants/images.dart';
 import '../../../project/cubit/animation_toggle_cubit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'dart:math' as math;
 
 class DevelopersPage extends StatefulWidget {
   const DevelopersPage({super.key});
@@ -79,7 +76,7 @@ class _DevelopersPageState extends State<DevelopersPage> {
           },
           builder: (context, state) {
             return Container(
-              constraints: BoxConstraints.expand(),
+              constraints: const BoxConstraints.expand(),
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("assets/images/app_background.jpeg"),
