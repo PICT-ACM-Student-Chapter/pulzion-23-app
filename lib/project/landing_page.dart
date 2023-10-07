@@ -120,7 +120,7 @@ class BottomNavBar extends StatelessWidget {
                 ),
               ],
               color: Colors.grey.withOpacity(0.2),
-              buttonBackgroundColor: Colors.white.withOpacity(0.6),
+              buttonBackgroundColor: Color.fromARGB(255, 122, 73, 9),
               backgroundColor: Colors.transparent,
               animationCurve: Curves.easeInOut,
               animationDuration: const Duration(milliseconds: 400),

@@ -234,7 +234,7 @@ class _EventDescriptionState extends State<EventDescription>
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.message),
-                backgroundColor: Colors.green,
+                backgroundColor: const Color.fromARGB(255, 196, 117, 15),
               ),
             );
             BlocProvider.of<CartPageCubit>(context).loadCart();
@@ -243,7 +243,7 @@ class _EventDescriptionState extends State<EventDescription>
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.message),
-                backgroundColor: Colors.red,
+                backgroundColor: Color.fromARGB(255, 78, 48, 21),
               ),
             );
             // BlocProvider.of<CartPageCubit>(context).loadCart();
@@ -252,7 +252,7 @@ class _EventDescriptionState extends State<EventDescription>
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.message),
-                backgroundColor: Colors.red,
+                backgroundColor: Color.fromARGB(255, 78, 48, 21),
               ),
             );
             BlocProvider.of<CartPageCubit>(context).loadCart();
@@ -261,7 +261,7 @@ class _EventDescriptionState extends State<EventDescription>
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.message),
-                backgroundColor: Colors.red,
+                backgroundColor: Color.fromARGB(255, 78, 48, 21),
               ),
             );
             // BlocProvider.of<CartPageCubit>(context).loadCart();

@@ -104,18 +104,21 @@ class _CartPageContentState extends State<CartPageContent> {
                             builder: (ctx) {
                               return AlertDialog(
                                 backgroundColor: Colors.black.withOpacity(0.5),
-                                title: const Text(
+                                title: Text(
                                   'How to pay?',
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
+                                  style: AppStyles.NormalText().copyWith(
                                     color: Colors.white,
+                                    fontSize: 20,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                content: const Text(
+                                content: Text(
                                   'Steps for Payment:\n\n1.) You can either scan the QR Code or you can choose any of the given UPI app to make the payment.\n2.) After making the payment, put the Transaction ID carefully and submit it.\n3.) Make sure you do not put UPI ID in the box.\n4.) In case you mistype UPI ID instead of Transaction ID, mail us the same\n5.) Once submitted you will see the status as pending in the orders tab\n6.) We will change your status to confirmed in 48 hrs and you will be able to see your registered events in the Registered Events tab.\n7.) You won\'t be able to re-add the events to cart and perform the registration process once you make the submission.\n8.) For any issues, mail to us at: queries.pulzion@gmail.com',
-                                  style: TextStyle(
+                                  style: AppStyles.NormalText().copyWith(
                                     color: Colors.white,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               );
@@ -149,22 +152,23 @@ class _CartPageContentState extends State<CartPageContent> {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Text(
+                            Text(
                               'Enter UPI Transaction ID:',
-                              style: TextStyle(
+                              style: AppStyles.NormalText().copyWith(
                                 color: Colors.white,
-                                fontSize: 18,
+                                fontSize: 20,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             const SizedBox(
                               height: 5,
                             ),
-                            const Text(
+                            Text(
                               '(PhonePe Users enter UTR number)',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.grey,
+                              style: AppStyles.NormalText().copyWith(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                             const SizedBox(height: 16),
@@ -196,36 +200,44 @@ class _CartPageContentState extends State<CartPageContent> {
                                     const EdgeInsets.symmetric(horizontal: 16),
                                 child: Form(
                                   key: _formKey,
-                                  child: TextFormField(
-                                    keyboardType: TextInputType.number,
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter a transaction ID';
-                                      }
-                                      if (value.length != 12) {
-                                        return 'Please enter 12 digit UTR ID';
-                                      }
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(bottom: 12),
+                                    child: TextFormField(
+                                      keyboardType: TextInputType.number,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please enter a transaction ID';
+                                        }
+                                        if (value.length != 12) {
+                                          return 'Please enter 12 digit UTR ID';
+                                        }
 
-                                      return null;
-                                    },
-                                    onSaved: (newValue) {
-                                      _transactionId = newValue!;
-                                    },
-                                    decoration: const InputDecoration(
-                                      hintText: 'Transaction ID',
-                                      hintStyle: TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 16,
+                                        return null;
+                                      },
+                                      onSaved: (newValue) {
+                                        _transactionId = newValue!;
+                                      },
+                                      decoration: InputDecoration(
+                                        hintText: 'Transaction ID',
+                                        hintStyle:
+                                            AppStyles.NormalText().copyWith(
+                                          color: Colors.white,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        border: InputBorder.none,
+                                        icon: const Padding(
+                                          padding: EdgeInsets.only(top: 12),
+                                          child: Icon(
+                                            Icons.credit_card,
+                                            color: Colors.grey,
+                                          ),
+                                        ),
                                       ),
-                                      border: InputBorder.none,
-                                      icon: Icon(
-                                        Icons.credit_card,
-                                        color: Colors.grey,
+                                      style: AppStyles.NormalText().copyWith(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
                                       ),
-                                    ),
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.white,
                                     ),
                                   ),
                                 ),
@@ -234,11 +246,11 @@ class _CartPageContentState extends State<CartPageContent> {
                             const SizedBox(
                               height: 20,
                             ),
-                            const Text(
+                            Text(
                               'Enter Referral Code (Optional):',
-                              style: TextStyle(
+                              style: AppStyles.NormalText().copyWith(
                                 color: Colors.white,
-                                fontSize: 18,
+                                fontSize: 20,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -276,9 +288,9 @@ class _CartPageContentState extends State<CartPageContent> {
                                       borderSide: BorderSide.none,
                                     ),
                                   ),
-                                  style: const TextStyle(
-                                    fontFamily: 'QuickSand',
-                                    fontSize: 16,
+                                  style: AppStyles.NormalText().copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                   elevation: 10,
                                   borderRadius: BorderRadius.circular(20),
@@ -291,8 +303,10 @@ class _CartPageContentState extends State<CartPageContent> {
                                         value: value,
                                         child: Text(
                                           value,
-                                          style: const TextStyle(
+                                          style:
+                                              AppStyles.NormalText().copyWith(
                                             color: Colors.white,
+                                            fontWeight: FontWeight.bold,
                                           ),
                                         ),
                                       );
@@ -306,7 +320,7 @@ class _CartPageContentState extends State<CartPageContent> {
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 24),
+                            // const SizedBox(height: 24),
                             const SizedBox(height: 24),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -316,40 +330,72 @@ class _CartPageContentState extends State<CartPageContent> {
                                   child: SizedBox(
                                     height: MediaQuery.of(context).size.height *
                                         0.06,
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        if (!_formKey.currentState!
-                                            .validate()) {
-                                          return;
-                                        }
-                                        _formKey.currentState!.save();
-                                        try {
-                                          BlocProvider.of<CartPageCubit>(
-                                            context,
-                                          ).sendTransactionID(
-                                            _transactionId,
-                                            _referral,
-                                          );
-                                        } catch (e) {
-                                          print(e.toString());
-                                        }
-                                        Navigator.of(context).pop();
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        padding: const EdgeInsets.symmetric(),
-                                        textStyle:
-                                            const TextStyle(fontSize: 18),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Colors.black.withOpacity(0.6),
+                                            Colors.black.withOpacity(0.4),
+                                            Colors.black.withOpacity(0.4),
+                                          ],
+                                          begin: Alignment.centerLeft,
+                                          end: Alignment.centerRight,
                                         ),
-                                        backgroundColor:
-                                            Colors.blue.withOpacity(0.5),
+                                        borderRadius: BorderRadius.circular(24),
+                                        border: Border.all(
+                                          color: Colors.orange[700]!
+                                              .withOpacity(0.8),
+                                          width: 0.7,
+                                        ),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            blurRadius: 1.0,
+                                            spreadRadius: 2.0,
+                                            color: Colors.yellow[900]!
+                                                .withOpacity(0.3),
+                                          ),
+                                        ],
                                       ),
-                                      child: const Text(
-                                        'Submit',
-                                        style: TextStyle(
-                                          fontSize: 16,
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          if (!_formKey.currentState!
+                                              .validate()) {
+                                            return;
+                                          }
+                                          _formKey.currentState!.save();
+                                          try {
+                                            BlocProvider.of<CartPageCubit>(
+                                              context,
+                                            ).sendTransactionID(
+                                              _transactionId,
+                                              _referral,
+                                            );
+                                          } catch (e) {
+                                            print(e.toString());
+                                          }
+                                          Navigator.of(context).pop();
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          padding: const EdgeInsets.symmetric(),
+                                          textStyle:
+                                              AppStyles.NormalText().copyWith(
+                                            color: Colors.white,
+                                            // fontWeight: FontWeight.bold,
+                                          ),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                          backgroundColor: Colors.transparent,
+                                        ),
+                                        child: Text(
+                                          'Submit',
+                                          style:
+                                              AppStyles.NormalText().copyWith(
+                                            color: Colors.white,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -364,113 +410,153 @@ class _CartPageContentState extends State<CartPageContent> {
                                   child: SizedBox(
                                     height: MediaQuery.of(context).size.height *
                                         0.06,
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        final cost =
-                                            widget.eventList!.cartItems!.fold(
-                                          0,
-                                          (previousValue, element) =>
-                                              previousValue + element.price!,
-                                        );
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Colors.black.withOpacity(0.6),
+                                            Colors.black.withOpacity(0.4),
+                                            Colors.black.withOpacity(0.4),
+                                          ],
+                                          begin: Alignment.centerLeft,
+                                          end: Alignment.centerRight,
+                                        ),
+                                        borderRadius: BorderRadius.circular(24),
+                                        border: Border.all(
+                                          color: Colors.orange[700]!
+                                              .withOpacity(0.8),
+                                          width: 0.7,
+                                        ),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            blurRadius: 1.0,
+                                            spreadRadius: 2.0,
+                                            color: Colors.yellow[900]!
+                                                .withOpacity(0.3),
+                                          ),
+                                        ],
+                                      ),
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          final cost =
+                                              widget.eventList!.cartItems!.fold(
+                                            0,
+                                            (previousValue, element) =>
+                                                previousValue + element.price!,
+                                          );
 
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return AlertDialog(
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              title: const Text(
-                                                'QR Code',
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  fontFamily: 'Panther',
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                              content: Container(
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(16),
-                                                  border: Border.all(
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return AlertDialog(
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                title: Text(
+                                                  'QR Code',
+                                                  textAlign: TextAlign.center,
+                                                  style: AppStyles.NormalText()
+                                                      .copyWith(
                                                     color: Colors.white,
-                                                    width: 2,
-                                                  ),
-                                                  gradient: LinearGradient(
-                                                    begin: Alignment.topLeft,
-                                                    end: Alignment.bottomRight,
-                                                    colors: [
-                                                      Colors.black
-                                                          .withOpacity(0.3),
-                                                      Colors.black
-                                                          .withOpacity(0.2),
-                                                      Colors.black
-                                                          .withOpacity(0.1),
-                                                    ],
+                                                    fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.62,
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.62,
-                                                child: Align(
-                                                  alignment: Alignment.center,
-                                                  child: QrImageView(
-                                                    data:
-                                                        'upi://pay?pa=pictscholarship@jsb&pn=PICT&am=$cost&tn=Pulzion&cu=INR',
-                                                    version: QrVersions.auto,
-                                                    foregroundColor:
-                                                        Colors.white,
-                                                    size: MediaQuery.of(context)
-                                                            .size
-                                                            .width *
-                                                        0.6,
+                                                content: Container(
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            16),
+                                                    border: Border.all(
+                                                      color: Colors.white,
+                                                      width: 2,
+                                                    ),
+                                                    gradient: LinearGradient(
+                                                      begin: Alignment.topLeft,
+                                                      end:
+                                                          Alignment.bottomRight,
+                                                      colors: [
+                                                        Colors.black
+                                                            .withOpacity(0.3),
+                                                        Colors.black
+                                                            .withOpacity(0.2),
+                                                        Colors.black
+                                                            .withOpacity(0.1),
+                                                      ],
+                                                    ),
                                                   ),
-                                                ),
-                                              ),
-                                              actions: [
-                                                Align(
-                                                  alignment: Alignment.center,
-                                                  child: TextButton(
-                                                    onPressed: () {
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                    },
-                                                    child: const Text(
-                                                      'Close',
-                                                      style: TextStyle(
-                                                        fontFamily: 'QuickSand',
-                                                        color: Colors.white,
-                                                      ),
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.62,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.62,
+                                                  child: Align(
+                                                    alignment: Alignment.center,
+                                                    child: QrImageView(
+                                                      data:
+                                                          'upi://pay?pa=pictscholarship@jsb&pn=PICT&am=$cost&tn=Pulzion&cu=INR',
+                                                      version: QrVersions.auto,
+                                                      foregroundColor:
+                                                          Colors.white,
+                                                      size:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.6,
                                                     ),
                                                   ),
                                                 ),
-                                              ],
-                                            );
-                                          },
-                                        );
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        padding: const EdgeInsets.symmetric(
-                                          vertical: 16,
+                                                actions: [
+                                                  Align(
+                                                    alignment: Alignment.center,
+                                                    child: TextButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                      child: Text(
+                                                        'Close',
+                                                        style: AppStyles
+                                                                .NormalText()
+                                                            .copyWith(
+                                                          color: Colors.white,
+                                                          fontSize: 20,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          // padding: const EdgeInsets.only(
+                                          //     top: 10, left: 10),
+                                          textStyle:
+                                              AppStyles.NormalText().copyWith(
+                                            color: Colors.white,
+                                            // fontWeight: FontWeight.bold,
+                                          ),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                          backgroundColor: Colors.transparent,
                                         ),
-                                        textStyle:
-                                            const TextStyle(fontSize: 18),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
-                                        backgroundColor:
-                                            Colors.blue.withOpacity(0.5),
-                                      ),
-                                      child: const Text(
-                                        'Generate QR Code',
-                                        style: TextStyle(
-                                          fontSize: 14,
+                                        child: FittedBox(
+                                          child: Text(
+                                            'Generate QR Code',
+                                            style:
+                                                AppStyles.NormalText().copyWith(
+                                              color: Colors.white,
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -504,7 +590,7 @@ class _CartPageContentState extends State<CartPageContent> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(state.message),
-              backgroundColor: Colors.red,
+              backgroundColor: Color.fromARGB(255, 78, 48, 21),
             ),
           );
         } else if (state is SentTransaction) {
@@ -512,7 +598,7 @@ class _CartPageContentState extends State<CartPageContent> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(state.message),
-              backgroundColor: Colors.green,
+              backgroundColor: const Color.fromARGB(255, 196, 117, 15),
             ),
           );
         }
@@ -618,7 +704,7 @@ class _CartPageContentState extends State<CartPageContent> {
                                         content: Text(
                                           "We are currently not accepting payments...",
                                         ),
-                                        backgroundColor: Colors.red,
+                                        backgroundColor: Color.fromARGB(255, 78, 48, 21),
                                       ),
                                     );
                                   }
@@ -752,7 +838,7 @@ class _CartPageContentState extends State<CartPageContent> {
                                       content: Text(
                                         "We are currently not accepting payments...",
                                       ),
-                                      backgroundColor: Colors.red,
+                                      backgroundColor: Color.fromARGB(255, 78, 48, 21),
                                     ),
                                   );
                                 }

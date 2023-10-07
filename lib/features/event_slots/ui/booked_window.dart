@@ -268,7 +268,7 @@ class _BookSlotsState extends State<BookSlots> {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         duration: Duration(seconds: 3),
                         content: Text('Slot Booked Successfully!'),
-                        backgroundColor: Colors.green,
+                        backgroundColor: const Color.fromARGB(255, 196, 117, 15),
                       ));
                       Navigator.pushReplacement(
                         context,
@@ -293,7 +293,7 @@ class _BookSlotsState extends State<BookSlots> {
                         content: Text(
                           state.message.toString(),
                         ),
-                        backgroundColor: Colors.red,
+                        backgroundColor: Color.fromARGB(255, 78, 48, 21),
                       ));
                     }
                   },

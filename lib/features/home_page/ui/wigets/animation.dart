@@ -15,23 +15,20 @@ class _TranslateImageState extends State<TranslateImage>
   late List<Animation<Offset>> ani = [];
   List<List<double>> translationOffsets = [
     [0, 0, 8, 7],
-    [8, 4, 4, 0],
-    [6, 7, 0, 2],
-    [6, 7, 1, 4],
-    [4, 0, 2, 1],
-    [8, 1, 4, 1],
-    [6, 2, 1, 0],
-    [5, 3, 0, 1],
-    [2, 3, 2, 8],
-    [2, 1, 2, 7],
-    [4, 4, 1, 6],
+    [0, 2, 4, 0],
+    [0, 4, 2, 1],
+    [0, 6, 1, 0],
+    [0, 8, 4, 6],
+    [4, 0, 2, 8],
+    [4, 2, 1, 8],
+    [4, 4, 4, 4],
+    [4, 6, 8, 8],
+    [4, 8, 7, 7],
     [1, 3, 2, 8],
     [1, 8, 0, 0],
     [0, 0, 4, 4],
     [1, 2, 8, 8],
-    [1, 7, 7, 7],
   ];
-
   bool isVisible = true;
   late Timer timer;
 
@@ -42,7 +39,7 @@ class _TranslateImageState extends State<TranslateImage>
     _animationController =
         AnimationController(vsync: this, duration: const Duration(seconds: 2));
 
-    for (int i = 1; i <= 16; i++) {
+    for (int i = 1; i <= translationOffsets.length; i++) {
       Animation<Offset> translation = Tween(
         begin: Offset(
           translationOffsets[i - 1][0],
@@ -50,7 +47,7 @@ class _TranslateImageState extends State<TranslateImage>
         ),
         end: Offset(translationOffsets[i - 1][2], translationOffsets[i - 1][3]),
       ).animate(
-        CurvedAnimation(parent: _animationController, curve: Curves.linear),
+        CurvedAnimation(parent: _animationController, curve: Curves.easeIn),
       );
       ani.add(translation);
     }

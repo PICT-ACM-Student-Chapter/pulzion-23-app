@@ -98,7 +98,7 @@ class _SignUpState extends State<SignUp> {
                         fontSize: 15,
                       ),
                     ),
-                    backgroundColor: Colors.green,
+                    backgroundColor: const Color.fromARGB(255, 196, 117, 15),
                   ),
                 );
                 await context.read<CheckLoginCubit>().checkLogin();
@@ -114,7 +114,7 @@ class _SignUpState extends State<SignUp> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(state.message),
-                    backgroundColor: Colors.red,
+                    backgroundColor: Color.fromARGB(255, 78, 48, 21),
                   ),
                 );
 
@@ -124,7 +124,7 @@ class _SignUpState extends State<SignUp> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(state.message),
-                    backgroundColor: Colors.red,
+                    backgroundColor: Color.fromARGB(255, 78, 48, 21),
                   ),
                 );
 
@@ -548,7 +548,7 @@ class _SignUpState extends State<SignUp> {
                                               content: Text(
                                                 "Passwords do not match",
                                               ),
-                                              backgroundColor: Colors.red,
+                                              backgroundColor: Color.fromARGB(255, 78, 48, 21),
                                             ),
                                           );
 
@@ -574,7 +574,7 @@ class _SignUpState extends State<SignUp> {
                                               content: Text(
                                                 "Please fill all fields",
                                               ),
-                                              backgroundColor: Colors.red,
+                                              backgroundColor: Color.fromARGB(255, 78, 48, 21),
                                             ),
                                           );
 
@@ -588,7 +588,7 @@ class _SignUpState extends State<SignUp> {
                                               content: Text(
                                                 "Password should be atleast 8 characters long",
                                               ),
-                                              backgroundColor: Colors.red,
+                                              backgroundColor: Color.fromARGB(255, 78, 48, 21),
                                             ),
                                           );
 
@@ -601,8 +601,7 @@ class _SignUpState extends State<SignUp> {
                                               content: Text(
                                                 "Phone number should be 10 digits long",
                                               ),
-                                              backgroundColor: Colors.red,
-                                            ),
+                                              backgroundColor: Color.fromARGB(255, 78, 48, 21)),
                                           );
 
                                           return;
@@ -618,7 +617,7 @@ class _SignUpState extends State<SignUp> {
                                               content: Text(
                                                 "Please enter a valid email",
                                               ),
-                                              backgroundColor: Colors.red,
+                                              backgroundColor: Color.fromARGB(255, 78, 48, 21),
                                             ),
                                           );
 
@@ -634,7 +633,7 @@ class _SignUpState extends State<SignUp> {
                                               content: Text(
                                                 "Please enter a valid phone number",
                                               ),
-                                              backgroundColor: Colors.red,
+                                              backgroundColor: Color.fromARGB(255, 78, 48, 21),
                                             ),
                                           );
 

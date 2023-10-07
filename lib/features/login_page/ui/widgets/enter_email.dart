@@ -68,7 +68,7 @@ class _GetUserEmailState extends State<GetUserEmail> {
                   content: Text(
                     "User Not Found!",
                   ),
-                  backgroundColor: Colors.red,
+                  backgroundColor: Color.fromARGB(255, 78, 48, 21),
                 ),
               );
             } else if (state is LoginFailure) {
@@ -78,7 +78,7 @@ class _GetUserEmailState extends State<GetUserEmail> {
                   content: Text(
                     "Something went wrong...",
                   ),
-                  backgroundColor: Colors.red,
+                  backgroundColor: Color.fromARGB(255, 78, 48, 21),
                 ),
               );
             } else if (state is OTPSent) {
@@ -88,7 +88,7 @@ class _GetUserEmailState extends State<GetUserEmail> {
                   content: Text(
                     "OTP Sent Successfully!",
                   ),
-                  backgroundColor: Colors.green,
+                  backgroundColor: const Color.fromARGB(255, 196, 117, 15),
                 ),
               );
             } else if (state is PasswordChangedSuccess) {
@@ -98,7 +98,7 @@ class _GetUserEmailState extends State<GetUserEmail> {
                   content: Text(
                     "Password Changed Successfully!",
                   ),
-                  backgroundColor: Colors.green,
+                  backgroundColor: const Color.fromARGB(255, 196, 117, 15),
                 ),
               );
               Navigator.pushReplacement(
@@ -189,7 +189,7 @@ class _GetUserEmailState extends State<GetUserEmail> {
                                   content: Text(
                                     "Passwords do not match!",
                                   ),
-                                  backgroundColor: Colors.red,
+                                  backgroundColor: Color.fromARGB(255, 78, 48, 21),
                                 ),
                               );
 

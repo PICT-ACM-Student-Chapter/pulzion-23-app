@@ -153,14 +153,11 @@ class _AboutUsPageState extends State<AboutUsPage>
                           ),
                         ),
                       ),
-                      Row(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(
-                              left: width / 80,
-                              top: height / 30,
-                            ),
-                            child: Stack(
+                      Padding(
+                        padding: EdgeInsets.only(top: height * 0.05),
+                        child: Row(
+                          children: [
+                            Stack(
                               children: [
                                 Positioned(
                                   top: height / 27,
@@ -214,13 +211,7 @@ class _AboutUsPageState extends State<AboutUsPage>
                                 ),
                               ],
                             ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                              left: width / 400,
-                              top: height / 20,
-                            ),
-                            child: Stack(
+                            Stack(
                               children: [
                                 Positioned(
                                   top: height / 27,
@@ -272,8 +263,8 @@ class _AboutUsPageState extends State<AboutUsPage>
                                 ),
                               ],
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: height / 20),

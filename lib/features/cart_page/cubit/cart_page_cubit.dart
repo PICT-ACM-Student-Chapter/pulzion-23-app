@@ -83,7 +83,7 @@ class CartPageCubit extends Cubit<CartPageState> {
         sc.showSnackBar(
           const SnackBar(
             content: Text('Registered Successfully'),
-            backgroundColor: Colors.green,
+            backgroundColor: const Color.fromARGB(255, 196, 117, 15),
             duration: Duration(seconds: 2),
           ),
         );
@@ -91,7 +91,7 @@ class CartPageCubit extends Cubit<CartPageState> {
         sc.showSnackBar(
           SnackBar(
             content: Text(data['msg']),
-            backgroundColor: Colors.red,
+            backgroundColor: Color.fromARGB(255, 78, 48, 21),
           ),
         );
       }
@@ -100,7 +100,7 @@ class CartPageCubit extends Cubit<CartPageState> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Registration Failed'),
-          backgroundColor: Colors.red,
+          backgroundColor: Color.fromARGB(255, 78, 48, 21),
         ),
       );
     }
