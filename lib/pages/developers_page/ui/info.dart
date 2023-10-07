@@ -124,7 +124,7 @@ List<DeveloperData> data = [
     "snehalnaik139@gmail.com",
     "https://github.com/snehalnaik139",
     "https://in.linkedin.com/in/snehal-naik-9a36ab293",
-    "https://firebasestorage.googleapis.com/v0/b/fcmtestserver-86214.appspot.com/o/16.jpeg?alt=media",
+    "https://firebasestorage.googleapis.com/v0/b/fcmtestserver-86214.appspot.com/o/16_SS.jpeg?alt=media",
   ),
   DeveloperData(
     "Lochani Kalidasu",

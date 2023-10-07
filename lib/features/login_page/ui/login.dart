@@ -52,10 +52,14 @@ class _LoginState extends State<Login> {
             return false;
           },
           builder: (context, state) {
-            return Image.asset(
-              AppImages.spaceBackground2,
-              fit: BoxFit.cover,
-            );
+            return Container(
+              constraints: BoxConstraints.expand(),
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/app_background.jpeg"),
+                  fit: BoxFit.cover,
+                ),
+              ),);
           },
         ),
         Scaffold(

@@ -49,9 +49,14 @@ class _GetUserEmailState extends State<GetUserEmail> {
             return false;
           },
           builder: (context, state) {
-            return Image.asset(
-              AppImages.spaceBackground2,
-              fit: BoxFit.cover,
+            return Container(
+              constraints: BoxConstraints.expand(),
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/app_background.jpeg"),
+                  fit: BoxFit.cover,
+                ),
+              ),
             );
           },
         ),
@@ -212,11 +217,11 @@ class _GetUserEmailState extends State<GetUserEmail> {
                     padding: const EdgeInsets.all(10.0),
                     child: Column(
                       children: [
-                         Text(
+                        Text(
                           'Reset Password',
                           style: AppStyles.NormalText().copyWith(
                             fontSize: 30,
-                            color:Color.fromARGB(255, 208, 168, 116),
+                            color: const Color.fromARGB(255, 208, 168, 116),
                             // fontWeight: FontWeight.bold,
                             fontFamily: 'Gothica-Book',
                           ),
@@ -244,11 +249,15 @@ class _GetUserEmailState extends State<GetUserEmail> {
                         SizedBox(
                           height: 200,
                           width: 200,
-                          child: HalloweenButton(icon: Icons.email, buttonText:  'Send OTP', onPressed: () async {
+                          child: HalloweenButton(
+                            icon: Icons.email,
+                            buttonText: 'Send OTP',
+                            onPressed: () async {
                               email = _email_controller.text;
                               await BlocProvider.of<LoginCubit>(context)
                                   .sendOTP(_email_controller.text);
-                            },),
+                            },
+                          ),
                         )
                       ],
                     ),

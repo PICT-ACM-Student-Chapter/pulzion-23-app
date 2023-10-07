@@ -178,7 +178,7 @@ class _DevelopersPageState extends State<DevelopersPage> {
                             ),
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
                   Expanded(
