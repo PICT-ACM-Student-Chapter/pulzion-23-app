@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -14,20 +15,20 @@ class _TranslateImageState extends State<TranslateImage>
   late AnimationController _animationController;
   late List<Animation<Offset>> ani = [];
   List<List<double>> translationOffsets = [
-    [0, 0, 8, 7],
-    [0, 2, 4, 0],
-    [0, 4, 2, 1],
-    [0, 6, 1, 0],
-    [0, 8, 4, 6],
-    [4, 0, 2, 8],
-    [4, 2, 1, 8],
-    [4, 4, 4, 4],
-    [4, 6, 8, 8],
-    [4, 8, 7, 7],
-    [1, 3, 2, 8],
-    [1, 8, 0, 0],
-    [0, 0, 4, 4],
-    [1, 2, 8, 8],
+    // [0, 0, 8, 7],
+    // [0, 2, 4, 0],
+    // [0, 4, 2, 1],
+    // [0, 6, 1, 0],
+    // [0, 8, 4, 6],
+    // [4, 0, 2, 8],
+    // [4, 2, 1, 8],
+    // [4, 4, 4, 4],
+    // [4, 6, 8, 8],
+    // [4, 8, 7, 7],
+    // [1, 3, 2, 8],
+    // [1, 8, 0, 0],
+    // [0, 0, 4, 4],
+    // [1, 2, 8, 8],
   ];
   bool isVisible = true;
   late Timer timer;
@@ -39,18 +40,26 @@ class _TranslateImageState extends State<TranslateImage>
     _animationController =
         AnimationController(vsync: this, duration: const Duration(seconds: 2));
 
-    for (int i = 1; i <= translationOffsets.length; i++) {
+    Random random = Random();
+
+    for (int i = 0; i < 16; i++) {
+      List<double> offsetValues = [
+        random.nextDouble() * 8,
+        random.nextDouble() * 8,
+        random.nextDouble() * 8,
+        random.nextDouble() * 8,
+      ];
+
       Animation<Offset> translation = Tween(
-        begin: Offset(
-          translationOffsets[i - 1][0],
-          translationOffsets[i - 1][1],
-        ),
-        end: Offset(translationOffsets[i - 1][2], translationOffsets[i - 1][3]),
+        begin: Offset(offsetValues[0], offsetValues[1]),
+        end: Offset(offsetValues[2], offsetValues[3]),
       ).animate(
         CurvedAnimation(parent: _animationController, curve: Curves.easeIn),
       );
+
       ani.add(translation);
     }
+
     _animationController.repeat();
 
     timer = Timer(const Duration(seconds: 2), () {

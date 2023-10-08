@@ -23,7 +23,7 @@ class CartPageContent extends StatefulWidget {
 
 class _CartPageContentState extends State<CartPageContent> {
   String _transactionId = '';
-  String _referral = 'N/A';
+  final String _referral = 'N/A';
   List<String> referralCodes = [];
 
   final _formKey = GlobalKey<FormState>();
@@ -235,6 +235,7 @@ class _CartPageContentState extends State<CartPageContent> {
                                       ),
                                       style: AppStyles.NormalText().copyWith(
                                         color: Colors.white,
+                                        fontSize: 19,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -589,7 +590,7 @@ class _CartPageContentState extends State<CartPageContent> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(state.message),
-              backgroundColor: Color.fromARGB(255, 78, 48, 21),
+              backgroundColor: const Color.fromARGB(255, 78, 48, 21),
             ),
           );
         } else if (state is SentTransaction) {

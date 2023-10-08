@@ -25,7 +25,8 @@ class CartPageFinal extends StatelessWidget {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(state.message),
-                        backgroundColor: const Color.fromARGB(255, 196, 117, 15),
+                        backgroundColor:
+                            const Color.fromARGB(255, 196, 117, 15),
                         duration: const Duration(seconds: 2),
                       ),
                     );
@@ -37,7 +38,7 @@ class CartPageFinal extends StatelessWidget {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(state.message),
-                        backgroundColor:Color.fromARGB(255, 78, 48, 21),
+                        backgroundColor: const Color.fromARGB(255, 78, 48, 21),
                         duration: const Duration(seconds: 2),
                       ),
                     );

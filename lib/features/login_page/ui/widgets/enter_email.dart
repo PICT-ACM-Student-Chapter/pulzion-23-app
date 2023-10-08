@@ -5,7 +5,6 @@ import 'package:pulzion23/constants/styles.dart';
 import 'package:pulzion23/constants/widgets/halloween_button.dart';
 import 'package:pulzion23/features/login_page/logic/login_cubit.dart';
 import 'package:pulzion23/features/login_page/ui/login.dart';
-import 'package:pulzion23/features/login_page/ui/widgets/roundedbutton.dart';
 import 'package:pulzion23/features/login_page/ui/widgets/text_field.dart';
 import '../../../../constants/images.dart';
 import '../../../../project/cubit/animation_toggle_cubit.dart';
@@ -89,7 +88,7 @@ class _GetUserEmailState extends State<GetUserEmail> {
                   content: Text(
                     "OTP Sent Successfully!",
                   ),
-                  backgroundColor: const Color.fromARGB(255, 196, 117, 15),
+                  backgroundColor: Color.fromARGB(255, 196, 117, 15),
                 ),
               );
             } else if (state is PasswordChangedSuccess) {
@@ -99,7 +98,7 @@ class _GetUserEmailState extends State<GetUserEmail> {
                   content: Text(
                     "Password Changed Successfully!",
                   ),
-                  backgroundColor: const Color.fromARGB(255, 196, 117, 15),
+                  backgroundColor: Color.fromARGB(255, 196, 117, 15),
                 ),
               );
               Navigator.pushReplacement(
@@ -123,9 +122,9 @@ class _GetUserEmailState extends State<GetUserEmail> {
                 child: Text('Something went wrong...'),
               );
             } else if (state is OTPSent) {
-              return Scaffold(
-                backgroundColor: Colors.transparent,
-                body: SafeArea(
+              return Material(
+                color: Colors.transparent,
+                child: SafeArea(
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Column(

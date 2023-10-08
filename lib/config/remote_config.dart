@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 
 import '../constants/urls.dart';
@@ -11,7 +9,7 @@ Future<void> remoteConfig() async {
     minimumFetchInterval: const Duration(hours: 1),
   ));
   await remoteConfig.fetchAndActivate();
-  EndPoints.baseUrl = "https://api.pulzion.co.in";
+  EndPoints.baseUrl = remoteConfig.getString('BaseUrl');
   EndPoints.sampleToken = remoteConfig.getString('SampleToken');
   EndPoints.appLatestStableVersion =
       remoteConfig.getString('AppLatestStableVersion');
@@ -19,9 +17,7 @@ Future<void> remoteConfig() async {
   EndPoints.websiteURL = remoteConfig.getString('websiteUrl');
   EndPoints.playStoreURL = remoteConfig.getString('playstoreUrl');
   EndPoints.sponsorsUrl = remoteConfig.getString('sponsorsUrl');
-  //! change in release (review)
-  EndPoints.acceptingPayment = true;
-  // remoteConfig.getBool('AcceptPayment');
+  EndPoints.acceptingPayment = remoteConfig.getBool('AcceptPayment');
   EndPoints.mcqStarted = remoteConfig.getBool('mcqStarted');
   EndPoints.mcqBaseUrl = remoteConfig.getString('mcqBaseUrl');
   EndPoints.referralLink = remoteConfig.getString('ReferalLink');

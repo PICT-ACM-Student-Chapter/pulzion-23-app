@@ -132,8 +132,9 @@ Widget cardDesign(
               child: Text(
                 (data.toString()[0].toUpperCase() +
                     data.toString().substring(1).toLowerCase()),
-                style: const TextStyle(
+                style: AppStyles.NormalText().copyWith(
                   color: Colors.white,
+                  fontSize: 15,
                 ),
               ),
             ),

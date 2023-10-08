@@ -18,7 +18,8 @@ class DynamicButton extends StatelessWidget {
       builder: (context, state) {
         if (state is CheckLoginFailure || state is CheckLoginLoading) {
           return event.price == 0
-              ? Expanded(
+              ? SizedBox(
+                  height: 200,
                   child: HalloweenButton(
                     buttonText: 'Register Now',
                     icon: Icons.edit_rounded,
@@ -33,7 +34,8 @@ class DynamicButton extends StatelessWidget {
                     },
                   ),
                 )
-              : Expanded(
+              : SizedBox(
+                  height: 200,
                   child: HalloweenButton(
                     buttonText: 'Add to Cart',
                     icon: Icons.shopping_cart,
@@ -53,7 +55,8 @@ class DynamicButton extends StatelessWidget {
           child: event.price == 0
               ? BlocBuilder<CartPageCubit, CartPageState>(
                   builder: (context, state) {
-                    return Expanded(
+                    return SizedBox(
+                      height: 200,
                       child: HalloweenButton(
                         buttonText: 'Register Now',
                         icon: Icons.edit_rounded,
@@ -70,7 +73,8 @@ class DynamicButton extends StatelessWidget {
                   builder: ((context, cartPageState) {
                     if (cartPageState is CartPageLoaded) {
                       if (cartPageState.cartList.getIds().contains(event.id)) {
-                        return Expanded(
+                        return SizedBox(
+                          height: 200,
                           child: HalloweenButton(
                             buttonText: 'Remove',
                             icon: Icons.close_rounded,
@@ -84,7 +88,8 @@ class DynamicButton extends StatelessWidget {
                           ),
                         );
                       } else {
-                        Expanded(
+                        SizedBox(
+                          height: 200,
                           child: HalloweenButton(
                             buttonText: 'Add to Cart',
                             icon: Icons.shopping_cart,
@@ -103,7 +108,8 @@ class DynamicButton extends StatelessWidget {
                       return const Expanded(child: LoadingButton());
                     }
 
-                    return Expanded(
+                    return SizedBox(
+                      height: 200,
                       child: HalloweenButton(
                         buttonText: 'Add to Cart',
                         icon: Icons.shopping_cart,

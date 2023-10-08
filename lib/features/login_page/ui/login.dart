@@ -71,7 +71,7 @@ class _LoginState extends State<Login> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text("Login Successful"),
-                    backgroundColor: const Color.fromARGB(255, 196, 117, 15),
+                    backgroundColor: Color.fromARGB(255, 196, 117, 15),
                   ),
                 );
                 await context.read<CheckLoginCubit>().checkLogin();
@@ -86,7 +86,7 @@ class _LoginState extends State<Login> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(state.message),
-                      backgroundColor:Color.fromARGB(255, 78, 48, 21),
+                      backgroundColor: const Color.fromARGB(255, 78, 48, 21),
                     ),
                   );
                 }

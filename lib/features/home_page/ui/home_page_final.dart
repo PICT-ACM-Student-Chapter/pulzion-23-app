@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
-import 'package:panorama/panorama.dart';
 import 'package:pulzion23/features/home_page/ui/wigets/animation.dart';
 import 'package:sizer/sizer.dart';
 
@@ -26,7 +25,6 @@ class _HomePageContentState extends State<HomePageContent>
     with TickerProviderStateMixin {
   late TabController tabBarController;
   int page = 2;
-  final SensorControl sensorControl = SensorControl.AbsoluteOrientation;
   int a = 0;
 
   @override

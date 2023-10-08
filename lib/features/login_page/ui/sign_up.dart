@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:panorama/panorama.dart';
 import 'package:pulzion23/constants/widgets/halloween_button.dart';
 
 import '../../../project/cubit/animation_toggle_cubit.dart';
@@ -10,7 +9,6 @@ import '../../../constants/styles.dart';
 import '../../../constants/widgets/loader.dart';
 import 'widgets/go_back_button.dart';
 
-import '../../../constants/colors.dart';
 import '../cubit/check_login_cubit.dart';
 import '../logic/sign_up_cubit.dart';
 import 'widgets/text_field.dart';
@@ -24,8 +22,6 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  final SensorControl sensorControl = SensorControl.AbsoluteOrientation;
-
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController passwordConfirmController =
@@ -114,7 +110,7 @@ class _SignUpState extends State<SignUp> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(state.message),
-                    backgroundColor: Color.fromARGB(255, 78, 48, 21),
+                    backgroundColor: const Color.fromARGB(255, 78, 48, 21),
                   ),
                 );
 
@@ -124,7 +120,7 @@ class _SignUpState extends State<SignUp> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(state.message),
-                    backgroundColor: Color.fromARGB(255, 78, 48, 21),
+                    backgroundColor: const Color.fromARGB(255, 78, 48, 21),
                   ),
                 );
 
@@ -186,7 +182,6 @@ class _SignUpState extends State<SignUp> {
                                     fontWeight: FontWeight.w400,
                                     fontSize: 17,
                                   ),
-
                                   onCountryChanged: (country) {
                                     setState(() {
                                       log(country.toString());
@@ -290,11 +285,15 @@ class _SignUpState extends State<SignUp> {
                                             ),
                                             child: RadioListTile(
                                               contentPadding: EdgeInsets.zero,
-                                              activeColor: AppColors.secondary,
+                                              activeColor: const Color.fromARGB(
+                                                  255, 228, 188, 136),
                                               title: Text(
                                                 'PICT',
-                                                style:
-                                                    AppStyles.bodyTextStyle2(),
+                                                style: AppStyles.NormalText()
+                                                    .copyWith(
+                                                  color: Colors.white,
+                                                  fontSize: 20,
+                                                ),
                                               ),
                                               value: 1,
                                               groupValue: YearSelectRadioTile
@@ -324,11 +323,15 @@ class _SignUpState extends State<SignUp> {
                                             ),
                                             child: RadioListTile(
                                               contentPadding: EdgeInsets.zero,
-                                              activeColor: AppColors.secondary,
+                                              activeColor: const Color.fromARGB(
+                                                  255, 228, 188, 136),
                                               title: Text(
                                                 'Other',
-                                                style:
-                                                    AppStyles.bodyTextStyle2(),
+                                                style: AppStyles.NormalText()
+                                                    .copyWith(
+                                                  color: Colors.white,
+                                                  fontSize: 20,
+                                                ),
                                               ),
                                               value: 2,
                                               groupValue: YearSelectRadioTile
@@ -478,18 +481,24 @@ class _SignUpState extends State<SignUp> {
                                   //         .toList(),
                                   //   ),
                                   if (!isOpen)
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 8.0),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(24),
-                                        ),
-                                        child: LoginSignUpTextField(
-                                          'Enter College Name',
-                                          Icons.school,
-                                          controller: othercollegeController,
-                                          obscureText: false,
+                                    AnimatedContainer(
+                                      duration: const Duration(
+                                        milliseconds: 1000,
+                                      ),
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 8.0),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(24),
+                                          ),
+                                          child: LoginSignUpTextField(
+                                            'Enter College Name',
+                                            Icons.school,
+                                            controller: othercollegeController,
+                                            obscureText: false,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -521,13 +530,13 @@ class _SignUpState extends State<SignUp> {
                                 child: Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(24),
-                                    image: const DecorationImage(
-                                      // colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.7),BlendMode.dstATop),
-                                      image: AssetImage(
-                                        'assets/images/pumpkin.jpg',
-                                      ),
-                                      fit: BoxFit.fill,
-                                    ),
+                                    // image: const DecorationImage(
+                                    // colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.7),BlendMode.dstATop),
+                                    // image: AssetImage(
+                                    //   'assets/images/pumpkin.png',
+                                    // ),
+                                    // fit: BoxFit.fill,
+                                    // ),
                                   ),
                                   child: Container(
                                     padding: const EdgeInsets.only(
@@ -548,7 +557,8 @@ class _SignUpState extends State<SignUp> {
                                               content: Text(
                                                 "Passwords do not match",
                                               ),
-                                              backgroundColor: Color.fromARGB(255, 78, 48, 21),
+                                              backgroundColor: Color.fromARGB(
+                                                  255, 78, 48, 21),
                                             ),
                                           );
 
@@ -574,7 +584,8 @@ class _SignUpState extends State<SignUp> {
                                               content: Text(
                                                 "Please fill all fields",
                                               ),
-                                              backgroundColor: Color.fromARGB(255, 78, 48, 21),
+                                              backgroundColor: Color.fromARGB(
+                                                  255, 78, 48, 21),
                                             ),
                                           );
 
@@ -588,7 +599,8 @@ class _SignUpState extends State<SignUp> {
                                               content: Text(
                                                 "Password should be atleast 8 characters long",
                                               ),
-                                              backgroundColor: Color.fromARGB(255, 78, 48, 21),
+                                              backgroundColor: Color.fromARGB(
+                                                  255, 78, 48, 21),
                                             ),
                                           );
 
@@ -598,10 +610,11 @@ class _SignUpState extends State<SignUp> {
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
                                             const SnackBar(
-                                              content: Text(
-                                                "Phone number should be 10 digits long",
-                                              ),
-                                              backgroundColor: Color.fromARGB(255, 78, 48, 21)),
+                                                content: Text(
+                                                  "Phone number should be 10 digits long",
+                                                ),
+                                                backgroundColor: Color.fromARGB(
+                                                    255, 78, 48, 21)),
                                           );
 
                                           return;
@@ -617,7 +630,8 @@ class _SignUpState extends State<SignUp> {
                                               content: Text(
                                                 "Please enter a valid email",
                                               ),
-                                              backgroundColor: Color.fromARGB(255, 78, 48, 21),
+                                              backgroundColor: Color.fromARGB(
+                                                  255, 78, 48, 21),
                                             ),
                                           );
 
@@ -633,7 +647,8 @@ class _SignUpState extends State<SignUp> {
                                               content: Text(
                                                 "Please enter a valid phone number",
                                               ),
-                                              backgroundColor: Color.fromARGB(255, 78, 48, 21),
+                                              backgroundColor: Color.fromARGB(
+                                                  255, 78, 48, 21),
                                             ),
                                           );
 

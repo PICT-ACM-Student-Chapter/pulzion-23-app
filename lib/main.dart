@@ -14,7 +14,6 @@ import 'package:pulzion23/project/cubit/animation_toggle_cubit.dart';
 import 'package:pulzion23/services/mcq_user_provider.dart';
 
 import 'config/remote_config.dart';
-import 'constants/utils/theme.dart';
 import 'features/cart_page/cubit/cart_page_cubit.dart';
 import 'features/compulsory_update/cubit/compulsory_update_cubit.dart';
 import 'features/compulsory_update/ui/compulsary_update.dart';
@@ -126,14 +125,17 @@ class _Pulzion23AppState extends State<Pulzion23App>
         ),
       ],
       child: MaterialApp(
+        theme: ThemeData(
+          primaryColor: const Color.fromARGB(255, 78, 48, 21),
+        ),
         builder: (context, child) {
           return MediaQuery(
             data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
             child: child!,
           );
         },
-        title: 'Pulzion 23',
-        theme: Themes.darkTheme,
+        title: 'Pulzion Tech or Treat',
+        // theme: Themes.darkTheme,
         debugShowCheckedModeBanner: false,
         home: MultiBlocProvider(
           providers: [

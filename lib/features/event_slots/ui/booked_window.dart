@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:panorama/panorama.dart';
-import 'package:pulzion23/constants/colors.dart';
+import 'package:pulzion23/constants/styles.dart';
 import 'package:pulzion23/constants/widgets/empty_page.dart';
 import 'package:pulzion23/features/event_slots/ui/view_slot_details.dart';
 import 'package:pulzion23/features/registered_events_and_orders/cubit/registered_events_and_orders_cubit.dart';
@@ -151,14 +150,13 @@ class _BookSlotsState extends State<BookSlots> {
             return false;
           },
           builder: (context, state) {
-            return Panorama(
-              sensitivity: 0.4,
-              animSpeed: 0.5,
-              sensorControl:
-                  state ? SensorControl.Orientation : SensorControl.None,
-              child: Image.asset(
-                'assets/images/app_background.png',
-                fit: BoxFit.cover,
+            return Container(
+              constraints: const BoxConstraints.expand(),
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/app_background.jpeg"),
+                  fit: BoxFit.cover,
+                ),
               ),
             );
           },
@@ -176,7 +174,7 @@ class _BookSlotsState extends State<BookSlots> {
                   flexibleSpace: FlexibleSpaceBar(
                     centerTitle: true,
                     title: Padding(
-                      padding: const EdgeInsets.all(12),
+                      padding: const EdgeInsets.all(15),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -186,11 +184,9 @@ class _BookSlotsState extends State<BookSlots> {
                               fit: BoxFit.cover,
                               child: Text(
                                 'BOOK SLOTS',
-                                style: TextStyle(
+                                style: AppStyles.NormalText().copyWith(
                                   color: Colors.white,
-                                  fontSize:
-                                      MediaQuery.of(context).size.height / 70,
-                                  fontFamily: 'Panther',
+                                  fontSize: 20,
                                 ),
                               ),
                             ),
@@ -246,14 +242,26 @@ class _BookSlotsState extends State<BookSlots> {
                       width: w / 4,
                       height: w / 4,
                       decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
                         gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: AppColors.eventCardGradientList.elementAt(
-                            0 % AppColors.eventCardGradientList.length,
-                          ),
+                          colors: [
+                            Colors.black.withOpacity(0.6),
+                            Colors.black.withOpacity(0.4),
+                            Colors.black.withOpacity(0.4),
+                          ],
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
                         ),
+                        // border: Border.all(
+                        //   color: Colors.orange[700]!.withOpacity(0.8),
+                        //   width: 0.7,
+                        // ),
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 1.0,
+                            spreadRadius: 2.0,
+                            color: Colors.yellow[900]!.withOpacity(0.3),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -268,7 +276,7 @@ class _BookSlotsState extends State<BookSlots> {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         duration: Duration(seconds: 3),
                         content: Text('Slot Booked Successfully!'),
-                        backgroundColor: const Color.fromARGB(255, 196, 117, 15),
+                        backgroundColor: Color.fromARGB(255, 196, 117, 15),
                       ));
                       Navigator.pushReplacement(
                         context,
@@ -293,7 +301,7 @@ class _BookSlotsState extends State<BookSlots> {
                         content: Text(
                           state.message.toString(),
                         ),
-                        backgroundColor: Color.fromARGB(255, 78, 48, 21),
+                        backgroundColor: const Color.fromARGB(255, 78, 48, 21),
                       ));
                     }
                   },

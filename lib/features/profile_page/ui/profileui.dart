@@ -223,7 +223,7 @@ class ProfilePage extends StatelessWidget {
                       SizedBox(
                         height: h * 0.01,
                       ),
-                      SizedBox(height: 0.0000001, width: double.infinity),
+                      const SizedBox(height: 0.0000001, width: double.infinity),
                     ],
                   ),
                 );

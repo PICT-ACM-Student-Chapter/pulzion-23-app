@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:panorama/panorama.dart';
 import '../../../project/cubit/animation_toggle_cubit.dart';
 
 import '../../../config/size_config.dart';
@@ -14,8 +13,6 @@ import 'sign_up.dart';
 
 class LoginSignUpIntro extends StatelessWidget {
   const LoginSignUpIntro({super.key});
-
-  final SensorControl sensorControl = SensorControl.AbsoluteOrientation;
 
   @override
   Widget build(BuildContext context) {

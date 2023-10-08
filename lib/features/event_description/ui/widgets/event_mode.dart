@@ -14,7 +14,7 @@ class EventMode extends StatelessWidget {
         gradient: LinearGradient(
           colors: [
             Colors.orange.shade900.withOpacity(0.9),
-            Color.fromARGB(255, 54, 19, 1).withOpacity(0.9),
+            const Color.fromARGB(255, 54, 19, 1).withOpacity(0.9),
             // const Color.fromARGB(255, 13, 69, 115).withOpacity(0.1),
             // Colors.black,
           ],

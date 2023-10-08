@@ -261,15 +261,16 @@ class _DevelopersPageState extends State<DevelopersPage> {
                                             imageUrl:
                                                 developersList[index].imageUrl,
                                             placeholder: (context, url) =>
-                                                Image.asset(
-                                              'assets/images/placeholder_person.png',
+                                                Lottie.asset(
+                                              'assets/images/profile.json',
                                             ),
                                             errorWidget:
                                                 (context, url, error) =>
                                                     Container(),
                                             cacheManager: _cacheManager,
                                             fadeInDuration: const Duration(
-                                                milliseconds: 100),
+                                              milliseconds: 200,
+                                            ),
                                             fit: BoxFit.fitWidth,
                                             key: UniqueKey(),
                                           ),

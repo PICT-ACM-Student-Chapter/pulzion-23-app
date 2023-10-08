@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +19,7 @@ class CompulsoryUpdateCubit extends Cubit<CompulsoryUpdateState> {
 
   Future<void> needsUpdate() async {
     emit(CompulsoryUpdateLoading());
+    log(EndPoints.appLatestStableVersion.toString());
 
     final PackageInfo packageInfo = await PackageInfo.fromPlatform();
     final List<int> currentVersion = packageInfo.version

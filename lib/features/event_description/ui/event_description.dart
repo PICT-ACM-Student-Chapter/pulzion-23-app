@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pulzion23/constants/images.dart';
-import 'package:pulzion23/constants/widgets/empty_page.dart';
 import 'package:pulzion23/constants/widgets/halloween_button.dart';
-import 'package:pulzion23/features/combo_cubit/models/combo_model.dart';
 import 'package:pulzion23/features/event_description/ui/widgets/event_mode.dart';
-import 'package:pulzion23/features/event_description/ui/widgets/offer_card.dart';
 import "package:share_plus/share_plus.dart";
 import '../../../constants/urls.dart';
 import '../../cart_page/cubit/cart_page_cubit.dart';
@@ -220,9 +216,6 @@ class _EventDescriptionState extends State<EventDescription>
                 },
               ),
             ),
-            // DynamicButton(
-            //   event: event,
-            // ),
           ],
         ),
       ),
@@ -247,7 +240,7 @@ class _EventDescriptionState extends State<EventDescription>
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.message),
-                backgroundColor: Color.fromARGB(255, 78, 48, 21),
+                backgroundColor: const Color.fromARGB(255, 78, 48, 21),
               ),
             );
             // BlocProvider.of<CartPageCubit>(context).loadCart();
@@ -256,7 +249,7 @@ class _EventDescriptionState extends State<EventDescription>
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.message),
-                backgroundColor: Color.fromARGB(255, 78, 48, 21),
+                backgroundColor: const Color.fromARGB(255, 78, 48, 21),
               ),
             );
             BlocProvider.of<CartPageCubit>(context).loadCart();
@@ -265,7 +258,7 @@ class _EventDescriptionState extends State<EventDescription>
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.message),
-                backgroundColor: Color.fromARGB(255, 78, 48, 21),
+                backgroundColor: const Color.fromARGB(255, 78, 48, 21),
               ),
             );
             // BlocProvider.of<CartPageCubit>(context).loadCart();
@@ -306,8 +299,8 @@ class _EventDescriptionState extends State<EventDescription>
                       child: InkWell(
                         onTap: (() {
                           Share.share(
-                            '${event.description}\n\nPulzion 23 App: ${EndPoints.playStoreURL}',
-                            subject: 'Pulzion 2023',
+                            '${event.description}\n\nPulzion App: ${EndPoints.playStoreURL}',
+                            subject: 'Pulzion Tech Or Treat',
                             sharePositionOrigin:
                                 const Rect.fromLTWH(0, 0, 10, 10),
                           );
@@ -465,7 +458,7 @@ class _EventDescriptionState extends State<EventDescription>
                               ),
                             ),
                             Text(
-                              "Offers",
+                              "Combos",
                               style: AppStyles.TitleText().copyWith(
                                 color: Theme.of(context).primaryColor,
                                 // fontFamily: 'Quicksand',
@@ -502,8 +495,9 @@ class _EventDescriptionState extends State<EventDescription>
                                     //   fontStyle: FontStyle.italic,
                                     // ),
                                     style: AppStyles.NormalText().copyWith(
-                                        color: Theme.of(context).primaryColor,
-                                        fontSize: 20),
+                                      color: Theme.of(context).primaryColor,
+                                      fontSize: 20,
+                                    ),
                                   ),
                                 ),
                                 Padding(
@@ -511,8 +505,9 @@ class _EventDescriptionState extends State<EventDescription>
                                   child: Text(
                                     event.description!,
                                     style: AppStyles.NormalText().copyWith(
-                                        color: Theme.of(context).primaryColor,
-                                        fontSize: 15),
+                                      color: Theme.of(context).primaryColor,
+                                      fontSize: 15,
+                                    ),
                                   ),
                                 ),
                                 Padding(
