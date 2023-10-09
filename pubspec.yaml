@@ -56,6 +56,8 @@ dependencies:
     video_player: ^2.2.5
     flutter_custom_clippers: ^2.1.0
     assets_audio_player: ^3.1.1
+    webview_flutter: ^3.0.4
+
 
 
 dev_dependencies:
@@ -76,7 +78,7 @@ flutter:
 
     assets:
         - assets/images/
-        - assets/images/eventlogos/
+        #- assets/images/eventlogos/
         - assets/video/
         - assets/audios/halloween_sound.mp3
 

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pulzion23/features/splash_screen/cubit/splash_cubit.dart';
+import 'package:pulzion23/pages/more_page/ui/suggestion/suggestion_page.dart';
 import 'package:pulzion23/project/cubit/animation_toggle_cubit.dart';
 import '../../../constants/styles.dart';
 import '../../about_us_page/ui/about_us.dart';
@@ -298,6 +299,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                           );
                         },
                       ),
+
                     ],
                     [
                       FrostedTile(
@@ -308,6 +310,20 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                             context,
                             MaterialPageRoute(
                               builder: (context) => AboutUsPage(true),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                    [
+                      FrostedTile(
+                        tilename: 'Suggestion',
+                        tileicon: Icons.info_outline,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SuggestionPage(),
                             ),
                           );
                         },
