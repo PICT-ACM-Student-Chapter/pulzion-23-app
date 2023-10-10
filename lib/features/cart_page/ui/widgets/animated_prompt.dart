@@ -148,9 +148,10 @@ class _AnimatedPromptState extends State<AnimatedPrompt>
                     .toList(),
               ),
             ),
-          SizedBox(
-            height: widgWidth / 10,
-          ),
+          if (widget.comboEvents != null)
+            SizedBox(
+              height: widgWidth / 10,
+            ),
           Row(
             children: [
               SizedBox(
