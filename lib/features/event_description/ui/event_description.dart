@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pulzion23/constants/images.dart';
-import 'package:pulzion23/constants/widgets/empty_page.dart';
 import 'package:pulzion23/constants/widgets/halloween_button.dart';
-import 'package:pulzion23/features/combo_cubit/models/combo_model.dart';
 import 'package:pulzion23/features/event_description/ui/widgets/event_mode.dart';
 import 'package:pulzion23/features/event_description/ui/widgets/offer_card.dart';
 import "package:share_plus/share_plus.dart";

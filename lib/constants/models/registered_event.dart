@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 class RegisteredEvent {
   int? id;

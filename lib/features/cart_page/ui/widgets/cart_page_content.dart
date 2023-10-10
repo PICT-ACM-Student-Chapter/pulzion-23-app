@@ -850,7 +850,7 @@ class _CartPageContentState extends State<CartPageContent>
                                                   subtitle: widget.eventList!
                                                       .cartItems![index].price
                                                       .toString(),
-                                                      comboEvents: null,
+                                                  comboEvents: null,
                                                   image: Image.network(
                                                     widget
                                                         .eventList!
