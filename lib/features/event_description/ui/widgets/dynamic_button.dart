@@ -97,7 +97,7 @@ class DynamicButton extends StatelessWidget {
                               if (event.id != null) {
                                 BlocProvider.of<CartPageCubit>(
                                   context,
-                                ).addCartItem(event.id!, null);
+                                ).addCartItem(event.id!);
                               }
                             },
                           ),
@@ -117,7 +117,7 @@ class DynamicButton extends StatelessWidget {
                           if (event.id != null) {
                             BlocProvider.of<CartPageCubit>(
                               context,
-                            ).addCartItem(event.id!, null);
+                            ).addCartItem(event.id!);
                           }
                         },
                       ),

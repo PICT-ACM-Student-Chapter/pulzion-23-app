@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glassmorphism/glassmorphism.dart';
+import 'package:pulzion23/constants/colors.dart';
 import 'package:pulzion23/constants/urls.dart';
 import 'package:pulzion23/constants/widgets/halloween_button.dart';
 import 'package:pulzion23/features/cart_page/cubit/cart_page_cubit.dart';
@@ -21,10 +22,14 @@ class CartPageContent extends StatefulWidget {
   State<CartPageContent> createState() => _CartPageContentState();
 }
 
-class _CartPageContentState extends State<CartPageContent> {
+class _CartPageContentState extends State<CartPageContent>
+    with TickerProviderStateMixin {
   String _transactionId = '';
   final String _referral = 'N/A';
   List<String> referralCodes = [];
+
+  late final TabController tabBarController =
+      TabController(length: 2, vsync: this);
 
   final _formKey = GlobalKey<FormState>();
 
@@ -750,7 +755,7 @@ class _CartPageContentState extends State<CartPageContent> {
               Expanded(
                 child: widget.eventList == null ||
                         widget.eventList!.cartItems == null ||
-                        widget.eventList!.cartItems!.isEmpty
+                        widget.eventList!.cartCombos == null
                     ? Center(
                         child: EmptyPage(
                           errorMessage: 'Add some events to your Cart',
@@ -762,66 +767,147 @@ class _CartPageContentState extends State<CartPageContent> {
                       )
                     : Stack(
                         children: [
-                          Padding(
-                            padding: EdgeInsets.only(bottom: h * 0.07),
-                            child: ListView.builder(
-                              itemBuilder: (context, index) {
-                                return index == 0
-                                    ? Column(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                              top: 16.0,
-                                              bottom: 8.0,
-                                            ),
-                                            child: Text(
-                                              "EVENTS",
-                                              style: AppStyles.NormalText()
-                                                  .copyWith(
-                                                color: Colors.white,
-                                                fontSize: 30,
-                                                fontWeight: FontWeight.w700,
-                                              ),
-                                            ),
-                                          ),
-                                          AnimatedPrompt(
-                                            id: widget.eventList!
-                                                .cartItems![index].id!,
-                                            title: widget.eventList!
-                                                .cartItems![index].name!,
-                                            subtitle: widget.eventList!
-                                                .cartItems![index].price
-                                                .toString(),
-                                            image: Image.network(
-                                              widget.eventList!
-                                                  .cartItems![index].logo!,
-                                              width: w * 0.15,
-                                              height: h * 0.1,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ],
-                                      )
-                                    : AnimatedPrompt(
-                                        id: widget
-                                            .eventList!.cartItems![index].id!,
-                                        title: widget
-                                            .eventList!.cartItems![index].name!,
-                                        subtitle: widget
-                                            .eventList!.cartItems![index].price
-                                            .toString(),
-                                        image: Image.network(
-                                          widget.eventList!.cartItems![index]
-                                              .logo!,
-                                          width: w * 0.15,
-                                          height: h * 0.1,
-                                          color: Colors.white,
+                          Column(
+                            children: [
+                              SizedBox(
+                                height: h / 50,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(bottom: h * 0.02),
+                                child: DefaultTabController(
+                                  length: 2,
+                                  child: TabBar(
+                                    labelPadding: const EdgeInsets.all(12),
+                                    indicator: const BoxDecoration(
+                                      border: Border(
+                                        bottom: BorderSide(
+                                          color: Color.fromARGB(
+                                              255, 208, 168, 116),
                                         ),
-                                      );
-                              },
-                              itemCount:
-                                  widget.eventList?.cartItems?.length ?? 0,
-                            ),
+                                      ),
+                                    ),
+                                    unselectedLabelColor:
+                                        AppColors.cardSubtitleTextColor,
+                                    labelColor: Colors.orangeAccent,
+                                    controller: tabBarController,
+                                    tabs: [
+                                      Text(
+                                        "Events",
+                                        style: AppStyles.TitleText().copyWith(
+                                          // fontFamily: 'Quicksand',
+                                          color: const Color.fromARGB(
+                                              255, 208, 168, 116),
+                                          fontSize: h * 0.03,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      Text(
+                                        "Combos",
+                                        style: AppStyles.TitleText().copyWith(
+                                          color: const Color.fromARGB(
+                                            255,
+                                            208,
+                                            168,
+                                            116,
+                                          ),
+                                          // fontFamily: 'Quicksand',
+                                          fontSize: h * 0.03,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: w,
+                                height: h / 2,
+                                // height: double.infinity,
+                                child: TabBarView(
+                                  physics: const BouncingScrollPhysics(),
+                                  controller: tabBarController,
+                                  children: [
+                                    SizedBox(
+                                      height: 600,
+                                      child: widget.eventList!.cartItems ==
+                                                  null ||
+                                              widget
+                                                  .eventList!.cartItems!.isEmpty
+                                          ? const Center(
+                                              child: EmptyPage(
+                                                title: 'No Events in Cart',
+                                                errorMessage:
+                                                    'Add some events to your Cart',
+                                              ),
+                                            )
+                                          : ListView.builder(
+                                              itemBuilder: (context, index) {
+                                                return AnimatedPrompt(
+                                                  id: widget.eventList!
+                                                      .cartItems![index].id!,
+                                                  title: widget.eventList!
+                                                      .cartItems![index].name!,
+                                                  subtitle: widget.eventList!
+                                                      .cartItems![index].price
+                                                      .toString(),
+                                                      comboEvents: null,
+                                                  image: Image.network(
+                                                    widget
+                                                        .eventList!
+                                                        .cartItems![index]
+                                                        .logo!,
+                                                    width: w * 0.15,
+                                                    height: h * 0.1,
+                                                    color: Colors.white,
+                                                  ),
+                                                );
+                                              },
+                                              itemCount: widget.eventList
+                                                      ?.cartItems?.length ??
+                                                  0,
+                                            ),
+                                    ),
+                                    SizedBox(
+                                      height: 600,
+                                      child: widget.eventList!.cartCombos ==
+                                                  null ||
+                                              widget.eventList!.cartCombos!
+                                                  .isEmpty
+                                          ? const Center(
+                                              child: EmptyPage(
+                                                title: 'No Combos in Cart',
+                                                errorMessage:
+                                                    'Add some combos to your Cart',
+                                              ),
+                                            )
+                                          : ListView.builder(
+                                              itemCount: widget.eventList!
+                                                  .cartCombos!.length,
+                                              itemBuilder: (context, index) {
+                                                final combo = widget.eventList!
+                                                    .cartCombos![index];
+
+                                                return AnimatedPrompt(
+                                                  id: combo.comboID!,
+                                                  title: combo.comboName!,
+                                                  subtitle: combo
+                                                      .comboDiscountedPrice!,
+                                                  comboEvents: combo
+                                                      .comboDetailsList!
+                                                      .map((e) => e.name)
+                                                      .toList(),
+                                                  image: Image.network(
+                                                    combo.comboDetailsList![0]
+                                                        .logo,
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                           Positioned(
                             bottom: MediaQuery.of(context).size.height * 0.012,
@@ -864,3 +950,6 @@ class _CartPageContentState extends State<CartPageContent> {
     );
   }
 }
+
+/*
+ */

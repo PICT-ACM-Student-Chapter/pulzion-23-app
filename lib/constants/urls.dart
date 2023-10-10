@@ -17,10 +17,11 @@ class EndPoints {
   static String signup = '${baseUrl!}/user/signup';
   static String addFCMToken = '${baseUrl!}/fcm_token/';
   static String cart = '${baseUrl!}/cart/';
+  static String combos = '${baseUrl!}/cart/combo/';
   static String transaction = '${baseUrl!}/transaction';
   static String otp = '${baseUrl!}/user/otp';
   static String forget = '${baseUrl!}/user/forget';
-  static String userEvents = '${baseUrl!}/user_events';
+  static String userEvents = '${baseUrl!}/transaction';
   static String getSlots = '${baseUrl!}/user_slots?event_id=';
   static String bookSlots = '${baseUrl!}/user_slots';
   static String userRegister = '${baseUrl!}/user_events';

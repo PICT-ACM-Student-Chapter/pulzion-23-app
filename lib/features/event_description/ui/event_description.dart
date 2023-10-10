@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pulzion23/constants/images.dart';
+import 'package:pulzion23/constants/widgets/empty_page.dart';
 import 'package:pulzion23/constants/widgets/halloween_button.dart';
+import 'package:pulzion23/features/combo_cubit/models/combo_model.dart';
 import 'package:pulzion23/features/event_description/ui/widgets/event_mode.dart';
+import 'package:pulzion23/features/event_description/ui/widgets/offer_card.dart';
 import "package:share_plus/share_plus.dart";
 import '../../../constants/urls.dart';
 import '../../cart_page/cubit/cart_page_cubit.dart';
@@ -211,7 +215,7 @@ class _EventDescriptionState extends State<EventDescription>
                   if (event.id != null) {
                     BlocProvider.of<CartPageCubit>(
                       context,
-                    ).addCartItem(event.id!, null);
+                    ).addCartItem(event.id!);
                   }
                 },
               ),
@@ -580,91 +584,97 @@ class _EventDescriptionState extends State<EventDescription>
                               fontSize: 15,
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 30.0),
-                            child: Text(
-                              'Offers for ${event.name} coming soon!!',
-                              textAlign: TextAlign.center,
-                              style: AppStyles.NormalText().copyWith(
-                                color: Theme.of(context).primaryColor,
-                                fontSize: 20,
-                              ),
-                            ),
-                          ),
-
-                          // event.offers == null || event.offers!.isEmpty
-                          //     ? Center(
-                          //         child: EmptyPage(
-                          //           errorMessage:
-                          //               "No offers available for ${event.name}",
-                          //           title: "",
-                          //         ),
-                          //       )
-                          //     : ListView.builder(
-                          //         physics: const NeverScrollableScrollPhysics(),
-                          //         shrinkWrap: true,
-                          //         itemCount: event.offers == null
-                          //             ? 0
-                          //             : event.offers == null
-                          //                 ? 0
-                          //                 : event.offers!.length,
-                          //         itemBuilder: (context, index) {
-                          //           final comboo = event.offers![index];
-
-                          //           return InkWell(
-                          //             onTap: () async {
-                          //               // add to cart
-                          //               final sc =
-                          //                   ScaffoldMessenger.of(context);
-                          //               final bc =
-                          //                   BlocProvider.of<CartPageCubit>(
-                          //                 context,
-                          //               );
-                          //               for (ComboDetails eventCombo
-                          //                   in comboo.comboDetailsList!) {
-                          //                 if (!await bc.addCartItem(
-                          //                   int.parse(eventCombo.id),
-                          //                   null,
-                          //                 )) {
-                          //                   sc.showSnackBar(
-                          //                     SnackBar(
-                          //                       content: Text(
-                          //                         'Some items in the combo are already in the cart',
-                          //                         style: AppStyles.NormalText()
-                          //                             .copyWith(
-                          //                                 color:
-                          //                                     Theme.of(context)
-                          //                                         .primaryColor,
-                          //                                 fontSize: 10),
-                          //                       ),
-                          //                     ),
-                          //                   );
-                          //                   for (ComboDetails eventCombo2
-                          //                       in comboo.comboDetailsList!) {
-                          //                     if (eventCombo2.id ==
-                          //                         eventCombo.id) {
-                          //                       break;
-                          //                     }
-                          //                     await bc.deleteItem(
-                          //                         int.parse(eventCombo2.id));
-                          //                   }
-                          //                   break;
-                          //                 }
-                          //                 await Future.delayed(
-                          //                   const Duration(milliseconds: 200),
-                          //                 );
-                          //               }
-                          //             },
-                          //       child: Padding(
-                          //         padding: const EdgeInsets.symmetric(
-                          //             vertical: 10, horizontal: 30),
-                          //         child: OfferCard(
-                          //           combo: comboo,
-                          //         ),
-                          //       ),
-                          //     );
-                          //   },
+                          // Padding(
+                          //   padding: const EdgeInsets.only(top: 30.0),
+                          //   child: Text(
+                          //     'Offers for ${event.name} coming soon!!',
+                          //     textAlign: TextAlign.center,
+                          //     style: AppStyles.NormalText().copyWith(
+                          //       color: Theme.of(context).primaryColor,
+                          //       fontSize: 20,
+                          //     ),
+                          //   ),
                           // ),
+
+                          event.offers == null || event.offers!.isEmpty
+                              ? Padding(
+                                  padding: const EdgeInsets.only(top: 30.0),
+                                  child: Text(
+                                    'No combos available for ${event.name}...\nPlease register for it as an individual event',
+                                    textAlign: TextAlign.center,
+                                    style: AppStyles.NormalText().copyWith(
+                                      color: Theme.of(context).primaryColor,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                )
+                              : ListView.builder(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: event.offers == null
+                                      ? 0
+                                      : event.offers == null
+                                          ? 0
+                                          : event.offers!.length,
+                                  itemBuilder: (context, index) {
+                                    final comboo = event.offers![index];
+
+                                    return InkWell(
+                                      onTap: () async {
+                                        // add to cart
+                                        final sc =
+                                            ScaffoldMessenger.of(context);
+                                        final bc =
+                                            BlocProvider.of<CartPageCubit>(
+                                          context,
+                                        );
+                                        BlocProvider.of<CartPageCubit>(context)
+                                            .addCombo(comboo.comboID!);
+                                        // for (ComboDetails eventCombo
+                                        //     in comboo.comboDetailsList!) {
+                                        //   if (!await bc.addCartItem(
+                                        //     int.parse(eventCombo.id),
+                                        //     null,
+                                        //   )) {
+                                        //     sc.showSnackBar(
+                                        //       SnackBar(
+                                        //         content: Text(
+                                        //           'Some items in the combo are already in the cart',
+                                        //           style: AppStyles.NormalText()
+                                        //               .copyWith(
+                                        //             color: Theme.of(context)
+                                        //                 .primaryColor,
+                                        //             fontSize: 10,
+                                        //           ),
+                                        //         ),
+                                        //       ),
+                                        //     );
+                                        //     for (ComboDetails eventCombo2
+                                        //         in comboo.comboDetailsList!) {
+                                        //       if (eventCombo2.id ==
+                                        //           eventCombo.id) {
+                                        //         break;
+                                        //       }
+                                        //       await bc.deleteItem(
+                                        //           int.parse(eventCombo2.id));
+                                        //     }
+                                        //     break;
+                                        //   }
+                                        //   await Future.delayed(
+                                        //     const Duration(milliseconds: 200),
+                                        //   );
+                                        // }
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 10, horizontal: 30),
+                                        child: OfferCard(
+                                          combo: comboo,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
                         ],
                       ),
                     ),

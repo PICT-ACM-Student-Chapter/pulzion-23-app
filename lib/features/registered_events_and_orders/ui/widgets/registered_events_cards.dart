@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:pulzion23/constants/models/event_model.dart';
 import '../../../../constants/widgets/empty_page.dart';
@@ -5,13 +7,20 @@ import 'ticket_widget.dart';
 
 class RegisteredEventsCards extends StatelessWidget {
   final List<Events> registeredEvents;
-  const RegisteredEventsCards({super.key, required this.registeredEvents});
+  final List<String> regsieteredCombos;
+  const RegisteredEventsCards({
+    super.key,
+    required this.registeredEvents,
+    required this.regsieteredCombos,
+  });
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var height = size.height;
     var th = height / 2.4;
+
+    log(regsieteredCombos.toString());
 
     return registeredEvents.isEmpty
         ? const Center(
@@ -22,18 +31,34 @@ class RegisteredEventsCards extends StatelessWidget {
             ),
           )
         : ListView.builder(
-            itemBuilder: (context, index) => Padding(
-              padding: const EdgeInsets.all(10),
-              child: MyTicketView(
-                id: registeredEvents[index].id!,
-                name: registeredEvents[index].name!,
-                description: registeredEvents[index].description!,
-                eventType: registeredEvents[index].type!,
-                logo: registeredEvents[index].logo!,
-                isBooked: registeredEvents[index].fk_slot,
-              ),
-            ),
-            itemCount: registeredEvents.length,
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              return index < registeredEvents.length
+                  ? Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: MyTicketView(
+                        id: registeredEvents[index].id!,
+                        name: registeredEvents[index].name!,
+                        description: registeredEvents[index].description!,
+                        eventType: registeredEvents[index].type!,
+                        logo: registeredEvents[index].logo!,
+                        isBooked: registeredEvents[index].fk_slot,
+                      ),
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: MyTicketView(
+                        id: null,
+                        name:
+                            regsieteredCombos[index - registeredEvents.length],
+                        description: null,
+                        eventType: null,
+                        logo: null,
+                        isBooked: null,
+                      ),
+                    );
+            },
+            itemCount: registeredEvents.length + regsieteredCombos.length,
           );
     // : ListWheelScrollView.useDelegate(
     //     itemExtent: th,

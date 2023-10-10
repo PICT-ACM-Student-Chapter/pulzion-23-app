@@ -124,6 +124,49 @@ class PastOrdersCards extends StatelessWidget {
                                   ),
                                 ),
                               ),
+                            ) +
+                            [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 2.0,
+                                  horizontal: 8.0,
+                                ),
+                                child: orders[index].combos == null ||
+                                        orders[index].combos!.isEmpty
+                                    ? const SizedBox.shrink()
+                                    : SizedBox(
+                                        child: Text(
+                                          'Combos',
+                                          style:
+                                              AppStyles.NormalText().copyWith(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 16,
+                                            decoration:
+                                                TextDecoration.underline,
+                                          ),
+                                        ),
+                                      ),
+                              ),
+                            ] +
+                            List.generate(
+                              orders[index].combos == null
+                                  ? 0
+                                  : orders[index].combos!.length,
+                              (index2) => Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8.0,
+                                  vertical: 2.0,
+                                ),
+                                child: Text(
+                                  '- ${orders[index].combos![index2]}',
+                                  style: AppStyles.NormalText().copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                              ),
                             ),
                       ),
                     ),

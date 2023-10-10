@@ -76,7 +76,6 @@ flutter:
 
     assets:
         - assets/images/
-        - assets/images/eventlogos/
         - assets/video/
         - assets/audios/halloween_sound.mp3
 

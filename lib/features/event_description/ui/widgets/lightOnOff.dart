@@ -19,12 +19,12 @@ class _DarkSampleState extends State<DarkSample> {
   @override
   void initState() {
     super.initState();
-    t1 = Timer(const Duration(milliseconds: 200), () {
+    t1 = Timer(const Duration(milliseconds: 100), () {
       setState(() {
         isDark = !isDark;
       });
     });
-    t2 = Timer(const Duration(milliseconds: 1000), () {
+    t2 = Timer(const Duration(milliseconds: 600), () {
       setState(() {
         isDark = !isDark;
       });

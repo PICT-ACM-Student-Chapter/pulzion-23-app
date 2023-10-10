@@ -1,5 +1,10 @@
+import 'dart:developer';
+
+import 'package:pulzion23/features/combo_cubit/models/combo_model.dart';
+
 class CartItemList {
   List<CartItem>? cartItems;
+  List<Combo>? cartCombos;
 
   CartItemList({this.cartItems});
 
@@ -8,9 +13,14 @@ class CartItemList {
       cartItems = null;
     } else {
       cartItems = [];
-      json["events"][0].forEach((key, value) {
-        final cItem = CartItem.fromJson(value);
+      cartCombos = [];
+      json["events"]["events"].forEach((event) {
+        final cItem = CartItem.fromJson(event);
         cartItems?.add(cItem);
+      });
+      json["events"]["combos"].forEach((event) {
+        final cItem = Combo.fromJson(event);
+        cartCombos?.add(cItem);
       });
     }
   }

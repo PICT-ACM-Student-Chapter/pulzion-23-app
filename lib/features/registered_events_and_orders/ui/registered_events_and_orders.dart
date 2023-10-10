@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import 'package:pulzion23/features/home_page/logic/event_details_cubit_cubit.dart';
 
 import '../../../config/size_config.dart';
 import '../../../constants/colors.dart';
@@ -55,7 +56,11 @@ class _RegisteredEventsAndOrdersState extends State<RegisteredEventsAndOrders>
       create: (context) {
         // print("helo");
 
-        return RegisteredEventsAndOrdersCubit()..getRegisteredEventsAndOrders();
+        return RegisteredEventsAndOrdersCubit()
+          ..getRegisteredEventsAndOrders((context
+                  .read<EventDetailsCubitCubit>()
+                  .state as EventDetailsCubitLoaded)
+              .events);
       },
       child: BlocConsumer<RegisteredEventsAndOrdersCubit,
           RegisteredEventsAndOrdersState>(
@@ -84,9 +89,10 @@ class _RegisteredEventsAndOrdersState extends State<RegisteredEventsAndOrders>
                       child: Text(
                         "Your Events",
                         style: AppStyles.TitleText().copyWith(
-                            fontSize:
-                                SizeConfig.getProportionateScreenFontSize(60),
-                            color: const Color.fromARGB(255, 208, 168, 116)),
+                          fontSize:
+                              SizeConfig.getProportionateScreenFontSize(60),
+                          color: const Color.fromARGB(255, 208, 168, 116),
+                        ),
                       ),
                     ),
                     Padding(
@@ -140,6 +146,8 @@ class _RegisteredEventsAndOrdersState extends State<RegisteredEventsAndOrders>
                                 (state as RegisteredEventsAndOrdersLoaded)
                                     .registeredEvents
                                     .toList(),
+                            regsieteredCombos:
+                                (state as RegisteredEventsAndOrdersLoaded).registeredCombos.toList(),
                           ),
                           PastOrdersCards(
                             (state).registeredOrders.toList(),
@@ -159,7 +167,10 @@ class _RegisteredEventsAndOrdersState extends State<RegisteredEventsAndOrders>
                       log("refreshing");
                       context
                           .read<RegisteredEventsAndOrdersCubit>()
-                          .getRegisteredEventsAndOrders();
+                          .getRegisteredEventsAndOrders((context
+                                  .read<EventDetailsCubitCubit>()
+                                  .state as EventDetailsCubitLoaded)
+                              .events);
                     },
                   ),
                 );

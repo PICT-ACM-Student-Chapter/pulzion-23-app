@@ -63,7 +63,11 @@ class EmptyPage extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 20.0),
                   child: Text(
                     title,
-                    style: AppStyles.bodyTextStyle2().copyWith(fontSize: 20),
+                    style: AppStyles.NormalText().copyWith(
+                      fontSize: 23,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -89,8 +93,8 @@ class EmptyPage extends StatelessWidget {
                         Text(
                           textAlign: TextAlign.center,
                           'Retry',
-                          style:
-                              AppStyles.bodyTextStyle3().copyWith(fontSize: 25),
+                          style: AppStyles.NormalText()
+                              .copyWith(fontSize: 20, color: Colors.white),
                         ),
                       ],
                     ),

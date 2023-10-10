@@ -270,7 +270,7 @@ class _BookSlotsState extends State<BookSlots> {
                   listener: (context, state) {
                     if (state is BookingSuccessful) {
                       BlocProvider.of<RegisteredEventsAndOrdersCubit>(context)
-                          .getUpdatedEvents();
+                          .getUpdatedEvents(context);
 
                       ScaffoldMessenger.of(context).hideCurrentSnackBar();
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

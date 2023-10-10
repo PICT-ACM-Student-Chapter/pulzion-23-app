@@ -15,11 +15,11 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 class MyTicketView extends StatelessWidget {
   final String name;
-  final String description;
+  final String? description;
   final int? isBooked;
-  final String eventType;
-  final int id;
-  final String logo;
+  final String? eventType;
+  final int? id;
+  final String? logo;
 
   final _cacheManager = CacheManager(Config(
     'my_custom_cache_key',
@@ -103,23 +103,24 @@ class MyTicketView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(
-                      height: 75,
-                      width: 75,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: CachedNetworkImage(
-                          imageUrl: logo,
-                          color: Colors.black,
-                          placeholder: (context, url) => Container(),
-                          errorWidget: (context, url, error) => Container(),
-                          cacheManager: _cacheManager,
-                          fadeInDuration: const Duration(milliseconds: 100),
-                          fit: BoxFit.fitWidth,
-                          key: UniqueKey(),
+                    if (logo != null)
+                      SizedBox(
+                        height: 75,
+                        width: 75,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: CachedNetworkImage(
+                            imageUrl: logo!,
+                            color: Colors.black,
+                            placeholder: (context, url) => Container(),
+                            errorWidget: (context, url, error) => Container(),
+                            cacheManager: _cacheManager,
+                            fadeInDuration: const Duration(milliseconds: 100),
+                            fit: BoxFit.fitWidth,
+                            key: UniqueKey(),
+                          ),
                         ),
                       ),
-                    ),
                     SizedBox(
                       width: tw / 20,
                     ),
@@ -129,15 +130,34 @@ class MyTicketView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          if (id == null)
+                            SizedBox(
+                              width: tw * 0.65,
+                              child: Text(
+                                'Combo',
+                                textAlign: TextAlign.center,
+                                softWrap: true,
+                                style: AppStyles.NormalText().copyWith(
+                                  fontSize:
+                                      SizeConfig.getProportionateScreenFontSize(
+                                    25,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
                           SizedBox(
                             width: tw * 0.65,
                             child: Text(
                               name,
                               softWrap: true,
+                              textAlign: id == null ? TextAlign.center : null,
                               style: AppStyles.NormalText().copyWith(
                                 fontSize:
                                     SizeConfig.getProportionateScreenFontSize(
-                                  25,
+                                  20,
                                 ),
                                 overflow: TextOverflow.ellipsis,
                                 color: Colors.black,
@@ -145,23 +165,25 @@ class MyTicketView extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Text(
-                            eventType,
-                            style: AppStyles.NormalText().copyWith(
-                              fontSize:
-                                  SizeConfig.getProportionateScreenFontSize(
-                                17,
+                          if (eventType != null)
+                            Text(
+                              eventType!,
+                              style: AppStyles.NormalText().copyWith(
+                                fontSize:
+                                    SizeConfig.getProportionateScreenFontSize(
+                                  17,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                                color: Colors.black,
                               ),
-                              overflow: TextOverflow.ellipsis,
-                              color: Colors.black,
                             ),
-                          ),
                         ],
                       ),
                     ),
                   ],
                 ),
               ),
+              if (id == null) SizedBox(height: th * 0.005),
               DottedLine(
                 lineThickness: tw / 170,
                 dashGapLength: tw / 50,
@@ -186,7 +208,9 @@ class MyTicketView extends StatelessWidget {
                         textAlign: TextAlign.center,
                       )
                     : Text(
-                        "Registered : You haven't booked a slot for this event",
+                        id == null
+                            ? "You have booked this combo"
+                            : "Registered : You haven't booked a slot for this event",
                         style: AppStyles.NormalText().copyWith(
                           fontSize: SizeConfig.getProportionateScreenFontSize(
                             13,
@@ -197,82 +221,83 @@ class MyTicketView extends StatelessWidget {
                         textAlign: TextAlign.center,
                       ),
               ),
-              Container(
-                // margin: const EdgeInsets.all(16),
-                padding: const EdgeInsets.all(10),
-                width: tw * 0.6,
-                height: th * 0.2,
+              if (id != null)
+                Container(
+                  // margin: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(10),
+                  width: tw * 0.6,
+                  height: th * 0.2,
 
-                child: HalloweenButton(
-                  color: Colors.black,
-                  isColor: true,
-                  buttonText: isBooked != null ? 'View Details' : 'Book Slot',
-                  icon: isBooked != null
-                      ? Icons.remove_red_eye_rounded
-                      : Icons.pin_drop_rounded,
-                  onPressed: () {
-                    isBooked != null
-                        ? Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => BlocProvider(
-                                create: (context) =>
-                                    RegisteredEventsAndOrdersCubit()
-                                      ..getOnlyRegisteredEvents(),
-                                child: ViewSlotDetails(
-                                  id: id,
-                                  logo: logo,
-                                  name: name,
+                  child: HalloweenButton(
+                    color: Colors.black,
+                    isColor: true,
+                    buttonText: isBooked != null ? 'View Details' : 'Book Slot',
+                    icon: isBooked != null
+                        ? Icons.remove_red_eye_rounded
+                        : Icons.pin_drop_rounded,
+                    onPressed: () {
+                      isBooked != null
+                          ? Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BlocProvider(
+                                  create: (context) =>
+                                      RegisteredEventsAndOrdersCubit()
+                                        ..getOnlyRegisteredEvents(),
+                                  child: ViewSlotDetails(
+                                    id: id!,
+                                    logo: logo!,
+                                    name: name,
+                                  ),
                                 ),
                               ),
-                            ),
-                          )
-                        : Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (ctx) => MultiBlocProvider(
-                                providers: [
-                                  BlocProvider(
-                                    create: (context) => EventSlotsCubit()
-                                      ..getAvailableSlots(id),
-                                  ),
-                                  BlocProvider.value(
-                                    value: BlocProvider.of<
-                                        RegisteredEventsAndOrdersCubit>(
-                                      context,
+                            )
+                          : Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (ctx) => MultiBlocProvider(
+                                  providers: [
+                                    BlocProvider(
+                                      create: (context) => EventSlotsCubit()
+                                        ..getAvailableSlots(id!),
                                     ),
+                                    BlocProvider.value(
+                                      value: BlocProvider.of<
+                                          RegisteredEventsAndOrdersCubit>(
+                                        context,
+                                      ),
+                                    ),
+                                  ],
+                                  child: BookSlots(
+                                    id: id!,
+                                    name: name,
+                                    logo: logo!,
                                   ),
-                                ],
-                                child: BookSlots(
-                                  id: id,
-                                  name: name,
-                                  logo: logo,
                                 ),
                               ),
-                            ),
-                          );
-                  },
-                  // child: Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //   crossAxisAlignment: CrossAxisAlignment.center,
-                  //   children: [
-                  //     Icon(
-                  //       isBooked != null
-                  //           ? Icons.remove_red_eye_rounded
-                  //           : Icons.pin_drop_rounded,
-                  //       color: Colors.white,
-                  //     ),
-                  //     Text(
-                  //       isBooked != null ? 'View Details' : 'Book Slot',
-                  //       style: const TextStyle(
-                  //         color: Colors.white,
-                  //         fontFamily: 'QuickSand',
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
+                            );
+                    },
+                    // child: Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    //   crossAxisAlignment: CrossAxisAlignment.center,
+                    //   children: [
+                    //     Icon(
+                    //       isBooked != null
+                    //           ? Icons.remove_red_eye_rounded
+                    //           : Icons.pin_drop_rounded,
+                    //       color: Colors.white,
+                    //     ),
+                    //     Text(
+                    //       isBooked != null ? 'View Details' : 'Book Slot',
+                    //       style: const TextStyle(
+                    //         color: Colors.white,
+                    //         fontFamily: 'QuickSand',
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+                  ),
                 ),
-              ),
             ],
           ),
         ),

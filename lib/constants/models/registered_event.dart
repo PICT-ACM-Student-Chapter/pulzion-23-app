@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 class RegisteredEvent {
   int? id;
   String? transactionId;
   int? amount;
   DateTime? createdAt;
   List<dynamic>? events;
+  List<dynamic>? combos;
   String? status;
 
   RegisteredEvent({
@@ -13,6 +16,7 @@ class RegisteredEvent {
     this.createdAt,
     this.events,
     this.status,
+    this.combos,
   });
 
   RegisteredEvent.fromJson(Map<String, dynamic> json) {
@@ -21,6 +25,7 @@ class RegisteredEvent {
     amount = json["amount"];
     createdAt = DateTime.parse(json["created_at"]);
     events = json["events"];
+    combos = json["combo"];
     status = json["status"];
   }
 
@@ -31,6 +36,7 @@ class RegisteredEvent {
     data["amount"] = amount;
     data["created_at"] = createdAt!.toIso8601String();
     data["events"] = events;
+    data["combos"] = combos;
     data["status"] = status;
 
     return data;
