@@ -64,9 +64,13 @@ class _GetUserEmailState extends State<GetUserEmail> {
             if (state is UserNotFound) {
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
+                 SnackBar(
                   content: Text(
                     "User Not Found!",
+                    style: AppStyles.NormalText().copyWith(
+                                            fontSize: 15,
+                                            color: Colors.white,
+                                          ),
                   ),
                   backgroundColor: Color.fromARGB(255, 78, 48, 21),
                 ),
@@ -74,9 +78,13 @@ class _GetUserEmailState extends State<GetUserEmail> {
             } else if (state is LoginFailure) {
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
+                 SnackBar(
                   content: Text(
                     "Something went wrong...",
+                    style: AppStyles.NormalText().copyWith(
+                                            fontSize: 15,
+                                            color: Colors.white,
+                                          ),
                   ),
                   backgroundColor: Color.fromARGB(255, 78, 48, 21),
                 ),
@@ -84,9 +92,13 @@ class _GetUserEmailState extends State<GetUserEmail> {
             } else if (state is OTPSent) {
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
+                 SnackBar(
                   content: Text(
                     "OTP Sent Successfully!",
+                    style: AppStyles.NormalText().copyWith(
+                                            fontSize: 15,
+                                            color: Colors.white,
+                                          ),
                   ),
                   backgroundColor: Color.fromARGB(255, 196, 117, 15),
                 ),
@@ -94,9 +106,13 @@ class _GetUserEmailState extends State<GetUserEmail> {
             } else if (state is PasswordChangedSuccess) {
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
+                 SnackBar(
                   content: Text(
                     "Password Changed Successfully!",
+                    style: AppStyles.NormalText().copyWith(
+                                            fontSize: 15,
+                                            color: Colors.white,
+                                          ),
                   ),
                   backgroundColor: Color.fromARGB(255, 196, 117, 15),
                 ),
@@ -198,9 +214,13 @@ class _GetUserEmailState extends State<GetUserEmail> {
                                 ScaffoldMessenger.of(context)
                                     .hideCurrentSnackBar();
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
+                                   SnackBar(
                                     content: Text(
                                       "Passwords do not match!",
+                                      style: AppStyles.NormalText().copyWith(
+                                            fontSize: 15,
+                                            color: Colors.white,
+                                          ),
                                     ),
                                     backgroundColor:
                                         Color.fromARGB(255, 78, 48, 21),

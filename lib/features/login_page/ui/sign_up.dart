@@ -91,8 +91,9 @@ class _SignUpState extends State<SignUp> {
                     content: Text(
                       "Sign Up Successful",
                       style: AppStyles.NormalText().copyWith(
-                        fontSize: 15,
-                      ),
+                                            fontSize: 15,
+                                            color: Colors.white,
+                                          ),
                     ),
                     backgroundColor: const Color.fromARGB(255, 196, 117, 15),
                   ),
@@ -109,7 +110,10 @@ class _SignUpState extends State<SignUp> {
               if (state is SignUpFailure) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text(state.message),
+                    content: Text(state.message,style: AppStyles.NormalText().copyWith(
+                                            fontSize: 15,
+                                            color: Colors.white,
+                                          ),),
                     backgroundColor: const Color.fromARGB(255, 78, 48, 21),
                   ),
                 );
@@ -119,7 +123,10 @@ class _SignUpState extends State<SignUp> {
               if (state is SignUpError) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text(state.message),
+                    content: Text(state.message,style: AppStyles.NormalText().copyWith(
+                                            fontSize: 15,
+                                            color: Colors.white,
+                                          ),),
                     backgroundColor: const Color.fromARGB(255, 78, 48, 21),
                   ),
                 );
@@ -553,9 +560,14 @@ class _SignUpState extends State<SignUp> {
                                             passwordConfirmController.text) {
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
-                                            const SnackBar(
+                                             SnackBar(
                                               content: Text(
+
                                                 "Passwords do not match",
+                                                style: AppStyles.NormalText().copyWith(
+                                            fontSize: 15,
+                                            color: Colors.white,
+                                          ),
                                               ),
                                               backgroundColor: Color.fromARGB(
                                                   255, 78, 48, 21),
@@ -580,9 +592,13 @@ class _SignUpState extends State<SignUp> {
                                                 .text.isEmpty) {
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
-                                            const SnackBar(
+                                             SnackBar(
                                               content: Text(
                                                 "Please fill all fields",
+                                                style: AppStyles.NormalText().copyWith(
+                                            fontSize: 15,
+                                            color: Colors.white,
+                                          ),
                                               ),
                                               backgroundColor: Color.fromARGB(
                                                   255, 78, 48, 21),
@@ -595,9 +611,13 @@ class _SignUpState extends State<SignUp> {
                                             8) {
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
-                                            const SnackBar(
+                                             SnackBar(
                                               content: Text(
                                                 "Password should be atleast 8 characters long",
+                                                style: AppStyles.NormalText().copyWith(
+                                            fontSize: 15,
+                                            color: Colors.white,
+                                          ),
                                               ),
                                               backgroundColor: Color.fromARGB(
                                                   255, 78, 48, 21),
@@ -609,9 +629,13 @@ class _SignUpState extends State<SignUp> {
                                         if (phoneController.text.length != 10) {
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
-                                            const SnackBar(
+                                             SnackBar(
                                                 content: Text(
                                                   "Phone number should be 10 digits long",
+                                                  style: AppStyles.NormalText().copyWith(
+                                            fontSize: 15,
+                                            color: Colors.white,
+                                          ),
                                                 ),
                                                 backgroundColor: Color.fromARGB(
                                                     255, 78, 48, 21)),
@@ -643,9 +667,13 @@ class _SignUpState extends State<SignUp> {
                                             .hasMatch(phoneController.text)) {
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
-                                            const SnackBar(
+                                             SnackBar(
                                               content: Text(
                                                 "Please enter a valid phone number",
+                                                style: AppStyles.NormalText().copyWith(
+                                            fontSize: 15,
+                                            color: Colors.white,
+                                          ),
                                               ),
                                               backgroundColor: Color.fromARGB(
                                                   255, 78, 48, 21),

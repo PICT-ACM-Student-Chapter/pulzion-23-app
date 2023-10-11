@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:pulzion23/constants/styles.dart';
 
 import '../../../constants/models/cart_model.dart';
 import '../../../constants/urls.dart';
@@ -80,8 +81,11 @@ class CartPageCubit extends Cubit<CartPageState> {
       if ((response.statusCode / 100).floor() == 2) {
         sc.hideCurrentSnackBar();
         sc.showSnackBar(
-          const SnackBar(
-            content: Text('Registered Successfully'),
+           SnackBar(
+            content: Text('Registered Successfully',style: AppStyles.NormalText().copyWith(
+                                            fontSize: 15,
+                                            color: Colors.white,
+                                          ),),
             backgroundColor: Color.fromARGB(255, 196, 117, 15),
             duration: Duration(seconds: 2),
           ),
@@ -89,7 +93,10 @@ class CartPageCubit extends Cubit<CartPageState> {
       } else {
         sc.showSnackBar(
           SnackBar(
-            content: Text(data['msg']),
+            content: Text(data['msg'],style: AppStyles.NormalText().copyWith(
+                                            fontSize: 15,
+                                            color: Colors.white,
+                                          ),),
             backgroundColor: const Color.fromARGB(255, 78, 48, 21),
           ),
         );
@@ -97,8 +104,11 @@ class CartPageCubit extends Cubit<CartPageState> {
     } catch (e) {
       log(e.toString());
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Registration Failed'),
+         SnackBar(
+          content: Text('Registration Failed',style: AppStyles.NormalText().copyWith(
+                                            fontSize: 15,
+                                            color: Colors.white,
+                                          ),),
           backgroundColor: Color.fromARGB(255, 78, 48, 21),
         ),
       );

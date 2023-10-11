@@ -273,9 +273,12 @@ class _BookSlotsState extends State<BookSlots> {
                           .getUpdatedEvents(context);
 
                       ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      ScaffoldMessenger.of(context).showSnackBar( SnackBar(
                         duration: Duration(seconds: 3),
-                        content: Text('Slot Booked Successfully!'),
+                        content: Text('Slot Booked Successfully!',style: AppStyles.NormalText().copyWith(
+                                            fontSize: 15,
+                                            color: Colors.white,
+                                          ),),
                         backgroundColor: Color.fromARGB(255, 196, 117, 15),
                       ));
                       Navigator.pushReplacement(
@@ -300,6 +303,10 @@ class _BookSlotsState extends State<BookSlots> {
                         duration: const Duration(seconds: 3),
                         content: Text(
                           state.message.toString(),
+                          style: AppStyles.NormalText().copyWith(
+                                            fontSize: 15,
+                                            color: Colors.white,
+                                          ),
                         ),
                         backgroundColor: const Color.fromARGB(255, 78, 48, 21),
                       ));

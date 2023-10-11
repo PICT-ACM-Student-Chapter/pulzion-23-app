@@ -58,7 +58,10 @@ class ProfilePage extends StatelessWidget {
               if (state is ProfileError) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text(state.message),
+                    content: Text(state.message,style: AppStyles.NormalText().copyWith(
+                                            fontSize: 15,
+                                            color: Colors.white,
+                                          ),),
                   ),
                 );
               }
@@ -117,16 +120,22 @@ class ProfilePage extends StatelessWidget {
                                             padding: const EdgeInsets.only(
                                               bottom: 25,
                                             ),
-                                            child: Text(
-                                              "${state.user.firstName!} ${state.user.lastName!}",
-                                              style: AppStyles.TitleText(
-                                                      // fontSize: 30,
+                                            child: SizedBox(
+                                              width: w / 2,
+                                              child: FittedBox(
+                                                fit: BoxFit.contain,
+                                                child: Text(
+                                                  "${state.user.firstName!} ${state.user.lastName!}",
+                                                  style: AppStyles.TitleText(
+                                                          // fontSize: 30,
 
-                                                      )
-                                                  .copyWith(
-                                                fontSize: 45,
-                                                color: const Color.fromARGB(
-                                                    255, 82, 50, 16),
+                                                          )
+                                                      .copyWith(
+                                                    fontSize: 45,
+                                                    color: const Color.fromARGB(
+                                                        255, 82, 50, 16),
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                           ),

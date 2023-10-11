@@ -594,7 +594,10 @@ class _CartPageContentState extends State<CartPageContent>
           ScaffoldMessenger.of(context).hideCurrentSnackBar();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(state.message),
+              content: Text(state.message,style: AppStyles.NormalText().copyWith(
+                                            fontSize: 15,
+                                            color: Colors.white,
+                                          ),),
               backgroundColor: const Color.fromARGB(255, 78, 48, 21),
             ),
           );
@@ -602,7 +605,10 @@ class _CartPageContentState extends State<CartPageContent>
           ScaffoldMessenger.of(context).hideCurrentSnackBar();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(state.message),
+              content: Text(state.message,style: AppStyles.NormalText().copyWith(
+                                            fontSize: 15,
+                                            color: Colors.white,
+                                          ),),
               backgroundColor: const Color.fromARGB(255, 196, 117, 15),
             ),
           );
@@ -708,7 +714,11 @@ class _CartPageContentState extends State<CartPageContent>
                                       SnackBar(
                                         content: Text(
                                           "We are currently not accepting payments...",
-                                          style: AppStyles.NormalText(),
+                                          style:
+                                              AppStyles.NormalText().copyWith(
+                                            fontSize: 15,
+                                            color: Colors.white,
+                                          ),
                                         ),
                                         backgroundColor: const Color.fromARGB(
                                             255, 78, 48, 21),
@@ -922,9 +932,13 @@ class _CartPageContentState extends State<CartPageContent>
                                   ScaffoldMessenger.of(context)
                                       .hideCurrentSnackBar();
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
+                                     SnackBar(
                                       content: Text(
                                         "We are currently not accepting payments...",
+                                        style: AppStyles.NormalText().copyWith(
+                                            fontSize: 15,
+                                            color: Colors.white,
+                                          ),
                                       ),
                                       backgroundColor:
                                           Color.fromARGB(255, 78, 48, 21),

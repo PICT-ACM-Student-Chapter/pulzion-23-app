@@ -44,17 +44,17 @@ class _TranslateImageState extends State<TranslateImage>
 
     for (int i = 0; i < 16; i++) {
       List<double> offsetValues = [
-        random.nextDouble() * 8,
-        random.nextDouble() * 8,
-        random.nextDouble() * 8,
-        random.nextDouble() * 8,
+        random.nextDouble() * random.nextInt(10),
+        random.nextDouble() * random.nextInt(10),
+        random.nextDouble() * random.nextInt(10),
+        random.nextDouble() * random.nextInt(10),
       ];
 
       Animation<Offset> translation = Tween(
         begin: Offset(offsetValues[0], offsetValues[1]),
         end: Offset(offsetValues[2], offsetValues[3]),
       ).animate(
-        CurvedAnimation(parent: _animationController, curve: Curves.easeIn),
+        CurvedAnimation(parent: _animationController, curve: Curves.ease),
       );
 
       ani.add(translation);
@@ -81,7 +81,7 @@ class _TranslateImageState extends State<TranslateImage>
     return Visibility(
       visible: isVisible,
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 1000),
+        duration: const Duration(milliseconds: 3000),
         color: Colors.transparent,
         child: Stack(
           children: ani.map((e) {

@@ -256,7 +256,10 @@ class _EventDescriptionState extends State<EventDescription>
             ScaffoldMessenger.of(context).hideCurrentSnackBar();
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.message),
+                content: Text(state.message,style: AppStyles.NormalText().copyWith(
+                                            fontSize: 15,
+                                            color: Colors.white,
+                                          ),),
                 backgroundColor: const Color.fromARGB(255, 196, 117, 15),
               ),
             );
@@ -265,7 +268,10 @@ class _EventDescriptionState extends State<EventDescription>
             ScaffoldMessenger.of(context).hideCurrentSnackBar();
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.message),
+                content: Text(state.message,style: AppStyles.NormalText().copyWith(
+                                            fontSize: 15,
+                                            color: Colors.white,
+                                          ),),
                 backgroundColor: const Color.fromARGB(255, 78, 48, 21),
               ),
             );
@@ -274,7 +280,10 @@ class _EventDescriptionState extends State<EventDescription>
             ScaffoldMessenger.of(context).hideCurrentSnackBar();
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.message),
+                content: Text(state.message,style: AppStyles.NormalText().copyWith(
+                                            fontSize: 15,
+                                            color: Colors.white,
+                                          ),),
                 backgroundColor: const Color.fromARGB(255, 78, 48, 21),
               ),
             );
@@ -283,7 +292,10 @@ class _EventDescriptionState extends State<EventDescription>
             ScaffoldMessenger.of(context).hideCurrentSnackBar();
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.message),
+                content: Text(state.message,style: AppStyles.NormalText().copyWith(
+                                            fontSize: 15,
+                                            color: Colors.white,
+                                          ),),
                 backgroundColor: const Color.fromARGB(255, 78, 48, 21),
               ),
             );
@@ -438,7 +450,7 @@ class _EventDescriptionState extends State<EventDescription>
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(bottom: 12.0),
@@ -498,7 +510,7 @@ class _EventDescriptionState extends State<EventDescription>
                     ),
                     SizedBox(
                       width: w,
-                      height: double.maxFinite,
+                      height: event.description!.length.toDouble() + h / 2.6,
                       child: TabBarView(
                         physics: const BouncingScrollPhysics(),
                         controller: tabBarController,

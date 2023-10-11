@@ -52,16 +52,17 @@ class RegisteredEventsAndOrdersCubit
         List<String> registeredCombos = [];
 
         dataEve.forEach((element) {
-          element['events']?.forEach((ev) {
-            registeredEvents.add(
-              events.events!.firstWhere(
+          if (element['status'].toString().toLowerCase() == 'accepted') {
+            element['events'].forEach((ev) {
+              final eventt = events.events!.firstWhere(
                 (event) => event.name == ev,
-              ),
-            );
-          });
-          element['combo']?.forEach((ev) {
-            registeredCombos.add(ev);
-          });
+              );
+              registeredEvents.add(eventt);
+            });
+            element['combo']?.forEach((ev) {
+              registeredCombos.add(ev);
+            });
+          }
         });
 
         log(registeredCombos.toString());
