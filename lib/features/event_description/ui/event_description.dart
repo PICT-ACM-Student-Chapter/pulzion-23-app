@@ -438,7 +438,7 @@ class _EventDescriptionState extends State<EventDescription>
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(bottom: 12.0),
@@ -498,7 +498,7 @@ class _EventDescriptionState extends State<EventDescription>
                     ),
                     SizedBox(
                       width: w,
-                      height: double.maxFinite,
+                      height: event.description!.length.toDouble() + h / 2.6,
                       child: TabBarView(
                         physics: const BouncingScrollPhysics(),
                         controller: tabBarController,

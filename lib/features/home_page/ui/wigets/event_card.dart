@@ -182,8 +182,8 @@ class EventCard extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    left: 10,
-                    top: -10,
+                    left: width * 0.027,
+                    top: -height * 0.013,
                     child: Transform.translate(
                       offset: Offset(
                         -width / 16,
