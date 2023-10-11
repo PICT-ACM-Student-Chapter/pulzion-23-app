@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pulzion23/constants/models/event_model.dart';
+import 'package:pulzion23/features/cart_page/cubit/cart_page_cubit.dart';
+import 'package:pulzion23/features/event_description/ui/event_description.dart';
+import 'package:pulzion23/features/event_description/ui/widgets/lightOnOff.dart';
 
 import '../../../../constants/styles.dart';
 import '../../../combo_cubit/models/combo_model.dart';
@@ -6,8 +11,10 @@ import '../../../combo_cubit/models/combo_model.dart';
 // ignore: must_be_immutable
 class OfferCard extends StatefulWidget {
   Combo combo;
+  final EventList eventList;
   OfferCard({
     required this.combo,
+    required this.eventList,
     super.key,
   });
 
@@ -55,58 +62,127 @@ class _OfferCardState extends State<OfferCard> {
                         color: Theme.of(context).primaryColor, fontSize: 30),
                   ),
                   Column(
-                    children: widget.combo.comboDetailsList!.map((event) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 3.5,
-                        ),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(0.4),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(15.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.black.withOpacity(0.4),
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  width: 30,
-                                  height: 30,
-                                  child: FittedBox(
-                                    fit: BoxFit.contain,
-                                    child: Image.network(
-                                      event.logo,
-                                      color: Colors.white,
+                    children: [
+                      Column(
+                        children: widget.combo.comboDetailsList!.map((event) {
+                          return InkWell(
+                            onTap: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DarkSample(
+                                    event: widget.eventList.events!.firstWhere(
+                                      (element) => element.name == event.name,
                                     ),
                                   ),
                                 ),
+                              );
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 3.5,
                               ),
-                              // SizedBox(
-                              //   width: MediaQuery.of(context).size.width / 30,
-                              // ),
-                              Flexible(
-                                flex: 7,
-                                child: Text(
-                                  event.name,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: AppStyles.NormalText().copyWith(
-                                    fontSize: 15,
-                                    color: Colors.white,
-                                  ),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.black.withOpacity(0.4),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(15.0),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.black.withOpacity(0.4),
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                        ),
+                                        width: 30,
+                                        height: 30,
+                                        child: FittedBox(
+                                          fit: BoxFit.contain,
+                                          child: Image.network(
+                                            event.logo,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    // SizedBox(
+                                    //   width: MediaQuery.of(context).size.width / 30,
+                                    // ),
+                                    Flexible(
+                                      flex: 7,
+                                      child: Text(
+                                        event.name,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: AppStyles.NormalText().copyWith(
+                                          fontSize: 15,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                  ],
                                 ),
                               ),
-                              const Spacer(),
-                            ],
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.orange[900],
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            onPressed: () {
+                              final sc = ScaffoldMessenger.of(context);
+                              final bc = BlocProvider.of<CartPageCubit>(
+                                context,
+                              );
+                              BlocProvider.of<CartPageCubit>(context)
+                                  .addCombo(widget.combo.comboID!);
+                            },
+                            child: Text(
+                              'Add to Cart',
+                              style: AppStyles.NormalText().copyWith(
+                                fontSize: 15,
+                                color: Colors.white,
+                              ),
+                            ),
                           ),
-                        ),
-                      );
-                    }).toList(),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5),
+                            child: Column(
+                              children: [
+                                Text(
+                                  '₹${widget.combo.comboTotalPrice.toString()}',
+                                  style: AppStyles.NormalText().copyWith(
+                                    fontSize: 17,
+                                    color: Colors.red,
+                                    decoration: TextDecoration.lineThrough,
+                                  ),
+                                ),
+                                Text(
+                                  '₹${widget.combo.comboDiscountedPrice.toString()}',
+                                  style: AppStyles.NormalText().copyWith(
+                                    fontSize: 25,
+                                    color: Colors.green,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ],
               ),

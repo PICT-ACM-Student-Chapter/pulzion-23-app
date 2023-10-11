@@ -165,8 +165,13 @@ class _AnimatedPromptState extends State<AnimatedPrompt>
                 width: widgWidth / 4,
                 child: InkWell(
                   onTap: () async {
-                    await BlocProvider.of<CartPageCubit>(context)
-                        .deleteItem(widget.id);
+                    if (widget.comboEvents == null) {
+                      await BlocProvider.of<CartPageCubit>(context)
+                          .deleteItem(widget.id);
+                    } else {
+                      await BlocProvider.of<CartPageCubit>(context)
+                          .deleteCombo(widget.id);
+                    }
                   },
                   child: Container(
                     decoration: BoxDecoration(

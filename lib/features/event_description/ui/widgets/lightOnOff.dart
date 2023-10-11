@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:math' as Math;
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pulzion23/features/event_description/ui/event_description.dart';
+import 'package:pulzion23/features/home_page/logic/event_details_cubit_cubit.dart';
 import '../../../../constants/models/event_model.dart';
 
 class DarkSample extends StatefulWidget {
@@ -44,15 +46,18 @@ class _DarkSampleState extends State<DarkSample> {
     final circleOffset = Offset(size.width - 20, size.height - 20);
 
     return DarkTransition(
-      childBuilder: (context, x) => EventDescription(
-        event: widget.event,
-        isDark: isDark,
-        getTheme: () => isDark ? _darkTheme : _lightTheme,
-        onChange: () {
-          setState(() {
-            isDark = !isDark;
-          });
-        },
+      childBuilder: (context, x) => BlocProvider.value(
+        value: BlocProvider.of<EventDetailsCubitCubit>(context),
+        child: EventDescription(
+          event: widget.event,
+          isDark: isDark,
+          getTheme: () => isDark ? _darkTheme : _lightTheme,
+          onChange: () {
+            setState(() {
+              isDark = !isDark;
+            });
+          },
+        ),
       ),
       offset: circleOffset,
       isDark: isDark,

@@ -147,9 +147,7 @@ class _RegisteredEventsAndOrdersState extends State<RegisteredEventsAndOrders>
                                     .registeredEvents
                                     .toList(),
                             regsieteredCombos:
-                                (state)
-                                    .registeredCombos
-                                    .toList(),
+                                (state).registeredCombos.toList(),
                           ),
                           PastOrdersCards(
                             (state).registeredOrders.toList(),

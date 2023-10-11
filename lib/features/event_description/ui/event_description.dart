@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pulzion23/constants/widgets/halloween_button.dart';
 import 'package:pulzion23/features/event_description/ui/widgets/event_mode.dart';
 import 'package:pulzion23/features/event_description/ui/widgets/offer_card.dart';
+import 'package:pulzion23/features/home_page/logic/event_details_cubit_cubit.dart';
 import "package:share_plus/share_plus.dart";
 import '../../../constants/urls.dart';
 import '../../cart_page/cubit/cart_page_cubit.dart';
@@ -126,8 +129,27 @@ class EventDescription extends StatefulWidget {
 
 class _EventDescriptionState extends State<EventDescription>
     with TickerProviderStateMixin {
+  bool isCart = true;
   late final TabController tabBarController =
       TabController(length: 4, vsync: this);
+
+  @override
+  void initState() {
+    super.initState();
+    tabBarController.addListener(() {
+      Future.delayed(const Duration(seconds: 0), () {
+        if (tabBarController.index == 3) {
+          setState(() {
+            isCart = false;
+          });
+        } else {
+          setState(() {
+            isCart = true;
+          });
+        }
+      });
+    });
+  }
 
   @override
   void dispose() {
@@ -198,25 +220,26 @@ class _EventDescriptionState extends State<EventDescription>
               ),
             ),
             //!This is the cart button
-            SizedBox(
-              height: h / 12,
-              width: w / 2.2,
-              child: HalloweenButton(
-                color: widget.isDark
-                    ? const Color.fromARGB(255, 6, 24, 49)
-                    : const Color.fromARGB(255, 20, 72, 146),
-                icon: Icons.shopping_cart,
-                buttonText: event.id == 1 ? 'Register' : 'Add to Cart',
-                fontsize: 20,
-                onPressed: () {
-                  if (event.id != null) {
-                    BlocProvider.of<CartPageCubit>(
-                      context,
-                    ).addCartItem(event.id!);
-                  }
-                },
+            if (isCart)
+              SizedBox(
+                height: h / 12,
+                width: w / 2.2,
+                child: HalloweenButton(
+                  color: widget.isDark
+                      ? const Color.fromARGB(255, 6, 24, 49)
+                      : const Color.fromARGB(255, 20, 72, 146),
+                  icon: Icons.shopping_cart,
+                  buttonText: event.id == 1 ? 'Register' : 'Add to Cart',
+                  fontsize: 20,
+                  onPressed: () {
+                    if (event.id != null) {
+                      BlocProvider.of<CartPageCubit>(
+                        context,
+                      ).addCartItem(event.id!);
+                    }
+                  },
+                ),
               ),
-            ),
           ],
         ),
       ),
@@ -593,85 +616,61 @@ class _EventDescriptionState extends State<EventDescription>
                           //   ),
                           // ),
 
-                          event.offers == null || event.offers!.isEmpty
-                              ? Padding(
-                                  padding: const EdgeInsets.only(top: 30.0),
-                                  child: Text(
-                                    'No combos available for ${event.name}...\nPlease register for it as an individual event',
-                                    textAlign: TextAlign.center,
-                                    style: AppStyles.NormalText().copyWith(
-                                      color: Theme.of(context).primaryColor,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                )
-                              : ListView.builder(
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: event.offers == null
-                                      ? 0
-                                      : event.offers == null
-                                          ? 0
-                                          : event.offers!.length,
-                                  itemBuilder: (context, index) {
-                                    final comboo = event.offers![index];
+                          Builder(
+                            builder: (context) {
+                              // Future.delayed(
+                              //   const Duration(seconds: 0),
+                              //   () {
+                              //     setState(() {
+                              //       isCart = false;
+                              //     });
+                              //   },
+                              // );
 
-                                    return InkWell(
-                                      onTap: () async {
-                                        // add to cart
-                                        final sc =
-                                            ScaffoldMessenger.of(context);
-                                        final bc =
-                                            BlocProvider.of<CartPageCubit>(
-                                          context,
-                                        );
-                                        BlocProvider.of<CartPageCubit>(context)
-                                            .addCombo(comboo.comboID!);
-                                        // for (ComboDetails eventCombo
-                                        //     in comboo.comboDetailsList!) {
-                                        //   if (!await bc.addCartItem(
-                                        //     int.parse(eventCombo.id),
-                                        //     null,
-                                        //   )) {
-                                        //     sc.showSnackBar(
-                                        //       SnackBar(
-                                        //         content: Text(
-                                        //           'Some items in the combo are already in the cart',
-                                        //           style: AppStyles.NormalText()
-                                        //               .copyWith(
-                                        //             color: Theme.of(context)
-                                        //                 .primaryColor,
-                                        //             fontSize: 10,
-                                        //           ),
-                                        //         ),
-                                        //       ),
-                                        //     );
-                                        //     for (ComboDetails eventCombo2
-                                        //         in comboo.comboDetailsList!) {
-                                        //       if (eventCombo2.id ==
-                                        //           eventCombo.id) {
-                                        //         break;
-                                        //       }
-                                        //       await bc.deleteItem(
-                                        //           int.parse(eventCombo2.id));
-                                        //     }
-                                        //     break;
-                                        //   }
-                                        //   await Future.delayed(
-                                        //     const Duration(milliseconds: 200),
-                                        //   );
-                                        // }
-                                      },
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 10, horizontal: 30),
-                                        child: OfferCard(
-                                          combo: comboo,
+                              return event.offers == null ||
+                                      event.offers!.isEmpty
+                                  ? Padding(
+                                      padding: const EdgeInsets.only(top: 30.0),
+                                      child: Text(
+                                        'No combos available for ${event.name}...\nPlease register for it as an individual event',
+                                        textAlign: TextAlign.center,
+                                        style: AppStyles.NormalText().copyWith(
+                                          color: Theme.of(context).primaryColor,
+                                          fontSize: 18,
                                         ),
                                       ),
+                                    )
+                                  : ListView.builder(
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemCount: event.offers == null
+                                          ? 0
+                                          : event.offers == null
+                                              ? 0
+                                              : event.offers!.length,
+                                      itemBuilder: (context, index) {
+                                        final comboo = event.offers![index];
+
+                                        return Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            vertical: 10,
+                                            horizontal: 30,
+                                          ),
+                                          child: OfferCard(
+                                            combo: comboo,
+                                            eventList: (BlocProvider.of<
+                                                                EventDetailsCubitCubit>(
+                                                            context)
+                                                        .state
+                                                    as EventDetailsCubitLoaded)
+                                                .events,
+                                          ),
+                                        );
+                                      },
                                     );
-                                  },
-                                ),
+                            },
+                          ),
                         ],
                       ),
                     ),
