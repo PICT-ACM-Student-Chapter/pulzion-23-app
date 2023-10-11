@@ -1,9 +1,10 @@
 import 'dart:ui';
-import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lottie/lottie.dart';
+import 'package:model_viewer_plus/model_viewer_plus.dart';
 import 'package:pulzion23/features/splash_screen/cubit/splash_cubit.dart';
 import 'package:pulzion23/project/cubit/animation_toggle_cubit.dart';
 import '../../../constants/styles.dart';
@@ -165,11 +166,26 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                     ],
                   ),
                 ),
-                Lottie.asset(
-                  "assets/images/potion.json",
-                  height: ht / 7,
-                  width: ht / 7,
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 3.5,
+                  child: InteractiveViewer(
+                    child: const ModelViewer(
+                      src: 'assets/3D/pumpkin.glb',
+                      // relatedJs: '''
+                      //     const modelViewer = document.querySelector('model-viewer');
+
+                      // ''',
+                      rotationPerSecond: '100deg',
+                      autoPlay: true,
+                      autoRotate: true,
+                    ),
+                  ),
                 ),
+                // Lottie.asset(
+                //   "assets/images/potion.json",
+                //   height: ht / 7,
+                //   width: ht / 7,
+                // ),
               ],
             ),
           ),

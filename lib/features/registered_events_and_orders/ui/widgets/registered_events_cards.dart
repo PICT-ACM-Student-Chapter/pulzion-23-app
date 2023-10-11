@@ -20,7 +20,6 @@ class RegisteredEventsCards extends StatelessWidget {
     var height = size.height;
     var th = height / 2.4;
 
-    log(regsieteredCombos.toString());
 
     return registeredEvents.isEmpty
         ? const Center(

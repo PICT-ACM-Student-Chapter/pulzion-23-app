@@ -52,7 +52,7 @@ class RegisteredEventsAndOrdersCubit
         List<String> registeredCombos = [];
 
         dataEve.forEach((element) {
-          element['events'].forEach((ev) {
+          element['events']?.forEach((ev) {
             registeredEvents.add(
               events.events!.firstWhere(
                 (event) => event.name == ev,
