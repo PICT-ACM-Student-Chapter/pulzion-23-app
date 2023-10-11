@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:pulzion23/features/event_description/ui/widgets/lightOnOff.dart';
+import 'package:pulzion23/features/home_page/logic/event_details_cubit_cubit.dart';
 
 import '../../../../config/size_config.dart';
 import '../../../../constants/models/event_model.dart';
@@ -35,7 +37,10 @@ class EventCard extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => DarkSample(event: event),
             settings: RouteSettings(
-              arguments: eventsList,
+              arguments: (BlocProvider.of<EventDetailsCubitCubit>(context).state
+                      as EventDetailsCubitLoaded)
+                  .events
+                  .events as List<Events>,
             ),
           ),
         );

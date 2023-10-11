@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pulzion23/constants/models/event_model.dart';
@@ -11,7 +13,7 @@ import '../../../combo_cubit/models/combo_model.dart';
 // ignore: must_be_immutable
 class OfferCard extends StatefulWidget {
   Combo combo;
-  final EventList eventList;
+  final List<Events> eventList;
   OfferCard({
     required this.combo,
     required this.eventList,
@@ -67,16 +69,25 @@ class _OfferCardState extends State<OfferCard> {
                         children: widget.combo.comboDetailsList!.map((event) {
                           return InkWell(
                             onTap: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => DarkSample(
-                                    event: widget.eventList.events!.firstWhere(
-                                      (element) => element.name == event.name,
+                              Events? foundEvent = null;
+                              for (var element in widget.eventList) {
+                                if (element.name == event.name) {
+                                  foundEvent = element;
+                                }
+                              }
+                              if (foundEvent != null) {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => DarkSample(
+                                      event: foundEvent!,
+                                    ),
+                                    settings: RouteSettings(
+                                      arguments: widget.eventList,
                                     ),
                                   ),
-                                ),
-                              );
+                                );
+                              }
                             },
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
@@ -110,9 +121,6 @@ class _OfferCardState extends State<OfferCard> {
                                         ),
                                       ),
                                     ),
-                                    // SizedBox(
-                                    //   width: MediaQuery.of(context).size.width / 30,
-                                    // ),
                                     Flexible(
                                       flex: 7,
                                       child: Text(

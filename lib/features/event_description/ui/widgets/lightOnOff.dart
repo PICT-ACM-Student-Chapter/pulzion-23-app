@@ -9,6 +9,7 @@ import '../../../../constants/models/event_model.dart';
 class DarkSample extends StatefulWidget {
   final Events event;
   const DarkSample({required this.event, Key? key}) : super(key: key);
+  
   @override
   _DarkSampleState createState() => _DarkSampleState();
 }
@@ -46,18 +47,16 @@ class _DarkSampleState extends State<DarkSample> {
     final circleOffset = Offset(size.width - 20, size.height - 20);
 
     return DarkTransition(
-      childBuilder: (context, x) => BlocProvider.value(
-        value: BlocProvider.of<EventDetailsCubitCubit>(context),
-        child: EventDescription(
-          event: widget.event,
-          isDark: isDark,
-          getTheme: () => isDark ? _darkTheme : _lightTheme,
-          onChange: () {
-            setState(() {
-              isDark = !isDark;
-            });
-          },
-        ),
+      childBuilder: (context, x) => EventDescription(
+        event: widget.event,
+        eventList: ModalRoute.of(context)!.settings.arguments as List<Events>,
+        isDark: isDark,
+        getTheme: () => isDark ? _darkTheme : _lightTheme,
+        onChange: () {
+          setState(() {
+            isDark = !isDark;
+          });
+        },
       ),
       offset: circleOffset,
       isDark: isDark,

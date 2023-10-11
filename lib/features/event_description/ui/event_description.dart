@@ -115,11 +115,13 @@ class EventDescription extends StatefulWidget {
   final Events? event;
   final Function()? onChange;
   final Function()? getTheme;
+  final List<Events> eventList;
   const EventDescription({
     required this.isDark,
     required this.event,
     required this.onChange,
     required this.getTheme,
+    required this.eventList,
     Key? key,
   }) : super(key: key);
 
@@ -512,12 +514,6 @@ class _EventDescriptionState extends State<EventDescription>
                                   child: Text(
                                     event.tagline!,
                                     textAlign: TextAlign.center,
-                                    // style: TextStyle(
-                                    //   fontSize: fontSizeFactor * 8,
-                                    //   fontWeight: FontWeight.bold,
-                                    //   color: Theme.of(context).primaryColor,
-                                    //   fontStyle: FontStyle.italic,
-                                    // ),
                                     style: AppStyles.NormalText().copyWith(
                                       color: Theme.of(context).primaryColor,
                                       fontSize: 20,
@@ -538,11 +534,6 @@ class _EventDescriptionState extends State<EventDescription>
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
                                     'Team Details',
-                                    // style: AppStyles.bodyTextStyle3().copyWith(
-                                    //   color: Theme.of(context).primaryColor,
-                                    //   fontSize: 18,
-                                    //   fontWeight: FontWeight.bold,
-                                    // ),
                                     style: AppStyles.NormalText().copyWith(
                                       color: Theme.of(context).primaryColor,
                                       fontSize: 22,
@@ -659,12 +650,7 @@ class _EventDescriptionState extends State<EventDescription>
                                           ),
                                           child: OfferCard(
                                             combo: comboo,
-                                            eventList: (BlocProvider.of<
-                                                                EventDetailsCubitCubit>(
-                                                            context)
-                                                        .state
-                                                    as EventDetailsCubitLoaded)
-                                                .events,
+                                            eventList: widget.eventList,
                                           ),
                                         );
                                       },
