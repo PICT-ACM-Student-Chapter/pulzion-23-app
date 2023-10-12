@@ -21,7 +21,7 @@ class EndPoints {
   static String transaction = '${baseUrl!}/transaction';
   static String otp = '${baseUrl!}/user/otp';
   static String forget = '${baseUrl!}/user/forget';
-  static String userEvents = '${baseUrl!}/transaction';
+  static String userEvents = '${baseUrl!}/user_events';
   static String getSlots = '${baseUrl!}/user_slots?event_id=';
   static String bookSlots = '${baseUrl!}/user_slots';
   static String userRegister = '${baseUrl!}/user_events';

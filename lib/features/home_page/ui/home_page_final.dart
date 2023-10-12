@@ -199,7 +199,7 @@ class _HomePageContentState extends State<HomePageContent>
                           ),
                         ],
                       ),
-                      const TranslateImage(),
+                      // const TranslateImage(),
                     ],
                   );
                 },

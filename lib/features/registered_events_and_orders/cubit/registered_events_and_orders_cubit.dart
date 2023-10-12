@@ -26,6 +26,8 @@ class RegisteredEventsAndOrdersCubit
     if (token != null) {
       http.Response? response;
       try {
+        List<String> registeredCombos = [];
+
         response = await http.get(
           Uri.parse(EndPoints.transaction),
           headers: {
@@ -46,26 +48,10 @@ class RegisteredEventsAndOrdersCubit
             "Authorization": "Bearer $token",
           },
         );
-        var dataEve = jsonDecode(response.body)['transactions'];
-
-        List<Events> registeredEvents = [];
-        List<String> registeredCombos = [];
-
-        dataEve.forEach((element) {
-          if (element['status'].toString().toLowerCase() == 'accepted') {
-            element['events'].forEach((ev) {
-              final eventt = events.events!.firstWhere(
-                (event) => event.name == ev,
-              );
-              registeredEvents.add(eventt);
-            });
-            element['combo']?.forEach((ev) {
-              registeredCombos.add(ev);
-            });
-          }
-        });
-
-        log(registeredCombos.toString());
+        var dataEve = jsonDecode(response.body);
+        List<Events> registeredEvents =
+            dataEve['events'].map<Events>((e) => Events.fromJson(e)).toList();
+        log(response.body);
         emit(RegisteredEventsAndOrdersLoaded(
           registeredEvents,
           registeredOrders,

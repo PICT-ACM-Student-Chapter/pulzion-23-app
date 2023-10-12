@@ -74,7 +74,10 @@ class ErrorDialog extends StatelessWidget {
                 child: Text(
                   textAlign: TextAlign.center,
                   errorMessage,
-                  style: AppStyles.bodyTextStyle3(),
+                  style: AppStyles.NormalText().copyWith(
+                    fontSize: 20,
+                    color: Colors.white,
+                  ),
                 ),
               ),
               TextButton(
@@ -95,7 +98,10 @@ class ErrorDialog extends StatelessWidget {
                     Text(
                       textAlign: TextAlign.center,
                       'Retry',
-                      style: AppStyles.bodyTextStyle3().copyWith(fontSize: 25),
+                      style: AppStyles.NormalText().copyWith(
+                        fontSize: 25,
+                        color: Colors.white,
+                      ),
                     ),
                   ],
                 ),

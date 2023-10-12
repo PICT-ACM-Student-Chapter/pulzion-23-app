@@ -70,7 +70,7 @@ class MyTicketView extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     var height = size.height;
     var width = size.width;
-    var th = height / 2.4;
+    var th = height / 2.3;
     var tw = width / 1.2;
 
     return Padding(

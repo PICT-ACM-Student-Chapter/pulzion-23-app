@@ -81,22 +81,30 @@ class CartPageCubit extends Cubit<CartPageState> {
       if ((response.statusCode / 100).floor() == 2) {
         sc.hideCurrentSnackBar();
         sc.showSnackBar(
-           SnackBar(
-            content: Text('Registered Successfully',style: AppStyles.NormalText().copyWith(
-                                            fontSize: 15,
-                                            color: Colors.white,
-                                          ),),
+          SnackBar(
+            content: Text(
+              'Registered Successfully',
+              style: AppStyles.NormalText().copyWith(
+                fontSize: 15,
+                color: Colors.white,
+              ),
+            ),
             backgroundColor: Color.fromARGB(255, 196, 117, 15),
-            duration: Duration(seconds: 2),
+            duration: Duration(
+              seconds: 2,
+            ),
           ),
         );
       } else {
         sc.showSnackBar(
           SnackBar(
-            content: Text(data['msg'],style: AppStyles.NormalText().copyWith(
-                                            fontSize: 15,
-                                            color: Colors.white,
-                                          ),),
+            content: Text(
+              data['msg'],
+              style: AppStyles.NormalText().copyWith(
+                fontSize: 15,
+                color: Colors.white,
+              ),
+            ),
             backgroundColor: const Color.fromARGB(255, 78, 48, 21),
           ),
         );
@@ -104,11 +112,14 @@ class CartPageCubit extends Cubit<CartPageState> {
     } catch (e) {
       log(e.toString());
       ScaffoldMessenger.of(context).showSnackBar(
-         SnackBar(
-          content: Text('Registration Failed',style: AppStyles.NormalText().copyWith(
-                                            fontSize: 15,
-                                            color: Colors.white,
-                                          ),),
+        SnackBar(
+          content: Text(
+            'Registration Failed',
+            style: AppStyles.NormalText().copyWith(
+              fontSize: 15,
+              color: Colors.white,
+            ),
+          ),
           backgroundColor: Color.fromARGB(255, 78, 48, 21),
         ),
       );

@@ -179,6 +179,9 @@ class _BookSlotsState extends State<BookSlots> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
+                          SizedBox(
+                            height: h / 20,
+                          ),
                           Flexible(
                             child: FittedBox(
                               fit: BoxFit.cover,
@@ -225,9 +228,10 @@ class _BookSlotsState extends State<BookSlots> {
                                     fit: BoxFit.cover,
                                     child: Text(
                                       widget.name,
-                                      style: const TextStyle(
+                                      style: AppStyles.TitleText().copyWith(
                                         color: Colors.white,
-                                        fontFamily: 'Panther',
+                                        fontSize: 50,
+                                        fontWeight: FontWeight.w100,
                                       ),
                                     ),
                                   ),
@@ -273,12 +277,15 @@ class _BookSlotsState extends State<BookSlots> {
                           .getUpdatedEvents(context);
 
                       ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                      ScaffoldMessenger.of(context).showSnackBar( SnackBar(
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         duration: Duration(seconds: 3),
-                        content: Text('Slot Booked Successfully!',style: AppStyles.NormalText().copyWith(
-                                            fontSize: 15,
-                                            color: Colors.white,
-                                          ),),
+                        content: Text(
+                          'Slot Booked Successfully!',
+                          style: AppStyles.NormalText().copyWith(
+                            fontSize: 15,
+                            color: Colors.white,
+                          ),
+                        ),
                         backgroundColor: Color.fromARGB(255, 196, 117, 15),
                       ));
                       Navigator.pushReplacement(
@@ -304,9 +311,9 @@ class _BookSlotsState extends State<BookSlots> {
                         content: Text(
                           state.message.toString(),
                           style: AppStyles.NormalText().copyWith(
-                                            fontSize: 15,
-                                            color: Colors.white,
-                                          ),
+                            fontSize: 15,
+                            color: Colors.white,
+                          ),
                         ),
                         backgroundColor: const Color.fromARGB(255, 78, 48, 21),
                       ));

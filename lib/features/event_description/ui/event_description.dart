@@ -3,15 +3,20 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pulzion23/constants/widgets/halloween_button.dart';
+import 'package:pulzion23/features/event_description/ui/widgets/dynamic_button.dart';
 import 'package:pulzion23/features/event_description/ui/widgets/event_mode.dart';
 import 'package:pulzion23/features/event_description/ui/widgets/offer_card.dart';
-import 'package:pulzion23/features/home_page/logic/event_details_cubit_cubit.dart';
+import 'package:pulzion23/features/login_page/cubit/check_login_cubit.dart';
+import 'package:pulzion23/features/login_page/logic/login_cubit.dart';
+import 'package:pulzion23/features/login_page/ui/login_signup_intro.dart';
 import "package:share_plus/share_plus.dart";
+import 'package:url_launcher/url_launcher.dart';
 import '../../../constants/urls.dart';
 import '../../cart_page/cubit/cart_page_cubit.dart';
 import '../../../config/size_config.dart';
 import '../../../constants/models/event_model.dart';
 import '../ui/widgets/contact_card.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/styles.dart';
@@ -135,6 +140,42 @@ class _EventDescriptionState extends State<EventDescription>
   late final TabController tabBarController =
       TabController(length: 4, vsync: this);
 
+  Widget parseAndDisplayLinks(String text, BuildContext context) {
+    return Linkify(
+      onOpen: (url) async {
+        final bool nativeAppLaunchSucceeded = await launchUrl(
+          Uri.parse(url.text),
+        );
+        if (!nativeAppLaunchSucceeded) {
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                'Registered Successfully',
+                style: AppStyles.NormalText().copyWith(
+                  fontSize: 15,
+                  color: Colors.white,
+                ),
+              ),
+              backgroundColor: Color.fromARGB(255, 196, 117, 15),
+              duration: Duration(seconds: 2),
+            ),
+          );
+        }
+      },
+      text: text,
+      style: AppStyles.NormalText().copyWith(
+        color: Theme.of(context).primaryColor,
+        fontSize: 15,
+      ),
+      options: const LinkifyOptions(humanize: false),
+      linkStyle: const TextStyle(
+        color: Colors.orange,
+        decoration: TextDecoration.underline,
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -226,20 +267,34 @@ class _EventDescriptionState extends State<EventDescription>
               SizedBox(
                 height: h / 12,
                 width: w / 2.2,
-                child: HalloweenButton(
-                  color: widget.isDark
-                      ? const Color.fromARGB(255, 6, 24, 49)
-                      : const Color.fromARGB(255, 20, 72, 146),
-                  icon: Icons.shopping_cart,
-                  buttonText: event.id == 1 ? 'Register' : 'Add to Cart',
-                  fontsize: 20,
-                  onPressed: () {
-                    if (event.id != null) {
-                      BlocProvider.of<CartPageCubit>(
-                        context,
-                      ).addCartItem(event.id!);
-                    }
-                  },
+                child: BlocProvider(
+                  create: (context) => CartPageCubit()..loadCart(),
+                  child: HalloweenButton(
+                    color: widget.isDark
+                        ? const Color.fromARGB(255, 6, 24, 49)
+                        : const Color.fromARGB(255, 20, 72, 146),
+                    icon: Icons.shopping_cart,
+                    buttonText: event.id == 1 ? 'Register' : 'Add to Cart',
+                    fontsize: 20,
+                    onPressed: () {
+                      if (context.read<CheckLoginCubit>().state
+                          is CheckLoginFailure) {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginSignUpIntro(),
+                          ),
+                        );
+
+                        return;
+                      }
+                      if (event.id != null) {
+                        BlocProvider.of<CartPageCubit>(
+                          context,
+                        ).addCartItem(event.id!);
+                      }
+                    },
+                  ),
                 ),
               ),
           ],
@@ -256,10 +311,13 @@ class _EventDescriptionState extends State<EventDescription>
             ScaffoldMessenger.of(context).hideCurrentSnackBar();
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.message,style: AppStyles.NormalText().copyWith(
-                                            fontSize: 15,
-                                            color: Colors.white,
-                                          ),),
+                content: Text(
+                  state.message,
+                  style: AppStyles.NormalText().copyWith(
+                    fontSize: 15,
+                    color: Colors.white,
+                  ),
+                ),
                 backgroundColor: const Color.fromARGB(255, 196, 117, 15),
               ),
             );
@@ -268,10 +326,13 @@ class _EventDescriptionState extends State<EventDescription>
             ScaffoldMessenger.of(context).hideCurrentSnackBar();
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.message,style: AppStyles.NormalText().copyWith(
-                                            fontSize: 15,
-                                            color: Colors.white,
-                                          ),),
+                content: Text(
+                  state.message,
+                  style: AppStyles.NormalText().copyWith(
+                    fontSize: 15,
+                    color: Colors.white,
+                  ),
+                ),
                 backgroundColor: const Color.fromARGB(255, 78, 48, 21),
               ),
             );
@@ -280,10 +341,13 @@ class _EventDescriptionState extends State<EventDescription>
             ScaffoldMessenger.of(context).hideCurrentSnackBar();
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.message,style: AppStyles.NormalText().copyWith(
-                                            fontSize: 15,
-                                            color: Colors.white,
-                                          ),),
+                content: Text(
+                  state.message,
+                  style: AppStyles.NormalText().copyWith(
+                    fontSize: 15,
+                    color: Colors.white,
+                  ),
+                ),
                 backgroundColor: const Color.fromARGB(255, 78, 48, 21),
               ),
             );
@@ -292,10 +356,13 @@ class _EventDescriptionState extends State<EventDescription>
             ScaffoldMessenger.of(context).hideCurrentSnackBar();
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.message,style: AppStyles.NormalText().copyWith(
-                                            fontSize: 15,
-                                            color: Colors.white,
-                                          ),),
+                content: Text(
+                  state.message,
+                  style: AppStyles.NormalText().copyWith(
+                    fontSize: 15,
+                    color: Colors.white,
+                  ),
+                ),
                 backgroundColor: const Color.fromARGB(255, 78, 48, 21),
               ),
             );
@@ -593,13 +660,7 @@ class _EventDescriptionState extends State<EventDescription>
                               ],
                             ),
                           ),
-                          Text(
-                            event.rounds ?? '',
-                            style: AppStyles.NormalText().copyWith(
-                              color: Theme.of(context).primaryColor,
-                              fontSize: 15,
-                            ),
-                          ),
+                          parseAndDisplayLinks(event.rounds ?? '', context),
                           Text(
                             event.rules ?? '',
                             style: AppStyles.NormalText().copyWith(

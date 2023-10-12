@@ -42,7 +42,7 @@ class _TranslateImageState extends State<TranslateImage>
 
     Random random = Random();
 
-    for (int i = 0; i < 16; i++) {
+    for (int i = 0; i < 12; i++) {
       List<double> offsetValues = [
         random.nextDouble() * random.nextInt(10),
         random.nextDouble() * random.nextInt(10),
@@ -54,7 +54,10 @@ class _TranslateImageState extends State<TranslateImage>
         begin: Offset(offsetValues[0], offsetValues[1]),
         end: Offset(offsetValues[2], offsetValues[3]),
       ).animate(
-        CurvedAnimation(parent: _animationController, curve: Curves.ease),
+        CurvedAnimation(
+          parent: _animationController,
+          curve: Curves.easeOut,
+        ),
       );
 
       ani.add(translation);
@@ -80,8 +83,7 @@ class _TranslateImageState extends State<TranslateImage>
   Widget build(BuildContext context) {
     return Visibility(
       visible: isVisible,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 3000),
+      child: Container(
         color: Colors.transparent,
         child: Stack(
           children: ani.map((e) {

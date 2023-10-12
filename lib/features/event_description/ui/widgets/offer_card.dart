@@ -1,7 +1,9 @@
 import 'dart:developer';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:pulzion23/constants/models/event_model.dart';
 import 'package:pulzion23/features/cart_page/cubit/cart_page_cubit.dart';
 import 'package:pulzion23/features/event_description/ui/event_description.dart';
@@ -25,6 +27,12 @@ class OfferCard extends StatefulWidget {
 }
 
 class _OfferCardState extends State<OfferCard> {
+  final cacheManager = CacheManager(Config(
+    'my_custom_cache_key',
+    stalePeriod: const Duration(days: 7),
+    maxNrOfCacheObjects: 100,
+  ));
+
   @override
   Widget build(BuildContext context) {
     return widget.combo.comboDetailsList == null ||
@@ -114,10 +122,25 @@ class _OfferCardState extends State<OfferCard> {
                                         height: 30,
                                         child: FittedBox(
                                           fit: BoxFit.contain,
-                                          child: Image.network(
-                                            event.logo,
+                                          child: CachedNetworkImage(
+                                            imageUrl: event.logo,
                                             color: Colors.white,
+                                            placeholder: (context, url) =>
+                                                Container(),
+                                            errorWidget:
+                                                (context, url, error) =>
+                                                    Container(),
+                                            cacheManager: cacheManager,
+                                            fadeInDuration: const Duration(
+                                              milliseconds: 100,
+                                            ),
+                                            fit: BoxFit.fitWidth,
+                                            key: UniqueKey(),
                                           ),
+                                          // child: Image.network(
+                                          //   event.logo,
+                                          //   color: Colors.white,
+                                          // ),
                                         ),
                                       ),
                                     ),

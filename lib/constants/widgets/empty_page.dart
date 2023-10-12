@@ -74,7 +74,10 @@ class EmptyPage extends StatelessWidget {
                 Text(
                   textAlign: TextAlign.center,
                   errorMessage,
-                  style: AppStyles.bodyTextStyle3(),
+                  style: AppStyles.NormalText().copyWith(
+                    fontSize: 15,
+                    color: Colors.white,
+                  ),
                 ),
                 if (refreshFunction != null)
                   TextButton(

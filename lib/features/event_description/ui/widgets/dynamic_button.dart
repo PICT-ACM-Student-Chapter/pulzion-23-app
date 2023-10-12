@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pulzion23/constants/models/event_model.dart';
@@ -6,7 +8,6 @@ import 'package:pulzion23/constants/widgets/halloween_button.dart';
 import '../../../cart_page/cubit/cart_page_cubit.dart';
 import '../../../login_page/cubit/check_login_cubit.dart';
 import '../../../login_page/ui/login_signup_intro.dart';
-import 'loading_button.dart';
 
 class DynamicButton extends StatelessWidget {
   final Events event;
@@ -16,12 +17,13 @@ class DynamicButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<CheckLoginCubit, CheckLoginState>(
       builder: (context, state) {
+        log(state.toString());
         if (state is CheckLoginFailure || state is CheckLoginLoading) {
           return event.price == 0
               ? SizedBox(
                   height: 200,
                   child: HalloweenButton(
-                    buttonText: 'Register Now',
+                    buttonText: 'Register',
                     icon: Icons.edit_rounded,
                     onPressed: () {
                       // Navigate to LoginSignUpIntroPage
@@ -49,30 +51,74 @@ class DynamicButton extends StatelessWidget {
                     },
                   ),
                 );
-        }
-
-        return Container(
-          child: event.price == 0
-              ? BlocBuilder<CartPageCubit, CartPageState>(
-                  builder: (context, state) {
-                    return SizedBox(
-                      height: 200,
-                      child: HalloweenButton(
-                        buttonText: 'Register Now',
-                        icon: Icons.edit_rounded,
-                        onPressed: () async {
-                          BlocProvider.of<CartPageCubit>(context)
-                              .registerFreeEvent(event.id!, context);
-                        },
-                      ),
-                    );
-                  },
-                )
-              : BlocConsumer<CartPageCubit, CartPageState>(
-                  listener: (context, state) {},
-                  builder: ((context, cartPageState) {
-                    if (cartPageState is CartPageLoaded) {
-                      if (cartPageState.cartList.getIds().contains(event.id)) {
+        } else if (state is CheckLoginSuccess) {
+          return Container(
+            child: event.price == 0
+                ? BlocBuilder<CartPageCubit, CartPageState>(
+                    builder: (context, state) {
+                      return SizedBox(
+                        height: 200,
+                        child: HalloweenButton(
+                          buttonText: 'Register',
+                          icon: Icons.edit_rounded,
+                          onPressed: () async {
+                            BlocProvider.of<CartPageCubit>(context)
+                                .registerFreeEvent(event.id!, context);
+                          },
+                        ),
+                      );
+                    },
+                  )
+                : BlocConsumer<CartPageCubit, CartPageState>(
+                    listener: (context, state) {},
+                    builder: (context, cartPageState) {
+                      log(cartPageState.toString());
+                      if (cartPageState is CartPageLoaded) {
+                        if (cartPageState.cartList
+                            .getIds()
+                            .contains(event.id)) {
+                          return SizedBox(
+                            height: 200,
+                            child: HalloweenButton(
+                              buttonText: 'Remove',
+                              icon: Icons.close_rounded,
+                              onPressed: () {
+                                if (event.id != null) {
+                                  BlocProvider.of<CartPageCubit>(
+                                    context,
+                                  ).deleteItem(event.id!);
+                                }
+                              },
+                            ),
+                          );
+                        } else {
+                          SizedBox(
+                            height: 200,
+                            child: HalloweenButton(
+                              buttonText: 'Add to Cart',
+                              icon: Icons.shopping_cart,
+                              onPressed: () {
+                                if (event.id != null) {
+                                  BlocProvider.of<CartPageCubit>(
+                                    context,
+                                  ).addCartItem(event.id!);
+                                }
+                              },
+                            ),
+                          );
+                        }
+                      } else if (cartPageState is CartPageLoading) {
+                        return Expanded(
+                          child: SizedBox(
+                            height: 200,
+                            child: HalloweenButton(
+                              buttonText: 'Loading...',
+                              icon: Icons.shopping_cart,
+                              onPressed: () {},
+                            ),
+                          ),
+                        );
+                      } else if (cartPageState is CartItemAdded) {
                         return SizedBox(
                           height: 200,
                           child: HalloweenButton(
@@ -87,44 +133,42 @@ class DynamicButton extends StatelessWidget {
                             },
                           ),
                         );
-                      } else {
-                        SizedBox(
+                      } else if (cartPageState is CartItemNotAdded) {
+                        return SizedBox(
                           height: 200,
                           child: HalloweenButton(
                             buttonText: 'Add to Cart',
-                            icon: Icons.shopping_cart,
+                            icon: Icons.close_rounded,
                             onPressed: () {
                               if (event.id != null) {
                                 BlocProvider.of<CartPageCubit>(
                                   context,
-                                ).addCartItem(event.id!);
+                                ).deleteItem(event.id!);
                               }
                             },
                           ),
                         );
                       }
-                    } else if (cartPageState is CartPageLoading ||
-                        cartPageState is CartItemAdded) {
-                      return const Expanded(child: LoadingButton());
-                    }
 
-                    return SizedBox(
-                      height: 200,
-                      child: HalloweenButton(
-                        buttonText: 'Add to Cart',
-                        icon: Icons.shopping_cart,
-                        onPressed: () {
-                          if (event.id != null) {
-                            BlocProvider.of<CartPageCubit>(
-                              context,
-                            ).addCartItem(event.id!);
-                          }
-                        },
-                      ),
-                    );
-                  }),
-                ),
-        );
+                      return SizedBox(
+                        height: 200,
+                        child: HalloweenButton(
+                          buttonText: 'Add to Cart',
+                          icon: Icons.shopping_cart,
+                          onPressed: () {
+                            if (event.id != null) {
+                              BlocProvider.of<CartPageCubit>(
+                                context,
+                              ).addCartItem(event.id!);
+                            }
+                          },
+                        ),
+                      );
+                    },
+                  ),
+          );
+        }
+        return FlutterLogo();
       },
     );
   }

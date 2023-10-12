@@ -109,7 +109,9 @@ class PastOrdersCards extends StatelessWidget {
                               ),
                             ] +
                             List.generate(
-                              orders[index].events!.length,
+                              orders[index].events == null
+                                  ? 0
+                                  : orders[index].events!.length,
                               (index1) => Padding(
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 8.0,

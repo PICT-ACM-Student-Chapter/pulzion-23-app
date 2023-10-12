@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glassmorphism/glassmorphism.dart';
@@ -39,10 +41,15 @@ class _CartPageContentState extends State<CartPageContent>
   }
 
   Future<void> _launchPaymentURL() async {
-    final cost = widget.eventList!.cartItems!
-        .fold(0, (previousValue, element) => previousValue + element.price!);
+    double price = 0;
+    for (var item in widget.eventList!.cartItems!) {
+      price += item.price!;
+    }
+    for (var combo in widget.eventList!.cartCombos!) {
+      price += double.parse(combo.comboDiscountedPrice.toString());
+    }
     Uri paymentURL = Uri.parse(
-      'upi://pay?pa=pictscholarship@jsb&pn=PICT&am=$cost&tn=Pulzion&cu=INR',
+      'upi://pay?pa=pictscholarship@jsb&pn=PICT&am=$price&tn=Pulzion Tech Or Treat&cu=INR',
     );
     final bool nativeAppLaunchSucceeded = await launchUrl(
       paymentURL,
@@ -594,10 +601,13 @@ class _CartPageContentState extends State<CartPageContent>
           ScaffoldMessenger.of(context).hideCurrentSnackBar();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(state.message,style: AppStyles.NormalText().copyWith(
-                                            fontSize: 15,
-                                            color: Colors.white,
-                                          ),),
+              content: Text(
+                state.message,
+                style: AppStyles.NormalText().copyWith(
+                  fontSize: 15,
+                  color: Colors.white,
+                ),
+              ),
               backgroundColor: const Color.fromARGB(255, 78, 48, 21),
             ),
           );
@@ -605,10 +615,13 @@ class _CartPageContentState extends State<CartPageContent>
           ScaffoldMessenger.of(context).hideCurrentSnackBar();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(state.message,style: AppStyles.NormalText().copyWith(
-                                            fontSize: 15,
-                                            color: Colors.white,
-                                          ),),
+              content: Text(
+                state.message,
+                style: AppStyles.NormalText().copyWith(
+                  fontSize: 15,
+                  color: Colors.white,
+                ),
+              ),
               backgroundColor: const Color.fromARGB(255, 196, 117, 15),
             ),
           );
@@ -628,6 +641,14 @@ class _CartPageContentState extends State<CartPageContent>
             ),
           );
         } else {
+          double price = 0;
+          for (var item in widget.eventList!.cartItems!) {
+            price += item.price!;
+          }
+          for (var combo in widget.eventList!.cartCombos!) {
+            price += double.parse(combo.comboDiscountedPrice.toString());
+          }
+
           return Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -667,13 +688,7 @@ class _CartPageContentState extends State<CartPageContent>
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "TOTAL : ₹${widget.eventList == null || widget.eventList!.cartItems == null ? 0 : widget.eventList!.cartItems!.fold(0, (previousValue, element) {
-                                    if (element.price == null) {
-                                      return 0;
-                                    } else {
-                                      return previousValue + element.price!;
-                                    }
-                                  })} ",
+                                "TOTAL : ₹${widget.eventList == null || widget.eventList!.cartItems == null ? 0 : price.toString()}",
                                 style: AppStyles.NormalText().copyWith(
                                   color: Colors.white,
                                   fontSize: 18,
@@ -681,7 +696,7 @@ class _CartPageContentState extends State<CartPageContent>
                                 ),
                               ),
                               Text(
-                                "(${widget.eventList == null || widget.eventList!.cartItems == null ? 0 : widget.eventList!.cartItems!.length} items)",
+                                "(${widget.eventList == null || widget.eventList!.cartItems == null ? 0 : widget.eventList!.cartItems!.length + (widget.eventList == null || widget.eventList!.cartCombos == null ? 0 : widget.eventList!.cartCombos!.length)} items)",
                                 style: AppStyles.bodyTextStyle3().copyWith(
                                   color: Colors.white,
                                   fontSize: 12,
@@ -700,7 +715,8 @@ class _CartPageContentState extends State<CartPageContent>
                                 icon: Icons.shopping_cart,
                                 buttonText: "Checkout",
                                 onPressed: () async {
-                                  if (EndPoints.acceptingPayment ?? true) {
+                                  if (EndPoints.acceptingPayment ??
+                                      true && price > 0.0) {
                                     await _getReferralCodes()
                                         .then((value) async {
                                       await _launchPaymentURL().then((value) {
@@ -932,13 +948,13 @@ class _CartPageContentState extends State<CartPageContent>
                                   ScaffoldMessenger.of(context)
                                       .hideCurrentSnackBar();
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                     SnackBar(
+                                    SnackBar(
                                       content: Text(
                                         "We are currently not accepting payments...",
                                         style: AppStyles.NormalText().copyWith(
-                                            fontSize: 15,
-                                            color: Colors.white,
-                                          ),
+                                          fontSize: 15,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                       backgroundColor:
                                           Color.fromARGB(255, 78, 48, 21),

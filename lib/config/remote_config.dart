@@ -1,5 +1,5 @@
 import 'package:firebase_remote_config/firebase_remote_config.dart';
-
+import 'dart:developer';
 import '../constants/urls.dart';
 
 Future<void> remoteConfig() async {
@@ -18,7 +18,6 @@ Future<void> remoteConfig() async {
   EndPoints.playStoreURL = remoteConfig.getString('playstoreUrl');
   EndPoints.sponsorsUrl = remoteConfig.getString('sponsorsUrl');
   EndPoints.acceptingPayment = remoteConfig.getBool('AcceptPayment');
-
   EndPoints.mcqStarted = remoteConfig.getBool('mcqStarted');
   EndPoints.mcqBaseUrl = remoteConfig.getString('mcqBaseUrl');
   EndPoints.referralLink = remoteConfig.getString('ReferalLink');

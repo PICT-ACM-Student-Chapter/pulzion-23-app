@@ -170,6 +170,7 @@ class _FrostedGlassTileState extends State<FrostedGlassTile>
                   width: MediaQuery.of(context).size.width / 3.5,
                   child: InteractiveViewer(
                     child: const ModelViewer(
+                      exposure: 1,
                       src: 'assets/3D/pumpkin.glb',
                       // relatedJs: '''
                       //     const modelViewer = document.querySelector('model-viewer');
