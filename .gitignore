@@ -49,4 +49,4 @@ app.*.map.json
 /metrics
 
 #.env file
-lib/.env
+/lib/.env
