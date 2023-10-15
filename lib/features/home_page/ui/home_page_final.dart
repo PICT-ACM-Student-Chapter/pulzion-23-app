@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
-import 'package:pulzion23/features/home_page/ui/wigets/animation.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../config/size_config.dart';

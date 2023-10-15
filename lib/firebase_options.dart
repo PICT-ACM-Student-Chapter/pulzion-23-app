@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -49,20 +50,20 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAH8--kh-eWvc2XGtYI39kqR2Rtvric8PE',
-    appId: '1:234069676610:android:aa1279b9105b44094b93db',
-    messagingSenderId: '234069676610',
-    projectId: 'pulzion-tech-or-treat',
-    storageBucket: 'pulzion-tech-or-treat.appspot.com',
+  static FirebaseOptions android = FirebaseOptions(
+    apiKey: dotenv.env['API_KEY_ANDROID']!,
+    appId: dotenv.env['APP_ID_ANDROID']!,
+    messagingSenderId: dotenv.env['MESSAGING_SENDER_ID_ANDROID']!,
+    projectId: dotenv.env['PROJECT_ID_ANDROID']!,
+    storageBucket: dotenv.env['STORAGE_BUCKET_ANDROID']!,
   );
 
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDcz8T5Yrjf36aWPr5bGfxqK0o-6YdPVZk',
-    appId: '1:234069676610:ios:d1adde5224286a1f4b93db',
-    messagingSenderId: '234069676610',
-    projectId: 'pulzion-tech-or-treat',
-    storageBucket: 'pulzion-tech-or-treat.appspot.com',
-    iosBundleId: 'com.pasc.pulzion23',
+  static FirebaseOptions ios = FirebaseOptions(
+    apiKey: dotenv.env['API_KEY_IOS']!,
+    appId: dotenv.env['APP_ID_IOS']!,
+    messagingSenderId: dotenv.env['MESSAGING_SENDER_ID_IOS']!,
+    projectId: dotenv.env['PROJECT_ID_IOS']!,
+    storageBucket: dotenv.env['STORAGE_BUCKET_IOS'],
+    iosBundleId: dotenv.env['IOS_BUNDLE_ID']!,
   );
 }

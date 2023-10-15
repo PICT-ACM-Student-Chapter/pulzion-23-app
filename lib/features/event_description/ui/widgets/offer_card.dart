@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:pulzion23/constants/models/event_model.dart';
 import 'package:pulzion23/features/cart_page/cubit/cart_page_cubit.dart';
-import 'package:pulzion23/features/event_description/ui/event_description.dart';
 import 'package:pulzion23/features/event_description/ui/widgets/lightOnOff.dart';
 
 import '../../../../constants/styles.dart';
@@ -77,7 +75,7 @@ class _OfferCardState extends State<OfferCard> {
                         children: widget.combo.comboDetailsList!.map((event) {
                           return InkWell(
                             onTap: () {
-                              Events? foundEvent = null;
+                              Events? foundEvent;
                               for (var element in widget.eventList) {
                                 if (element.name == event.name) {
                                   foundEvent = element;

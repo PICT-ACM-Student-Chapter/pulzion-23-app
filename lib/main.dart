@@ -25,8 +25,11 @@ import 'project/landing_page.dart';
 import 'services/bloc_observer.dart';
 import 'services/firebase_notifications.dart';
 import 'services/local_notifications.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<void> main() async {
+  const pathToenv = 'lib/.env';
+  await dotenv.load(fileName: pathToenv);
   WidgetsFlutterBinding.ensureInitialized();
 
   SystemChrome.setPreferredOrientations(

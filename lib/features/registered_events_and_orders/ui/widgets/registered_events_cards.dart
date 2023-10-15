@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:pulzion23/constants/models/event_model.dart';
@@ -19,7 +18,6 @@ class RegisteredEventsCards extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     var height = size.height;
     var th = height / 2.4;
-
 
     return registeredEvents.isEmpty
         ? const Center(

@@ -89,8 +89,8 @@ class CartPageCubit extends Cubit<CartPageState> {
                 color: Colors.white,
               ),
             ),
-            backgroundColor: Color.fromARGB(255, 196, 117, 15),
-            duration: Duration(
+            backgroundColor: const Color.fromARGB(255, 196, 117, 15),
+            duration: const Duration(
               seconds: 2,
             ),
           ),
@@ -120,7 +120,7 @@ class CartPageCubit extends Cubit<CartPageState> {
               color: Colors.white,
             ),
           ),
-          backgroundColor: Color.fromARGB(255, 78, 48, 21),
+          backgroundColor: const Color.fromARGB(255, 78, 48, 21),
         ),
       );
     }

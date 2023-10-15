@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -957,7 +956,7 @@ class _CartPageContentState extends State<CartPageContent>
                                         ),
                                       ),
                                       backgroundColor:
-                                          Color.fromARGB(255, 78, 48, 21),
+                                          const Color.fromARGB(255, 78, 48, 21),
                                     ),
                                   );
                                 }

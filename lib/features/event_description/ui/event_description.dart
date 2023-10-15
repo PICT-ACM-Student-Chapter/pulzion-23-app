@@ -1,13 +1,10 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pulzion23/constants/widgets/halloween_button.dart';
-import 'package:pulzion23/features/event_description/ui/widgets/dynamic_button.dart';
 import 'package:pulzion23/features/event_description/ui/widgets/event_mode.dart';
 import 'package:pulzion23/features/event_description/ui/widgets/offer_card.dart';
 import 'package:pulzion23/features/login_page/cubit/check_login_cubit.dart';
-import 'package:pulzion23/features/login_page/logic/login_cubit.dart';
 import 'package:pulzion23/features/login_page/ui/login_signup_intro.dart';
 import "package:share_plus/share_plus.dart";
 import 'package:url_launcher/url_launcher.dart';
@@ -157,8 +154,8 @@ class _EventDescriptionState extends State<EventDescription>
                   color: Colors.white,
                 ),
               ),
-              backgroundColor: Color.fromARGB(255, 196, 117, 15),
-              duration: Duration(seconds: 2),
+              backgroundColor: const Color.fromARGB(255, 196, 117, 15),
+              duration: const Duration(seconds: 2),
             ),
           );
         }

@@ -58,10 +58,13 @@ class ProfilePage extends StatelessWidget {
               if (state is ProfileError) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text(state.message,style: AppStyles.NormalText().copyWith(
-                                            fontSize: 15,
-                                            color: Colors.white,
-                                          ),),
+                    content: Text(
+                      state.message,
+                      style: AppStyles.NormalText().copyWith(
+                        fontSize: 15,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 );
               }

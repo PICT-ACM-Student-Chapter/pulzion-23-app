@@ -25,10 +25,13 @@ class CartPageFinal extends StatelessWidget {
                     ScaffoldMessenger.of(context).hideCurrentSnackBar();
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text(state.message,style: AppStyles.NormalText().copyWith(
-                                            fontSize: 15,
-                                            color: Colors.white,
-                                          ),),
+                        content: Text(
+                          state.message,
+                          style: AppStyles.NormalText().copyWith(
+                            fontSize: 15,
+                            color: Colors.white,
+                          ),
+                        ),
                         backgroundColor:
                             const Color.fromARGB(255, 196, 117, 15),
                         duration: const Duration(seconds: 2),
@@ -41,10 +44,13 @@ class CartPageFinal extends StatelessWidget {
 
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text(state.message,style: AppStyles.NormalText().copyWith(
-                                            fontSize: 15,
-                                            color: Colors.white,
-                                          ),),
+                        content: Text(
+                          state.message,
+                          style: AppStyles.NormalText().copyWith(
+                            fontSize: 15,
+                            color: Colors.white,
+                          ),
+                        ),
                         backgroundColor: const Color.fromARGB(255, 78, 48, 21),
                         duration: const Duration(seconds: 2),
                       ),

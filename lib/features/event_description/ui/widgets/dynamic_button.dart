@@ -168,7 +168,7 @@ class DynamicButton extends StatelessWidget {
                   ),
           );
         }
-        return FlutterLogo();
+        return const FlutterLogo();
       },
     );
   }

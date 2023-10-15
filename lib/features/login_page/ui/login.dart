@@ -69,12 +69,15 @@ class _LoginState extends State<Login> {
             listener: (context, state) async {
               if (state is LoginSuccess) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                   SnackBar(
-                    content: Text("Login Successful",style: AppStyles.NormalText().copyWith(
-                                            fontSize: 15,
-                                            color: Colors.white,
-                                          ),),
-                    backgroundColor: Color.fromARGB(255, 196, 117, 15),
+                  SnackBar(
+                    content: Text(
+                      "Login Successful",
+                      style: AppStyles.NormalText().copyWith(
+                        fontSize: 15,
+                        color: Colors.white,
+                      ),
+                    ),
+                    backgroundColor: const Color.fromARGB(255, 196, 117, 15),
                   ),
                 );
                 await context.read<CheckLoginCubit>().checkLogin();
@@ -88,10 +91,13 @@ class _LoginState extends State<Login> {
                 if (mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text(state.message,style: AppStyles.NormalText().copyWith(
-                                            fontSize: 15,
-                                            color: Colors.white,
-                                          ),),
+                      content: Text(
+                        state.message,
+                        style: AppStyles.NormalText().copyWith(
+                          fontSize: 15,
+                          color: Colors.white,
+                        ),
+                      ),
                       backgroundColor: const Color.fromARGB(255, 78, 48, 21),
                     ),
                   );
