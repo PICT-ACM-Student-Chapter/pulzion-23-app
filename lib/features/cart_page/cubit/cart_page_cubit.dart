@@ -143,6 +143,7 @@ class CartPageCubit extends Cubit<CartPageState> {
 
       log('data = ${response.body}');
       var data = jsonDecode(response.body);
+    
 
       if ((response.statusCode / 100).floor() == 2) {
         log('Add item response status code: ${response.statusCode}');

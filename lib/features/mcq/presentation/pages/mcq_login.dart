@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -40,6 +41,7 @@ class _McqLoginState extends State<McqLogin> {
           msg: 'Login-in Successful',
           backgroundColor: Colors.blue.shade600,
         );
+
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -55,6 +57,7 @@ class _McqLoginState extends State<McqLogin> {
         _isLoading = false;
       });
     } catch (error) {
+      log(error.toString());
       Fluttertoast.showToast(
         msg: error.toString(),
         backgroundColor: Colors.blue.shade600,

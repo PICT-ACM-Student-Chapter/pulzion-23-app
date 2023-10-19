@@ -267,8 +267,12 @@ class _SingleQuestionState extends State<SingleQuestion> {
     });
   }
 
+  //!this
+  String twoDigits(int n) {
+    return n.toString().padLeft(2, '0');
+  }
+
   Text buildTime() {
-    String twoDigits(int n) => n.toString().padLeft(2, '0');
     final minutes = twoDigits(duration.inMinutes.remainder(60));
     final seconds = twoDigits(duration.inSeconds.remainder(60));
     final hours = twoDigits(duration.inHours.remainder(24));
@@ -604,8 +608,8 @@ class _SingleQuestionState extends State<SingleQuestion> {
                                 color: Colors.white,
                               ),
                               margin: EdgeInsets.only(
-                                  top: MediaQuery.of(context).size.height *
-                                      0.05),
+                                top: MediaQuery.of(context).size.height * 0.05,
+                              ),
                               child: SizedBox(
                                 height: 100,
                                 width: 100,
@@ -657,7 +661,10 @@ class _SingleQuestionState extends State<SingleQuestion> {
                                     child: TextButton(
                                       onPressed: () {
                                         _markAnswer(
-                                            0, questions[index]['id'], index);
+                                          0,
+                                          questions[index]['id'],
+                                          index,
+                                        );
                                       },
                                       style: TextButton.styleFrom(
                                           backgroundColor: Colors.white),
