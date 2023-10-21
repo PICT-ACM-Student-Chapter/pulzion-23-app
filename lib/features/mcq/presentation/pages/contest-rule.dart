@@ -212,7 +212,8 @@ class RuleBox extends StatelessWidget {
                     backgroundColor: const Color(0xFF031F4B),
                     // primary: const Color(0xff1b3357),
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25)),
+                      borderRadius: BorderRadius.circular(25),
+                    ),
                   ),
                   onPressed: () {
                     if (isFinished) {

@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -127,8 +128,10 @@ class _SingleQuestionState extends State<SingleQuestion> {
       final response = await http.get(url, headers: {
         'Authorization': 'Token ${McqToken}',
       });
+      log(response.body.toString());
       if (response.statusCode == 200) {
         questions = jsonDecode(response.body);
+        log('Question = ' + questions.toString());
         // print(questions);
         setState(() {
           _isQuestionsLoading = false;

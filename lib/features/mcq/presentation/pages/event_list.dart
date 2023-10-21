@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -36,6 +37,7 @@ class _MCQEventListState extends State<MCQEventList> {
         headers: headers,
       );
 
+      log("RESPONSE = " + response.body.toString());
       if (response.statusCode == 200) {
         var result = await jsonDecode(response.body);
         MCQList.mcqEventList.clear();
