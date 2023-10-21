@@ -4,7 +4,8 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pulzion23/constants/urls.dart';
-import 'package:pulzion23/features/mcq/presentation/pages/mcq_login.dart';
+import 'package:pulzion23/features/mcq_2/features/login/logic/cubit/mcq2_login_cubit.dart';
+import 'package:pulzion23/features/mcq_2/features/login/ui/mcq2_login.dart';
 
 import '../config/size_config.dart';
 import '../features/cart_page/cubit/cart_page_cubit.dart';
@@ -62,7 +63,10 @@ class BottomNavBar extends StatelessWidget {
                   if (state is BottomBarAboutUs) {
                     return true
                         // EndPoints.mcqStarted == true
-                        ? const McqLogin()
+                        ? BlocProvider(
+                            create: (context) => Mcq2_LoginCubit(),
+                            child: McqLogin(),
+                          )
                         : AboutUsPage(false);
                   } else if (state is BottomBarRegisteredEvents) {
                     return loginState is CheckLoginSuccess

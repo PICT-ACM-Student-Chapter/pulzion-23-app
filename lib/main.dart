@@ -1,18 +1,16 @@
 import 'dart:developer';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 import 'package:pulzion23/constants/widgets/loader.dart';
 import 'package:pulzion23/features/splash_screen/Splash_Screen.dart';
 import 'package:pulzion23/features/event_slots/logic/booked_slot_cubit.dart';
 import 'package:pulzion23/features/splash_screen/cubit/splash_cubit.dart';
 import 'package:pulzion23/project/cubit/animation_toggle_cubit.dart';
-import 'package:pulzion23/services/mcq_user_provider.dart';
-
+// import 'package:pulzion23/services/mcq_user_provider.dart';
 import 'config/remote_config.dart';
 import 'features/cart_page/cubit/cart_page_cubit.dart';
 import 'features/compulsory_update/cubit/compulsory_update_cubit.dart';
@@ -59,16 +57,15 @@ Future<void> main() async {
     Bloc.observer = PulzionBlocObserver();
   }
 
-  runApp(ChangeNotifierProvider(
-    create: (context) => MCQUserProvider(),
-    child: MultiBlocProvider(
+  runApp(
+    MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => SplashCubit()),
         BlocProvider(create: (context) => GlobalParameterCubit()),
       ],
       child: const SplashScreen(),
     ),
-  ));
+  );
 }
 
 class Pulzion23App extends StatefulWidget {

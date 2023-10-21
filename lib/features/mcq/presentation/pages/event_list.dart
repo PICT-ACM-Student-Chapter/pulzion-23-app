@@ -1,26 +1,21 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 import 'package:pulzion23/constants/colors.dart';
 import 'package:pulzion23/constants/styles.dart';
-// import 'package:pulzion22_app/screens/mcq/contest-rule.dart';
-// import 'package:pulzion22_app/screens/mcq/mcq_event_model.dart';
-// import 'package:pulzion22_app/services/mcq_user_provider.dart';
 
 import '../../../../constants/mcqcolors.dart';
 import '../../../../constants/mcqconstants.dart';
-import '../../../../services/mcq_user_provider.dart';
-// import '../../constants/constants.dart';
-// import '../../theme/app_colors.dart';
 import 'contest-rule.dart';
 import 'mcq_event_model.dart';
 
 class MCQEventList extends StatefulWidget {
-  const MCQEventList({Key? key}) : super(key: key);
+  MCQEventList({Key? key}) : super(key: key);
+  final storage = FlutterSecureStorage();
 
   @override
   State<MCQEventList> createState() => _MCQEventListState();
@@ -30,10 +25,9 @@ class _MCQEventListState extends State<MCQEventList> {
   bool _isLoad = true;
 
   Future _getMCQEventList() async {
-    var mcqUser = Provider.of<MCQUserProvider>(context, listen: false);
-
+    final McqToken = await widget.storage.read(key: 'mcqtoken');
     Map<String, String> headers = {
-      'Authorization': 'Token ${mcqUser.mcqtoken}',
+      'Authorization': 'Token ${McqToken}',
     };
     try {
       final url = Uri.parse(Constants.GET_MCQ_EVENTS);

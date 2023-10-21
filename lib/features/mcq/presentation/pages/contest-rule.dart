@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-import 'package:provider/provider.dart';
 import 'package:pulzion23/constants/styles.dart';
 import 'package:pulzion23/constants/widgets/error_dialog.dart';
 import 'package:pulzion23/features/mcq/presentation/pages/questionPageBuilder.dart';
@@ -16,13 +16,13 @@ import 'package:pulzion23/features/mcq/presentation/pages/questionPageBuilder.da
 // ignore_for_file: prefer_const_constructors
 
 import '../../../../constants/mcqconstants.dart';
-import '../../../../services/mcq_user_provider.dart';
 import 'mcq_event_statusmodel.dart';
 
 class RulePage extends StatefulWidget {
   final String id;
+  final storage = FlutterSecureStorage();
 
-  const RulePage({Key? key, required this.id}) : super(key: key);
+  RulePage({Key? key, required this.id}) : super(key: key);
 
   @override
   State<RulePage> createState() => _RulePageState();
@@ -36,10 +36,11 @@ class _RulePageState extends State<RulePage> {
   bool _isError = false;
 
   Future _getMCQEventDetails() async {
-    var mcqUser = Provider.of<MCQUserProvider>(context, listen: false);
+    // var mcqUser = Provider.of<MCQUserProvider>(context, listen: false);
+    final McqToken = await widget.storage.read(key: 'mcqtoken');
 
     Map<String, String> headers = {
-      'Authorization': 'Token ${mcqUser.mcqtoken}',
+      'Authorization': 'Token ${McqToken}',
     };
     try {
       final url = Uri.parse(Constants.GET_MCQ_EVENT_DETAILS + widget.id);
@@ -48,7 +49,8 @@ class _RulePageState extends State<RulePage> {
         headers: headers,
       );
       if (response.statusCode == 200) {
-        mcqUser.setId(widget.id);
+        // mcqUser.setId(widget.id);
+        await widget.storage.write(key: 'mcqId', value: widget.id);
         var result = await jsonDecode(response.body);
         McqStatus.clearFunction();
         McqStatus.fromJson(result);

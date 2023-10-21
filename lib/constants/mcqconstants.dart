@@ -26,7 +26,7 @@ const SizedBox kspaceBetweenTextField = SizedBox(
 );
 
 class Constants {
-  static String BASE_URL = 'https://ems-test-server.onrender.com';
+  static String BASE_URL = 'https://api.mcq.pulzion.co.in';
   // EndPoints.mcqBaseUrl!;
   static String MCQ_BASE = '$BASE_URL/api';
   static String GET_REGISTERED_EVENTS = '$BASE_URL/user_events';

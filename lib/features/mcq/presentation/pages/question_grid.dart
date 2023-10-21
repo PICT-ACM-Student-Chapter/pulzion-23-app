@@ -4,19 +4,19 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-import 'package:provider/provider.dart';
 // import 'package:pulzion22_app/models/question_overview.dart';
 
 import '../../../../constants/mcqconstants.dart';
-import '../../../../services/mcq_user_provider.dart';
 // import '../../constants/constants.dart';
 import '../../data/models/question_overview.dart';
 // import '../../services/mcq_user_provider.dart';
 
 class QuestionGrid extends StatefulWidget {
   List<CustomQuestionOverview> question_overview;
+  final storage = FlutterSecureStorage();
 
   QuestionGrid({required this.question_overview, Key? key}) : super(key: key);
 
@@ -87,15 +87,14 @@ class _QuestionGridState extends State<QuestionGrid> {
                     ),
                   ),
                   onPressed: () async {
-                    var mcqUser =
-                        Provider.of<MCQUserProvider>(context, listen: false);
-
+                    final McqToken = await widget.storage.read(key: 'mcqtoken');
+                    final McqId =
+                        await widget.storage.read(key: 'mcqId').toString();
                     Map<String, String> headers = {
-                      'Authorization': 'Token ${mcqUser.mcqtoken}',
+                      'Authorization': 'Token ${McqToken}',
                     };
                     try {
-                      final url = Uri.parse(
-                          Constants.SUBMIT_MCQ + (mcqUser.mcqId as String));
+                      final url = Uri.parse(Constants.SUBMIT_MCQ + (McqId));
                       final response = await http.get(
                         url,
                         headers: headers,

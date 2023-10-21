@@ -4,15 +4,16 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 // import 'package:pulzion22_app/constants/constants.dart';
 
 // import 'package:pulzion22_app/widgets/timer.dart';
 
 import '../../../../constants/mcqconstants.dart';
-import '../../../../services/mcq_user_provider.dart';
+// import '../../../../services/mcq_user_provider.dart';
 import '../../data/models/question_overview.dart';
 // import '../../models/question_overview.dart';
 // import '../../services/mcq_user_provider.dart';
@@ -22,6 +23,7 @@ import 'question_grid.dart';
 class SingleQuestion extends StatefulWidget {
   String id;
   int timer;
+  final storage = FlutterSecureStorage();
 
   SingleQuestion({Key? key, required this.id, required this.timer})
       : super(key: key);
@@ -42,13 +44,13 @@ class _SingleQuestionState extends State<SingleQuestion> {
   late Duration duration;
 
   Future _markAnswer(int ans, String questionID, int questionIndex) async {
+    final McqToken = await widget.storage.read(key: 'mcqtoken');
     try {
-      final mcqUser = Provider.of<MCQUserProvider>(context, listen: false);
       final url = Uri.parse(Constants.MARK_ANSWER_URL);
       final response = await http.patch(
         url,
         headers: {
-          'Authorization': 'Token ${mcqUser.mcqtoken}',
+          'Authorization': 'Token ${McqToken}',
           "Content-Type": "application/json",
         },
         body: jsonEncode({
@@ -81,13 +83,14 @@ class _SingleQuestionState extends State<SingleQuestion> {
   }
 
   Future _toggleBookMark(int questionIndex) async {
+    final McqToken = await widget.storage.read(key: 'mcqtoken');
     try {
-      final mcqUser = Provider.of<MCQUserProvider>(context, listen: false);
+      // final mcqUser = Provider.of<MCQUserProvider>(context, listen: false);
       final url = Uri.parse(Constants.MARK_ANSWER_URL);
       final response = await http.patch(
         url,
         headers: {
-          'Authorization': 'Token ${mcqUser.mcqtoken}',
+          'Authorization': 'Token ${McqToken}',
           "Content-Type": "application/json",
         },
         body: jsonEncode({
@@ -118,10 +121,11 @@ class _SingleQuestionState extends State<SingleQuestion> {
 
   Future _getQuestion() async {
     try {
-      final mcqUser = Provider.of<MCQUserProvider>(context, listen: false);
+      // final mcqUser = Provider.of<MCQUserProvider>(context, listen: false);
       final url = Uri.parse(Constants.GET_MCQS_URL + widget.id);
+      final McqToken = await widget.storage.read(key: 'mcqtoken');
       final response = await http.get(url, headers: {
-        'Authorization': 'Token ${mcqUser.mcqtoken}',
+        'Authorization': 'Token ${McqToken}',
       });
       if (response.statusCode == 200) {
         questions = jsonDecode(response.body);
@@ -195,13 +199,15 @@ class _SingleQuestionState extends State<SingleQuestion> {
   }
 
   Future _autoSubmitQuiz() async {
-    var mcqUser = Provider.of<MCQUserProvider>(context, listen: false);
+    final McqToken = await widget.storage.read(key: 'mcqtoken');
+    final McqId = await widget.storage.read(key: 'mcqId').toString();
+    // var mcqUser = Provider.of<MCQUserProvider>(context, listen: false);
 
     Map<String, String> headers = {
-      'Authorization': 'Token ${mcqUser.mcqtoken}',
+      'Authorization': 'Token ${McqToken}',
     };
     try {
-      final url = Uri.parse(Constants.SUBMIT_MCQ + (mcqUser.mcqId as String));
+      final url = Uri.parse(Constants.SUBMIT_MCQ + (McqId));
       final response = await http.get(
         url,
         headers: headers,
