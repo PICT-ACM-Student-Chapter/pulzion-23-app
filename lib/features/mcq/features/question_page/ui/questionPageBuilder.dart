@@ -13,12 +13,12 @@ import 'package:http/http.dart' as http;
 
 // import 'package:pulzion22_app/widgets/timer.dart';
 
-import '../../../../constants/mcqconstants.dart';
+import '../../../../../constants/mcqconstants.dart';
 // import '../../../../services/mcq_user_provider.dart';
-import '../../data/models/question_overview.dart';
+import '../../question_overview/ui/question_overview.dart';
 // import '../../models/question_overview.dart';
 // import '../../services/mcq_user_provider.dart';
-import 'question_grid.dart';
+import '../../question_grid/ui/question_grid.dart';
 
 // ignore: must_be_immutable
 class SingleQuestion extends StatefulWidget {

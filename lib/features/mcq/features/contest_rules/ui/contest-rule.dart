@@ -1,13 +1,12 @@
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:pulzion23/constants/styles.dart';
 import 'package:pulzion23/constants/widgets/error_dialog.dart';
-import 'package:pulzion23/features/mcq/presentation/pages/questionPageBuilder.dart';
+import 'package:pulzion23/features/mcq/features/question_page/ui/questionPageBuilder.dart';
 // import 'package:pulzion22_app/screens/mcq/questionPageBuilder.dart';
 // import '../../constants/constants.dart';
 // import '../../services/mcq_user_provider.dart';
@@ -15,8 +14,8 @@ import 'package:pulzion23/features/mcq/presentation/pages/questionPageBuilder.da
 // ignore_for_file:prefer_const_literals_to_create_immutables
 // ignore_for_file: prefer_const_constructors
 
-import '../../../../constants/mcqconstants.dart';
-import 'mcq_event_statusmodel.dart';
+import 'package:pulzion23/constants/mcqconstants.dart';
+import '../../../models/mcq_event_statusmodel.dart';
 
 class RulePage extends StatefulWidget {
   final String id;

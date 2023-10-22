@@ -9,10 +9,10 @@ import 'package:intl/intl.dart';
 import 'package:pulzion23/constants/colors.dart';
 import 'package:pulzion23/constants/styles.dart';
 
-import '../../../../constants/mcqcolors.dart';
-import '../../../../constants/mcqconstants.dart';
-import 'contest-rule.dart';
-import 'mcq_event_model.dart';
+import '../../../../../constants/mcqcolors.dart';
+import '../../../../../constants/mcqconstants.dart';
+import '../../contest_rules/ui/contest-rule.dart';
+import '../../../models/mcq_event_model.dart';
 
 class MCQEventList extends StatefulWidget {
   MCQEventList({Key? key}) : super(key: key);
