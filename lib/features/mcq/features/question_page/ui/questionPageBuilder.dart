@@ -122,6 +122,7 @@ class _SingleQuestionState extends State<SingleQuestion> {
 
   Future _getQuestion() async {
     try {
+      //! get all questions from the server
       // final mcqUser = Provider.of<MCQUserProvider>(context, listen: false);
       final url = Uri.parse(Constants.GET_MCQS_URL + widget.id);
       final McqToken = await widget.storage.read(key: 'mcqtoken');
@@ -281,6 +282,7 @@ class _SingleQuestionState extends State<SingleQuestion> {
     return n.toString().padLeft(2, '0');
   }
 
+  //! handle time sync in cubit itself
   Text buildTime() {
     final minutes = twoDigits(duration.inMinutes.remainder(60));
     final seconds = twoDigits(duration.inSeconds.remainder(60));
@@ -370,6 +372,7 @@ class _SingleQuestionState extends State<SingleQuestion> {
           ? Center(child: CircularProgressIndicator())
           : WillPopScope(
               onWillPop: _onWillPop,
+              //! pageview builder will create a separate page for each question (like listview builder and gridview builder)
               child: PageView.builder(
                 itemBuilder: (context, index) {
                   _isBookmarked = questions[index]['review_status'];
@@ -473,6 +476,9 @@ class _SingleQuestionState extends State<SingleQuestion> {
                                             fontSize: 20,
                                           ),
                                         ),
+
+
+                                        //! shows number of q / total questions 
                                         Text(
                                           //Question number
                                           '${index + 1}/',
@@ -521,6 +527,9 @@ class _SingleQuestionState extends State<SingleQuestion> {
                                       ],
                                     ),
                                   ),
+                                  //! end of top row 
+
+                                  //! on clicking question statement it shows further details
                                   InkWell(
                                     onTap: () {
                                       showDialog(
@@ -570,6 +579,8 @@ class _SingleQuestionState extends State<SingleQuestion> {
                                         children: [
                                           Text(
                                             //actual Question
+
+                                            //! to show only 40 char on main screen
                                             "${questions[index]['fk_question']['statement'].toString().substring(
                                                   0,
                                                   questions[index]['fk_question']
@@ -605,6 +616,8 @@ class _SingleQuestionState extends State<SingleQuestion> {
                               ),
                             ),
                           ),
+
+                          //! timer on top of question
                           Align(
                             alignment: Alignment.center,
                             child: Container(
@@ -648,6 +661,8 @@ class _SingleQuestionState extends State<SingleQuestion> {
                                   : buildTime(),
                             ),
                           ),
+
+                          //! 4 options of question
                           Align(
                             alignment: Alignment.center,
                             child: Container(
@@ -661,6 +676,9 @@ class _SingleQuestionState extends State<SingleQuestion> {
                                   ),
                               child: Column(
                                 //Options
+                                //! instead of using 4 diff widgets create a custom widget 
+                                //!and call it 4 times in loop and pass necessary parameters
+                                
                                 children: [
                                   SizedBox(
                                     width: MediaQuery.of(context).size.width *
