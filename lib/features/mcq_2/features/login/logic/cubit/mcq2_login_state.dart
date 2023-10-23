@@ -1,4 +1,4 @@
-part of 'mcq_login_cubit.dart';
+part of 'mcq2_login_cubit.dart';
 
 abstract class McqLoginState {}
 
@@ -8,9 +8,10 @@ class McqLoginLoading extends McqLoginState {}
 
 class McqLoginShowPass extends McqLoginState {}
 
+class McqLoginSuccess extends McqLoginState {}
+
 class McqLoginError extends McqLoginState {
   String error;
   McqLoginError(this.error);
 }
 
-class McqLoginSuccess extends McqLoginState {}

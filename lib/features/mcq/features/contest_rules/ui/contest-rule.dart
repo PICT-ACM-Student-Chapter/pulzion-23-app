@@ -39,7 +39,7 @@ class _RulePageState extends State<RulePage> {
     final McqToken = await widget.storage.read(key: 'mcqtoken');
 
     Map<String, String> headers = {
-      'Authorization': 'Token ${McqToken}',
+      'Authorization': 'Token $McqToken',
     };
     try {
       final url = Uri.parse(Constants.GET_MCQ_EVENT_DETAILS + widget.id);

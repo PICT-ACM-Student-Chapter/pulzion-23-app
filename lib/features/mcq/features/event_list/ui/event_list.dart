@@ -15,8 +15,8 @@ import '../../contest_rules/ui/contest-rule.dart';
 import '../../../models/mcq_event_model.dart';
 
 class MCQEventList extends StatefulWidget {
-  MCQEventList({Key? key}) : super(key: key);
-  final storage = FlutterSecureStorage();
+  const MCQEventList({Key? key}) : super(key: key);
+  final storage = const FlutterSecureStorage();
 
   @override
   State<MCQEventList> createState() => _MCQEventListState();
@@ -28,7 +28,7 @@ class _MCQEventListState extends State<MCQEventList> {
   Future _getMCQEventList() async {
     final McqToken = await widget.storage.read(key: 'mcqtoken');
     Map<String, String> headers = {
-      'Authorization': 'Token ${McqToken}',
+      'Authorization': 'Token $McqToken',
     };
     try {
       final url = Uri.parse(Constants.GET_MCQ_EVENTS);
@@ -37,7 +37,7 @@ class _MCQEventListState extends State<MCQEventList> {
         headers: headers,
       );
 
-      log("RESPONSE = " + response.body.toString());
+      log("RESPONSE = ${response.body}");
       if (response.statusCode == 200) {
         var result = await jsonDecode(response.body);
         MCQList.mcqEventList.clear();

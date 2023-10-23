@@ -51,7 +51,7 @@ class _SingleQuestionState extends State<SingleQuestion> {
       final response = await http.patch(
         url,
         headers: {
-          'Authorization': 'Token ${McqToken}',
+          'Authorization': 'Token $McqToken',
           "Content-Type": "application/json",
         },
         body: jsonEncode({
@@ -91,7 +91,7 @@ class _SingleQuestionState extends State<SingleQuestion> {
       final response = await http.patch(
         url,
         headers: {
-          'Authorization': 'Token ${McqToken}',
+          'Authorization': 'Token $McqToken',
           "Content-Type": "application/json",
         },
         body: jsonEncode({
@@ -126,12 +126,12 @@ class _SingleQuestionState extends State<SingleQuestion> {
       final url = Uri.parse(Constants.GET_MCQS_URL + widget.id);
       final McqToken = await widget.storage.read(key: 'mcqtoken');
       final response = await http.get(url, headers: {
-        'Authorization': 'Token ${McqToken}',
+        'Authorization': 'Token $McqToken',
       });
       log(response.body.toString());
       if (response.statusCode == 200) {
         questions = jsonDecode(response.body);
-        log('Question = ' + questions.toString());
+        log('Question = $questions');
         // print(questions);
         setState(() {
           _isQuestionsLoading = false;
@@ -203,11 +203,11 @@ class _SingleQuestionState extends State<SingleQuestion> {
 
   Future _autoSubmitQuiz() async {
     final McqToken = await widget.storage.read(key: 'mcqtoken');
-    final McqId = await widget.storage.read(key: 'mcqId').toString();
+    final McqId = widget.storage.read(key: 'mcqId').toString();
     // var mcqUser = Provider.of<MCQUserProvider>(context, listen: false);
 
     Map<String, String> headers = {
-      'Authorization': 'Token ${McqToken}',
+      'Authorization': 'Token $McqToken',
     };
     try {
       final url = Uri.parse(Constants.SUBMIT_MCQ + (McqId));

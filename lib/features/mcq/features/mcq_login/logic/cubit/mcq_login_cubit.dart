@@ -1,30 +1,19 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pulzion23/constants/mcqconstants.dart';
 part 'mcq_login_state.dart';
 
-class McqLoginCubit extends Cubit<Mcq_LoginState> {
-  McqLoginCubit() : super(Mcq_LoginInitial());
+class McqLoginCubit extends Cubit<McqLoginState> {
+  McqLoginCubit() : super(McqLoginInitial());
 
-  bool isEmail(String em) {
-    String p =
-        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-
-    RegExp regExp = RegExp(p);
-
-    return regExp.hasMatch(em);
-  }
 
   void toggleHideInput() {
-    if (state is Mcq_LoginInitial) {
-      emit(Mcq_LoginShowPass());
+    if (state is McqLoginInitial) {
+      emit(McqLoginShowPass());
     } else {
-      emit(Mcq_LoginInitial());
+      emit(McqLoginInitial());
     }
   }
 
@@ -32,7 +21,7 @@ class McqLoginCubit extends Cubit<Mcq_LoginState> {
     String email,
     String password,
   ) async {
-    emit(Mcq_LoginLoading());
+    emit(McqLoginLoading());
     const storage = FlutterSecureStorage();
     try {
       Map data = {"email": email, "password": password};
@@ -47,14 +36,14 @@ class McqLoginCubit extends Cubit<Mcq_LoginState> {
         // final value = Provider.of<MCQUserProvider>(context, listen: false);
         // value.setToken(result['access']);
 
-        emit(Mcq_LoginSuccess());
+        emit(McqLoginSuccess());
       } else {
         var result = jsonDecode(response.body);
         var error = result['error'] ?? "Login Failed!";
         throw error;
       }
     } catch (error) {
-      emit(Mcq_LoginError(error.toString()));
+      emit(McqLoginError(error.toString()));
     }
   }
 }

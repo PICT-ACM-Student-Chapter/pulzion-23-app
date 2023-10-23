@@ -62,9 +62,13 @@ class BottomNavBar extends StatelessWidget {
                   if (state is BottomBarAboutUs) {
                     return true
                         // EndPoints.mcqStarted == true
-                        ? BlocProvider(
-                            create: (context) => McqLoginCubit(),
-                            child: McqLogin(),
+                        ? MultiBlocProvider(
+                            providers: [
+                              BlocProvider(
+                                create: (context) => McqLoginCubit(),
+                              ),
+                            ],
+                            child: const McqLogin(),
                           )
                         : AboutUsPage(false);
                   } else if (state is BottomBarRegisteredEvents) {

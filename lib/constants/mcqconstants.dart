@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pulzion23/constants/urls.dart';
 
 const Color kBackGroundColor = Color(0xFFe0e0e6);
 const Color kButtonColor = Color(0xFF1B3357);

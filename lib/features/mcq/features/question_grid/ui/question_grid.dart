@@ -85,9 +85,9 @@ class _QuestionGridState extends State<QuestionGrid> {
                   onPressed: () async {
                     final McqToken = await widget.storage.read(key: 'mcqtoken');
                     final McqId =
-                        await widget.storage.read(key: 'mcqId').toString();
+                        widget.storage.read(key: 'mcqId').toString();
                     Map<String, String> headers = {
-                      'Authorization': 'Token ${McqToken}',
+                      'Authorization': 'Token $McqToken',
                     };
                     try {
                       final url = Uri.parse(Constants.SUBMIT_MCQ + (McqId));

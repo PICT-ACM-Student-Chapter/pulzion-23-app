@@ -10,7 +10,9 @@ import 'package:pulzion23/features/mcq/features/event_list/ui/event_list.dart';
 import 'package:pulzion23/features/mcq/features/mcq_login/logic/cubit/mcq_login_cubit.dart';
 
 class McqLogin extends StatefulWidget {
-  McqLogin({Key? key});
+  const McqLogin({
+    super.key,
+  });
 
   @override
   State<McqLogin> createState() => _McqLoginState();
@@ -18,16 +20,19 @@ class McqLogin extends StatefulWidget {
 
 class _McqLoginState extends State<McqLogin> {
   final String _error = '';
-
   final GlobalKey<FormState> _formKey = GlobalKey();
 
-  // final String _initialCountry = 'IN';
-
-  // final PhoneNumber _number = PhoneNumber(isoCode: 'IN');
-
   final TextEditingController _emailid = TextEditingController();
-
   final TextEditingController _pass = TextEditingController();
+
+  bool isEmail(String em) {
+    String p =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+
+    RegExp regExp = RegExp(p);
+
+    return regExp.hasMatch(em);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,16 +62,18 @@ class _McqLoginState extends State<McqLogin> {
             ),
             Padding(
               padding: const EdgeInsets.only(
-                  left: 15.0, right: 15.0, top: 15.0, bottom: 15.0),
+                left: 15.0,
+                right: 15.0,
+                top: 15.0,
+                bottom: 15.0,
+              ),
               child: TextFormField(
                 autocorrect: false,
                 textCapitalization: TextCapitalization.none,
                 enableSuggestions: false,
                 keyboardType: TextInputType.emailAddress,
                 validator: (input) {
-                  return context.read<McqLoginCubit>().isEmail(input!)
-                      ? null
-                      : "Please Enter Correct Email.";
+                  return isEmail(input!) ? null : "Please Enter Correct Email.";
                 },
                 style: const TextStyle(color: Colors.white),
                 controller: _emailid,
@@ -99,11 +106,11 @@ class _McqLoginState extends State<McqLogin> {
                   const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 15.0),
               child: SizedBox(
                 height: 80,
-                child: BlocBuilder<McqLoginCubit, Mcq_LoginState>(
+                child: BlocBuilder<McqLoginCubit, McqLoginState>(
                   builder: (context, state) {
                     return TextFormField(
                       autocorrect: true,
-                      obscureText: state is! Mcq_LoginShowPass,
+                      obscureText: state is! McqLoginShowPass,
                       validator: (val) => val!.isEmpty
                           ? 'Please enter password'
                           : (val.length < 8
@@ -120,13 +127,15 @@ class _McqLoginState extends State<McqLogin> {
                         ),
                         hintText: 'Password',
                         suffixIcon: GestureDetector(
-                          child: (state is Mcq_LoginShowPass)
+                          child: (state is McqLoginShowPass)
                               ? const Icon(
                                   Icons.visibility,
                                   color: Colors.grey,
                                 )
-                              : const Icon(Icons.visibility_off,
-                                  color: Colors.black),
+                              : const Icon(
+                                  Icons.visibility_off,
+                                  color: Colors.black,
+                                ),
                           onTap: () {
                             context.read<McqLoginCubit>().toggleHideInput();
                           },
@@ -145,7 +154,9 @@ class _McqLoginState extends State<McqLogin> {
                         filled: true,
                         fillColor: Color.fromRGBO(228, 176, 77, 1),
                         contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 0),
+                          horizontal: 16,
+                          vertical: 0,
+                        ),
                       ),
                     );
                   },
@@ -158,9 +169,9 @@ class _McqLoginState extends State<McqLogin> {
                 style: TextStyle(color: Colors.red, fontSize: height * 0.04),
               ),
             ),
-            BlocConsumer<McqLoginCubit, Mcq_LoginState>(
+            BlocConsumer<McqLoginCubit, McqLoginState>(
               listener: (context, state) {
-                if (state is Mcq_LoginSuccess) {
+                if (state is McqLoginSuccess) {
                   Fluttertoast.showToast(
                     msg: 'Login-in Successful',
                     backgroundColor: Colors.blue.shade600,
@@ -168,11 +179,11 @@ class _McqLoginState extends State<McqLogin> {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => MCQEventList(),
+                      builder: (context) => const MCQEventList(),
                     ),
                   );
                 }
-                if (state is Mcq_LoginError) {
+                if (state is McqLoginError) {
                   log(state.error.toString());
                   Fluttertoast.showToast(
                     msg: state.error.toString(),
@@ -181,7 +192,7 @@ class _McqLoginState extends State<McqLogin> {
                 }
               },
               builder: (context, state) {
-                return state is Mcq_LoginLoading
+                return state is McqLoginLoading
                     ? const Center(
                         child:
                             CircularProgressIndicator(color: AppColors.white),
@@ -193,8 +204,12 @@ class _McqLoginState extends State<McqLogin> {
                           color: Color.fromARGB(255, 123, 71, 16),
                           borderRadius:
                               const BorderRadius.all(Radius.circular(25)),
-                          border: const Border.fromBorderSide(BorderSide(
-                              color: AppColors.cardBorder, width: 1)),
+                          border: const Border.fromBorderSide(
+                            BorderSide(
+                              color: AppColors.cardBorder,
+                              width: 1,
+                            ),
+                          ),
                         ),
                         child: InkWell(
                           onTap: () async {
