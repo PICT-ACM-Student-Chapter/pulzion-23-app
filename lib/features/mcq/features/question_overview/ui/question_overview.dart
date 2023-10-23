@@ -1,5 +1,7 @@
 // ignore_for_file: non_constant_identifier_names, must_be_immutable, prefer_const_constructors
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 class CustomQuestionOverview extends StatefulWidget {
@@ -45,8 +47,13 @@ class _CustomQuestionOverviewState extends State<CustomQuestionOverview> {
 
   @override
   Widget build(BuildContext context) {
+    log('question_no: ${widget.question_no}');
+    log('isAnswered: $isAnswered');
+    log('isVisited: $isVisited');
+    log('isBookmarked: $isBookmarked');
+
     return Container(
-      color: isAnswered
+      color: isAnswered && !isBookmarked
           ? Colors.green
           : isBookmarked
               ? Colors.yellow

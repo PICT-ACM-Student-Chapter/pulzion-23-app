@@ -60,6 +60,7 @@ class _SingleQuestionState extends State<SingleQuestion> {
         }),
       );
       if (response.statusCode == 200) {
+        //! update the answer in the question
         setState(() {
           questions[questionIndex]['answer'] = ans;
           questions_overview[questionIndex].ans = ans;
@@ -180,13 +181,15 @@ class _SingleQuestionState extends State<SingleQuestion> {
     super.dispose();
   }
 
-  bool _isOver = false;
+  bool _isOver = false; // used to keep track of timer
 
   Timer? timer;
-  bool _isFinallyOver = false;
+  bool _isFinallyOver = false; // used to check is quiz is over
 
   // int seconds = 0;
+  //! try to find automatic widget to simulate this timer mechanism
   void addTimer() {
+    //! this is done to show that the timer is ticking....reducing by 1 per sec
     const addSeconds = -1;
     if (!_isOver) {
       setState(() {
@@ -211,7 +214,7 @@ class _SingleQuestionState extends State<SingleQuestion> {
       'Authorization': 'Token $McqToken',
     };
     try {
-      final url = Uri.parse(Constants.SUBMIT_MCQ + (McqId));
+      final url = Uri.parse(Constants.SUBMIT_MCQ + McqId);
       final response = await http.get(
         url,
         headers: headers,
@@ -227,6 +230,7 @@ class _SingleQuestionState extends State<SingleQuestion> {
         throw error;
       }
     } catch (error) {
+      log("some error occurred....");
       Fluttertoast.showToast(
         msg: error.toString(),
         backgroundColor: Colors.blue.shade600,
@@ -332,6 +336,7 @@ class _SingleQuestionState extends State<SingleQuestion> {
 
   @override
   Widget build(BuildContext context) {
+    log("rebuilding ");
     var totalQue = questions.length;
 
     return Scaffold(
@@ -376,6 +381,7 @@ class _SingleQuestionState extends State<SingleQuestion> {
               child: PageView.builder(
                 itemBuilder: (context, index) {
                   _isBookmarked = questions[index]['review_status'];
+                  log(questions[index].toString());
 
                   return Column(
                     children: [
@@ -477,8 +483,7 @@ class _SingleQuestionState extends State<SingleQuestion> {
                                           ),
                                         ),
 
-
-                                        //! shows number of q / total questions 
+                                        //! shows number of q / total questions
                                         Text(
                                           //Question number
                                           '${index + 1}/',
@@ -527,7 +532,7 @@ class _SingleQuestionState extends State<SingleQuestion> {
                                       ],
                                     ),
                                   ),
-                                  //! end of top row 
+                                  //! end of top row
 
                                   //! on clicking question statement it shows further details
                                   InkWell(
@@ -676,9 +681,9 @@ class _SingleQuestionState extends State<SingleQuestion> {
                                   ),
                               child: Column(
                                 //Options
-                                //! instead of using 4 diff widgets create a custom widget 
+                                //! instead of using 4 diff widgets create a custom widget
                                 //!and call it 4 times in loop and pass necessary parameters
-                                
+
                                 children: [
                                   SizedBox(
                                     width: MediaQuery.of(context).size.width *
