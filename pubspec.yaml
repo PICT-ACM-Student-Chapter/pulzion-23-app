@@ -59,6 +59,8 @@ dependencies:
     model_viewer_plus: ^1.6.1
     flutter_linkify: ^6.0.0
     flutter_dotenv: ^5.1.0
+    timer_count_down: ^2.2.2
+    circular_countdown_timer: ^0.2.3
 
 
 dev_dependencies:

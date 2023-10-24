@@ -11,6 +11,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:pulzion23/features/mcq/features/question_page/logic/cubit/question_page_cubit.dart';
 import 'package:pulzion23/features/mcq/models/mcq_questions_model.dart';
+import 'package:timer_count_down/timer_count_down.dart';
+import 'package:circular_countdown_timer/circular_countdown_timer.dart';
+
 // import 'package:provider/provider.dart';
 // import 'package:pulzion22_app/constants/constants.dart';
 
@@ -29,12 +32,12 @@ class SingleQuestion extends StatefulWidget {
   int timer;
   QuestionPageCubit questionPageCubit;
 
-  SingleQuestion(
-      {Key? key,
-      required this.id,
-      required this.timer,
-      required this.questionPageCubit})
-      : super(key: key);
+  SingleQuestion({
+    Key? key,
+    required this.id,
+    required this.timer,
+    required this.questionPageCubit,
+  }) : super(key: key);
 
   @override
   _SingleQuestionState createState() => _SingleQuestionState();
@@ -360,6 +363,11 @@ class _SingleQuestionState extends State<SingleQuestion> {
                         style:
                             TextButton.styleFrom(backgroundColor: Colors.white),
                         onPressed: () {
+                          // widget.questionPageCubit.submitQuiz();
+                          // Navigator.pop(context);
+
+                          // return;
+
                           showDialog(
                             context: context,
                             builder: (context) {
@@ -411,12 +419,51 @@ class _SingleQuestionState extends State<SingleQuestion> {
                 child: Text(state.errorMessage),
               );
             } else if (state is QuestionPageLoadedSuccessState) {
-              return QuestionPage(
-                questions: state.questions.questions,
-                markAnswer: context.read<QuestionPageCubit>().markAnswer,
-                toggleBookMark:
-                    context.read<QuestionPageCubit>().toggleBookMark,
-                pageController: pgController,
+              return Container(
+                color: Colors.transparent,
+                child: Stack(
+                  children: [
+                    QuestionPage(
+                      questions: state.questions.questions,
+                      markAnswer: context.read<QuestionPageCubit>().markAnswer,
+                      toggleBookMark:
+                          context.read<QuestionPageCubit>().toggleBookMark,
+                      pageController: pgController,
+                      timer: widget.timer,
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.05,
+                      ),
+                      height: MediaQuery.of(context).size.height * 0.2,
+                      width: MediaQuery.of(context).size.width,
+                      color: Colors.transparent,
+                      child: Positioned(
+                        top: 0,
+                        child: Container(
+                          margin: EdgeInsets.only(
+                            top: MediaQuery.of(context).size.height * 0,
+                          ),
+                          child: CircularCountDownTimer(
+                            duration: widget.timer,
+                            width: MediaQuery.of(context).size.width * 0.3,
+                            height: MediaQuery.of(context).size.height * 0.3,
+                            ringColor: Colors.blue,
+                            fillColor: Colors.white,
+                            backgroundColor: Colors.white,
+                            isReverse: true,
+                            onComplete: () {
+                              //! auto-submit logic
+                              log('test over');
+                              widget.questionPageCubit.autoSubmitQuiz();
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               );
             } else {
               return Center(
@@ -435,6 +482,7 @@ class QuestionPage extends StatefulWidget {
   final Function markAnswer;
   final Function toggleBookMark;
   final PageController pageController;
+  final int timer;
 
   QuestionPage({
     Key? key,
@@ -442,6 +490,7 @@ class QuestionPage extends StatefulWidget {
     required this.markAnswer,
     required this.toggleBookMark,
     required this.pageController,
+    required this.timer,
   }) : super(key: key);
 
   @override
@@ -717,52 +766,6 @@ class _QuestionPageState extends State<QuestionPage> {
                     ),
                   ),
                 ),
-
-                //! timer on top of question
-                Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                    height: MediaQuery.of(context).size.width * 0.3,
-                    width: MediaQuery.of(context).size.width * 0.3,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(50),
-                      ),
-                      color: Colors.white,
-                    ),
-                    margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.05,
-                    ),
-                    child: SizedBox(
-                      height: 100,
-                      width: 100,
-                      child: CircularProgressIndicator(
-                        value: 1,
-                        strokeWidth: 15,
-                        backgroundColor: Colors.grey,
-                      ),
-                    ),
-                  ),
-                ),
-                // Align(
-                //   child: Container(
-                //     //Timer
-                //     margin: EdgeInsets.only(
-                //       top: MediaQuery.of(context).size.height * 0.11,
-                //     ),
-                //     child: _isFinallyOver
-                //         ? Text(
-                //             '00:00',
-                //             style: TextStyle(
-                //               fontSize:
-                //                   MediaQuery.of(context).size.height *
-                //                       0.025,
-                //             ),
-                //           )
-                //         : buildTime(),
-                //   ),
-                // ),
-
                 Align(
                   alignment: Alignment.center,
                   child: Container(

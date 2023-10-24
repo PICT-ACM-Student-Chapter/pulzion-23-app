@@ -7,9 +7,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pulzion23/constants/mcqconstants.dart';
-import 'package:pulzion23/features/mcq/features/question_page/ui/question_overview.dart';
 import 'package:http/http.dart' as http;
-import 'package:pulzion23/features/mcq/models/mcq_event_model.dart';
 import 'package:pulzion23/features/mcq/models/mcq_questions_model.dart';
 part 'question_page_state.dart';
 //import '';
@@ -122,6 +120,39 @@ class QuestionPageCubit extends Cubit<QuestionPageState> {
       );
 
       return false;
+    }
+  }
+
+  Future autoSubmitQuiz() async {
+    const storage = FlutterSecureStorage();
+    final mcqToken = await storage.read(key: 'mcqtoken');
+    final mcqId = await storage.read(key: 'mcqId');
+
+    Map<String, String> headers = {
+      'Authorization': 'Token $mcqToken',
+    };
+    try {
+      final url = Uri.parse(Constants.SUBMIT_MCQ + mcqId.toString());
+      final response = await http.get(
+        url,
+        headers: headers,
+      );
+      if (response.statusCode == 200) {
+        Fluttertoast.showToast(
+          msg: "Submit Successful",
+          backgroundColor: Colors.blue.shade600,
+        );
+      } else {
+        var result = jsonDecode(response.body);
+        var error = result['error'] ?? 'There is some problem currently';
+        throw error;
+      }
+    } catch (error) {
+      log("some error occurred....");
+      Fluttertoast.showToast(
+        msg: error.toString(),
+        backgroundColor: Colors.blue.shade600,
+      );
     }
   }
 

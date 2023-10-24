@@ -31,6 +31,21 @@ class RulePage extends StatefulWidget {
   State<RulePage> createState() => _RulePageState();
 }
 
+extension StringExtension on String {
+  String capitalize() {
+    // capitalize first letter of each word of string
+    final words = split(' ');
+    final capitalized = words.map((word) {
+      final firstLetter = word.substring(0, 1).toUpperCase();
+      final remainingLetters = word.substring(1);
+
+      return '$firstLetter$remainingLetters';
+    });
+
+    return capitalized.join(' ');
+  }
+}
+
 class _RulePageState extends State<RulePage> {
   @override
   Widget build(BuildContext context) {
@@ -43,7 +58,7 @@ class _RulePageState extends State<RulePage> {
               child: Loader(),
             );
           } else if (state is EventPageError) {
-            return Center(child: ErrorDialog(state.message));
+            return Center(child: ErrorDialog(state.message.capitalize()));
           } else if (state is SingleEventStatus) {
             return RuleBox(
               id: widget.id,
