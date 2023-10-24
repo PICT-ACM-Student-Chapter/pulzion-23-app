@@ -178,7 +178,7 @@ class _McqLoginState extends State<McqLogin> {
                     msg: 'Login-in Successful',
                     backgroundColor: Colors.blue.shade600,
                   );
-                  Navigator.pushReplacement(
+                  Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => MultiBlocProvider(

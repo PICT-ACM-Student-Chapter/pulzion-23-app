@@ -23,7 +23,9 @@ class McqEventList extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.logout_rounded),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
