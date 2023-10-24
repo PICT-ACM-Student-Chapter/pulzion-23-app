@@ -1,5 +1,14 @@
 part of 'mcq_event_list_cubit.dart';
 
-abstract class McqEventListState {}
+abstract class EventListState {}
 
-class McqEventListInitial extends McqEventListState {}
+class EventPageLoading extends EventListState {}
+
+class EventPageError extends EventListState {
+  final String message;
+  EventPageError(this.message);
+}
+
+class EventPageEmpty extends EventListState {}
+
+class EventPageCurrentEvents extends EventListState {}

@@ -1,90 +1,53 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 import 'package:pulzion23/constants/colors.dart';
+import 'package:pulzion23/constants/images.dart';
+import 'package:pulzion23/constants/mcqcolors.dart';
 import 'package:pulzion23/constants/styles.dart';
+import 'package:pulzion23/features/mcq/features/event_list/ui/contest-rule.dart';
+import 'package:pulzion23/features/mcq/features/event_list/logic/cubit/mcq_event_list_cubit.dart';
+import 'package:pulzion23/features/mcq/models/mcq_event_model.dart';
 
-import '../../../../../constants/mcqcolors.dart';
-import '../../../../../constants/mcqconstants.dart';
-import '../../contest_rules/ui/contest-rule.dart';
-import '../../../models/mcq_event_model.dart';
-
-class MCQEventList extends StatefulWidget {
-  const MCQEventList({Key? key}) : super(key: key);
-  final storage = const FlutterSecureStorage();
-
-  @override
-  State<MCQEventList> createState() => _MCQEventListState();
-}
-
-class _MCQEventListState extends State<MCQEventList> {
-  bool _isLoad = true;
-
-  Future _getMCQEventList() async {
-    final McqToken = await widget.storage.read(key: 'mcqtoken');
-    Map<String, String> headers = {
-      'Authorization': 'Token $McqToken',
-    };
-    try {
-      final url = Uri.parse(Constants.GET_MCQ_EVENTS);
-      final response = await http.get(
-        url,
-        headers: headers,
-      );
-
-      log("RESPONSE = ${response.body}");
-      if (response.statusCode == 200) {
-        var result = await jsonDecode(response.body);
-        MCQList.mcqEventList.clear();
-        MCQList.fromJson(result);
-        setState(() {
-          _isLoad = false;
-        });
-      } else {
-        var result = jsonDecode(response.body);
-        var error =
-            result['error'] ?? 'There is some problem currently not possible!';
-        throw error;
-      }
-    } catch (error) {
-      Fluttertoast.showToast(
-        msg: error.toString(),
-        backgroundColor: Colors.blue.shade600,
-      );
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _getMCQEventList();
-  }
+class McqEventList extends StatelessWidget {
+  const McqEventList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return _isLoad
-        ? const Center(
-            child: CircularProgressIndicator(
-              color: Colors.white,
-            ),
-          )
-        : Scaffold(
-            backgroundColor: Colors.white.withOpacity(0.15),
-            appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              centerTitle: true,
-              title: Text(
-                'Event List',
-                style: AppStyles.bodyTextStyle2(),
+    context.read<EventListCubit>().loadEventPage();
+
+    return Scaffold(
+      backgroundColor: Colors.white.withOpacity(0.15),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.logout_rounded),
+          onPressed: () {},
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: true,
+        title: const Text(
+          'Event List',
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontFamily: 'Danger-Night',
+            color: Color.fromRGBO(228, 176, 77, 1),
+          ),
+          textScaleFactor: 4.0,
+        ),
+      ),
+      body: BlocBuilder<EventListCubit, EventListState>(
+        builder: (context, state) {
+          if (state is EventPageLoading) {
+            return Center(
+              child: Center(
+                child: Lottie.asset(AppImages.loadingAnimation),
               ),
-            ),
-            body: Container(
+            );
+          } else if (state is EventPageCurrentEvents) {
+            return Container(
               margin: const EdgeInsets.only(top: 50),
               child: ListView.separated(
                 itemBuilder: (context, i) {
@@ -118,7 +81,7 @@ class _MCQEventListState extends State<MCQEventList> {
                             child: Container(
                               height: MediaQuery.of(context).size.height * 0.2,
                               decoration: BoxDecoration(
-                                color: AppColors.primary.withOpacity(0.5),
+                                color: Color.fromARGB(255, 123, 71, 16),
                                 border: Border.all(
                                   color: Colors.white,
                                 ),
@@ -186,7 +149,8 @@ class _MCQEventListState extends State<MCQEventList> {
                                                   .size
                                                   .height *
                                               0.022,
-                                          color: MCQAppColors.COLOR_SWATCH2,
+                                          color:
+                                              Color.fromRGBO(228, 176, 77, 1),
                                         ),
                                       ),
                                       Text(
@@ -196,7 +160,8 @@ class _MCQEventListState extends State<MCQEventList> {
                                                   .size
                                                   .height *
                                               0.022,
-                                          color: MCQAppColors.COLOR_SWATCH2,
+                                          color:
+                                              Color.fromRGBO(228, 176, 77, 1),
                                         ),
                                       ),
                                     ],
@@ -250,41 +215,23 @@ class _MCQEventListState extends State<MCQEventList> {
                 },
                 itemCount: MCQList.mcqEventList.length,
               ),
-            ),
-          );
+            );
+          } else if (state is EventPageEmpty) {
+            return const Center(
+              child: Text("NO EVENTS PRESENT"),
+            );
+          } else if (state is EventPageError) {
+            Fluttertoast.showToast(
+              msg: state.message.toString(),
+              backgroundColor: Colors.blue.shade600,
+            );
+            return const Center(
+              child: Text("Something Went Wrong"),
+            );
+          } else
+            return Container();
+        },
+      ),
+    );
   }
 }
-
-// class Events {
-//   final String id;
-//   final String event_id;
-//   final String name;
-//   final String start;
-//   final String end;
-//   final String ems_event_id;
-//   final String ems_slot_id;
-//   final bool started;
-//   const Events(this.name, this.start, this.end, this.id, this.ems_event_id,
-//       this.ems_slot_id, this.event_id, this.started);
-// }
-
-// const Event_List = [
-//   Events(
-//       "Test event",
-//       "2022-04-18T06:48:03Z",
-//       "2022-04-20T06:48:07Z",
-//       "a78c01c7-05e0-47fc-86da-a28cff53020b",
-//       "dd9d8cf7-cc1d-4195-8b23-e9fe10be8604",
-//       "1",
-//       "3",
-//       false),
-//   Events(
-//       "Test event",
-//       "2022-04-18T06:48:03Z",
-//       "2022-04-20T06:48:07Z",
-//       "a78c01c7-05e0-47fc-86da-a28cff53020b",
-//       "dd9d8cf7-cc1d-4195-8b23-e9fe10be8604",
-//       "1",
-//       "3",
-//       false)
-// ];

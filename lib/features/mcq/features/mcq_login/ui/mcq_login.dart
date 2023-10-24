@@ -2,12 +2,14 @@ import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
-// import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:pulzion23/constants/colors.dart';
 import 'package:pulzion23/constants/styles.dart';
+import 'package:pulzion23/features/mcq/features/event_list/logic/cubit/mcq_event_list_cubit.dart';
 import 'package:pulzion23/features/mcq/features/event_list/ui/event_list.dart';
 import 'package:pulzion23/features/mcq/features/mcq_login/logic/cubit/mcq_login_cubit.dart';
+import 'package:pulzion23/features/mcq/features/question_grid/logic/cubit/question_grid_cubit.dart';
+import 'package:pulzion23/features/mcq/features/question_overview/logic/cubit/question_overview_cubit.dart';
+import 'package:pulzion23/features/mcq/features/question_page/logic/cubit/question_page_cubit.dart';
 
 class McqLogin extends StatefulWidget {
   const McqLogin({
@@ -51,7 +53,7 @@ class _McqLoginState extends State<McqLogin> {
             Text(
               "Login For MCQs",
               style: AppStyles.NormalText().copyWith(
-                color: Color.fromRGBO(228, 176, 77, 1),
+                color: const Color.fromRGBO(228, 176, 77, 1),
                 fontWeight: FontWeight.w700,
                 fontSize: 40,
               ),
@@ -95,7 +97,7 @@ class _McqLoginState extends State<McqLogin> {
                     ),
                   ),
                   filled: true,
-                  fillColor: Color.fromRGBO(228, 176, 77, 1),
+                  fillColor: const Color.fromRGBO(228, 176, 77, 1),
                   contentPadding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
                 ),
@@ -152,7 +154,7 @@ class _McqLoginState extends State<McqLogin> {
                           ),
                         ),
                         filled: true,
-                        fillColor: Color.fromRGBO(228, 176, 77, 1),
+                        fillColor: const Color.fromRGBO(228, 176, 77, 1),
                         contentPadding: const EdgeInsets.symmetric(
                           horizontal: 16,
                           vertical: 0,
@@ -179,7 +181,23 @@ class _McqLoginState extends State<McqLogin> {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const MCQEventList(),
+                      builder: (context) => MultiBlocProvider(
+                        providers: [
+                          BlocProvider(
+                            create: (context) => EventListCubit(),
+                          ),
+                          BlocProvider(
+                            create: (context) => QuestionGridCubit(),
+                          ),
+                          BlocProvider(
+                            create: (context) => QuestionOverviewCubit(),
+                          ),
+                          BlocProvider(
+                            create: (context) => QuestionPageCubit(),
+                          ),
+                        ],
+                        child: const McqEventList(),
+                      ),
                     ),
                   );
                 }
@@ -200,16 +218,11 @@ class _McqLoginState extends State<McqLogin> {
                     : Container(
                         height: MediaQuery.of(context).size.height * 0.06,
                         width: MediaQuery.of(context).size.width * 0.4,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Color.fromARGB(255, 123, 71, 16),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(25)),
-                          border: const Border.fromBorderSide(
-                            BorderSide(
-                              color: AppColors.cardBorder,
-                              width: 1,
-                            ),
-                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(25)),
+                          border: Border.fromBorderSide(BorderSide(
+                              color: AppColors.cardBorder, width: 1)),
                         ),
                         child: InkWell(
                           onTap: () async {

@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:provider/provider.dart';
 import 'package:pulzion23/constants/widgets/loader.dart';
+import 'package:pulzion23/features/mcq/features/mcq_login/logic/cubit/mcq_login_cubit.dart';
+import 'package:pulzion23/features/mcq/features/mcq_login/ui/mcq_login.dart';
 import 'package:pulzion23/features/splash_screen/Splash_Screen.dart';
 import 'package:pulzion23/features/event_slots/logic/booked_slot_cubit.dart';
 import 'package:pulzion23/features/splash_screen/cubit/splash_cubit.dart';
@@ -122,6 +124,9 @@ class _Pulzion23AppState extends State<Pulzion23App>
         ),
         BlocProvider(
           create: (context) => EventSlotsCubit(),
+        ),
+        BlocProvider(
+          create: (context) => McqLoginCubit(),
         ),
       ],
       child: MaterialApp(
