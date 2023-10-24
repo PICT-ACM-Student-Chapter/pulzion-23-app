@@ -5,70 +5,54 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:meta/meta.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pulzion23/constants/mcqconstants.dart';
-import 'package:pulzion23/constants/urls.dart';
-import 'package:pulzion23/features/mcq/features/question_overview/ui/question_overview.dart';
-import 'package:pulzion23/features/mcq/features/question_page/ui/questionPageBuilder.dart';
+import 'package:pulzion23/features/mcq/features/question_page/ui/question_overview.dart';
 import 'package:http/http.dart' as http;
+import 'package:pulzion23/features/mcq/models/mcq_event_model.dart';
+import 'package:pulzion23/features/mcq/models/mcq_questions_model.dart';
 part 'question_page_state.dart';
 //import '';
 
 class QuestionPageCubit extends Cubit<QuestionPageState> {
-  List<CustomQuestionOverview> questions_overview = [];
-  List<dynamic> questions = [];
-  bool _isQuestionsLoading = true;
-  bool _isBookmarked = false;
-  PageController pgController = PageController();
-  //late SingleQuestion _singleQuestion;
   QuestionPageCubit() : super(QuestionPageInitial());
 
-  Future _getQuestion(Widget) async {
+  Future<void> loadQuestions(String id) async {
+    log('loading questions');
     emit(QuestionPageLoadingState());
     const storage = FlutterSecureStorage();
     try {
-      final url = Uri.parse(Constants.GET_MCQS_URL + Widget.id);
-      final McqToken = await storage.read(key: 'mcqtoken');
-      final response = await http.get(url, headers: {
-        'Authorization': 'Token $McqToken',
-      });
-      log(response.body.toString());
+      final url = Uri.parse(Constants.GET_MCQS_URL + id);
+      final mcqToken = await storage.read(key: 'mcqtoken');
+      final response = await http.get(
+        url,
+        headers: {
+          'Authorization': 'Token $mcqToken',
+        },
+      );
       if (response.statusCode == 200) {
-        emit(QuestionPageLoadedSuccessState());
-        questions = jsonDecode(response.body);
-        log('Question = $questions');
-        questions_overview = List<CustomQuestionOverview>.generate(
-          questions.length,
-          (index) => CustomQuestionOverview(
-            ans: questions[index]['answer'] ?? -1,
-            question_no: index,
-            pgController: pgController,
-            // isBookmarked: _isBookmarked,
-            queList: questions,
-          ),
-        );
+        final data = jsonDecode(response.body);
+        QuestionList questionList = QuestionList.fromJson(data);
+        log('THESE ARE THE QUESTIONS = ' + questionList.questions.toString());
+        emit(QuestionPageLoadedSuccessState(questions: questionList));
       } else {
         emit(QuestionPageLoadingErrorState("Please try again"));
-        print("Please try again");
       }
     } catch (e) {
-      emit(QuestionPageLoadingErrorState("Something went wrong"));
-      print("something went wrong");
+      emit(QuestionPageLoadingErrorState("Something went wrong..."));
     }
   }
 
-  Future _markAnswer(
-      int ans, String questionID, int questionIndex, Widget) async {
-    // emit(state)
+  Future<bool> markAnswer(int ans, String questionID) async {
+    log('marking answer');
     const storage = FlutterSecureStorage();
-    final McqToken = await storage.read(key: 'mcqtoken');
+    final mcqToken = await storage.read(key: 'mcqtoken');
     try {
       final url = Uri.parse(Constants.MARK_ANSWER_URL);
       final response = await http.patch(
         url,
         headers: {
-          'Authorization': 'Token $McqToken',
+          'Authorization': 'Token $mcqToken',
           "Content-Type": "application/json",
         },
         body: jsonEncode({
@@ -77,63 +61,103 @@ class QuestionPageCubit extends Cubit<QuestionPageState> {
         }),
       );
       if (response.statusCode == 200) {
-        questions[questionIndex]['answer'] = ans;
-        questions_overview[questionIndex].ans = ans;
-
+        log("answer marked");
         Fluttertoast.showToast(
           msg: 'Answer marked successfully',
           backgroundColor: Colors.blue.shade600,
         );
+
+        return true;
       } else {
-        // Fluttertoast.showToast(
-        //   msg: 'Could not mark your answer',
-        //   backgroundColor: Colors.blue.shade600,
-        // );
-        // emit(ReviewStatusErrorState());
+        Fluttertoast.showToast(
+          msg: 'Could not mark your answer',
+          backgroundColor: Colors.blue.shade600,
+        );
+
+        return false;
       }
-      // print("Answer Api : " + response.statusCode.toString());
     } catch (e) {
       Fluttertoast.showToast(
         msg: 'Something went wrong',
         backgroundColor: Colors.blue.shade600,
       );
+
+      return false;
     }
   }
 
-  Future _toggleBookMark(int questionIndex, Widget) async {
+  Future<bool> toggleBookMark(String questionID, bool isBookmarked) async {
     const storage = FlutterSecureStorage();
-    final McqToken = await storage.read(key: 'mcqtoken');
+    final mcqToken = await storage.read(key: 'mcqtoken');
     try {
-      // final mcqUser = Provider.of<MCQUserProvider>(context, listen: false);
       final url = Uri.parse(Constants.MARK_ANSWER_URL);
       final response = await http.patch(
         url,
         headers: {
-          'Authorization': 'Token $McqToken',
+          'Authorization': 'Token $mcqToken',
           "Content-Type": "application/json",
         },
         body: jsonEncode({
-          'review_status': !questions[questionIndex]['review_status'],
-          'id': questions[questionIndex]['id'],
+          'review_status': isBookmarked,
+          'id': questionID,
+          // 'id': questions[questionIndex]['id'],
         }),
       );
       if (response.statusCode == 200) {
-        // print("Bookmark Api : " + response.statusCode.toString());
+        log("bookmark toggled");
 
-        _isBookmarked = !_isBookmarked;
-        questions[questionIndex]['review_status'] =
-            !questions[questionIndex]['review_status'];
+        return true;
       } else {
         Fluttertoast.showToast(
           msg: 'Failed to mark',
           backgroundColor: Colors.blue.shade600,
         );
+
+        return false;
       }
     } catch (e) {
       Fluttertoast.showToast(
         msg: 'Something went wrong',
         backgroundColor: Colors.blue.shade600,
       );
+
+      return false;
+    }
+  }
+
+  Future<bool> submitQuiz() async {
+    log('submitting quiz');
+    const storage = FlutterSecureStorage();
+    final mcqToken = await storage.read(key: 'mcqtoken');
+    final mcqId = await storage.read(key: 'mcqId');
+    try {
+      final url = Uri.parse(Constants.SUBMIT_MCQ + mcqId.toString());
+      final response = await http.get(
+        url,
+        headers: {
+          'Authorization': 'Token $mcqToken',
+        },
+      );
+      if (response.statusCode == 200) {
+        log(response.body.toString());
+        Fluttertoast.showToast(
+          msg: "Test submitted successfully",
+          backgroundColor: Colors.blue.shade600,
+        );
+
+        return true;
+      } else {
+        var result = jsonDecode(response.body);
+        var error = result['error'] ?? 'There is some problem currently';
+        throw error;
+      }
+    } catch (error) {
+      Fluttertoast.showToast(
+        msg: error.toString(),
+        backgroundColor: Colors.blue.shade600,
+      );
+
+      return false;
     }
   }
 }

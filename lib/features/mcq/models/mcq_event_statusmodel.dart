@@ -1,8 +1,8 @@
 class McqStatus {
-  static String? id;
-  static FkEvent? fkEvent;
-  static bool? started;
-  static bool? finished;
+  String? id;
+  FkEvent? fkEvent;
+  bool? started;
+  bool? finished;
 
   McqStatus();
 
@@ -42,13 +42,14 @@ class FkEvent {
   String? emsEventId;
   String? emsSlotId;
 
-  FkEvent(
-      {this.id,
-      this.name,
-      this.startTime,
-      this.endTime,
-      this.emsEventId,
-      this.emsSlotId});
+  FkEvent({
+    this.id,
+    this.name,
+    this.startTime,
+    this.endTime,
+    this.emsEventId,
+    this.emsSlotId,
+  });
 
   FkEvent.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -67,7 +68,7 @@ class FkEvent {
     data['end_time'] = endTime;
     data['ems_event_id'] = emsEventId;
     data['ems_slot_id'] = emsSlotId;
-    
+
     return data;
   }
 }

@@ -1,5 +1,5 @@
 class MCQList {
-  static List<EventList> mcqEventList = [];
+  List<EventList> mcqEventList = [];
 
   MCQList();
 
@@ -33,6 +33,7 @@ class EventList {
       data['fk_event'] = fkEvent!.toJson();
     }
     data['started'] = started;
+
     return data;
   }
 }

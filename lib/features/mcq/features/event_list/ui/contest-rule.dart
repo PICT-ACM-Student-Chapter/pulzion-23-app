@@ -1,11 +1,15 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:pulzion23/constants/styles.dart';
 import 'package:pulzion23/constants/widgets/error_dialog.dart';
+import 'package:pulzion23/constants/widgets/loader.dart';
+import 'package:pulzion23/features/mcq/features/event_list/logic/cubit/mcq_event_list_cubit.dart';
+import 'package:pulzion23/features/mcq/features/question_page/logic/cubit/question_page_cubit.dart';
 import 'package:pulzion23/features/mcq/features/question_page/ui/questionPageBuilder.dart';
 // import 'package:pulzion22_app/screens/mcq/questionPageBuilder.dart';
 // import '../../constants/constants.dart';
@@ -28,95 +32,32 @@ class RulePage extends StatefulWidget {
 }
 
 class _RulePageState extends State<RulePage> {
-  bool isfinished = false;
-
-  bool _isLoad = true;
-
-  bool _isError = false;
-
-  Future _getMCQEventDetails() async {
-    // var mcqUser = Provider.of<MCQUserProvider>(context, listen: false);
-    final McqToken = await widget.storage.read(key: 'mcqtoken');
-
-    Map<String, String> headers = {
-      'Authorization': 'Token $McqToken',
-    };
-    try {
-      final url = Uri.parse(Constants.GET_MCQ_EVENT_DETAILS + widget.id);
-      final response = await http.get(
-        url,
-        headers: headers,
-      );
-      if (response.statusCode == 200) {
-        log(response.body.toString());
-        // mcqUser.setId(widget.id);
-        await widget.storage.write(key: 'mcqId', value: widget.id);
-        var result = await jsonDecode(response.body);
-        McqStatus.clearFunction();
-        McqStatus.fromJson(result);
-        setState(() {
-          _isLoad = false;
-        });
-      } else {
-        setState(() {
-          _isError = true;
-        });
-        var result = jsonDecode(response.body);
-        var error = result['error'] ?? 'There is some problem currently';
-        throw error;
-      }
-    } catch (error) {
-      setState(() {
-        _isError = true;
-      });
-      Fluttertoast.showToast(
-        msg: error.toString(),
-        backgroundColor: Colors.blue.shade600,
-      );
-    }
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _getMCQEventDetails();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return _isError
-        ? Scaffold(
-            backgroundColor: Colors.white.withOpacity(0.15),
-            appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(
-                  Icons.arrow_back_rounded,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            body: Center(
-              child: ErrorDialog('Response  submitted.'),
-            ),
-          )
-        : _isLoad
-            ? Center(child: CircularProgressIndicator())
-            : Scaffold(
-                backgroundColor: Colors.white.withOpacity(0.15),
-                body: Center(
-                  child: RuleBox(
-                    id: widget.id,
-                    isFinished: McqStatus.finished as bool,
-                    endTime:
-                        DateTime.parse(McqStatus.fkEvent!.endTime as String),
-                  ),
-                ),
-              );
+    return Material(
+      color: Colors.transparent,
+      child: BlocConsumer<EventListCubit, EventListState>(
+        builder: (context, state) {
+          if (state is EventPageLoading) {
+            return Center(
+              child: Loader(),
+            );
+          } else if (state is EventPageError) {
+            return Center(child: ErrorDialog(state.message));
+          } else if (state is SingleEventStatus) {
+            return RuleBox(
+              id: widget.id,
+              isFinished: state.mcqStatus.finished as bool,
+              endTime:
+                  DateTime.parse(state.mcqStatus.fkEvent!.endTime as String),
+            );
+          } else {
+            return Container();
+          }
+        },
+        listener: (context, state) {},
+      ),
+    );
   }
 }
 
@@ -126,16 +67,16 @@ class RuleBox extends StatelessWidget {
   final String id;
   final DateTime endTime;
 
-  const RuleBox(
-      {Key? key,
-      required this.id,
-      required this.isFinished,
-      required this.endTime})
-      : super(key: key);
+  const RuleBox({
+    Key? key,
+    required this.id,
+    required this.isFinished,
+    required this.endTime,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    log(DateTime.parse(McqStatus.fkEvent!.endTime as String).toString());
+    // log(DateTime.parse(McqStatus.fkEvent!.endTime as String).toString());
 
     return Container(
       height: MediaQuery.of(context).size.height * 0.75,
@@ -206,11 +147,7 @@ class RuleBox extends StatelessWidget {
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    //
-                    // primary:Color.fromARGB(255, 36, 69, 119),
-                    // primary: Color(0xff0a3b58),
                     backgroundColor: const Color(0xFF031F4B),
-                    // primary: const Color(0xff1b3357),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25),
                     ),
@@ -230,9 +167,15 @@ class RuleBox extends StatelessWidget {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => SingleQuestion(
-                            id: id,
-                            timer: endTime.difference(DateTime.now()).inSeconds,
+                          builder: (context) => BlocProvider(
+                            create: (context) =>
+                                QuestionPageCubit()..loadQuestions(id),
+                            child: SingleQuestion(
+                              id: id,
+                              timer:
+                                  endTime.difference(DateTime.now()).inSeconds,
+                              questionPageCubit: QuestionPageCubit(),
+                            ),
                           ),
                         ),
                       );

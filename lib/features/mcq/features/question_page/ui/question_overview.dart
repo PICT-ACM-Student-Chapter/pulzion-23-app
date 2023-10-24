@@ -14,7 +14,6 @@ class CustomQuestionOverview extends StatefulWidget {
     Key? key,
     required this.question_no,
     required this.pgController,
-    // required this.isBookmarked,
     required this.ans,
     required this.queList,
   }) : super(key: key);

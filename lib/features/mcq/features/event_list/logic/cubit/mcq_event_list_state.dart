@@ -11,4 +11,12 @@ class EventPageError extends EventListState {
 
 class EventPageEmpty extends EventListState {}
 
-class EventPageCurrentEvents extends EventListState {}
+class EventPageCurrentEvents extends EventListState {
+  final MCQList mcqList;
+  EventPageCurrentEvents({required this.mcqList});
+}
+
+class SingleEventStatus extends EventListState {
+  final McqStatus mcqStatus;
+  SingleEventStatus({required this.mcqStatus});
+}

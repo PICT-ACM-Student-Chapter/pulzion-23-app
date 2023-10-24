@@ -7,20 +7,18 @@ import 'package:pulzion23/constants/styles.dart';
 import 'package:pulzion23/features/mcq/features/event_list/logic/cubit/mcq_event_list_cubit.dart';
 import 'package:pulzion23/features/mcq/features/event_list/ui/event_list.dart';
 import 'package:pulzion23/features/mcq/features/mcq_login/logic/cubit/mcq_login_cubit.dart';
-import 'package:pulzion23/features/mcq/features/question_grid/logic/cubit/question_grid_cubit.dart';
-import 'package:pulzion23/features/mcq/features/question_overview/logic/cubit/question_overview_cubit.dart';
 import 'package:pulzion23/features/mcq/features/question_page/logic/cubit/question_page_cubit.dart';
 
-class McqLogin extends StatefulWidget {
-  const McqLogin({
+class MCQLogin extends StatefulWidget {
+  const MCQLogin({
     super.key,
   });
 
   @override
-  State<McqLogin> createState() => _McqLoginState();
+  State<MCQLogin> createState() => _McqLoginState();
 }
 
-class _McqLoginState extends State<McqLogin> {
+class _McqLoginState extends State<MCQLogin> {
   final String _error = '';
   final GlobalKey<FormState> _formKey = GlobalKey();
 
@@ -181,28 +179,14 @@ class _McqLoginState extends State<McqLogin> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => MultiBlocProvider(
-                        providers: [
-                          BlocProvider(
-                            create: (context) => EventListCubit(),
-                          ),
-                          BlocProvider(
-                            create: (context) => QuestionGridCubit(),
-                          ),
-                          BlocProvider(
-                            create: (context) => QuestionOverviewCubit(),
-                          ),
-                          BlocProvider(
-                            create: (context) => QuestionPageCubit(),
-                          ),
-                        ],
+                      builder: (context) => BlocProvider(
+                        create: (context) => EventListCubit()..loadEventPage(),
                         child: const McqEventList(),
                       ),
                     ),
                   );
                 }
                 if (state is McqLoginError) {
-                  log(state.error.toString());
                   Fluttertoast.showToast(
                     msg: state.error.toString(),
                     backgroundColor: Colors.blue.shade600,
@@ -221,8 +205,12 @@ class _McqLoginState extends State<McqLogin> {
                         decoration: const BoxDecoration(
                           color: Color.fromARGB(255, 123, 71, 16),
                           borderRadius: BorderRadius.all(Radius.circular(25)),
-                          border: Border.fromBorderSide(BorderSide(
-                              color: AppColors.cardBorder, width: 1)),
+                          border: Border.fromBorderSide(
+                            BorderSide(
+                              color: Color.fromARGB(255, 155, 119, 88),
+                              width: 1,
+                            ),
+                          ),
                         ),
                         child: InkWell(
                           onTap: () async {
@@ -237,9 +225,10 @@ class _McqLoginState extends State<McqLogin> {
                               child: Text(
                                 "Login",
                                 style: AppStyles.NormalText().copyWith(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 25),
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 25,
+                                ),
                               ),
                             ),
                           ),
