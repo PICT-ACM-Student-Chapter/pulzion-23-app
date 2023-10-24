@@ -48,6 +48,7 @@ class _RulePageState extends State<RulePage> {
         headers: headers,
       );
       if (response.statusCode == 200) {
+        log(response.body.toString());
         // mcqUser.setId(widget.id);
         await widget.storage.write(key: 'mcqId', value: widget.id);
         var result = await jsonDecode(response.body);
