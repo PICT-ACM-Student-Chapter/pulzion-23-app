@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glassmorphism/glassmorphism.dart';
@@ -8,7 +7,6 @@ import 'package:pulzion23/constants/widgets/halloween_button.dart';
 import 'package:pulzion23/features/cart_page/cubit/cart_page_cubit.dart';
 import 'package:pulzion23/features/cart_page/ui/widgets/animated_prompt.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../../../constants/models/cart_model.dart';
 import '../../../../constants/styles.dart';
@@ -35,8 +33,9 @@ class _CartPageContentState extends State<CartPageContent>
   final _formKey = GlobalKey<FormState>();
 
   Future<void> _getReferralCodes() async {
-    referralCodes =
-        await BlocProvider.of<CartPageCubit>(context).getReferralCodes();
+    return;
+    // referralCodes =
+    //     await BlocProvider.of<CartPageCubit>(context).getReferralCodes();
   }
 
   Future<void> _launchPaymentURL() async {
@@ -47,6 +46,11 @@ class _CartPageContentState extends State<CartPageContent>
     for (var combo in widget.eventList!.cartCombos!) {
       price += double.parse(combo.comboDiscountedPrice.toString());
     }
+
+    if (price <= 0.0) {
+      return;
+    }
+
     Uri paymentURL = Uri.parse(
       'upi://pay?pa=pictscholarship@jsb&pn=PICT&am=$price&tn=Pulzion Tech Or Treat&cu=INR',
     );
@@ -448,101 +452,118 @@ class _CartPageContentState extends State<CartPageContent>
                                         ],
                                       ),
                                       child: ElevatedButton(
-                                        onPressed: () {
-                                          final cost =
-                                              widget.eventList!.cartItems!.fold(
-                                            0,
-                                            (previousValue, element) =>
-                                                previousValue + element.price!,
-                                          );
+                                        onPressed: () async {
+                                          if (EndPoints.acceptingPayment ??
+                                              true) {
+                                            await _getReferralCodes()
+                                                .then((value) async {
+                                              await _launchPaymentURL()
+                                                  .then((value) {
+                                                _showBottomSheet(context);
+                                              });
+                                            });
+                                          }
 
-                                          showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return AlertDialog(
-                                                backgroundColor:
-                                                    Colors.transparent,
-                                                title: Text(
-                                                  'QR Code',
-                                                  textAlign: TextAlign.center,
-                                                  style: AppStyles.NormalText()
-                                                      .copyWith(
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                                content: Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            16),
-                                                    border: Border.all(
-                                                      color: Colors.white,
-                                                      width: 2,
-                                                    ),
-                                                    gradient: LinearGradient(
-                                                      begin: Alignment.topLeft,
-                                                      end:
-                                                          Alignment.bottomRight,
-                                                      colors: [
-                                                        Colors.black
-                                                            .withOpacity(0.3),
-                                                        Colors.black
-                                                            .withOpacity(0.2),
-                                                        Colors.black
-                                                            .withOpacity(0.1),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.62,
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.62,
-                                                  child: Align(
-                                                    alignment: Alignment.center,
-                                                    child: QrImageView(
-                                                      data:
-                                                          'upi://pay?pa=pictscholarship@jsb&pn=PICT&am=$cost&tn=Pulzion&cu=INR',
-                                                      version: QrVersions.auto,
-                                                      foregroundColor:
-                                                          Colors.white,
-                                                      size:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.6,
-                                                    ),
-                                                  ),
-                                                ),
-                                                actions: [
-                                                  Align(
-                                                    alignment: Alignment.center,
-                                                    child: TextButton(
-                                                      onPressed: () {
-                                                        Navigator.of(context)
-                                                            .pop();
-                                                      },
-                                                      child: Text(
-                                                        'Close',
-                                                        style: AppStyles
-                                                                .NormalText()
-                                                            .copyWith(
-                                                          color: Colors.white,
-                                                          fontSize: 20,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              );
-                                            },
-                                          );
+                                          return;
+                                          // double price = 0;
+                                          // for (var item
+                                          //     in widget.eventList!.cartItems!) {
+                                          //   price += item.price!;
+                                          // }
+                                          // for (var combo in widget
+                                          //     .eventList!.cartCombos!) {
+                                          //   price += double.parse(combo
+                                          //       .comboDiscountedPrice
+                                          //       .toString());
+                                          // }
+
+                                          // showDialog(
+                                          //   context: context,
+                                          //   builder: (context) {
+                                          //     return AlertDialog(
+                                          //       backgroundColor:
+                                          //           Colors.transparent,
+                                          //       title: Text(
+                                          //         'QR Code',
+                                          //         textAlign: TextAlign.center,
+                                          //         style: AppStyles.NormalText()
+                                          //             .copyWith(
+                                          //           color: Colors.white,
+                                          //           fontWeight: FontWeight.bold,
+                                          //         ),
+                                          //       ),
+                                          //       content: Container(
+                                          //         decoration: BoxDecoration(
+                                          //           borderRadius:
+                                          //               BorderRadius.circular(
+                                          //                   16),
+                                          //           border: Border.all(
+                                          //             color: Colors.white,
+                                          //             width: 2,
+                                          //           ),
+                                          //           gradient: LinearGradient(
+                                          //             begin: Alignment.topLeft,
+                                          //             end:
+                                          //                 Alignment.bottomRight,
+                                          //             colors: [
+                                          //               Colors.black
+                                          //                   .withOpacity(0.3),
+                                          //               Colors.black
+                                          //                   .withOpacity(0.2),
+                                          //               Colors.black
+                                          //                   .withOpacity(0.1),
+                                          //             ],
+                                          //           ),
+                                          //         ),
+                                          //         width: MediaQuery.of(context)
+                                          //                 .size
+                                          //                 .width *
+                                          //             0.62,
+                                          //         height: MediaQuery.of(context)
+                                          //                 .size
+                                          //                 .width *
+                                          //             0.62,
+                                          //         child: Align(
+                                          //           alignment: Alignment.center,
+                                          //           child: QrImageView(
+                                          //             data:
+                                          //                 'upi://pay?pa=pictscholarship@jsb&pn=PICT&am=$price&tn=Pulzion&cu=INR',
+                                          //             version: QrVersions.auto,
+                                          //             foregroundColor:
+                                          //                 Colors.white,
+                                          //             size:
+                                          //                 MediaQuery.of(context)
+                                          //                         .size
+                                          //                         .width *
+                                          //                     0.6,
+                                          //           ),
+                                          //         ),
+                                          //       ),
+                                          //       actions: [
+                                          //         Align(
+                                          //           alignment: Alignment.center,
+                                          //           child: TextButton(
+                                          //             onPressed: () {
+                                          //               Navigator.of(context)
+                                          //                   .pop();
+                                          //             },
+                                          //             child: Text(
+                                          //               'Close',
+                                          //               style: AppStyles
+                                          //                       .NormalText()
+                                          //                   .copyWith(
+                                          //                 color: Colors.white,
+                                          //                 fontSize: 20,
+                                          //                 fontWeight:
+                                          //                     FontWeight.bold,
+                                          //               ),
+                                          //             ),
+                                          //           ),
+                                          //         ),
+                                          //       ],
+                                          //     );
+                                          //   },
+                                          // );
                                         },
                                         style: ElevatedButton.styleFrom(
                                           // padding: const EdgeInsets.only(

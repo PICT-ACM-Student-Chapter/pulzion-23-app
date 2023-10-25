@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:pulzion23/constants/models/event_model.dart';
 import '../../../../constants/widgets/empty_page.dart';

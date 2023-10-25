@@ -43,92 +43,102 @@ class _BookSlotsState extends State<BookSlots> {
   ));
 
   Widget slotContainer(BuildContext ctx, Slot slot) {
-    return Padding(
-      padding: const EdgeInsets.all(14),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return SizedBox(
+      height: 500,
+      child: Padding(
+        padding: const EdgeInsets.all(14),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                'Date: ${DateFormat('yyyy-MM-dd').format(DateTime.parse(slot.created_at!))}',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'QuickSand',
-                ),
-              ),
-              Text(
-                'Capacity: ${slot.capacity}',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'QuickSand',
-                ),
-              ),
-            ],
-          ),
-          const VerticalDivider(
-            color: Colors.white,
-            thickness: 0.3,
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              RichText(
-                text: TextSpan(
-                  text: 'Time: ',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'QuickSand',
-                    fontWeight: FontWeight.bold,
-                  ),
+              SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    TextSpan(
-                      text:
-                          '${DateFormat('hh:mm a').format(DateTime.parse(slot.start_time!))} - ${DateFormat('hh:mm a').format(DateTime.parse(slot.end_time!))}',
-                      style: const TextStyle(
-                        fontWeight: FontWeight.normal,
-                      ),
+                    Text(
+                      'Date: ${DateFormat('yyyy-MM-dd').format(DateTime.parse(slot.created_at!))}',
+                      style: AppStyles.NormalText()
+                          .copyWith(fontSize: 15, color: Colors.white),
+                    ),
+                    Text(
+                      'Capacity: ${slot.capacity}',
+                      style: AppStyles.NormalText()
+                          .copyWith(fontSize: 15, color: Colors.white),
                     ),
                   ],
                 ),
               ),
-              Container(
-                // height: MediaQuery.of(ctx).size.height / 15,
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                decoration: BoxDecoration(
-                  color: Colors.blueAccent,
-                  borderRadius: BorderRadius.circular(12),
-                  gradient: const LinearGradient(
-                    colors: [Color(0xff07f49e), Color(0xff42047e)],
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                  ),
-                ),
-                child: TextButton(
-                  child: const Text(
-                    'Book Slot',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'QuickSand',
+              const VerticalDivider(
+                color: Colors.white,
+                thickness: 0.3,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  RichText(
+                    text: TextSpan(
+                      text: 'Time: ',
+                      style: AppStyles.NormalText()
+                          .copyWith(fontSize: 15, color: Colors.white),
+                      children: [
+                        TextSpan(
+                          text:
+                              '${DateFormat('hh:mm a').format(DateTime.parse(slot.start_time!))} - ${DateFormat('hh:mm a').format(DateTime.parse(slot.end_time!))}',
+                          style: AppStyles.NormalText()
+                              .copyWith(fontSize: 15, color: Colors.white),
+                        ),
+                      ],
                     ),
                   ),
-                  onPressed: () {
-                    BlocProvider.of<EventSlotsCubit>(ctx)
-                        .bookSlot(
-                          widget.id.toString(),
-                          slot.id.toString(),
-                        )
-                        .then((value) {});
-                  },
-                ),
+                  Container(
+                    // height: MediaQuery.of(ctx).size.height / 15,
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.black.withOpacity(0.6),
+                          Colors.black.withOpacity(0.4),
+                          Colors.black.withOpacity(0.4),
+                        ],
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                      ),
+                      borderRadius: BorderRadius.circular(24),
+                      border: Border.all(
+                        color: Colors.orange[700]!.withOpacity(0.8),
+                        width: 0.7,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 1.0,
+                          spreadRadius: 2.0,
+                          color: Colors.yellow[900]!.withOpacity(0.3),
+                        ),
+                      ],
+                    ),
+                    child: TextButton(
+                      child: Text(
+                        'Book Slot',
+                        style: AppStyles.NormalText()
+                            .copyWith(fontSize: 15, color: Colors.white),
+                      ),
+                      onPressed: () {
+                        BlocProvider.of<EventSlotsCubit>(ctx)
+                            .bookSlot(
+                              widget.id.toString(),
+                              slot.id.toString(),
+                            )
+                            .then((value) {});
+                      },
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -286,7 +296,8 @@ class _BookSlotsState extends State<BookSlots> {
                             color: Colors.white,
                           ),
                         ),
-                        backgroundColor: const Color.fromARGB(255, 196, 117, 15),
+                        backgroundColor:
+                            const Color.fromARGB(255, 196, 117, 15),
                       ));
                       Navigator.pushReplacement(
                         context,
