@@ -346,6 +346,93 @@ class _SingleQuestionState extends State<SingleQuestion> {
     pgController.dispose();
   }
 
+  Future<void> _submitQuiz(BuildContext parContext) async {
+    return showDialog<void>(
+      context: parContext,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: const Color(0xff01020a),
+          title: const Text('Logout'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text(
+                  'Are you sure you want to submit?',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'Montserrat',
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            Row(
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.15,
+                ),
+                TextButton(
+                  child: const Text(
+                    'No',
+                    style: TextStyle(
+                      fontSize: 17.0,
+                      fontFamily: 'Montserrat',
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.15,
+                ),
+                TextButton(
+                  child: const Text(
+                    'Yes',
+                    textAlign: TextAlign.right,
+                    style: TextStyle(
+                      fontSize: 17.0,
+                      fontFamily: 'Montserrat',
+                    ),
+                  ),
+                  onPressed: () async {
+                    if (await widget.questionPageCubit.submitQuiz()) {
+                      Fluttertoast.showToast(
+                        msg: "Quiz submitted successfully",
+                        backgroundColor: Colors.blue.shade600,
+                      );
+
+                      Navigator.of(context).pop();
+                      Navigator.of(parContext).pop();
+
+                      // while (Navigator.of(context).canPop()) {
+                      // Navigator.of(context).pop();
+                      // }
+
+                      // while (Navigator.of(widget.parentContext).canPop()) {
+                      // Navigator.of(parentContext).pop();
+                      // }
+                    } else {
+                      Navigator.of(context).pop();
+                      Fluttertoast.showToast(
+                        msg: "Something went wrong",
+                        backgroundColor: Colors.blue.shade600,
+                      );
+                    }
+                  },
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   PageController pgController = PageController();
 
   @override
@@ -363,29 +450,133 @@ class _SingleQuestionState extends State<SingleQuestion> {
                         style:
                             TextButton.styleFrom(backgroundColor: Colors.white),
                         onPressed: () {
-                          // widget.questionPageCubit.submitQuiz();
-                          // Navigator.pop(context);
-
-                          // return;
-
+                          _submitQuiz(context);
+                        },
+                        child: Text(
+                          'Submit',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Color(0xff1b3357),
+                          ),
+                        ),
+                      ),
+                    )
+                  : Container();
+            },
+          ),
+          Spacer(),
+          BlocBuilder<QuestionPageCubit, QuestionPageState>(
+            builder: (context, state) {
+              return state is QuestionPageLoadedSuccessState
+                  ? Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextButton(
+                        style:
+                            TextButton.styleFrom(backgroundColor: Colors.white),
+                        onPressed: () {
                           showDialog(
                             context: context,
                             builder: (context) {
-                              return QuestionGrid(
-                                question_overview: state.questions.questions
-                                    .map(
-                                      (e) => CustomQuestionOverview(
-                                        ans: e.answer ?? -1,
-                                        question_no: state.questions.questions
-                                            .indexOf(e),
-                                        pgController: pgController,
-                                        queList: state.questions.questions,
+                              return Material(
+                                color: Colors.transparent,
+                                child: Container(
+                                  color: Colors.transparent.withOpacity(0.7),
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.8,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.8,
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.2,
                                       ),
-                                    )
-                                    .toList(),
-                                questionPageCubit: widget.questionPageCubit,
-                                parentContext: context,
+                                      SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.05,
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 30,
+                                            vertical: 20,
+                                          ),
+                                          child: GridView(
+                                            gridDelegate:
+                                                SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount: 5,
+                                              mainAxisSpacing: 20,
+                                              crossAxisSpacing: 20,
+                                            ),
+                                            children: state.questions.questions
+                                                .map((e) {
+                                              bool isAnswered = e.answer == null
+                                                  ? false
+                                                  : e.answer != -1
+                                                      ? true
+                                                      : false;
+                                              bool isVisited = false;
+                                              bool isBookmarked =
+                                                  e.reviewStatus ?? false;
+
+                                              return InkWell(
+                                                onTap: () {
+                                                  Navigator.pop(context);
+                                                  pgController.animateToPage(
+                                                    state.questions.questions
+                                                        .indexOf(e),
+                                                    duration: Duration(
+                                                      milliseconds: 300,
+                                                    ),
+                                                    curve: Curves.easeIn,
+                                                  );
+                                                },
+                                                child: Card(
+                                                  color: !isAnswered &&
+                                                          !isBookmarked
+                                                      ? Colors.grey
+                                                      : isAnswered &&
+                                                              !isBookmarked
+                                                          ? Colors.green
+                                                          : isBookmarked
+                                                              ? Colors.yellow
+                                                              : Colors.white,
+                                                  child: Center(
+                                                    child: Text(
+                                                      '${state.questions.questions.indexOf(e) + 1}',
+                                                      style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 20,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                            }).toList(),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               );
+                              // return QuestionGrid(
+                              //   question_overview: state.questions.questions
+                              //       .map(
+                              //         (e) => CustomQuestionOverview(
+                              //           ans: e.answer ?? -1,
+                              //           question_no: state.questions.questions
+                              //               .indexOf(e),
+                              //           pgController: pgController,
+                              //           queList: state.questions.questions,
+                              //         ),
+                              //       )
+                              //       .toList(),
+                              //   questionPageCubit: widget.questionPageCubit,
+                              //   parentContext: context,
+                              // );
 
                               // return obj;
                             },

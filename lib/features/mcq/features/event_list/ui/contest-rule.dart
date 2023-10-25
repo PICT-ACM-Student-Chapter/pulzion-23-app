@@ -76,7 +76,6 @@ class _RulePageState extends State<RulePage> {
   }
 }
 
-// ignore: must_be_immutable
 class RuleBox extends StatelessWidget {
   final bool isFinished;
   final String id;
