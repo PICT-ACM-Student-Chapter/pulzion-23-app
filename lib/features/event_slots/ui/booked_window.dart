@@ -58,7 +58,7 @@ class _BookSlotsState extends State<BookSlots> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
-                      'Date: ${DateFormat('yyyy-MM-dd').format(DateTime.parse(slot.created_at!))}',
+                      'Date: ${DateFormat('yyyy-MM-dd').format(DateTime.parse(slot.start_time!))}',
                       style: AppStyles.NormalText()
                           .copyWith(fontSize: 15, color: Colors.white),
                     ),

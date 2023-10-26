@@ -200,7 +200,7 @@ class MyTicketView extends StatelessWidget {
                         "You have booked slot for this event",
                         style: AppStyles.NormalText().copyWith(
                           fontSize: SizeConfig.getProportionateScreenFontSize(
-                            20,
+                            15,
                           ),
                           overflow: TextOverflow.ellipsis,
                           color: Colors.black,
@@ -210,7 +210,7 @@ class MyTicketView extends StatelessWidget {
                     : Text(
                         id == null
                             ? "You have booked this combo"
-                            : "Registered : You haven't booked a slot for this event",
+                            : "You haven't booked a slot for this event",
                         style: AppStyles.NormalText().copyWith(
                           fontSize: SizeConfig.getProportionateScreenFontSize(
                             13,

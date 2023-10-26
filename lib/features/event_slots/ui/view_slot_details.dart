@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:glassmorphism/glassmorphism.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pulzion23/constants/images.dart';
 import 'package:pulzion23/constants/models/booked_slot_model.dart';
@@ -87,25 +86,22 @@ class _TicketState extends State<ViewSlotDetails> {
                 final BookedSlotModel bookedSlotModel = state.bookedEventList
                     .firstWhere((element) => element.id == widget.id);
 
-
                 return Stack(
                   children: [
                     Align(
                       alignment: Alignment.topCenter,
-                      child: Expanded(
-                        child: Container(
-                          padding: EdgeInsets.only(
-                            top: screenheight * 0.02,
-                            bottom: screenheight * 0.01,
-                            // left: w,
-                          ),
-                          child: Image.asset(
-                            'assets/images/cobwebs.png',
-                            height: screenheight / 4.4,
-                            width: screenwidth - screenwidth / 4,
-                            fit: BoxFit.fitWidth,
-                            color: Colors.white,
-                          ),
+                      child: Container(
+                        padding: EdgeInsets.only(
+                          top: screenheight * 0.02,
+                          bottom: screenheight * 0.01,
+                          // left: w,
+                        ),
+                        child: Image.asset(
+                          'assets/images/cobwebs.png',
+                          height: screenheight / 4.4,
+                          width: screenwidth - screenwidth / 4,
+                          fit: BoxFit.fitWidth,
+                          color: Colors.white,
                         ),
                       ),
                     ),
@@ -181,7 +177,7 @@ class _TicketState extends State<ViewSlotDetails> {
                               height: screenheight * 0.05,
                             ),
                             Expanded(
-                              flex: 3,
+                              // flex: 3,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
@@ -249,7 +245,9 @@ class _TicketState extends State<ViewSlotDetails> {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(
-                                        left: 32, bottom: 8),
+                                      left: 32,
+                                      bottom: 8,
+                                    ),
                                     child: Row(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
