@@ -5,7 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:bloc/bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:pulzion23/constants/mcqconstants.dart';
+import 'package:pulzion23/features/mcq/mcqconstants.dart';
 import 'package:pulzion23/features/mcq/models/mcq_event_model.dart';
 import 'package:pulzion23/features/mcq/models/mcq_event_statusmodel.dart';
 

@@ -1,25 +1,14 @@
-import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart' as http;
 import 'package:pulzion23/constants/styles.dart';
 import 'package:pulzion23/constants/widgets/error_dialog.dart';
 import 'package:pulzion23/constants/widgets/loader.dart';
 import 'package:pulzion23/features/mcq/features/event_list/logic/cubit/mcq_event_list_cubit.dart';
 import 'package:pulzion23/features/mcq/features/question_page/logic/cubit/question_page_cubit.dart';
 import 'package:pulzion23/features/mcq/features/question_page/ui/questionPageBuilder.dart';
-// import 'package:pulzion22_app/screens/mcq/questionPageBuilder.dart';
-// import '../../constants/constants.dart';
-// import '../../services/mcq_user_provider.dart';
-
-// ignore_for_file:prefer_const_literals_to_create_immutables
-// ignore_for_file: prefer_const_constructors
-
-import 'package:pulzion23/constants/mcqconstants.dart';
-import '../../../models/mcq_event_statusmodel.dart';
 
 class RulePage extends StatefulWidget {
   final String id;
@@ -33,7 +22,6 @@ class RulePage extends StatefulWidget {
 
 extension StringExtension on String {
   String capitalize() {
-    // capitalize first letter of each word of string
     final words = split(' ');
     final capitalized = words.map((word) {
       final firstLetter = word.substring(0, 1).toUpperCase();
@@ -54,7 +42,7 @@ class _RulePageState extends State<RulePage> {
       child: BlocConsumer<EventListCubit, EventListState>(
         builder: (context, state) {
           if (state is EventPageLoading) {
-            return Center(
+            return const Center(
               child: Loader(),
             );
           } else if (state is EventPageError) {
@@ -94,9 +82,9 @@ class RuleBox extends StatelessWidget {
 
     return Container(
       height: MediaQuery.of(context).size.height * 0.75,
-      margin: EdgeInsets.all(20),
-      padding: EdgeInsets.only(bottom: 20),
-      decoration: BoxDecoration(
+      margin: const EdgeInsets.all(20),
+      padding: const EdgeInsets.only(bottom: 20),
+      decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
           bottomRight: Radius.circular(15),
           bottomLeft: Radius.circular(15),
@@ -119,41 +107,51 @@ class RuleBox extends StatelessWidget {
           end: Alignment.topLeft,
           colors: [
             Colors.black54,
-            Color(0xFF2d4c6a),
+            Color.fromARGB(255, 5, 41, 59),
           ],
         ),
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.1,
+          ),
           Text(
             "Rules",
-            style: AppStyles.bodyTextStyle4(),
+            style: AppStyles.TitleText()
+                .copyWith(fontSize: 60, fontWeight: FontWeight.normal),
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.06,
           ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 15),
+                  padding: const EdgeInsets.only(top: 5),
                   child: Text(
                     "1. You cannot change apps after you begin with the quiz!",
-                    style: AppStyles.bodyTextStyle3(),
+                    style: AppStyles.NormalText()
+                        .copyWith(color: Colors.white, fontSize: 17),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 15),
                   child: Text(
-                    "2. Tabs cannot be changed during the quiz!, or you will be disqualified! , and the test will get autosubmitted!",
-                    style: AppStyles.bodyTextStyle3(),
+                    "2. Do not switch apps during the test, or you will be disqualified! , and the test will get autosubmitted!",
+                    style: AppStyles.NormalText()
+                        .copyWith(color: Colors.white, fontSize: 17),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 15),
                   child: Text(
-                    "3.The duration of the quiz is for x mins and there are x questions! that are to be completed within the time limit! , if you fail to complete the quiz within the time limit , the test will record the responses submitted during the quiz and will be submitted automatically!",
-                    style: AppStyles.bodyTextStyle3(),
+                    "3. The duration of the quiz is for x mins and there are x questions! that are to be completed within the time limit! , if you fail to complete the quiz within the time limit , the test will record the responses submitted during the quiz and will be submitted automatically!",
+                    style: AppStyles.NormalText()
+                        .copyWith(color: Colors.white, fontSize: 17),
                   ),
                 ),
                 SizedBox(
@@ -161,9 +159,13 @@ class RuleBox extends StatelessWidget {
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF031F4B),
+                    backgroundColor: Colors.black,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    side: BorderSide(
+                      color: Colors.white,
+                      width: 0.5,
                     ),
                   ),
                   onPressed: () {
@@ -197,8 +199,9 @@ class RuleBox extends StatelessWidget {
                   },
                   child: Text(
                     'Continue',
-                    style: TextStyle(
+                    style: AppStyles.NormalText().copyWith(
                       color: Colors.white,
+                      fontSize: 15,
                     ),
                   ),
                 ),

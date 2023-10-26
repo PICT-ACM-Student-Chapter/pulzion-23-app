@@ -7,6 +7,7 @@ import 'package:pulzion23/constants/images.dart';
 import 'package:pulzion23/constants/styles.dart';
 import 'package:pulzion23/features/mcq/features/event_list/ui/contest-rule.dart';
 import 'package:pulzion23/features/mcq/features/event_list/logic/cubit/mcq_event_list_cubit.dart';
+import 'package:pulzion23/features/mcq/features/mcq_login/logic/cubit/mcq_login_cubit.dart';
 import 'package:pulzion23/features/mcq/models/mcq_event_model.dart';
 
 class McqEventList extends StatelessWidget {
@@ -25,16 +26,27 @@ class McqEventList extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.logout_rounded),
-            onPressed: () {
-              Navigator.pop(context);
-            },
+          leading: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: IconButton(
+              icon: const Icon(
+                Icons.logout,
+                color: Colors.white,
+              ),
+              onPressed: () async {
+                final nv = Navigator.of(context);
+                await context.read<McqLoginCubit>().logout();
+                nv.pop();
+              },
+            ),
           ),
           centerTitle: true,
           title: Text(
             "MCQ Events",
-            style: AppStyles.TitleText().copyWith(fontSize: 60),
+            style: AppStyles.TitleText().copyWith(
+              fontSize: 50,
+              fontWeight: FontWeight.w100,
+            ),
           ),
           backgroundColor: const Color(0xff01020a),
         ),

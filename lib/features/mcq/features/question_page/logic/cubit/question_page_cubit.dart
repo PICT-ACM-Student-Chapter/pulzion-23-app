@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pulzion23/constants/mcqconstants.dart';
+import 'package:pulzion23/features/mcq/mcqconstants.dart';
 import 'package:http/http.dart' as http;
 import 'package:pulzion23/features/mcq/models/mcq_questions_model.dart';
 part 'question_page_state.dart';
@@ -31,7 +31,6 @@ class QuestionPageCubit extends Cubit<QuestionPageState> {
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         QuestionList questionList = QuestionList.fromJson(data);
-        log('THESE ARE THE QUESTIONS = ' + questionList.questions.toString());
         emit(QuestionPageLoadedSuccessState(questions: questionList));
       } else {
         emit(QuestionPageLoadingErrorState("Please try again"));

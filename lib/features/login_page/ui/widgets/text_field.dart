@@ -6,6 +6,7 @@ class LoginSignUpTextField extends StatelessWidget {
   final IconData icon;
   final TextEditingController controller;
   final bool obscureText;
+  final Function? validator;
 
   const LoginSignUpTextField(
     this.hintText,
@@ -13,6 +14,7 @@ class LoginSignUpTextField extends StatelessWidget {
     super.key,
     required this.controller,
     required this.obscureText,
+    this.validator = null,
   });
 
   @override

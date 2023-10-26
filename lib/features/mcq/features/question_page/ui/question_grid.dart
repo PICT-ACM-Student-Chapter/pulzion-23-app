@@ -1,167 +1,157 @@
-// // ignore_for_file: non_constant_identifier_names, prefer_const_constructors
+import 'package:flutter/material.dart';
+import 'package:pulzion23/features/mcq/models/mcq_questions_model.dart';
 
-// import 'dart:developer';
+class QuestionGrid extends StatelessWidget {
+  final PageController pgController;
+  final List<Question> questions;
+  const QuestionGrid({
+    required this.questions,
+    required this.pgController,
+    Key? key,
+  });
 
-// import 'package:flutter/material.dart';
-// import 'package:fluttertoast/fluttertoast.dart';
-// import 'package:pulzion23/features/mcq/features/event_list/ui/event_list.dart';
-// import 'package:pulzion23/features/mcq/features/question_page/logic/cubit/question_page_cubit.dart';
-// import 'package:pulzion23/features/mcq/features/question_page/ui/question_overview.dart';
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: Container(
+        color: Colors.transparent.withOpacity(0.7),
+        height: MediaQuery.of(context).size.height * 0.8,
+        width: MediaQuery.of(context).size.width * 0.8,
+        child: Column(
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.1,
+            ),
+            Text(
+              'Questions Overview',
+              style: TextStyle(
+                color: Colors.white.withOpacity(0.7),
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.01,
+            ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _buildLegendItem('Not Answered', Colors.grey),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  _buildLegendItem('Answered', Colors.green),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  _buildLegendItem('Bookmarked', Colors.yellow),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.02,
+            ),
+            const Divider(
+              color: Colors.white,
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.02,
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 30,
+                  vertical: 00,
+                ),
+                child: GridView(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 5,
+                    mainAxisSpacing: 20,
+                    crossAxisSpacing: 20,
+                  ),
+                  children: questions.map((e) {
+                    bool isAnswered = e.answer != null && e.answer != -1;
+                    bool isBookmarked = e.reviewStatus ?? false;
 
-// class QuestionGrid extends StatefulWidget {
-//   List<CustomQuestionOverview> question_overview;
-//   QuestionPageCubit questionPageCubit;
-//   BuildContext parentContext;
+                    return InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                        pgController.animateToPage(
+                          questions.indexOf(e),
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeIn,
+                        );
+                      },
+                      child: Builder(builder: (context) {
+                        var color = !isAnswered && !isBookmarked
+                            ? Colors.grey
+                            : isAnswered && !isBookmarked
+                                ? Colors.green
+                                : isBookmarked
+                                    ? Colors.yellow
+                                    : Colors.white;
 
-//   QuestionGrid({
-//     Key? key,
-//     required this.question_overview,
-//     required this.questionPageCubit,
-//     required this.parentContext,
-//   }) : super(key: key);
+                        return Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              color: color,
+                              width: 2,
+                            ),
+                            color: color.withOpacity(0.7).withAlpha(150),
+                          ),
+                          child: Center(
+                            child: Text(
+                              '${questions.indexOf(e) + 1}',
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(0.8),
+                                fontSize: 20,
+                              ),
+                            ),
+                          ),
+                        );
+                      }),
+                    );
+                  }).toList(),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.02,
+            ),
+            const Divider(
+              color: Colors.white,
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.02,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
-//   @override
-//   _QuestionGridState createState() => _QuestionGridState();
-// }
-
-// class _QuestionGridState extends State<QuestionGrid> {
-//   late List<CustomQuestionOverview> question_overview;
-
-//   Future _submitQuiz() async {
-//     return showDialog<void>(
-//       context: context,
-//       barrierDismissible: false, // user must tap button!
-//       builder: (BuildContext context) {
-//         return AlertDialog(
-//           backgroundColor: const Color(0xff01020a),
-//           title: const Text('Logout'),
-//           content: SingleChildScrollView(
-//             child: ListBody(
-//               children: const <Widget>[
-//                 Text(
-//                   'Are you sure you want to submit?',
-//                   textAlign: TextAlign.center,
-//                   style: TextStyle(
-//                     fontFamily: 'Montserrat',
-//                     color: Colors.white,
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//           actions: <Widget>[
-//             Row(
-//               children: [
-//                 SizedBox(
-//                   width: MediaQuery.of(context).size.width * 0.15,
-//                 ),
-//                 TextButton(
-//                   child: const Text(
-//                     'No',
-//                     style: TextStyle(
-//                       fontSize: 17.0,
-//                       fontFamily: 'Montserrat',
-//                     ),
-//                     textAlign: TextAlign.left,
-//                   ),
-//                   onPressed: () {
-//                     Navigator.of(context).pop();
-//                   },
-//                 ),
-//                 SizedBox(
-//                   width: MediaQuery.of(context).size.width * 0.15,
-//                 ),
-//                 TextButton(
-//                   child: const Text(
-//                     'Yes',
-//                     textAlign: TextAlign.right,
-//                     style: TextStyle(
-//                       fontSize: 17.0,
-//                       fontFamily: 'Montserrat',
-//                     ),
-//                   ),
-//                   onPressed: () async {
-//                     if (await widget.questionPageCubit.submitQuiz()) {
-//                       Fluttertoast.showToast(
-//                         msg: "Quiz submitted successfully",
-//                         backgroundColor: Colors.blue.shade600,
-//                       );
-
-//                       while (Navigator.of(context).canPop()) {
-//                         Navigator.of(context).pop();
-//                       }
-
-//                       // while (Navigator.of(widget.parentContext).canPop()) {
-//                       Navigator.of(widget.parentContext).pop();
-//                       // }
-//                     } else {
-//                       Navigator.of(context).pop();
-//                       Fluttertoast.showToast(
-//                         msg: "Something went wrong",
-//                         backgroundColor: Colors.blue.shade600,
-//                       );
-//                     }
-//                   },
-//                 ),
-//               ],
-//             ),
-//           ],
-//         );
-//       },
-//     );
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return widget.question_overview.first;
-//     return Expanded(
-//       child: Dialog(
-//         backgroundColor: Color(0xff1b3357),
-//         shape: RoundedRectangleBorder(
-//           borderRadius: BorderRadius.all(
-//             Radius.circular(10),
-//           ),
-//         ),
-//         child: Builder(
-//           builder: (context) {
-//             return Padding(
-//               padding: const EdgeInsets.all(15),
-//               child: SizedBox(
-//                 height: MediaQuery.of(context).size.height * 0.41,
-//                 child: Column(
-//                   children: [
-//                     TextButton(
-//                       onPressed: () {
-//                         _submitQuiz();
-//                       },
-//                       style: TextButton.styleFrom(
-//                         backgroundColor: const Color.fromARGB(255, 228, 29, 95),
-//                       ),
-//                       child: const Text(
-//                         'Submit',
-//                         style: TextStyle(color: Colors.white),
-//                       ),
-//                     ),
-//                     SizedBox(
-//                       height: MediaQuery.of(context).size.height * (2 / 100),
-//                     ),
-//                     //! gives error
-//                     GridView(
-//                       shrinkWrap: true,
-//                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//                         crossAxisCount: 5,
-//                         mainAxisSpacing: 20,
-//                         crossAxisSpacing: 20,
-//                       ),
-//                       children: widget.question_overview,
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             );
-//           },
-//         ),
-//       ),
-//     );
-//   }
-// }
+  Widget _buildLegendItem(String text, Color color) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(
+          color: Colors.grey,
+          width: 2,
+        ),
+        color: color.withOpacity(0.7).withAlpha(150),
+      ),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      child: Text(
+        text,
+        style: TextStyle(
+          color: Colors.white.withOpacity(0.8),
+          fontSize: 11,
+        ),
+      ),
+    );
+  }
+}

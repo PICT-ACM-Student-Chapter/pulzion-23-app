@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:bloc/bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:pulzion23/constants/mcqconstants.dart';
+import 'package:pulzion23/features/mcq/mcqconstants.dart';
 part 'mcq_login_state.dart';
 
 class McqLoginCubit extends Cubit<McqLoginState> {
@@ -32,7 +32,7 @@ class McqLoginCubit extends Cubit<McqLoginState> {
       );
       if (response.statusCode == 200) {
         var result = jsonDecode(response.body);
-        await storage.write(key: 'mcqtoken', value: result['access']);        
+        await storage.write(key: 'mcqtoken', value: result['access']);
         emit(McqLoginSuccess());
       } else {
         var result = jsonDecode(response.body);
@@ -42,5 +42,12 @@ class McqLoginCubit extends Cubit<McqLoginState> {
     } catch (error) {
       emit(McqLoginError(error.toString()));
     }
+  }
+
+  Future<void> logout() async {
+    const storage = FlutterSecureStorage();
+    await storage.delete(key: 'mcqtoken');
+    
+    return Future.value();
   }
 }
