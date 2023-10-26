@@ -286,7 +286,8 @@ class _BookSlotsState extends State<BookSlots> {
                             color: Colors.white,
                           ),
                         ),
-                        backgroundColor: const Color.fromARGB(255, 196, 117, 15),
+                        backgroundColor:
+                            const Color.fromARGB(255, 196, 117, 15),
                       ));
                       Navigator.pushReplacement(
                         context,

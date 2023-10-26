@@ -575,8 +575,9 @@ class _SignUpState extends State<SignUp> {
                                                   color: Colors.white,
                                                 ),
                                               ),
-                                              backgroundColor: const Color.fromARGB(
-                                                  255, 78, 48, 21),
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      255, 78, 48, 21),
                                             ),
                                           );
 
@@ -607,8 +608,9 @@ class _SignUpState extends State<SignUp> {
                                                   color: Colors.white,
                                                 ),
                                               ),
-                                              backgroundColor: const Color.fromARGB(
-                                                  255, 78, 48, 21),
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      255, 78, 48, 21),
                                             ),
                                           );
 
@@ -627,8 +629,9 @@ class _SignUpState extends State<SignUp> {
                                                   color: Colors.white,
                                                 ),
                                               ),
-                                              backgroundColor: const Color.fromARGB(
-                                                  255, 78, 48, 21),
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      255, 78, 48, 21),
                                             ),
                                           );
 
@@ -646,8 +649,9 @@ class _SignUpState extends State<SignUp> {
                                                     color: Colors.white,
                                                   ),
                                                 ),
-                                                backgroundColor: const Color.fromARGB(
-                                                    255, 78, 48, 21)),
+                                                backgroundColor:
+                                                    const Color.fromARGB(
+                                                        255, 78, 48, 21)),
                                           );
 
                                           return;
@@ -685,8 +689,9 @@ class _SignUpState extends State<SignUp> {
                                                   color: Colors.white,
                                                 ),
                                               ),
-                                              backgroundColor: const Color.fromARGB(
-                                                  255, 78, 48, 21),
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      255, 78, 48, 21),
                                             ),
                                           );
 

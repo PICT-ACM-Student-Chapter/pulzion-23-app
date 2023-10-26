@@ -4,14 +4,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 // import 'package:provider/provider.dart';
 import 'package:pulzion23/constants/widgets/loader.dart';
 import 'package:pulzion23/features/mcq/features/mcq_login/logic/cubit/mcq_login_cubit.dart';
-import 'package:pulzion23/features/mcq/features/mcq_login/ui/mcq_login.dart';
 import 'package:pulzion23/features/splash_screen/Splash_Screen.dart';
 import 'package:pulzion23/features/event_slots/logic/booked_slot_cubit.dart';
 import 'package:pulzion23/features/splash_screen/cubit/splash_cubit.dart';
 import 'package:pulzion23/project/cubit/animation_toggle_cubit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:pulzion23/services/mcq_user_provider.dart';
 import 'config/remote_config.dart';
 import 'features/cart_page/cubit/cart_page_cubit.dart';
@@ -82,13 +84,35 @@ class _Pulzion23AppState extends State<Pulzion23App>
   late AppLifecycleState appLifecycle;
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
     appLifecycle = state;
     log(state.toString());
     setState(() {});
     if (state == AppLifecycleState.paused ||
         state == AppLifecycleState.detached) {
+      // check if MCQ was running or not
+      // get sharedprefs
+      // final prefs = await SharedPreferences.getInstance();
+      // int? val = prefs.getInt('qID');
+      // if (val != null) {
+      //   if (val == 0) {
+      //     log('value of val changing from 0 to 1');
+      //     await prefs.setInt('qID', 1);
+      //     val = prefs.getInt('qID');
+      //     log('value of val is $val');
+      //     Fluttertoast.showToast(
+      //       msg: 'Warning: Quiz is running. Please do not leave the app!',
+      //     );
+      //   } else if (val == 2) {
+      //     // stop the quiz
+      //     await prefs.setInt('qID', 3);
+      //     Fluttertoast.showToast(
+      //       msg: 'Auto-submitting your quiz!',
+      //     );
+      //   }
+      // }
       //stop your audio player
+
       BlocProvider.of<GlobalParameterCubit>(context).stopSound();
     } else if (state == AppLifecycleState.resumed) {
       //start or resume your audio player

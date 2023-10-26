@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:bloc/bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -47,7 +46,7 @@ class McqLoginCubit extends Cubit<McqLoginState> {
   Future<void> logout() async {
     const storage = FlutterSecureStorage();
     await storage.delete(key: 'mcqtoken');
-    
+
     return Future.value();
   }
 }

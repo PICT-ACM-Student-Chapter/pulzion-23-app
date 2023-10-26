@@ -8,10 +8,11 @@ import 'package:pulzion23/constants/styles.dart';
 import 'package:pulzion23/features/mcq/features/event_list/ui/contest-rule.dart';
 import 'package:pulzion23/features/mcq/features/event_list/logic/cubit/mcq_event_list_cubit.dart';
 import 'package:pulzion23/features/mcq/features/mcq_login/logic/cubit/mcq_login_cubit.dart';
-import 'package:pulzion23/features/mcq/models/mcq_event_model.dart';
 
 class McqEventList extends StatelessWidget {
-  const McqEventList({super.key});
+  const McqEventList({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +26,16 @@ class McqEventList extends StatelessWidget {
         return Future.value(false);
       },
       child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.orange,
+          onPressed: () async {
+            await BlocProvider.of<EventListCubit>(context).loadEventPage();
+          },
+          child: const Icon(
+            Icons.refresh,
+            color: Colors.white,
+          ),
+        ),
         appBar: AppBar(
           leading: Padding(
             padding: const EdgeInsets.all(8.0),

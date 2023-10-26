@@ -61,7 +61,7 @@ class BottomNavBar extends StatelessWidget {
                   if (state is BottomBarAboutUs) {
                     return true
                         // EndPoints.mcqStarted == true
-                        ? MCQLogin()
+                        ? const MCQLogin()
                         : AboutUsPage(false);
                   } else if (state is BottomBarRegisteredEvents) {
                     return loginState is CheckLoginSuccess

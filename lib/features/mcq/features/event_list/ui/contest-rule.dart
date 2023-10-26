@@ -12,9 +12,9 @@ import 'package:pulzion23/features/mcq/features/question_page/ui/questionPageBui
 
 class RulePage extends StatefulWidget {
   final String id;
-  final storage = FlutterSecureStorage();
+  final storage = const FlutterSecureStorage();
 
-  RulePage({Key? key, required this.id}) : super(key: key);
+  const RulePage({Key? key, required this.id}) : super(key: key);
 
   @override
   State<RulePage> createState() => _RulePageState();
@@ -127,7 +127,7 @@ class RuleBox extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 0.06,
           ),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               children: [
                 Padding(
@@ -163,7 +163,7 @@ class RuleBox extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    side: BorderSide(
+                    side: const BorderSide(
                       color: Colors.white,
                       width: 0.5,
                     ),

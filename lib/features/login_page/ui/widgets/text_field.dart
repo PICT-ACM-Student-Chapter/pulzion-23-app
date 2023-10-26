@@ -14,7 +14,7 @@ class LoginSignUpTextField extends StatelessWidget {
     super.key,
     required this.controller,
     required this.obscureText,
-    this.validator = null,
+    this.validator,
   });
 
   @override

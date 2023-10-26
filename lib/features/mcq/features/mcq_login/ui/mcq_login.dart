@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -69,7 +68,7 @@ class _McqLoginState extends State<MCQLogin> {
                 bottom: 15.0,
               ),
               child: LoginSignUpTextField(
-                'Username',
+                'Email',
                 Icons.email,
                 controller: _emailid,
                 obscureText: false,

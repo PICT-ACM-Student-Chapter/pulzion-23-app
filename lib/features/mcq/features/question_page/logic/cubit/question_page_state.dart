@@ -24,4 +24,3 @@ class SubmitErrorState extends QuestionPageState {
   String errorMessage = "";
   SubmitErrorState(this.errorMessage);
 }
-

@@ -55,13 +55,13 @@ class EventListCubit extends Cubit<EventListState> {
           'Authorization': 'Token $mcqToken',
         },
       );
+      log(response.body.toString());
       if (response.statusCode == 200) {
         log(response.body.toString());
         await storage.write(key: 'mcqId', value: id);
         var result = jsonDecode(response.body);
         McqStatus mcqStatus = McqStatus.fromJson(result);
         emit(SingleEventStatus(mcqStatus: mcqStatus));
-       
       } else {
         var result = jsonDecode(response.body);
         var error = result['error'] ?? 'There is some problem currently';

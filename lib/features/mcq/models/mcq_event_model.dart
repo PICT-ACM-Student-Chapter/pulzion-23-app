@@ -72,7 +72,7 @@ class FkEvent {
     data['end_time'] = endTime;
     data['ems_event_id'] = emsEventId;
     data['ems_slot_id'] = emsSlotId;
-    
+
     return data;
   }
 }

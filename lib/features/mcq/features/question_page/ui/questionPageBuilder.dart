@@ -1,10 +1,12 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pulzion23/constants/widgets/loader.dart';
 import 'package:pulzion23/features/mcq/features/question_page/logic/cubit/question_page_cubit.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'questionPage.dart';
 import 'question_grid.dart';
 
@@ -41,13 +43,27 @@ class _SingleQuestionState extends State<SingleQuestion> {
     pgController.dispose();
   }
 
+  Future<void> setStart() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('qID', 0);
+
+    return Future.value();
+  }
+
   Future<void> _submitQuiz(BuildContext parContext) async {
     return showDialog<void>(
       context: parContext,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: Colors.black.withOpacity(0.8),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+            side: const BorderSide(
+              color: Colors.white,
+              width: 0.7,
+            ),
+          ),
+          backgroundColor: Colors.black.withOpacity(0.95),
           title: const Text('Logout'),
           content: const SingleChildScrollView(
             child: ListBody(
@@ -205,34 +221,48 @@ class _SingleQuestionState extends State<SingleQuestion> {
           builder: (context, state) {
             if (state is QuestionPageLoadingState) {
               return const Center(
-                child: Loader(),
+                child: CircularProgressIndicator(),
               );
             } else if (state is QuestionPageLoadingErrorState) {
               return Center(
-                child: Text(state.errorMessage),
+                child: Text(
+                  state.errorMessage,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    color: Colors.white,
+                  ),
+                ),
               );
             } else if (state is QuestionPageLoadedSuccessState) {
+              // set an int in local storage
+              setStart();
+
               return Container(
                 color: Colors.transparent,
                 child: Stack(
                   children: [
-                    QuestionPage(
-                      questions: state.questions.questions,
-                      markAnswer: context.read<QuestionPageCubit>().markAnswer,
-                      toggleBookMark:
-                          context.read<QuestionPageCubit>().toggleBookMark,
-                      pageController: pgController,
-                      timer: widget.timer,
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.05,
+                    Positioned(
+                      child: QuestionPage(
+                        questions: state.questions.questions,
+                        markAnswer:
+                            context.read<QuestionPageCubit>().markAnswer,
+                        toggleBookMark:
+                            context.read<QuestionPageCubit>().toggleBookMark,
+                        submitQuiz:
+                            context.read<QuestionPageCubit>().submitQuiz,
+                        pageController: pgController,
+                        timer: widget.timer,
                       ),
-                      height: MediaQuery.of(context).size.height * 0.2,
-                      width: MediaQuery.of(context).size.width,
-                      color: Colors.transparent,
-                      child: Positioned(
-                        top: 0,
+                    ),
+                    Positioned(
+                      top: 0,
+                      child: Container(
+                        padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height * 0.05,
+                        ),
+                        height: MediaQuery.of(context).size.height * 0.2,
+                        width: MediaQuery.of(context).size.width,
+                        color: Colors.transparent,
                         child: Container(
                           margin: EdgeInsets.only(
                             top: MediaQuery.of(context).size.height * 0,

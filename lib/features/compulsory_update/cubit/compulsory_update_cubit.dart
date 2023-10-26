@@ -18,9 +18,6 @@ class CompulsoryUpdateCubit extends Cubit<CompulsoryUpdateState> {
   }
 
   Future<void> needsUpdate() async {
-    emit(CompulsoryUpdateNotNeeded());
-    return;
-    
     emit(CompulsoryUpdateLoading());
     log(EndPoints.appLatestStableVersion.toString());
 

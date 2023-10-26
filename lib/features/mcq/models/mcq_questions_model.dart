@@ -1,7 +1,7 @@
 class QuestionList {
   List<Question> questions = [];
 
-   QuestionList.fromJson(List<dynamic> json) {
+  QuestionList.fromJson(List<dynamic> json) {
     for (int i = 0; i < json.length; i++) {
       Question question = Question.fromJson(json[i]);
       questions.add(question);
