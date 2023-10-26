@@ -3,7 +3,7 @@ description: Official App for Pulzion 23
 
 publish_to: "none"
 
-version: 1.2.10+11
+version: 1.2.12+12
 
 environment:
     sdk: ">=2.18.2 <3.0.0"

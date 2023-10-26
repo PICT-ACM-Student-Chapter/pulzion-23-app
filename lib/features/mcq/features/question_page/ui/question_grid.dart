@@ -4,7 +4,8 @@ import 'package:pulzion23/features/mcq/models/mcq_questions_model.dart';
 class QuestionGrid extends StatelessWidget {
   final PageController pgController;
   final List<Question> questions;
-  const QuestionGrid({super.key, 
+  const QuestionGrid({
+    super.key,
     required this.questions,
     required this.pgController,
   });

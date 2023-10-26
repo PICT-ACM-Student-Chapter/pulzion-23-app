@@ -59,8 +59,7 @@ class BottomNavBar extends StatelessWidget {
                 builder: (context, state) {
                   log(EndPoints.mcqStarted.toString());
                   if (state is BottomBarAboutUs) {
-                    return true
-                        // EndPoints.mcqStarted == true
+                    return EndPoints.mcqStarted == true
                         ? const MCQLogin()
                         : AboutUsPage(false);
                   } else if (state is BottomBarRegisteredEvents) {
@@ -93,7 +92,7 @@ class BottomNavBar extends StatelessWidget {
               items: <Widget>[
                 Icon(
                   EndPoints.mcqStarted == true
-                      ? Icons.question_answer
+                      ? Icons.mobile_screen_share
                       : Icons.info,
                   size: 30,
                   color: const Color.fromARGB(255, 228, 188, 136),

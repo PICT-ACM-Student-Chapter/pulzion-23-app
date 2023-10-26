@@ -29,6 +29,7 @@ class McqLoginCubit extends Cubit<McqLoginState> {
         body: jsonEncode(data),
         headers: {"Content-Type": "application/json"},
       );
+
       if (response.statusCode == 200) {
         var result = jsonDecode(response.body);
         await storage.write(key: 'mcqtoken', value: result['access']);
