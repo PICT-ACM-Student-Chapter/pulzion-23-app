@@ -4,8 +4,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pulzion23/constants/urls.dart';
-import 'package:pulzion23/features/mcq/presentation/pages/mcq_login.dart';
-
+import 'package:pulzion23/features/mcq/features/mcq_login/ui/mcq_login.dart';
 import '../config/size_config.dart';
 import '../features/cart_page/cubit/cart_page_cubit.dart';
 import '../features/cart_page/ui/cart_page_final.dart';
@@ -60,8 +59,9 @@ class BottomNavBar extends StatelessWidget {
                 builder: (context, state) {
                   log(EndPoints.mcqStarted.toString());
                   if (state is BottomBarAboutUs) {
-                    return EndPoints.mcqStarted == true
-                        ? const McqLogin()
+                    return true
+                        // EndPoints.mcqStarted == true
+                        ? const MCQLogin()
                         : AboutUsPage(false);
                   } else if (state is BottomBarRegisteredEvents) {
                     return loginState is CheckLoginSuccess

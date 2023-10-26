@@ -1,16 +1,16 @@
-import 'package:flutter/widgets.dart';
+// import 'package:flutter/widgets.dart';
 
-class MCQUserProvider with ChangeNotifier {
-  String? mcqtoken;
-  String? mcqId;
+// class MCQUserProvider with ChangeNotifier {
+//   String? mcqtoken;
+//   String? mcqId;
 
-  void setToken(String? mcqtoken) {
-    this.mcqtoken = mcqtoken;
-    notifyListeners();
-  }
+//   void setToken(String? mcqtoken) {
+//     this.mcqtoken = mcqtoken;
+//     notifyListeners();
+//   }
 
-  void setId(String? mcqId) {
-    this.mcqId = mcqId;
-    notifyListeners();
-  }
-}
+//   void setId(String? mcqId) {
+//     this.mcqId = mcqId;
+//     notifyListeners();
+//   }
+// }

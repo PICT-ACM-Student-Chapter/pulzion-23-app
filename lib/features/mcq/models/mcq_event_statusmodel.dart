@@ -1,29 +1,24 @@
-class MCQList {
-  static List<EventList> mcqEventList = [];
-
-  MCQList();
-
-  MCQList.fromJson(List result) {
-    if (result.isNotEmpty) {
-      for (int i = 0; i < result.length; i++) {
-        mcqEventList.add(EventList.fromJson(result[i]));
-      }
-    }
-  }
-}
-
-class EventList {
+class McqStatus {
   String? id;
   FkEvent? fkEvent;
   bool? started;
+  bool? finished;
 
-  EventList({this.id, this.fkEvent, this.started});
+  McqStatus();
 
-  EventList.fromJson(var json) {
+  McqStatus.clearFunction() {
+    id = null;
+    fkEvent = null;
+    started = null;
+    finished = null;
+  }
+
+  McqStatus.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     fkEvent =
         json['fk_event'] != null ? FkEvent.fromJson(json['fk_event']) : null;
     started = json['started'];
+    finished = json['finished'];
   }
 
   Map<String, dynamic> toJson() {
@@ -33,6 +28,8 @@ class EventList {
       data['fk_event'] = fkEvent!.toJson();
     }
     data['started'] = started;
+    data['finished'] = finished;
+
     return data;
   }
 }
@@ -45,13 +42,14 @@ class FkEvent {
   String? emsEventId;
   String? emsSlotId;
 
-  FkEvent(
-      {this.id,
-      this.name,
-      this.startTime,
-      this.endTime,
-      this.emsEventId,
-      this.emsSlotId});
+  FkEvent({
+    this.id,
+    this.name,
+    this.startTime,
+    this.endTime,
+    this.emsEventId,
+    this.emsSlotId,
+  });
 
   FkEvent.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -70,6 +68,7 @@ class FkEvent {
     data['end_time'] = endTime;
     data['ems_event_id'] = emsEventId;
     data['ems_slot_id'] = emsSlotId;
+
     return data;
   }
 }
