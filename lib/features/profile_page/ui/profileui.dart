@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:glowstone/glowstone.dart';
-import 'package:panorama/panorama.dart';
+import 'package:lottie/lottie.dart';
+import 'package:pulzion23/constants/styles.dart';
 
-import '../../../constants/images.dart';
 import '../../../project/cubit/animation_toggle_cubit.dart';
 import '../../../constants/widgets/error_dialog.dart';
 import '../../../constants/widgets/loader.dart';
@@ -39,14 +38,13 @@ class ProfilePage extends StatelessWidget {
             return false;
           },
           builder: (context, state) {
-            return Panorama(
-              sensitivity: 0.4,
-              animSpeed: 0.5,
-              sensorControl:
-                  state ? SensorControl.Orientation : SensorControl.None,
-              child: Image.asset(
-                AppImages.spaceBackground,
-                fit: BoxFit.cover,
+            return Container(
+              constraints: const BoxConstraints.expand(),
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/app_background.jpeg"),
+                  fit: BoxFit.cover,
+                ),
               ),
             );
           },
@@ -55,64 +53,96 @@ class ProfilePage extends StatelessWidget {
           padding: EdgeInsets.only(
             top: MediaQuery.of(context).padding.top,
           ),
-          child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: BlocConsumer<ProfileCubit, ProfileState>(
-              listener: (context, state) {
-                if (state is ProfileError) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(state.message),
+          child: BlocConsumer<ProfileCubit, ProfileState>(
+            listener: (context, state) {
+              if (state is ProfileError) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      state.message,
+                      style: AppStyles.NormalText().copyWith(
+                        fontSize: 15,
+                        color: Colors.white,
+                      ),
                     ),
-                  );
-                }
-              },
-              builder: (context, state) {
-                if (state is ProfileLoaded) {
-                  return Column(
+                  ),
+                );
+              }
+            },
+            builder: (context, state) {
+              if (state is ProfileLoaded) {
+                return SingleChildScrollView(
+                  child: Column(
                     children: [
                       Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        // crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Container(
-                            padding: EdgeInsets.only(top: h * 0.01),
-                            height: h / 8,
+                            padding: EdgeInsets.only(top: h * 0.00),
+                            height: h / 4,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(h * 0.04),
-                                bottomRight: Radius.circular(h * 0.04),
+                                bottomLeft: Radius.circular(h * 0.07),
+                                bottomRight: Radius.circular(h * 0.07),
                               ),
-                              color: Colors.black.withOpacity(0.7),
+                              color: Colors.transparent,
                             ),
                             child: Column(
                               children: [
-                                Expanded(
-                                  flex: 1,
+                                ClipPath(
+                                  clipper: ClipPathClipper(),
                                   child: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.circular(h * 0.02),
-                                    ),
-                                    child: const Image(
-                                      image: AssetImage(
-                                        'assets/images/pasc_logo.png',
+                                    // color: Colors.blue,
+                                    decoration: const BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                          'assets/images/event_frame.png',
+                                        ),
+                                        fit: BoxFit.fill,
                                       ),
                                     ),
-                                  ),
-                                ),
-                                // const SizedBox(
-                                //   height: 20,
-                                // )
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsets.only(top: h * 0.01),
-                                    child: Text(
-                                      'WELCOME TO YOUR PROFILE',
-                                      style: TextStyle(
-                                        fontFamily: 'QuickSand',
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: h * 0.025,
-                                        color: Colors.white,
+                                    height: h * 0.23,
+                                    child: Center(
+                                      child: Row(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                              40,
+                                              0,
+                                              20,
+                                              20,
+                                            ),
+                                            child: SizedBox(
+                                              height: h * 0.08,
+                                              child: Lottie.asset(
+                                                'assets/images/pmpr.json',
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                              bottom: 25,
+                                            ),
+                                            child: SizedBox(
+                                              width: w / 2,
+                                              child: FittedBox(
+                                                fit: BoxFit.contain,
+                                                child: Text(
+                                                  "${state.user.firstName!} ${state.user.lastName!}",
+                                                  style: AppStyles.TitleText(
+                                                          // fontSize: 30,
+
+                                                          )
+                                                      .copyWith(
+                                                    fontSize: 45,
+                                                    color: const Color.fromARGB(
+                                                        255, 82, 50, 16),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
@@ -122,148 +152,152 @@ class ProfilePage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 1),
-                        child: Row(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(left: w * 0.05),
-                              padding: EdgeInsets.all(h * 0.01),
-                              child: Glowstone(
-                                color: Colors.white,
-                                velocity: 15,
-                                radius: 5,
-                                child: CircleAvatar(
-                                  radius: w / 14,
-                                  backgroundImage: Image.asset(
-                                    "assets/images/astronaut.jpeg",
-                                  ).image,
-                                  //     as ImageProvider<Object>,
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: h * 0.1, width: w * 0.1),
-                            LimitedBox(
-                              maxWidth: w - w * 0.4,
-                              child: FittedBox(
-                                fit: BoxFit.scaleDown,
-                                child: Text(
-                                  "${state.user.firstName!} ${state.user.lastName!}",
-                                  style: TextStyle(
-                                    fontSize: w * 0.08,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                    fontFamily: 'QuickSand',
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                      SizedBox(
+                        height: h * 0.04,
                       ),
-                      SizedBox(height: h * 0.001),
-                      cardDesign(
-                        "USERNAME",
-                        h,
-                        w,
-                        state.user.email!.split('@')[0],
-                        const Icon(
-                          Icons.person,
-                          color: Colors.white,
+                      Container(
+                        child: cardDesign(
+                          "USERNAME",
+                          h,
+                          w,
+                          state.user.email!.split('@')[0],
+                          const Icon(
+                            Icons.person,
+                            color: Colors.white,
+                          ),
+                          // Image(image: AssetImage('assets/images/skull.png')),
                         ),
                       ),
                       SizedBox(
                         height: h * 0.01,
                       ),
-                      cardDesign(
-                        "EMAIL",
-                        h,
-                        w,
-                        state.user.email!,
-                        const Icon(
-                          Icons.email,
-                          color: Colors.white,
+                      Container(
+                        child: cardDesign(
+                          "EMAIL",
+                          h,
+                          w,
+                          state.user.email!,
+                          const Icon(
+                            Icons.email,
+                            color: Colors.white,
+                          ),
+                          // Image(image: AssetImage('assets/images/potion.png')),
                         ),
                       ),
                       SizedBox(
                         height: h * 0.01,
                       ),
-                      cardDesign(
-                        "CONTACT NO.",
-                        h,
-                        w,
-                        state.user.mobileNumber,
-                        const Icon(
-                          Icons.phone,
-                          color: Colors.white,
+                      Container(
+                        child: cardDesign(
+                          "CONTACT NO.",
+                          h,
+                          w,
+                          state.user.mobileNumber,
+                          const Icon(
+                            Icons.phone,
+                            color: Colors.white,
+                          ),
+                          // Image(image: AssetImage('assets/images/jar.png')),
                         ),
                       ),
                       SizedBox(
                         height: h * 0.01,
                       ),
-                      cardDesign(
-                        "YEAR",
-                        h,
-                        w,
-                        state.user.year,
-                        const Icon(
-                          Icons.school,
-                          color: Colors.white,
+                      Container(
+                        child: cardDesign(
+                          "YEAR",
+                          h,
+                          w,
+                          state.user.year,
+                          const Icon(
+                            Icons.school,
+                            color: Colors.white,
+                          ),
+                          // Image(image: AssetImage('assets/images/hallo.png')),
                         ),
                       ),
                       SizedBox(
                         height: h * 0.01,
                       ),
-                      cardDesign(
-                        "COLLEGE",
-                        h,
-                        w,
-                        state.user.college,
-                        const Icon(
-                          Icons.book,
-                          color: Colors.white,
+                      Container(
+                        child: cardDesign(
+                          "COLLEGE",
+                          h,
+                          w,
+                          state.user.college,
+                          const Icon(
+                            Icons.book,
+                            color: Colors.white,
+                          ),
+                          // Image(image: AssetImage('assets/images/rip.png')),
                         ),
                       ),
                       SizedBox(
                         height: h * 0.01,
                       ),
-                      // SizedBox(height: 0.0000001, width: double.infinity),
-                    ],
-                  );
-                } else if (state is ProfileError) {
-                  return Column(
-                    children: [
-                      SizedBox(
-                        height: h * 0.3,
-                      ),
-                      Center(
-                        child: ErrorDialog(
-                          state.message,
-                          refreshFunction: () {
-                            context.read<ProfileCubit>().getUser();
-                          },
-                        ),
-                      ),
-                    ],
-                  );
-                }
-
-                return Center(
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: h * 0.3,
-                      ),
-                      const Loader(),
+                      const SizedBox(height: 0.0000001, width: double.infinity),
                     ],
                   ),
                 );
-              },
-            ),
+              } else if (state is ProfileError) {
+                return Column(
+                  children: [
+                    SizedBox(
+                      height: h * 0.3,
+                    ),
+                    Center(
+                      child: ErrorDialog(
+                        state.message,
+                        refreshFunction: () {
+                          context.read<ProfileCubit>().getUser();
+                        },
+                      ),
+                    ),
+                  ],
+                );
+              }
+
+              return Center(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: h * 0.3,
+                    ),
+                    const Loader(),
+                  ],
+                ),
+              );
+            },
           ),
         ),
       ]),
     );
+  }
+}
+
+class ClipPathClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    double width = size.width;
+    double height = size.height;
+
+    final path = Path();
+    //(0,0) 1.Point
+    path.lineTo(0, height); //2.Point
+    path.quadraticBezierTo(
+      width * 0.5, //3.Point --> width * 0.5, height - 100,
+      height - 100,
+      width, //4.Point --> width, height
+      height,
+    );
+    path.lineTo(width, 0); //5.Point
+    path.close();
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    return false;
   }
 }

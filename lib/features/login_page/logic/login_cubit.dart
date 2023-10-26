@@ -73,7 +73,7 @@ class LoginCubit extends Cubit<LoginState> {
     }
   }
 
-  Future<void> resetPassword(String otp, String new_pwd, String email) async {
+  Future<void> resetPassword(String otp, String newPwd, String email) async {
     emit(LoginLoading());
     try {
       var response = await http.post(
@@ -83,7 +83,7 @@ class LoginCubit extends Cubit<LoginState> {
         },
         body: jsonEncode({
           'email': email,
-          'password': new_pwd,
+          'password': newPwd,
           'otp': int.parse(otp),
         }),
       );

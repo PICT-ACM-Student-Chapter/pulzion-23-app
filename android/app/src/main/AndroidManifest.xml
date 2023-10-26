@@ -1,8 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="in.co.pulzion23">
+    package="in.co.pulziontechortreat">
    <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="Pulzion 23"
+        android:label="Pulzion Tech or Treat"
+        android:usesCleartextTraffic="true"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -26,17 +26,40 @@ class ErrorDialog extends StatelessWidget {
           height: size.height * 0.35,
           width: size.width * 0.6,
           decoration: BoxDecoration(
-            color: AppColors.primary.withAlpha(150),
-            borderRadius: const BorderRadius.all(
-              Radius.circular(20),
+            gradient: LinearGradient(
+              colors: [
+                Colors.black.withOpacity(0.6),
+                Colors.black.withOpacity(0.4),
+                Colors.black.withOpacity(0.4),
+              ],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
             ),
-            border: const Border.fromBorderSide(
-              BorderSide(
-                color: AppColors.cardBorder,
-                width: 0.2,
+            borderRadius: BorderRadius.circular(24),
+            border: Border.all(
+              color: Colors.orange[700]!.withOpacity(0.8),
+              width: 0.7,
+            ),
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 1.0,
+                spreadRadius: 2.0,
+                color: Colors.yellow[900]!.withOpacity(0.3),
               ),
-            ),
+            ],
           ),
+          // decoration: BoxDecoration(
+          //   color: Colors.orange.shade600.withOpacity(0.4),
+          //   borderRadius: const BorderRadius.all(
+          //     Radius.circular(20),
+          //   ),
+          //   border: const Border.fromBorderSide(
+          //     BorderSide(
+          //       color: AppColors.cardBorder,
+          //       width: 0.2,
+          //     ),
+          //   ),
+          // ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -51,7 +74,10 @@ class ErrorDialog extends StatelessWidget {
                 child: Text(
                   textAlign: TextAlign.center,
                   errorMessage,
-                  style: AppStyles.bodyTextStyle3(),
+                  style: AppStyles.NormalText().copyWith(
+                    fontSize: 20,
+                    color: Colors.white,
+                  ),
                 ),
               ),
               TextButton(
@@ -72,7 +98,10 @@ class ErrorDialog extends StatelessWidget {
                     Text(
                       textAlign: TextAlign.center,
                       'Retry',
-                      style: AppStyles.bodyTextStyle3().copyWith(fontSize: 25),
+                      style: AppStyles.NormalText().copyWith(
+                        fontSize: 25,
+                        color: Colors.white,
+                      ),
                     ),
                   ],
                 ),
@@ -81,11 +110,12 @@ class ErrorDialog extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: size.height * 0.165,
+          bottom: size.height * 0.195,
+          right: -size.width * 0.03,
           child: Lottie.asset(
             AppImages.errorSpaceman,
-            height: size.height * 0.35,
-            width: size.width * 0.6,
+            height: size.height * 0.3,
+            width: size.width * 0.65,
           ),
         ),
       ],

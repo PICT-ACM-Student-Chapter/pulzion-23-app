@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
@@ -18,9 +19,11 @@ class EventDetailsCubitCubit extends Cubit<EventDetailsCubitState> {
     try {
       var response = await http.get(Uri.parse(EndPoints.events));
       var data = jsonDecode(response.body);
-      log(data.toString());
+      // log(data.toString());
       EventList eventList = EventList.fromJson(data);
-
+      eventList.events?.forEach((e) {
+        log(e.offers?.length.toString() ?? e.name!);
+      });
       emit(EventDetailsCubitLoaded(eventList));
     } catch (e) {
       log(e.toString());

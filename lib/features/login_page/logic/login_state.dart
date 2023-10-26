@@ -28,5 +28,3 @@ class UserNotFound extends LoginState {}
 class InvalidOTP extends LoginState {}
 
 class PasswordChangedSuccess extends LoginState {}
-
-

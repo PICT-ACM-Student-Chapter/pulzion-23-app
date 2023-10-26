@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:pulzion23/constants/styles.dart';
 
 import '../../../constants/models/cart_model.dart';
 import '../../../constants/urls.dart';
@@ -18,7 +19,6 @@ class CartPageCubit extends Cubit<CartPageState> {
 
   Future<void> loadCart() async {
     // emit(CartPageLoading());
-    log('Load cart called');
     const storage = FlutterSecureStorage();
     var token = await storage.read(key: 'token');
     if (token != null) {
@@ -79,46 +79,69 @@ class CartPageCubit extends Cubit<CartPageState> {
       var data = jsonDecode(response.body);
 
       if ((response.statusCode / 100).floor() == 2) {
+        sc.hideCurrentSnackBar();
         sc.showSnackBar(
-          const SnackBar(
-            content: Text('Registered Successfully'),
-            backgroundColor: Colors.green,
+          SnackBar(
+            content: Text(
+              'Registered Successfully',
+              style: AppStyles.NormalText().copyWith(
+                fontSize: 15,
+                color: Colors.white,
+              ),
+            ),
+            backgroundColor: const Color.fromARGB(255, 196, 117, 15),
+            duration: const Duration(
+              seconds: 2,
+            ),
           ),
         );
       } else {
         sc.showSnackBar(
           SnackBar(
-            content: Text(data['msg']),
-            backgroundColor: Colors.red,
+            content: Text(
+              data['msg'],
+              style: AppStyles.NormalText().copyWith(
+                fontSize: 15,
+                color: Colors.white,
+              ),
+            ),
+            backgroundColor: const Color.fromARGB(255, 78, 48, 21),
           ),
         );
       }
     } catch (e) {
       log(e.toString());
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Registration Failed'),
-          backgroundColor: Colors.red,
+        SnackBar(
+          content: Text(
+            'Registration Failed',
+            style: AppStyles.NormalText().copyWith(
+              fontSize: 15,
+              color: Colors.white,
+            ),
+          ),
+          backgroundColor: const Color.fromARGB(255, 78, 48, 21),
         ),
       );
     }
   }
 
-  Future<void> addCartItem(int id) async {
+  Future<void> addCombo(int comboId) async {
     emit(CartPageLoading());
     Response? response;
     try {
       const storage = FlutterSecureStorage();
       var token = await storage.read(key: 'token');
+      log('this is endpoint = ${EndPoints.combos}$comboId');
       response = await http.post(
-        Uri.parse(EndPoints.cart),
+        Uri.parse('${EndPoints.combos}$comboId'),
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer $token",
         },
-        body: jsonEncode({'event_id': id}),
       );
 
+      log('data = ${response.body}');
       var data = jsonDecode(response.body);
 
       if ((response.statusCode / 100).floor() == 2) {
@@ -126,8 +149,8 @@ class CartPageCubit extends Cubit<CartPageState> {
         log('Add item response data message: ${data['msg']}');
         emit(CartItemAdded(data['msg'].toString()));
       } else {
-        log('Add item response status code: ${response.statusCode}');
-        log('Add item response error: ${data['error']}');
+        log('Add combo response status code: ${response.statusCode}');
+        log('Add combo response error: ${data['error']}');
         emit(CartItemNotAdded(data['error'].toString()));
       }
     } catch (e) {
@@ -140,24 +163,113 @@ class CartPageCubit extends Cubit<CartPageState> {
       }
     }
   }
+
+  Future<void> deleteCombo(int comboId) async {
+    emit(CartPageLoading());
+    Response? response;
+    try {
+      const storage = FlutterSecureStorage();
+      var token = await storage.read(key: 'token');
+      response = await http.delete(
+        Uri.parse('${EndPoints.combos}$comboId'),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $token",
+        },
+      );
+
+      var data = jsonDecode(response.body);
+
+      if ((response.statusCode / 100).floor() == 2) {
+        log('Delete response status code: ${response.statusCode}');
+        log('Delete response data message: ${data['msg']}');
+        emit(CartItemDeleted(data['msg'].toString()));
+      } else {
+        log('Delete response status code: ${response.statusCode}');
+        log('Delete response error: ${data['error']}');
+        emit(CartItemNotDeleted(data['error'].toString()));
+      }
+    } catch (e) {
+      if (response == null) {
+        log('Load cart exception: $e');
+        emit(CartPageError('Failed host lookup.'));
+      } else {
+        log('Load cart exception: $e');
+        emit(CartPageError(e.toString()));
+      }
+    }
+  }
+
+  Future<bool> addCartItem(int id) async {
+    emit(CartPageLoading());
+    Response? response;
+    try {
+      const storage = FlutterSecureStorage();
+      var token = await storage.read(key: 'token');
+      response = await http.post(
+        Uri.parse(
+          id == 1 ? EndPoints.userRegister : EndPoints.cart,
+        ),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $token",
+        },
+        body: jsonEncode(
+          {'event_id': id},
+        ),
+      );
+
+      var data = jsonDecode(response.body);
+
+      if ((response.statusCode / 100).floor() == 2) {
+        log('Add item response status code: ${response.statusCode}');
+        log('Add item response data message: ${data['msg']}');
+        emit(CartItemAdded(data['msg'].toString()));
+
+        return true;
+      } else {
+        log('Add item response status code: ${response.statusCode}');
+        log('Add item response error: ${data['error']}');
+        emit(CartItemNotAdded(data['error'].toString()));
+
+        return false;
+      }
+    } catch (e) {
+      if (response == null) {
+        log('Load cart exception: $e');
+        emit(CartPageError('Failed host lookup.'));
+      } else {
+        log('Load cart exception: $e');
+        emit(CartPageError(e.toString()));
+      }
+
+      return false;
+    }
+  }
   //sendtransactionid -> 1. sending 2. sent 3. error
   // http post req: 1. [event id] 2. transaction id
   // button for transaction id
 
-  List<int> getTransactionID() {
-    List<int> event_id = [];
+  List<List<int>> getTransactionID() {
+    List<int> eventId = [];
+    List<int> comboId = [];
     for (var cartItem in eventList.cartItems!) {
-      event_id.add(cartItem.id!);
+      eventId.add(cartItem.id!);
+    }
+    for (var comboItem in eventList.cartCombos!) {
+      comboId.add(comboItem.comboID!);
     }
 
-    return event_id;
+    return [eventId, comboId];
   }
 
-  Future<void> sendTransactionID(String tr_id, String? referral) async {
+  Future<void> sendTransactionID(String trId, String? referral) async {
     emit(SendingTransaction());
     try {
       const storage = FlutterSecureStorage();
       var token = await storage.read(key: 'token');
+      final transactions = getTransactionID();
+
       final response = await http.post(
         Uri.parse(EndPoints.transaction),
         headers: {
@@ -165,9 +277,10 @@ class CartPageCubit extends Cubit<CartPageState> {
           "Authorization": "Bearer $token",
         },
         body: jsonEncode({
-          'event_id': getTransactionID(),
-          'transaction_id': tr_id,
-          'referal_code': referral ?? '',
+          'event_id': transactions[0],
+          'transaction_id': trId,
+          'combo_id': transactions[1],
+          // 'referal_code': referral ?? '',
         }),
       );
       var data = jsonDecode(response.body);

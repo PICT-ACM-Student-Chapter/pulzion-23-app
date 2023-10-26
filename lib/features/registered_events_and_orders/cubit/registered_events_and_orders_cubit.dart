@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:bloc/bloc.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:pulzion23/constants/models/booked_slot_model.dart';
 import 'package:pulzion23/constants/models/event_model.dart';
+import 'package:pulzion23/features/home_page/logic/event_details_cubit_cubit.dart';
 
 import '../../../constants/models/registered_event.dart';
 import '../../../constants/urls.dart';
@@ -16,7 +18,7 @@ class RegisteredEventsAndOrdersCubit
     extends Cubit<RegisteredEventsAndOrdersState> {
   RegisteredEventsAndOrdersCubit() : super(RegisteredEventsAndOrdersLoading());
 
-  Future<void> getRegisteredEventsAndOrders() async {
+  Future<void> getRegisteredEventsAndOrders(EventList events) async {
     emit(RegisteredEventsAndOrdersLoading());
 
     const storage = FlutterSecureStorage();
@@ -24,6 +26,8 @@ class RegisteredEventsAndOrdersCubit
     if (token != null) {
       http.Response? response;
       try {
+        List<String> registeredCombos = [];
+
         response = await http.get(
           Uri.parse(EndPoints.transaction),
           headers: {
@@ -45,13 +49,13 @@ class RegisteredEventsAndOrdersCubit
           },
         );
         var dataEve = jsonDecode(response.body);
-        // print(data);
         List<Events> registeredEvents =
             dataEve['events'].map<Events>((e) => Events.fromJson(e)).toList();
         log(response.body);
         emit(RegisteredEventsAndOrdersLoaded(
           registeredEvents,
           registeredOrders,
+          registeredCombos,
         ));
       } catch (e) {
         if (response == null) {
@@ -67,9 +71,12 @@ class RegisteredEventsAndOrdersCubit
     }
   }
 
-  Future<void> getUpdatedEvents() async {
+  Future<void> getUpdatedEvents(BuildContext context) async {
     emit(RegisteredOrdersandEventsUpdates());
-    await getRegisteredEventsAndOrders();
+    await getRegisteredEventsAndOrders((context
+            .read<EventDetailsCubitCubit>()
+            .state as EventDetailsCubitLoaded)
+        .events);
   }
 
   Future<void> getOnlyRegisteredEvents() async {

@@ -1,5 +1,4 @@
 import 'package:firebase_remote_config/firebase_remote_config.dart';
-
 import '../constants/urls.dart';
 
 Future<void> remoteConfig() async {
@@ -10,7 +9,6 @@ Future<void> remoteConfig() async {
   ));
   await remoteConfig.fetchAndActivate();
   EndPoints.baseUrl = remoteConfig.getString('BaseUrl');
-  // 'https://ems-test-server.onrender.com';
   EndPoints.sampleToken = remoteConfig.getString('SampleToken');
   EndPoints.appLatestStableVersion =
       remoteConfig.getString('AppLatestStableVersion');

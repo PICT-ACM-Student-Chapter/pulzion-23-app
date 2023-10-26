@@ -1,79 +1,26 @@
 {
   "project_info": {
-    "project_number": "1073515270647",
-    "project_id": "fcmtestserver-86214",
-    "storage_bucket": "fcmtestserver-86214.appspot.com"
+    "project_number": "234069676610",
+    "project_id": "pulzion-tech-or-treat",
+    "storage_bucket": "pulzion-tech-or-treat.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1073515270647:android:5f8540cfd5225d91865ef2",
+        "mobilesdk_app_id": "1:234069676610:android:aa1279b9105b44094b93db",
         "android_client_info": {
-          "package_name": "com.pasc.pulzion23"
+          "package_name": "in.co.pulziontechortreat"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "1073515270647-ne5b6830pl53rl6n4lm0ua75kbtc9iqs.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAvLmV4eqSi2K_D4IuowK4E3yusBeXDWFg"
+          "current_key": "AIzaSyAH8--kh-eWvc2XGtYI39kqR2Rtvric8PE"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1073515270647-ne5b6830pl53rl6n4lm0ua75kbtc9iqs.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "1073515270647-025032ur64epr5ojhq6kbefitn8ot3rt.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.rohandoshi21.fcmtestserverflutter.fcmNodejsExample"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:1073515270647:android:25e107d563aab7cd865ef2",
-        "android_client_info": {
-          "package_name": "in.co.pulzion23"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "1073515270647-ne5b6830pl53rl6n4lm0ua75kbtc9iqs.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAvLmV4eqSi2K_D4IuowK4E3yusBeXDWFg"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1073515270647-ne5b6830pl53rl6n4lm0ua75kbtc9iqs.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "1073515270647-025032ur64epr5ojhq6kbefitn8ot3rt.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.rohandoshi21.fcmtestserverflutter.fcmNodejsExample"
-              }
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

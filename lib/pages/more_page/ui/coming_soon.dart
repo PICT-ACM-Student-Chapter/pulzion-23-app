@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:panorama/panorama.dart';
 
 import '../../../constants/images.dart';
 
@@ -11,12 +10,7 @@ class ComingSoonPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Panorama(
-          sensitivity: 0.4,
-          animSpeed: 0.5,
-          sensorControl: SensorControl.Orientation,
-          child: Image.asset(AppImages.spaceBackground, fit: BoxFit.cover),
-        ),
+        Image.asset(AppImages.spaceBackground2, fit: BoxFit.cover),
         Scaffold(
           appBar: AppBar(
             elevation: 0,

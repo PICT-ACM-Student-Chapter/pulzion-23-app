@@ -1,29 +1,194 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pulzion23/features/event_description/ui/widgets/contact_card.dart';
+import 'package:pulzion23/constants/widgets/halloween_button.dart';
+import 'package:pulzion23/features/event_description/ui/widgets/event_mode.dart';
+import 'package:pulzion23/features/event_description/ui/widgets/offer_card.dart';
+import 'package:pulzion23/features/login_page/cubit/check_login_cubit.dart';
+import 'package:pulzion23/features/login_page/ui/login_signup_intro.dart';
 import "package:share_plus/share_plus.dart";
+import 'package:url_launcher/url_launcher.dart';
 import '../../../constants/urls.dart';
 import '../../cart_page/cubit/cart_page_cubit.dart';
 import '../../../config/size_config.dart';
 import '../../../constants/models/event_model.dart';
+import '../ui/widgets/contact_card.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
 
 import '../../../constants/colors.dart';
-import '../../../constants/images.dart';
 import '../../../constants/styles.dart';
-import 'widgets/dynamic_button.dart';
-import 'widgets/event_mode.dart';
+
+Widget getEventLogo(
+  Events event,
+  double w,
+  double fontSizeFactor,
+  bool isDark,
+) {
+  return Stack(
+    children: [
+      Positioned(
+        left: w / 3.7,
+        top: w / 7,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12.0),
+            boxShadow: [
+              BoxShadow(
+                color: isDark ? Colors.black.withOpacity(0.5) : Colors.black,
+                // : const Color.fromARGB(255, 4, 15, 30).withOpacity(0.5),
+                blurRadius: 1.0,
+                spreadRadius: 7.0,
+                offset: const Offset(0.0, 0.0),
+              ),
+            ],
+          ),
+          child: Container(
+            width: w / 2.6,
+            height: w / 2.6,
+            padding: EdgeInsets.all(
+              SizeConfig.getProportionateScreenWidth(15),
+            ),
+            decoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              gradient: RadialGradient(
+                radius: fontSizeFactor * 0.5,
+                colors: [
+                  const Color.fromARGB(255, 4, 15, 30).withOpacity(0.15),
+                  Colors.black,
+                ],
+              ),
+            ),
+            child: Padding(
+              padding: EdgeInsets.all(
+                SizeConfig.getProportionateScreenWidth(27),
+              ),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 1000),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  boxShadow: [
+                    BoxShadow(
+                      color: isDark
+                          ? Colors.black.withAlpha(60)
+                          : Colors.orange.withAlpha(50),
+                      blurRadius: 30.0,
+                      spreadRadius: 10.0,
+                      offset: const Offset(
+                        0.0,
+                        0.0,
+                      ),
+                    ),
+                  ],
+                ),
+                child: Image.network(
+                  color: Colors.white,
+                  event.logo!,
+                  fit: BoxFit.fitWidth,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+      Align(
+        alignment: Alignment.center,
+        child: SizedBox(
+          width: w / 1.45,
+          height: w / 1.45,
+          child: Image.asset(
+            'assets/images/app_frame.png',
+          ),
+        ),
+      ),
+      // Align(
+      //   alignment: Alignment.center,
+      //   child: SizedBox(
+      //     width: w / 1.45,
+      //     height: w / 1.45,
+      //     child: MaskFilter.blur(),
+      //   ),
+      // ),
+    ],
+  );
+}
 
 class EventDescription extends StatefulWidget {
+  final bool isDark;
   final Events? event;
-
-  const EventDescription({this.event, Key? key}) : super(key: key);
+  final Function()? onChange;
+  final Function()? getTheme;
+  final List<Events> eventList;
+  const EventDescription({
+    required this.isDark,
+    required this.event,
+    required this.onChange,
+    required this.getTheme,
+    required this.eventList,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<EventDescription> createState() => _EventDescriptionState();
 }
 
-class _EventDescriptionState extends State<EventDescription> with TickerProviderStateMixin {
-  late final TabController tabBarController = TabController(length: 3, vsync: this);
+class _EventDescriptionState extends State<EventDescription>
+    with TickerProviderStateMixin {
+  bool isCart = true;
+  late final TabController tabBarController =
+      TabController(length: 4, vsync: this);
+
+  Widget parseAndDisplayLinks(String text, BuildContext context) {
+    return Linkify(
+      onOpen: (url) async {
+        final bool nativeAppLaunchSucceeded = await launchUrl(
+          Uri.parse(url.text),
+        );
+        if (!nativeAppLaunchSucceeded) {
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                'Registered Successfully',
+                style: AppStyles.NormalText().copyWith(
+                  fontSize: 15,
+                  color: Colors.white,
+                ),
+              ),
+              backgroundColor: const Color.fromARGB(255, 196, 117, 15),
+              duration: const Duration(seconds: 2),
+            ),
+          );
+        }
+      },
+      text: text,
+      style: AppStyles.NormalText().copyWith(
+        color: Theme.of(context).primaryColor,
+        fontSize: 15,
+      ),
+      options: const LinkifyOptions(humanize: false),
+      linkStyle: const TextStyle(
+        color: Colors.orange,
+        decoration: TextDecoration.underline,
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    tabBarController.addListener(() {
+      Future.delayed(const Duration(seconds: 0), () {
+        if (tabBarController.index == 3) {
+          setState(() {
+            isCart = false;
+          });
+        } else {
+          setState(() {
+            isCart = true;
+          });
+        }
+      });
+    });
+  }
 
   @override
   void dispose() {
@@ -41,6 +206,10 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
 
     return Scaffold(
       backgroundColor: Colors.black,
+      // widget.getTheme != null
+      // ? widget.getTheme!().scaffoldBackgroundColor
+      // :
+      // const Color.fromARGB(255, 13, 69, 115).withOpacity(0.2),
       bottomNavigationBar: Container(
         margin: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -66,8 +235,8 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                   children: [
                     Text(
                       "PRICE",
-                      style: AppStyles.bodyTextStyle3().copyWith(
-                        color: Colors.white,
+                      style: AppStyles.NormalText().copyWith(
+                        color: Theme.of(context).primaryColor,
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
                       ),
@@ -77,7 +246,11 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                       children: [
                         Text(
                           "Rs. ${event.price}",
-                          style: AppStyles.bodyTextStyle3(),
+                          style: AppStyles.NormalText().copyWith(
+                            color: Theme.of(context).primaryColor,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                       ],
                     ),
@@ -85,9 +258,41 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                 ),
               ),
             ),
-            DynamicButton(
-              event: event,
-            ),
+            //!This is the cart button
+            if (isCart)
+              SizedBox(
+                height: h / 12,
+                width: w / 2.2,
+                child: BlocProvider(
+                  create: (context) => CartPageCubit()..loadCart(),
+                  child: HalloweenButton(
+                    color: widget.isDark
+                        ? const Color.fromARGB(255, 6, 24, 49)
+                        : const Color.fromARGB(255, 20, 72, 146),
+                    icon: Icons.shopping_cart,
+                    buttonText: event.id == 1 ? 'Register' : 'Add to Cart',
+                    fontsize: 20,
+                    onPressed: () {
+                      if (context.read<CheckLoginCubit>().state
+                          is CheckLoginFailure) {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginSignUpIntro(),
+                          ),
+                        );
+
+                        return;
+                      }
+                      if (event.id != null) {
+                        BlocProvider.of<CartPageCubit>(
+                          context,
+                        ).addCartItem(event.id!);
+                      }
+                    },
+                  ),
+                ),
+              ),
           ],
         ),
       ),
@@ -102,8 +307,14 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
             ScaffoldMessenger.of(context).hideCurrentSnackBar();
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.message),
-                backgroundColor: Colors.green,
+                content: Text(
+                  state.message,
+                  style: AppStyles.NormalText().copyWith(
+                    fontSize: 15,
+                    color: Colors.white,
+                  ),
+                ),
+                backgroundColor: const Color.fromARGB(255, 196, 117, 15),
               ),
             );
             BlocProvider.of<CartPageCubit>(context).loadCart();
@@ -111,8 +322,14 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
             ScaffoldMessenger.of(context).hideCurrentSnackBar();
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.message),
-                backgroundColor: Colors.red,
+                content: Text(
+                  state.message,
+                  style: AppStyles.NormalText().copyWith(
+                    fontSize: 15,
+                    color: Colors.white,
+                  ),
+                ),
+                backgroundColor: const Color.fromARGB(255, 78, 48, 21),
               ),
             );
             // BlocProvider.of<CartPageCubit>(context).loadCart();
@@ -120,8 +337,14 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
             ScaffoldMessenger.of(context).hideCurrentSnackBar();
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.message),
-                backgroundColor: Colors.red,
+                content: Text(
+                  state.message,
+                  style: AppStyles.NormalText().copyWith(
+                    fontSize: 15,
+                    color: Colors.white,
+                  ),
+                ),
+                backgroundColor: const Color.fromARGB(255, 78, 48, 21),
               ),
             );
             BlocProvider.of<CartPageCubit>(context).loadCart();
@@ -129,8 +352,14 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
             ScaffoldMessenger.of(context).hideCurrentSnackBar();
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.message),
-                backgroundColor: Colors.red,
+                content: Text(
+                  state.message,
+                  style: AppStyles.NormalText().copyWith(
+                    fontSize: 15,
+                    color: Colors.white,
+                  ),
+                ),
+                backgroundColor: const Color.fromARGB(255, 78, 48, 21),
               ),
             );
             // BlocProvider.of<CartPageCubit>(context).loadCart();
@@ -143,28 +372,6 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
             children: [
               Stack(
                 children: [
-                  SizedBox(
-                    height: h * 0.28,
-                    width: double.infinity,
-                    child: Image.asset(
-                      AppImages.eventDescriptionBackground,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  Container(
-                    height: h * 0.28,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Colors.deepPurple.withOpacity(0.3),
-                          Colors.black,
-                        ],
-                      ),
-                    ),
-                  ),
                   Align(
                     alignment: Alignment.topLeft,
                     child: Padding(
@@ -193,9 +400,10 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                       child: InkWell(
                         onTap: (() {
                           Share.share(
-                            '${event.description}\n\nPulzion 23 App: ${EndPoints.playStoreURL}',
-                            subject: 'Pulzion 2023',
-                            sharePositionOrigin: const Rect.fromLTWH(0, 0, 10, 10),
+                            '${event.description}\n\nPulzion App: ${EndPoints.playStoreURL}',
+                            subject: 'Pulzion Tech Or Treat',
+                            sharePositionOrigin:
+                                const Rect.fromLTWH(0, 0, 10, 10),
                           );
                         }),
                         child: const Icon(
@@ -208,95 +416,155 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 16),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Hero(
-                      tag: 'event${event.id}',
-                      child: Container(
-                        width: w / 5,
-                        height: w / 5,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: AppColors.eventCardGradientList.elementAt(
-                              event.id! % AppColors.eventCardGradientList.length,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12.0),
+                    gradient: RadialGradient(
+                      colors: [
+                        Colors.orange.shade900.withOpacity(0.9),
+                        // const Color.fromARGB(255, 13, 69, 115).withOpacity(0.1),
+                        Colors.black,
+                      ],
+                      radius: 0.65,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: widget.isDark
+                            ? Colors.black.withOpacity(0.5)
+                            : Colors.orange.withOpacity(0.12),
+                        // color: const Color.fromARGB(255, 13, 69, 115)
+                        //     .withOpacity(0.4),
+                        blurRadius: 10.0,
+                        spreadRadius: 10.0,
+                        offset: const Offset(0.0, 0.0),
+                      ),
+                    ],
+                  ),
+                  child: Stack(
+                    children: [
+                      Image.asset(
+                        'assets/images/cobwebs.png',
+                        height: h / 4.4,
+                        width: w,
+                        fit: BoxFit.fitWidth,
+                        color: widget.getTheme!().primaryColor.withOpacity(0.3),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: h / 25,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              widget.onChange!();
+                            },
+                            splashColor: Colors.transparent,
+                            child: getEventLogo(
+                              event,
+                              w,
+                              fontSizeFactor,
+                              widget.isDark,
                             ),
                           ),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.all(
-                            SizeConfig.getProportionateScreenWidth(15),
+                          AnimatedContainer(
+                            duration: const Duration(milliseconds: 1000),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12.0),
+                              // boxShadow: [
+                              //   BoxShadow(
+                              //     color: widget.isDark
+                              //         ? Colors.transparent
+                              //         : Colors.orange[700]!.withOpacity(0.25),
+                              //     blurRadius: 15.0,
+                              //     spreadRadius: 0.0,
+                              //   ),
+                              // ],
+                            ),
+                            // padding: const EdgeInsets.all(10),
+                            child: Text(
+                              event.name!,
+                              textAlign: TextAlign.center,
+                              style: AppStyles.NormalText().copyWith(
+                                color: Theme.of(context).primaryColor,
+                                fontSize: h * 0.04,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
-                          child: Image.network(
-                            event.logo!,
-                            fit: BoxFit.fitWidth,
+                          SizedBox(
+                            width: w,
+                            height: h / 50,
                           ),
-                        ),
+                          Container(
+                            margin: const EdgeInsets.only(bottom: 20),
+                            alignment: Alignment.center,
+                            child: EventMode(event: event),
+                          ),
+                        ],
                       ),
-                    ),
-                    SizedBox(width: w / 22),
-                    SizedBox(
-                      width: w * 0.55,
-                      child: Text(
-                        event.name!,
-                        style: AppStyles.bodyTextStyle2().copyWith(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    EventMode(event: event),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(bottom: 12.0),
                       child: DefaultTabController(
-                        length: 2,
+                        length: 4,
                         child: TabBar(
                           labelPadding: const EdgeInsets.all(12),
                           controller: tabBarController,
-                          indicator: const BoxDecoration(
+                          indicator: BoxDecoration(
                             border: Border(
                               bottom: BorderSide(
-                                color: AppColors.loginPageAccent,
+                                color: Colors.orange[400]!.withOpacity(0.7),
                               ),
                             ),
                           ),
                           unselectedLabelColor: AppColors.cardSubtitleTextColor,
-                          labelColor: AppColors.loginPageAccent,
-                          tabs: const [
+                          tabs: [
                             Text(
-                              "Description",
-                              style: TextStyle(
-                                fontFamily: 'Quicksand',
-                                fontSize: 16,
+                              "Details",
+                              style: AppStyles.TitleText().copyWith(
+                                color: Theme.of(context).primaryColor,
+                                // fontFamily: 'Quicksand',
+                                fontSize: h * 0.03,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
                             Text(
                               "Rounds",
-                              style: TextStyle(
-                                fontFamily: 'Quicksand',
-                                fontSize: 16,
+                              style: AppStyles.TitleText().copyWith(
+                                color: Theme.of(context).primaryColor,
+                                // fontFamily: 'Quicksand',
+                                fontSize: h * 0.03,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
                             Text(
                               "Rules",
-                              style: TextStyle(
-                                fontFamily: 'Quicksand',
-                                fontSize: 16,
+                              style: AppStyles.TitleText().copyWith(
+                                color: Theme.of(context).primaryColor,
+                                // fontFamily: 'Quicksand',
+                                fontSize: h * 0.03,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            Text(
+                              "Combos",
+                              style: AppStyles.TitleText().copyWith(
+                                color: Theme.of(context).primaryColor,
+                                // fontFamily: 'Quicksand',
+                                fontSize: h * 0.028,
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
                           ],
@@ -305,77 +573,158 @@ class _EventDescriptionState extends State<EventDescription> with TickerProvider
                     ),
                     SizedBox(
                       width: w,
-                      height: double.maxFinite,
+                      height: event.description!.length.toDouble() + h / 2.6,
                       child: TabBarView(
                         physics: const BouncingScrollPhysics(),
                         controller: tabBarController,
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  event.tagline!,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: fontSizeFactor * 8,
-                                    fontWeight: FontWeight.bold,
-                                    color: const Color(0xFFfafafa),
-                                    fontStyle: FontStyle.italic,
+                          SizedBox(
+                            height: 600,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    event.tagline!,
+                                    textAlign: TextAlign.center,
+                                    style: AppStyles.NormalText().copyWith(
+                                      color: Theme.of(context).primaryColor,
+                                      fontSize: 20,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  event.description!,
-                                  style: AppStyles.bodyTextStyle3(),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  'Team Details :',
-                                  style: AppStyles.bodyTextStyle3().copyWith(
-                                    color: AppColors.loginPageAccent,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    event.description!,
+                                    style: AppStyles.NormalText().copyWith(
+                                      color: Theme.of(context).primaryColor,
+                                      fontSize: 15,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  event.teams!,
-                                  style: AppStyles.bodyTextStyle3(),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  'Event Leads :',
-                                  style: AppStyles.bodyTextStyle3().copyWith(
-                                    color: AppColors.loginPageAccent,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'Team Details',
+                                    style: AppStyles.NormalText().copyWith(
+                                      color: Theme.of(context).primaryColor,
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: ContactCard(event: event),
-                              ),
-                            ],
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    event.teams!,
+                                    // style: AppStyles.bodyTextStyle3().copyWith(
+                                    //   color: Theme.of(context).primaryColor,
+                                    // ),
+                                    style: AppStyles.NormalText().copyWith(
+                                      color: Theme.of(context).primaryColor,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'Event Leads',
+                                    // style: AppStyles.bodyTextStyle3().copyWith(
+                                    //   color: Theme.of(context).primaryColor,
+                                    //   fontSize: 18,
+                                    //   fontWeight: FontWeight.bold,
+                                    // ),
+                                    style: AppStyles.NormalText().copyWith(
+                                      color: Theme.of(context).primaryColor,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal:
+                                        MediaQuery.of(context).size.width * 0.1,
+                                    vertical: 0.0,
+                                  ),
+                                  child: ContactCard(event: event),
+                                ),
+                              ],
+                            ),
                           ),
+                          parseAndDisplayLinks(event.rounds ?? '', context),
                           Text(
-                            event.rounds!,
-                            style: AppStyles.bodyTextStyle3(),
+                            event.rules ?? '',
+                            style: AppStyles.NormalText().copyWith(
+                              color: Theme.of(context).primaryColor,
+                              fontSize: 15,
+                            ),
                           ),
-                          Text(
-                            event.rules!,
-                            style: AppStyles.bodyTextStyle3(),
+                          // Padding(
+                          //   padding: const EdgeInsets.only(top: 30.0),
+                          //   child: Text(
+                          //     'Offers for ${event.name} coming soon!!',
+                          //     textAlign: TextAlign.center,
+                          //     style: AppStyles.NormalText().copyWith(
+                          //       color: Theme.of(context).primaryColor,
+                          //       fontSize: 20,
+                          //     ),
+                          //   ),
+                          // ),
+
+                          Builder(
+                            builder: (context) {
+                              // Future.delayed(
+                              //   const Duration(seconds: 0),
+                              //   () {
+                              //     setState(() {
+                              //       isCart = false;
+                              //     });
+                              //   },
+                              // );
+
+                              return event.offers == null ||
+                                      event.offers!.isEmpty
+                                  ? Padding(
+                                      padding: const EdgeInsets.only(top: 30.0),
+                                      child: Text(
+                                        'No combos available for ${event.name}...\nPlease register for it as an individual event',
+                                        textAlign: TextAlign.center,
+                                        style: AppStyles.NormalText().copyWith(
+                                          color: Theme.of(context).primaryColor,
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                    )
+                                  : ListView.builder(
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemCount: event.offers == null
+                                          ? 0
+                                          : event.offers == null
+                                              ? 0
+                                              : event.offers!.length,
+                                      itemBuilder: (context, index) {
+                                        final comboo = event.offers![index];
+
+                                        return Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            vertical: 10,
+                                            horizontal: 30,
+                                          ),
+                                          child: OfferCard(
+                                            combo: comboo,
+                                            eventList: widget.eventList,
+                                          ),
+                                        );
+                                      },
+                                    );
+                            },
                           ),
                         ],
                       ),

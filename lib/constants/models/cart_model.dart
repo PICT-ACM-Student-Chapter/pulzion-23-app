@@ -1,12 +1,26 @@
+import 'package:pulzion23/features/combo_cubit/models/combo_model.dart';
+
 class CartItemList {
   List<CartItem>? cartItems;
+  List<Combo>? cartCombos;
 
   CartItemList({this.cartItems});
 
   CartItemList.fromJson(Map<String, dynamic> json) {
-    cartItems = json["events"] == null
-        ? null
-        : (json["events"] as List).map((e) => CartItem.fromJson(e)).toList();
+    if (json["events"] == null) {
+      cartItems = null;
+    } else {
+      cartItems = [];
+      cartCombos = [];
+      json["events"]["events"].forEach((event) {
+        final cItem = CartItem.fromJson(event);
+        cartItems?.add(cItem);
+      });
+      json["events"]["combos"].forEach((event) {
+        final cItem = Combo.fromJson(event);
+        cartCombos?.add(cItem);
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -23,7 +37,7 @@ class CartItemList {
     cartItems?.forEach((element) {
       ids.add(element.id!);
     });
-    
+
     return ids;
   }
 }

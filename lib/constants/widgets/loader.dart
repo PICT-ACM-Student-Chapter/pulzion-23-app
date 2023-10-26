@@ -14,7 +14,7 @@ class Loader extends StatelessWidget {
 
     return Center(
       child: Lottie.asset(
-        AppImages.loader,
+        AppImages.emptyMan,
         width: size.width * 0.7,
       ),
     );

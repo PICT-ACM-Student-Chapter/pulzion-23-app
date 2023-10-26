@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import '../../../constants/styles.dart';
 import '../../../features/home_page/ui/wigets/custom_appbar.dart';
 import 'package:widget_circular_animator/widget_circular_animator.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:panorama/panorama.dart';
 import 'info.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../../constants/images.dart';
 import '../../../project/cubit/animation_toggle_cubit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -76,14 +75,13 @@ class _DevelopersPageState extends State<DevelopersPage> {
             return false;
           },
           builder: (context, state) {
-            return Panorama(
-              sensitivity: 0.4,
-              animSpeed: 0.5,
-              sensorControl:
-                  state ? SensorControl.Orientation : SensorControl.None,
-              child: Image.asset(
-                AppImages.spaceBackground,
-                fit: BoxFit.cover,
+            return Container(
+              constraints: const BoxConstraints.expand(),
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/app_background.jpeg"),
+                  fit: BoxFit.cover,
+                ),
               ),
             );
           },
@@ -95,57 +93,90 @@ class _DevelopersPageState extends State<DevelopersPage> {
             body: Padding(
               padding: const EdgeInsets.all(10),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Center(
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Container(
-                        padding: EdgeInsets.only(
-                          left: h * 0.05,
-                          right: h * 0.05,
-                          top: h * 0.02,
-                          bottom: h * 0.015,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(h * 0.03),
-                          gradient: LinearGradient(
-                            colors: [
-                              Colors.white.withOpacity(0.3),
-                              Colors.white.withOpacity(0.1),
-                            ],
-                          ),
-                        ),
-                        child: FittedBox(
-                          clipBehavior: Clip.hardEdge,
-                          fit: BoxFit.contain,
-                          child: Text(
-                            "Developers Page",
-                            style: AppStyles.bodyTextStyle2()
-                                .copyWith(fontSize: 25),
-                          ),
-                        ),
-                      ),
-                    ),
+                  // SizedBox(
+                  //   height: h / 5,
+                  //   width: w * 0.5,
+                  // ),
+                  SizedBox(
+                    height: h / 10,
+                    child: Lottie.asset("assets/images/happy.json"),
                   ),
-                  AnimatedAlign(
-                    alignment:
-                        _move ? Alignment.centerLeft : Alignment.centerRight,
-                    onEnd: () => setState(() {
-                      _move = !_move;
-                    }),
-                    duration: const Duration(seconds: 3),
-                    curve: Curves.easeInOut,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 10.0),
-                      child: SizedBox(
-                        height: h * 0.04,
-                        width: h * 0.1,
-                        child: Image.asset(
-                          'assets/images/ufo_developer_page.gif',
-                          fit: BoxFit.cover,
+                  Stack(
+                    children: [
+                      Positioned(
+                        top: h / 30,
+                        left: h / 100,
+                        right: h / 90,
+                        child: Center(
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Container(
+                              padding: EdgeInsets.only(
+                                left: h * 0.05,
+                                right: h * 0.05,
+                                top: h * 0.02,
+                                bottom: h * 0.02,
+                              ),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Colors.black.withOpacity(0.6),
+                                    Colors.black.withOpacity(0.4),
+                                    Colors.black.withOpacity(0.4),
+                                  ],
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight,
+                                ),
+                                borderRadius: BorderRadius.circular(24),
+                                border: Border.all(
+                                  color: Colors.orange[700]!.withOpacity(0.8),
+                                  width: 0.7,
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    blurRadius: 1.0,
+                                    spreadRadius: 2.0,
+                                    color: Colors.yellow[900]!.withOpacity(0.3),
+                                  ),
+                                ],
+                              ),
+                              child: Center(
+                                child: FittedBox(
+                                  clipBehavior: Clip.hardEdge,
+                                  fit: BoxFit.contain,
+                                  child: Text(
+                                    "Developers Page",
+                                    style: AppStyles.TitleText().copyWith(
+                                      fontSize: 45,
+                                      color: const Color.fromARGB(
+                                          255, 236, 182, 101),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              height: h / 8,
+                              child: Lottie.asset("assets/images/webs.json"),
+                            ),
+                            SizedBox(
+                              height: h / 8,
+                              child: Lottie.asset("assets/images/webs.json"),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                   Expanded(
                     child: GridView.builder(
@@ -155,7 +186,7 @@ class _DevelopersPageState extends State<DevelopersPage> {
                                     Orientation.landscape
                                 ? w * 0.25
                                 : w * 0.5,
-                        childAspectRatio: 1 / h * 450,
+                        childAspectRatio: 1 / h * 470,
                         crossAxisSpacing: h * 0.015,
                         mainAxisSpacing: h * 0.015,
                       ),
@@ -165,136 +196,215 @@ class _DevelopersPageState extends State<DevelopersPage> {
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
                               colors: [
-                                Colors.white.withOpacity(.4),
-                                Colors.white.withOpacity(.1),
+                                Colors.black.withOpacity(0.6),
+                                Colors.black.withOpacity(0.4),
+                                Colors.black.withOpacity(0.4),
                               ],
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
                             ),
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              color: Colors.orange[700]!.withOpacity(0.8),
+                              width: 0.7,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 1.0,
+                                spreadRadius: 2.0,
+                                color: Colors.yellow[900]!.withOpacity(0.3),
+                              ),
+                            ],
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.all(7.0),
+                            padding: const EdgeInsets.all(5.0),
                             child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
                                   decoration: BoxDecoration(
-                                    color:
-                                        const Color.fromARGB(255, 27, 58, 83),
-                                    borderRadius: BorderRadius.circular(17),
+                                    image: const DecorationImage(
+                                      image: AssetImage(
+                                        "assets/images/hallo_frame1.jpeg",
+                                      ),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                      color: Colors.transparent,
+                                      width: 0.5,
+                                    ),
                                   ),
                                   padding: EdgeInsets.all(h * 0.005),
                                   alignment: Alignment.topCenter,
                                   height: h * 0.25,
-                                  child: WidgetCircularAnimator(
-                                    innerAnimation: Curves.easeInCirc,
-                                    outerAnimation: Curves.linear,
-                                    innerAnimationSeconds: 5,
-                                    outerAnimationSeconds: 7,
-                                    singleRing: false,
-                                    innerColor: Colors.white,
-                                    outerColor: Colors.amber,
-                                    size: h * 0.170,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(100),
-                                      //Images of the developer need to be added  here
-                                      // ignore: sort_child_properties_last
-                                      child: CachedNetworkImage(
-                                        imageUrl:
-                                            developersList[index].imageUrl,
-                                        placeholder: (context, url) =>
-                                            Image.asset(
-                                          'assets/images/placeholder_person.png',
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(5),
+                                    child: WidgetCircularAnimator(
+                                      innerColor: Colors.transparent,
+                                      outerColor: Colors.transparent,
+                                      child: Container(
+                                        padding: const EdgeInsets.all(4),
+                                        // decoration: BoxDecoration(
+                                        //   borderRadius:
+                                        //       BorderRadius.circular(10),
+                                        //   border: Border.all(
+                                        //     color: Colors.black,
+                                        //     width: 1.5,
+                                        //   ),
+                                        // ),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(80),
+                                          child: CachedNetworkImage(
+                                            imageUrl:
+                                                developersList[index].imageUrl,
+                                            placeholder: (context, url) =>
+                                                Lottie.asset(
+                                              'assets/images/profile.json',
+                                            ),
+                                            errorWidget:
+                                                (context, url, error) =>
+                                                    Container(),
+                                            cacheManager: _cacheManager,
+                                            fadeInDuration: const Duration(
+                                              milliseconds: 200,
+                                            ),
+                                            fit: BoxFit.fitWidth,
+                                            key: UniqueKey(),
+                                          ),
                                         ),
-                                        errorWidget: (context, url, error) =>
-                                            Container(),
-                                        cacheManager: _cacheManager,
-                                        fadeInDuration:
-                                            const Duration(milliseconds: 100),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 6),
+                                  child: Container(
+                                    height: h * 0.04,
+                                    width: w * 0.4,
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          Colors.black.withOpacity(0.6),
+                                          Colors.black.withOpacity(0.4),
+                                          Colors.black.withOpacity(0.4),
+                                        ],
+                                        begin: Alignment.centerLeft,
+                                        end: Alignment.centerRight,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                      border: Border.all(
+                                        color: Colors.orange[500]!
+                                            .withOpacity(0.8),
+                                        width: 0.7,
+                                      ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          blurRadius: 1.0,
+                                          spreadRadius: 1.0,
+                                          color: Colors.purple[600]!
+                                              .withOpacity(0.3),
+                                        ),
+                                      ],
+
+                                      // boxShadow: [
+                                      //   BoxShadow(
+                                      //     color: Colors.yellow.withOpacity(0.5),
+                                      //     spreadRadius: 1,
+                                      //     blurRadius: 1,
+                                      //   ),
+                                      // ],
+                                      // border: Border.all(
+                                      //   color: Colors.orange,
+                                      //   width: 0.5,
+                                      // ),
+
+                                      // image: const DecorationImage(
+                                      //   image: AssetImage(
+                                      //     "assets/images/nameplate1.jpg",
+                                      //   ),
+                                      //   fit: BoxFit.cover,
+                                      // ),
+                                      // borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Align(
+                                      alignment: Alignment.center,
+                                      child: FittedBox(
                                         fit: BoxFit.fitWidth,
-                                        key: UniqueKey(),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  height: h * 0.05,
-                                  width: w * 0.4,
-                                  decoration: BoxDecoration(
-                                    color: Colors.black.withOpacity(0.7),
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(w * 0.04),
-                                    ),
-                                  ),
-                                  child: Align(
-                                    alignment: Alignment.center,
-                                    child: FittedBox(
-                                      fit: BoxFit.fitWidth,
-                                      child: Text(
-                                        developersList[index]
-                                            .name, // the names of the users are to be entered here in the child
-                                        style: const TextStyle(
-                                          color: Colors.white,
+                                        child: Text(
+                                          developersList[index]
+                                              .name, // the names of the users are to be entered here in the child
+                                          style: AppStyles.NormalText()
+                                              .copyWith(
+                                                  color: Colors.white,
+                                                  fontSize: 15),
                                         ),
                                       ),
                                     ),
                                   ),
                                 ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    InkWell(
-                                      child: const Icon(
-                                        FontAwesomeIcons.linkedin,
-                                        color: Colors.white,
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 8),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      InkWell(
+                                        child: const Icon(
+                                          FontAwesomeIcons.linkedin,
+                                          color:
+                                              Color.fromARGB(255, 196, 95, 13),
+                                        ),
+                                        onTap: () {
+                                          _launchUniversalLinkApp(
+                                            Uri.parse(
+                                              developersList[index].linkedInId,
+                                            ),
+                                          );
+                                        },
                                       ),
-                                      onTap: () {
-                                        _launchUniversalLinkApp(
-                                          Uri.parse(
-                                            developersList[index].linkedInId,
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                    InkWell(
-                                      child: const Icon(
-                                        Icons.mail,
-                                        color: Colors.white,
+                                      InkWell(
+                                        child: const Icon(
+                                          Icons.mail,
+                                          color:
+                                              Color.fromARGB(255, 196, 95, 13),
+                                        ),
+                                        onTap: () async {
+                                          String email = Uri.encodeComponent(
+                                            developersList[index].emailId,
+                                          );
+                                          String subject = Uri.encodeComponent(
+                                            "",
+                                          );
+                                          String body = Uri.encodeComponent(
+                                            "",
+                                          );
+                                          Uri mail = Uri.parse(
+                                            "mailto:$email?subject=$subject&body=$body",
+                                          );
+                                          launchUrl(mail);
+                                        },
                                       ),
-                                      onTap: () async {
-                                        String email = Uri.encodeComponent(
-                                          developersList[index].emailId,
-                                        );
-                                        String subject = Uri.encodeComponent(
-                                          "",
-                                        );
-                                        String body = Uri.encodeComponent(
-                                          "",
-                                        );
-                                        Uri mail = Uri.parse(
-                                          "mailto:$email?subject=$subject&body=$body",
-                                        );
-                                        launchUrl(mail);
-                                      },
-                                    ),
-                                    InkWell(
-                                      child: const Icon(
-                                        FontAwesomeIcons.github,
-                                        color: Colors.white,
+                                      InkWell(
+                                        child: const Icon(
+                                          FontAwesomeIcons.github,
+                                          color:
+                                              Color.fromARGB(255, 196, 95, 13),
+                                        ),
+                                        onTap: () {
+                                          _launchUniversalLinkApp(
+                                            Uri.parse(
+                                              developersList[index].gitHubId,
+                                            ),
+                                          );
+                                        },
                                       ),
-                                      onTap: () {
-                                        _launchUniversalLinkApp(
-                                          Uri.parse(
-                                            developersList[index].gitHubId,
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),

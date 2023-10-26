@@ -2,15 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:panorama/panorama.dart';
+import 'package:pulzion23/constants/widgets/halloween_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../config/size_config.dart';
 import '../../../constants/images.dart';
 import '../../../constants/styles.dart';
 import '../../../constants/urls.dart';
-import '../../login_page/ui/widgets/roundedbutton.dart';
-
 
 class CompulsoryUpdatePage extends StatelessWidget {
   const CompulsoryUpdatePage({super.key});
@@ -18,14 +16,12 @@ class CompulsoryUpdatePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-    
+
     return Stack(
       children: [
-        Panorama(
-          sensitivity: 0.4,
-          animSpeed: 0.5,
-          sensorControl: SensorControl.Orientation,
-          child: Image.asset(AppImages.spaceBackground, fit: BoxFit.cover),
+        Image.asset(
+          AppImages.spaceBackground2,
+          fit: BoxFit.cover,
         ),
         Scaffold(
           backgroundColor: Colors.transparent,
@@ -34,15 +30,19 @@ class CompulsoryUpdatePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Lottie.asset(
-                AppImages.astronautSayingNo,
-                height: MediaQuery.of(context).size.height * 0.5,
+                AppImages.zombieHand,
+                height: MediaQuery.of(context).size.height * 0.3,
                 width: MediaQuery.of(context).size.width * 0.8,
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   'Update Required',
-                  style: AppStyles.bodyTextStyle2().copyWith(fontSize: 30),
+                  style: AppStyles.NormalText().copyWith(
+                    fontSize: 35,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               Padding(
@@ -50,25 +50,35 @@ class CompulsoryUpdatePage extends StatelessWidget {
                 child: Text(
                   textAlign: TextAlign.center,
                   'Seems like you are using an older version of the app. Please update the app to the latest version to continue using it.',
-                  style: AppStyles.bodyTextStyle3().copyWith(fontSize: 18),
+                  style: AppStyles.NormalText().copyWith(
+                    fontSize: 18,
+                    color: Colors.white,
+                  ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: RoundedButton(
-                  btnText: 'Update Now',
-                  onPressed: () async {
-                    if (Platform.isAndroid || Platform.isIOS) {
-                      final url = Uri.parse(
-                        EndPoints.playStoreURL ??
-                            'https://pulzion.co.in',
-                      );
-                      launchUrl(
-                        url,
-                        mode: LaunchMode.externalApplication,
-                      );
-                    }
-                  },
+              SizedBox(
+                height: 200,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.05,
+                    left: MediaQuery.of(context).size.width * 0.25,
+                    right: MediaQuery.of(context).size.width * 0.2,
+                  ),
+                  child: HalloweenButton(
+                    buttonText: 'Update Now',
+                    icon: Icons.abc,
+                    onPressed: () async {
+                      if (Platform.isAndroid || Platform.isIOS) {
+                        final url = Uri.parse(
+                          EndPoints.playStoreURL ?? 'https://pulzion.co.in',
+                        );
+                        launchUrl(
+                          url,
+                          mode: LaunchMode.externalApplication,
+                        );
+                      }
+                    },
+                  ),
                 ),
               ),
             ],

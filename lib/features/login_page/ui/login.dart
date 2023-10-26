@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lottie/lottie.dart';
-import 'package:panorama/panorama.dart';
+import 'package:pulzion23/constants/widgets/halloween_button.dart';
 import 'package:pulzion23/features/login_page/ui/widgets/enter_email.dart';
 
-import '../../../constants/colors.dart';
-import '../../../constants/images.dart';
 import '../../../constants/styles.dart';
 import '../../../constants/widgets/loader.dart';
 import '../cubit/check_login_cubit.dart';
 import '../logic/login_cubit.dart';
 import 'widgets/go_back_button.dart';
-import 'widgets/roundedbutton.dart';
 import 'widgets/text_field.dart';
 import '../../../project/cubit/animation_toggle_cubit.dart';
 
@@ -50,14 +46,13 @@ class _LoginState extends State<Login> {
             return false;
           },
           builder: (context, state) {
-            return Panorama(
-              sensitivity: 0.4,
-              animSpeed: 0.5,
-              sensorControl:
-                  state ? SensorControl.Orientation : SensorControl.None,
-              child: Image.asset(
-                AppImages.spaceBackground,
-                fit: BoxFit.cover,
+            return Container(
+              constraints: const BoxConstraints.expand(),
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/app_background.jpeg"),
+                  fit: BoxFit.cover,
+                ),
               ),
             );
           },
@@ -74,34 +69,36 @@ class _LoginState extends State<Login> {
             listener: (context, state) async {
               if (state is LoginSuccess) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text("Login Successful"),
-                    backgroundColor: Colors.green,
+                  SnackBar(
+                    content: Text(
+                      "Login Successful",
+                      style: AppStyles.NormalText().copyWith(
+                        fontSize: 15,
+                        color: Colors.white,
+                      ),
+                    ),
+                    backgroundColor: const Color.fromARGB(255, 196, 117, 15),
                   ),
                 );
                 await context.read<CheckLoginCubit>().checkLogin();
-                if (context.mounted) {
+                if (mounted) {
                   while (Navigator.canPop(context)) {
                     Navigator.pop(context);
                   }
                 }
               }
               if (state is LoginFailure) {
-                if (context.mounted) {
+                if (mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text(state.message),
-                      backgroundColor: Colors.red,
-                    ),
-                  );
-                }
-              }
-              if (state is LoginError) {
-                if (context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(state.message),
-                      backgroundColor: Colors.red,
+                      content: Text(
+                        state.message,
+                        style: AppStyles.NormalText().copyWith(
+                          fontSize: 15,
+                          color: Colors.white,
+                        ),
+                      ),
+                      backgroundColor: const Color.fromARGB(255, 78, 48, 21),
                     ),
                   );
                 }
@@ -122,16 +119,23 @@ class _LoginState extends State<Login> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Lottie.asset(AppImages.astronautWithPlanet),
+                        ClipOval(child: Image.asset('assets/images/bat.gif')),
+                        const SizedBox(
+                          height: 30,
+                        ),
                         Text(
                           'Login',
-                          style:
-                              AppStyles.bodyTextStyle2().copyWith(fontSize: 30),
+                          style: AppStyles.NormalText().copyWith(
+                            fontSize: 30,
+                            color: const Color.fromARGB(255, 208, 168, 116),
+                          ),
                         ),
                         Text(
                           'Please sign in to continue.',
-                          style:
-                              AppStyles.bodyTextStyle3().copyWith(fontSize: 15),
+                          style: AppStyles.NormalText().copyWith(
+                            fontSize: 15,
+                            color: const Color.fromARGB(255, 208, 168, 116),
+                          ),
                         ),
                         LoginSignUpTextField(
                           'Email',
@@ -159,16 +163,32 @@ class _LoginState extends State<Login> {
                                 ),
                               );
                             },
-                            child: const Text(
-                              'Forgot Password?',
-                              style:
-                                  TextStyle(color: AppColors.loginPageAccent),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                'Forgot Password?',
+                                style: AppStyles.NormalText().copyWith(
+                                  fontSize: 15,
+                                  color: Colors.white,
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                        Center(
-                          child: RoundedButton(
-                            btnText: 'LOGIN',
+                        const SizedBox(
+                          height: 50,
+                        ),
+                        Container(
+                          height: 100,
+                          width: 700,
+                          padding: const EdgeInsets.only(left: 90),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(24),
+                          ),
+                          child: HalloweenButton(
+                            buttonText: 'LOGIN',
+                            icon: Icons.login,
                             onPressed: () async {
                               context.read<LoginCubit>().login(
                                     emailController.text,
@@ -176,9 +196,6 @@ class _LoginState extends State<Login> {
                                   );
                             },
                           ),
-                        ),
-                        const SizedBox(
-                          height: 13,
                         ),
                       ],
                     ),

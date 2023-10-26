@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lottie/lottie.dart';
-import 'package:panorama/panorama.dart';
 import '../../../project/cubit/animation_toggle_cubit.dart';
 
 import '../../../config/size_config.dart';
@@ -15,8 +13,6 @@ import 'sign_up.dart';
 
 class LoginSignUpIntro extends StatelessWidget {
   const LoginSignUpIntro({super.key});
-
-  final SensorControl sensorControl = SensorControl.AbsoluteOrientation;
 
   @override
   Widget build(BuildContext context) {
@@ -32,15 +28,9 @@ class LoginSignUpIntro extends StatelessWidget {
             return false;
           },
           builder: (context, state) {
-            return Panorama(
-              sensitivity: 0.4,
-              animSpeed: 0.5,
-              sensorControl:
-                  state ? SensorControl.Orientation : SensorControl.None,
-              child: Image.asset(
-                AppImages.spaceBackground,
-                fit: BoxFit.cover,
-              ),
+            return Image.asset(
+              AppImages.spaceBackground2,
+              fit: BoxFit.fill,
             );
           },
         ),
@@ -87,37 +77,68 @@ class LoginSignupBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            height: size.height * 0.5,
+            height: size.height * 0.4,
             width: size.height * 0.5,
-            decoration: BoxDecoration(
-              color: AppColors.primary.withAlpha(150),
-              borderRadius: const BorderRadius.all(
+            decoration: const BoxDecoration(
+              color: Colors.transparent,
+              borderRadius: BorderRadius.all(
                 Radius.circular(20),
               ),
-              border: const Border.fromBorderSide(
-                BorderSide(
-                  color: AppColors.cardBorder,
-                  width: 0.2,
+              // border: const Border.fromBorderSide(
+              //   BorderSide(
+              //     // color: AppColors.cardBorder,
+              //     width: 0.2,
+              //   ),
+              // ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(14),
+              child: Container(
+                // height: ,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25),
+                  image: const DecorationImage(
+                    image: AssetImage('assets/images/login_page_gif.gif'),
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
             ),
-            child: Lottie.asset(AppImages.djAstronaut),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                'Pulzion \'23',
-                style: AppStyles.bodyTextStyle2().copyWith(
+                'Pulzion',
+                style: AppStyles.TitleText().copyWith(
+                  color: const Color.fromARGB(255, 208, 168, 116),
+                  fontSize: SizeConfig.getProportionateScreenFontSize(50),
+                ),
+              ),
+              Text(
+                'Tech or Treat',
+                style: AppStyles.TitleText().copyWith(
+                  color: const Color.fromARGB(255, 186, 112, 16),
                   fontSize: SizeConfig.getProportionateScreenFontSize(35),
                 ),
               ),
               const SizedBox(height: 10),
               Text(
+                '27th, 28th and 29th October',
+                style: AppStyles.NormalText().copyWith(
+                  color: const Color.fromARGB(255, 186, 112, 16),
+                  fontSize: SizeConfig.getProportionateScreenFontSize(15),
+                ),
+              ),
+              const SizedBox(height: 15),
+              Text(
                 textAlign: TextAlign.center,
                 'A 3-day event that includes a plethora of events and workshops, and is a platform for students to showcase their talents and skills.',
-                style: AppStyles.bodyTextStyle3(),
+                style: AppStyles.NormalText().copyWith(
+                  fontSize: SizeConfig.getProportionateScreenFontSize(15),
+                  color: const Color.fromARGB(255, 208, 168, 116),
+                ),
               ),
             ],
           ),
@@ -125,16 +146,27 @@ class LoginSignupBody extends StatelessWidget {
             height: size.height * 0.075,
             width: size.width * 0.6,
             decoration: BoxDecoration(
-              color: AppColors.primary.withAlpha(200),
-              borderRadius: const BorderRadius.all(
-                Radius.circular(20),
+              gradient: LinearGradient(
+                colors: [
+                  Colors.black.withOpacity(0.6),
+                  Colors.black.withOpacity(0.4),
+                  Colors.black.withOpacity(0.4),
+                ],
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
               ),
-              border: const Border.fromBorderSide(
-                BorderSide(
-                  color: AppColors.cardBorder,
-                  width: 1.5,
+              borderRadius: BorderRadius.circular(24),
+              border: Border.all(
+                color: Colors.orange[700]!.withOpacity(0.8),
+                width: 0.7,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 1.0,
+                  spreadRadius: 2.0,
+                  color: Colors.yellow[900]!.withOpacity(0.3),
                 ),
-              ),
+              ],
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -156,7 +188,7 @@ class LoginSignupBody extends StatelessWidget {
                     child: Center(
                       child: Text(
                         'Register',
-                        style: AppStyles.bodyTextStyle3().copyWith(
+                        style: AppStyles.NormalText().copyWith(
                           fontSize: 15,
                           color: AppColors.cardTitleTextColor,
                         ),
@@ -165,7 +197,7 @@ class LoginSignupBody extends StatelessWidget {
                   ),
                 ),
                 const VerticalDivider(
-                  color: AppColors.cardBorder,
+                  color: Color.fromARGB(255, 167, 74, 3),
                   width: 2,
                   thickness: 2,
                   indent: 8.0,
@@ -187,7 +219,7 @@ class LoginSignupBody extends StatelessWidget {
                     child: Center(
                       child: Text(
                         'Sign In',
-                        style: AppStyles.bodyTextStyle3().copyWith(
+                        style: AppStyles.NormalText().copyWith(
                           fontSize: 15,
                           color: AppColors.cardTitleTextColor,
                         ),

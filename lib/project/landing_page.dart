@@ -3,12 +3,9 @@ import 'dart:developer';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:panorama/panorama.dart';
 import 'package:pulzion23/constants/urls.dart';
-import 'package:pulzion23/features/mcq/presentation/pages/mcq_login.dart';
-
+import 'package:pulzion23/features/mcq/features/mcq_login/ui/mcq_login.dart';
 import '../config/size_config.dart';
-import '../constants/images.dart';
 import '../features/cart_page/cubit/cart_page_cubit.dart';
 import '../features/cart_page/ui/cart_page_final.dart';
 import '../features/home_page/ui/home_page_final.dart';
@@ -41,14 +38,13 @@ class BottomNavBar extends StatelessWidget {
             return false;
           },
           builder: (context, state) {
-            return Panorama(
-              sensitivity: 0.4,
-              animSpeed: 0.5,
-              sensorControl:
-                  state ? SensorControl.Orientation : SensorControl.None,
-              child: Image.asset(
-                AppImages.spaceBackground,
-                fit: BoxFit.cover,
+            return Container(
+              constraints: const BoxConstraints.expand(),
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/app_background.jpeg"),
+                  fit: BoxFit.cover,
+                ),
               ),
             );
           },
@@ -64,7 +60,7 @@ class BottomNavBar extends StatelessWidget {
                   log(EndPoints.mcqStarted.toString());
                   if (state is BottomBarAboutUs) {
                     return EndPoints.mcqStarted == true
-                        ? const McqLogin()
+                        ? const MCQLogin()
                         : AboutUsPage(false);
                   } else if (state is BottomBarRegisteredEvents) {
                     return loginState is CheckLoginSuccess
@@ -96,34 +92,34 @@ class BottomNavBar extends StatelessWidget {
               items: <Widget>[
                 Icon(
                   EndPoints.mcqStarted == true
-                      ? Icons.question_answer
+                      ? Icons.mobile_screen_share
                       : Icons.info,
                   size: 30,
-                  color: Colors.white.withOpacity(0.7),
+                  color: const Color.fromARGB(255, 228, 188, 136),
                 ),
-                Icon(
+                const Icon(
                   Icons.calendar_month,
                   size: 30,
-                  color: Colors.white.withOpacity(0.7),
+                  color: Color.fromARGB(255, 228, 188, 136),
                 ),
-                Icon(
+                const Icon(
                   Icons.home_rounded,
                   size: 30,
-                  color: Colors.white.withOpacity(0.7),
+                  color: Color.fromARGB(255, 228, 188, 136),
                 ),
-                Icon(
+                const Icon(
                   Icons.shopping_cart,
                   size: 30,
-                  color: Colors.white.withOpacity(0.7),
+                  color: Color.fromARGB(255, 228, 188, 136),
                 ),
-                Icon(
+                const Icon(
                   Icons.more_horiz_rounded,
                   size: 30,
-                  color: Colors.white.withOpacity(0.7),
+                  color: Color.fromARGB(255, 228, 188, 136),
                 ),
               ],
               color: Colors.grey.withOpacity(0.2),
-              buttonBackgroundColor: Colors.white.withOpacity(0.6),
+              buttonBackgroundColor: const Color.fromARGB(255, 122, 73, 9),
               backgroundColor: Colors.transparent,
               animationCurve: Curves.easeInOut,
               animationDuration: const Duration(milliseconds: 400),

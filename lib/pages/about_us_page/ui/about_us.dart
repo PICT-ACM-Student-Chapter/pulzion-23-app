@@ -1,21 +1,53 @@
 import 'package:countup/countup.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pulzion23/features/home_page/ui/wigets/custom_appbar.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:widget_circular_animator/widget_circular_animator.dart';
-import 'package:panorama/panorama.dart';
-import '../../../constants/images.dart';
-import '../../../project/cubit/animation_toggle_cubit.dart';
+import '../../../constants/styles.dart';
 
-class AboutUsPage extends StatelessWidget {
+import 'dart:math';
+
+class AboutUsPage extends StatefulWidget {
   bool isAppbar;
 
   AboutUsPage(this.isAppbar, {super.key});
 
+  @override
+  State<AboutUsPage> createState() => _AboutUsPageState();
+}
+
+class _AboutUsPageState extends State<AboutUsPage>
+    with SingleTickerProviderStateMixin {
   final String aboutPulzion =
       "Pulzion is the annual technical fest organized by PICT ACM Student Chapter. Pulzion has hosted multiple events including coding competition ranging from amateur competitions two day-long as well as mock placements, business management based and quizzing events. It has become one of the most anticipated events taking place at PICT with participants from colleges all over Pune. With high aspirations, backed with sincerity and dedication, the PASC team aims to add value to the college and all the people in it.";
+
+  AnimationController? _animationController;
+  late Animation<double> _rotation;
+
+  @override
+  void initState() {
+    super.initState();
+    if (_animationController == null) {
+      _animationController = AnimationController(
+        vsync: this,
+        duration: const Duration(
+          seconds: 100,
+        ),
+      ); // Reduced the duration for faster rotation
+
+      _rotation = Tween(begin: 0.0, end: 2 * pi).animate(_animationController!);
+
+      _animationController?.repeat();
+    } else {
+      print('');
+    }
+  }
+
+  @override
+  void dispose() {
+    _animationController?.dispose();
+    super.dispose();
+  }
 
   Future<void> _launchUniversalLinkApp(String url) async {
     final bool nativeAppLaunchSucceeded = await launchUrl(
@@ -39,6 +71,7 @@ class AboutUsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    _animationController?.repeat();
     Size size;
     double height, width;
     size = MediaQuery.of(context).size;
@@ -49,32 +82,19 @@ class AboutUsPage extends StatelessWidget {
       backgroundColor: Colors.transparent,
       body: Stack(
         children: [
-          BlocConsumer<GlobalParameterCubit, bool>(
-            listener: (context, state) {},
-            buildWhen: (previous, current) {
-              if (previous != current) {
-                return true;
-              }
-
-              return false;
-            },
-            builder: (context, state) {
-              return Panorama(
-                sensitivity: 0.4,
-                animSpeed: 0.5,
-                sensorControl:
-                    state ? SensorControl.Orientation : SensorControl.None,
-                child: Image.asset(
-                  AppImages.spaceBackground,
-                  fit: BoxFit.cover,
-                ),
-              );
-            },
+          Container(
+            constraints: const BoxConstraints.expand(),
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/app_background.jpeg"),
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
           SafeArea(
             child: Scaffold(
               backgroundColor: Colors.transparent,
-              appBar: isAppbar ? const CustomAppBar() : null,
+              appBar: widget.isAppbar ? const CustomAppBar() : null,
               body: SingleChildScrollView(
                 child: Padding(
                   padding: EdgeInsets.all(width / 20),
@@ -91,96 +111,159 @@ class AboutUsPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Row(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(
-                              left: width / 30,
-                              top: height / 20,
-                            ),
-                            child: WidgetCircularAnimator(
-                              size: width / 2.6,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.blue[900]!.withOpacity(0.5),
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Countup(
-                                      begin: 0,
-                                      end: 14,
-                                      duration: const Duration(seconds: 1),
-                                      separator: ',',
-                                      style: TextStyle(
-                                        fontFamily: 'Quicksand',
-                                        color: Colors.white,
-                                        fontSize: width / 13,
-                                      ),
-                                    ),
-                                    Text(
-                                      "EVENTS",
-                                      style: TextStyle(
-                                        fontSize: width / 26,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                                left: width / 15, top: height / 20),
-                            child: WidgetCircularAnimator(
-                              size: width / 2.6,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.blue[900]!.withOpacity(0.5),
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Countup(
-                                      begin: 0,
-                                      end: 300,
-                                      duration: const Duration(seconds: 1),
-                                      separator: ',',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: width / 13,
-                                      ),
-                                    ),
-                                    Text(
-                                      "VOLUNTEERS",
-                                      style: TextStyle(
-                                        fontFamily: 'Quicksand',
-                                        fontSize: width / 28,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
                       Padding(
                         padding: EdgeInsets.only(top: height / 20),
-                        child: Text(
-                          "ABOUT PULZION",
-                          style: TextStyle(
-                            fontSize: width / 12,
-                            fontFamily: 'Panther',
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.black.withOpacity(0.6),
+                                Colors.black.withOpacity(0.4),
+                                Colors.black.withOpacity(0.4),
+                              ],
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                            ),
+                            borderRadius: BorderRadius.circular(24),
+                            border: Border.all(
+                              color: Colors.orange[700]!.withOpacity(0.8),
+                              width: 0.7,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 1.0,
+                                spreadRadius: 2.0,
+                                color: Colors.yellow[900]!.withOpacity(0.3),
+                              ),
+                            ],
                           ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Center(
+                              child: Text(
+                                "ABOUT PULZION",
+                                style: AppStyles.NormalText().copyWith(
+                                  fontSize: width / 12,
+                                  // fontFamily: 'Panther',
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: height * 0.05),
+                        child: Row(
+                          children: [
+                            Stack(
+                              children: [
+                                Positioned(
+                                  top: height / 27,
+                                  left: width / 34.3,
+                                  child: Container(
+                                    // height: 95.0,
+                                    // width: 95.0,
+                                    height: height / 8,
+                                    width: width / 2.6,
+                                    decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Color.fromARGB(255, 228, 188, 136),
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Countup(
+                                          begin: 0,
+                                          end: 10,
+                                          duration: const Duration(seconds: 1),
+                                          separator: ',',
+                                          style:
+                                              AppStyles.NormalText().copyWith(
+                                            // fontFamily: 'Quicksand',
+                                            color: Colors.black,
+                                            fontSize: width / 13,
+                                          ),
+                                        ),
+                                        Text(
+                                          "EVENTS",
+                                          style:
+                                              AppStyles.NormalText().copyWith(
+                                            fontSize: width / 26,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                RotationTransition(
+                                  turns: _rotation,
+                                  child: SizedBox(
+                                    width: width / 2.26,
+                                    child: Image.asset(
+                                        "assets/images/aboutusframe.png"),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Stack(
+                              children: [
+                                Positioned(
+                                  top: height / 27,
+                                  right: width / 34.3,
+                                  child: Container(
+                                    height: height / 8,
+                                    width: width / 2.6,
+                                    decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Color.fromARGB(255, 228, 188, 136),
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Countup(
+                                          begin: 0,
+                                          end: 300,
+                                          duration: const Duration(seconds: 1),
+                                          separator: ',',
+                                          style:
+                                              AppStyles.NormalText().copyWith(
+                                            color: Colors.black,
+                                            fontSize: width / 13,
+                                          ),
+                                        ),
+                                        Text(
+                                          "VOLUNTEERS",
+                                          style:
+                                              AppStyles.NormalText().copyWith(
+                                            // fontFamily: 'Quicksand',
+                                            fontSize: width / 28,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                RotationTransition(
+                                  turns: _rotation,
+                                  child: SizedBox(
+                                    width: width / 2.26,
+                                    child: Image.asset(
+                                        "assets/images/aboutusframe.png"),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
                       Padding(
@@ -188,8 +271,8 @@ class AboutUsPage extends StatelessWidget {
                         child: Text(
                           aboutPulzion,
                           textAlign: TextAlign.justify,
-                          style: TextStyle(
-                            fontFamily: 'Quicksand',
+                          style: AppStyles.NormalText().copyWith(
+                            // fontFamily: ,
                             fontSize: width / 19,
                             color: Colors.white,
                           ),
@@ -197,14 +280,42 @@ class AboutUsPage extends StatelessWidget {
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: height / 20),
-                        child: Text(
-                          "CONTACT US",
-                          textAlign: TextAlign.justify,
-                          style: TextStyle(
-                            fontFamily: 'Panther',
-                            fontSize: width / 13,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
+                        child: Container(
+                          width: height / 4,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.black.withOpacity(0.6),
+                                Colors.black.withOpacity(0.4),
+                                Colors.black.withOpacity(0.4),
+                              ],
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                            ),
+                            borderRadius: BorderRadius.circular(24),
+                            border: Border.all(
+                              color: Colors.orange[700]!.withOpacity(0.8),
+                              width: 0.7,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 1.0,
+                                spreadRadius: 2.0,
+                                color: Colors.yellow[900]!.withOpacity(0.3),
+                              ),
+                            ],
+                          ),
+                          child: Center(
+                            child: Text(
+                              "CONTACT US",
+                              textAlign: TextAlign.justify,
+                              style: AppStyles.NormalText().copyWith(
+                                // fontFamily: 'Panther',
+                                fontSize: width / 13,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -214,31 +325,30 @@ class AboutUsPage extends StatelessWidget {
                           children: [
                             IconButton(
                               onPressed: () =>
-                                  openWhatsAppChat('+919172682087'),
+                                  openWhatsAppChat('+91 80870 69750'),
                               icon: const Icon(
                                 FontAwesomeIcons.whatsapp,
-                                color: Colors.green,
+                                color: Color.fromARGB(255, 196, 95, 13),
                               ),
                               color: Colors.purpleAccent,
                             ),
                             Padding(
                               padding: EdgeInsets.only(left: width / 80),
                               child: Text(
-                                "Aditi Chavan",
+                                "Pritika Rohera",
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontFamily: 'Quicksand',
-                                  fontSize: width / 20,
+                                style: AppStyles.NormalText().copyWith(
+                                  fontSize: width / 22,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
                             Text(
-                              " :  +91 91726 82087",
+                              " :  +91 80870 69750",
                               // textAlign: TextAlign.justify,
-                              style: TextStyle(
-                                fontFamily: 'Quicksand',
+                              style: AppStyles.NormalText().copyWith(
+                                // fontFamily: 'Quicksand',
                                 fontSize: width / 20,
                                 color: Colors.white,
                               ),
@@ -246,41 +356,37 @@ class AboutUsPage extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(top: height / 30),
-                        child: Row(children: [
-                          IconButton(
-                            onPressed: () =>
-                                openWhatsAppChat('+91 97656 08601'),
-                            icon: const Icon(
-                              FontAwesomeIcons.whatsapp,
-                            ),
-                            color: Colors.green,
+                      Row(children: [
+                        IconButton(
+                          onPressed: () => openWhatsAppChat('+91 91563 31100'),
+                          icon: const Icon(
+                            FontAwesomeIcons.whatsapp,
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(left: width / 200),
-                            child: Text(
-                              "Tejas Padhiyar ",
-                              textAlign: TextAlign.justify,
-                              style: TextStyle(
-                                fontFamily: 'Quicksand',
-                                fontSize: width / 22,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          Text(
-                            ":  +91 97656 08601",
+                          color: const Color.fromARGB(255, 196, 95, 13),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: width / 200),
+                          child: Text(
+                            "Samarth Mali",
                             textAlign: TextAlign.justify,
-                            style: TextStyle(
-                              fontFamily: 'Quicksand',
-                              fontSize: width / 20,
+                            style: AppStyles.NormalText().copyWith(
+                              // fontFamily: 'Quicksand',
+                              fontSize: width / 22,
+                              fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),
                           ),
-                        ]),
-                      ),
+                        ),
+                        Text(
+                          ":  +91 91563 31100",
+                          textAlign: TextAlign.justify,
+                          style: AppStyles.NormalText().copyWith(
+                            // fontFamily: 'Quicksand',
+                            fontSize: width / 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ]),
                       Padding(
                         padding: EdgeInsets.only(top: height / 20),
                         child: Row(
@@ -295,7 +401,7 @@ class AboutUsPage extends StatelessWidget {
                               icon: Icon(
                                 FontAwesomeIcons.facebook,
                                 size: width / 10,
-                                color: Colors.white,
+                                color: const Color.fromARGB(255, 196, 95, 13),
                               ),
                             ),
                             Padding(
@@ -309,7 +415,7 @@ class AboutUsPage extends StatelessWidget {
                                 icon: Icon(
                                   FontAwesomeIcons.instagram,
                                   size: width / 10,
-                                  color: Colors.white,
+                                  color: const Color.fromARGB(255, 196, 95, 13),
                                 ),
                               ),
                             ),
@@ -324,7 +430,7 @@ class AboutUsPage extends StatelessWidget {
                                 icon: Icon(
                                   FontAwesomeIcons.linkedin,
                                   size: width / 10,
-                                  color: Colors.white,
+                                  color: const Color.fromARGB(255, 196, 95, 13),
                                 ),
                               ),
                             ),
@@ -339,7 +445,7 @@ class AboutUsPage extends StatelessWidget {
                                 icon: Icon(
                                   FontAwesomeIcons.twitter,
                                   size: width / 10,
-                                  color: Colors.white,
+                                  color: const Color.fromARGB(255, 196, 95, 13),
                                 ),
                               ),
                             ),

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:panorama/panorama.dart';
-import 'package:pulzion23/constants/colors.dart';
+import 'package:pulzion23/constants/styles.dart';
 import 'package:pulzion23/constants/widgets/empty_page.dart';
 import 'package:pulzion23/features/event_slots/ui/view_slot_details.dart';
-import 'package:pulzion23/features/home_page/logic/event_details_cubit_cubit.dart';
 import 'package:pulzion23/features/registered_events_and_orders/cubit/registered_events_and_orders_cubit.dart';
 import '../../../constants/models/slot_model.dart';
 import 'package:pulzion23/constants/images.dart';
@@ -20,7 +18,7 @@ class BookSlots extends StatefulWidget {
   final String name;
   final String logo;
 
-  BookSlots({
+  const BookSlots({
     super.key,
     required this.id,
     required this.name,
@@ -45,92 +43,102 @@ class _BookSlotsState extends State<BookSlots> {
   ));
 
   Widget slotContainer(BuildContext ctx, Slot slot) {
-    return Padding(
-      padding: const EdgeInsets.all(14),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return SizedBox(
+      height: 500,
+      child: Padding(
+        padding: const EdgeInsets.all(14),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                'Date: ${DateFormat('yyyy-MM-dd').format(DateTime.parse(slot.created_at!))}',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'QuickSand',
-                ),
-              ),
-              Text(
-                'Capacity: ${slot.capacity}',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'QuickSand',
-                ),
-              ),
-            ],
-          ),
-          const VerticalDivider(
-            color: Colors.white,
-            thickness: 0.3,
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              RichText(
-                text: TextSpan(
-                  text: 'Time: ',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'QuickSand',
-                    fontWeight: FontWeight.bold,
-                  ),
+              SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    TextSpan(
-                      text:
-                          '${DateFormat('hh:mm a').format(DateTime.parse(slot.start_time!))} - ${DateFormat('hh:mm a').format(DateTime.parse(slot.end_time!))}',
-                      style: const TextStyle(
-                        fontWeight: FontWeight.normal,
-                      ),
+                    Text(
+                      'Date: ${DateFormat('yyyy-MM-dd').format(DateTime.parse(slot.start_time!))}',
+                      style: AppStyles.NormalText()
+                          .copyWith(fontSize: 15, color: Colors.white),
+                    ),
+                    Text(
+                      'Capacity: ${slot.capacity}',
+                      style: AppStyles.NormalText()
+                          .copyWith(fontSize: 15, color: Colors.white),
                     ),
                   ],
                 ),
               ),
-              Container(
-                // height: MediaQuery.of(ctx).size.height / 15,
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                decoration: BoxDecoration(
-                  color: Colors.blueAccent,
-                  borderRadius: BorderRadius.circular(12),
-                  gradient: const LinearGradient(
-                    colors: [Color(0xff07f49e), Color(0xff42047e)],
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                  ),
-                ),
-                child: TextButton(
-                  child: const Text(
-                    'Book Slot',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'QuickSand',
+              const VerticalDivider(
+                color: Colors.white,
+                thickness: 0.3,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  RichText(
+                    text: TextSpan(
+                      text: 'Time: ',
+                      style: AppStyles.NormalText()
+                          .copyWith(fontSize: 15, color: Colors.white),
+                      children: [
+                        TextSpan(
+                          text:
+                              '${DateFormat('hh:mm a').format(DateTime.parse(slot.start_time!))} - ${DateFormat('hh:mm a').format(DateTime.parse(slot.end_time!))}',
+                          style: AppStyles.NormalText()
+                              .copyWith(fontSize: 15, color: Colors.white),
+                        ),
+                      ],
                     ),
                   ),
-                  onPressed: () {
-                    BlocProvider.of<EventSlotsCubit>(ctx)
-                        .bookSlot(
-                          widget.id.toString(),
-                          slot.id.toString(),
-                        )
-                        .then((value) {});
-                  },
-                ),
+                  Container(
+                    // height: MediaQuery.of(ctx).size.height / 15,
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.black.withOpacity(0.6),
+                          Colors.black.withOpacity(0.4),
+                          Colors.black.withOpacity(0.4),
+                        ],
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                      ),
+                      borderRadius: BorderRadius.circular(24),
+                      border: Border.all(
+                        color: Colors.orange[700]!.withOpacity(0.8),
+                        width: 0.7,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 1.0,
+                          spreadRadius: 2.0,
+                          color: Colors.yellow[900]!.withOpacity(0.3),
+                        ),
+                      ],
+                    ),
+                    child: TextButton(
+                      child: Text(
+                        'Book Slot',
+                        style: AppStyles.NormalText()
+                            .copyWith(fontSize: 15, color: Colors.white),
+                      ),
+                      onPressed: () {
+                        BlocProvider.of<EventSlotsCubit>(ctx)
+                            .bookSlot(
+                              widget.id.toString(),
+                              slot.id.toString(),
+                            )
+                            .then((value) {});
+                      },
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -152,14 +160,13 @@ class _BookSlotsState extends State<BookSlots> {
             return false;
           },
           builder: (context, state) {
-            return Panorama(
-              sensitivity: 0.4,
-              animSpeed: 0.5,
-              sensorControl:
-                  state ? SensorControl.Orientation : SensorControl.None,
-              child: Image.asset(
-                AppImages.spaceBackground,
-                fit: BoxFit.cover,
+            return Container(
+              constraints: const BoxConstraints.expand(),
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/app_background.jpeg"),
+                  fit: BoxFit.cover,
+                ),
               ),
             );
           },
@@ -177,21 +184,22 @@ class _BookSlotsState extends State<BookSlots> {
                   flexibleSpace: FlexibleSpaceBar(
                     centerTitle: true,
                     title: Padding(
-                      padding: const EdgeInsets.all(12),
+                      padding: const EdgeInsets.all(15),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
+                          SizedBox(
+                            height: h / 20,
+                          ),
                           Flexible(
                             child: FittedBox(
                               fit: BoxFit.cover,
                               child: Text(
                                 'BOOK SLOTS',
-                                style: TextStyle(
+                                style: AppStyles.NormalText().copyWith(
                                   color: Colors.white,
-                                  fontSize:
-                                      MediaQuery.of(context).size.height / 70,
-                                  fontFamily: 'Panther',
+                                  fontSize: 20,
                                 ),
                               ),
                             ),
@@ -230,9 +238,10 @@ class _BookSlotsState extends State<BookSlots> {
                                     fit: BoxFit.cover,
                                     child: Text(
                                       widget.name,
-                                      style: const TextStyle(
+                                      style: AppStyles.TitleText().copyWith(
                                         color: Colors.white,
-                                        fontFamily: 'Panther',
+                                        fontSize: 50,
+                                        fontWeight: FontWeight.w100,
                                       ),
                                     ),
                                   ),
@@ -247,14 +256,26 @@ class _BookSlotsState extends State<BookSlots> {
                       width: w / 4,
                       height: w / 4,
                       decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
                         gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: AppColors.eventCardGradientList.elementAt(
-                            0 % AppColors.eventCardGradientList.length,
-                          ),
+                          colors: [
+                            Colors.black.withOpacity(0.6),
+                            Colors.black.withOpacity(0.4),
+                            Colors.black.withOpacity(0.4),
+                          ],
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
                         ),
+                        // border: Border.all(
+                        //   color: Colors.orange[700]!.withOpacity(0.8),
+                        //   width: 0.7,
+                        // ),
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 1.0,
+                            spreadRadius: 2.0,
+                            color: Colors.yellow[900]!.withOpacity(0.3),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -263,13 +284,20 @@ class _BookSlotsState extends State<BookSlots> {
                   listener: (context, state) {
                     if (state is BookingSuccessful) {
                       BlocProvider.of<RegisteredEventsAndOrdersCubit>(context)
-                          .getUpdatedEvents();
+                          .getUpdatedEvents(context);
 
                       ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        duration: Duration(seconds: 3),
-                        content: Text('Slot Booked Successfully!'),
-                        backgroundColor: Colors.green,
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        duration: const Duration(seconds: 3),
+                        content: Text(
+                          'Slot Booked Successfully!',
+                          style: AppStyles.NormalText().copyWith(
+                            fontSize: 15,
+                            color: Colors.white,
+                          ),
+                        ),
+                        backgroundColor:
+                            const Color.fromARGB(255, 196, 117, 15),
                       ));
                       Navigator.pushReplacement(
                         context,
@@ -293,8 +321,12 @@ class _BookSlotsState extends State<BookSlots> {
                         duration: const Duration(seconds: 3),
                         content: Text(
                           state.message.toString(),
+                          style: AppStyles.NormalText().copyWith(
+                            fontSize: 15,
+                            color: Colors.white,
+                          ),
                         ),
-                        backgroundColor: Colors.red,
+                        backgroundColor: const Color.fromARGB(255, 78, 48, 21),
                       ));
                     }
                   },

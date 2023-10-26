@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import 'package:pulzion23/constants/styles.dart';
 import '../../../constants/widgets/empty_page.dart';
 import '../../../constants/widgets/error_dialog.dart';
 import 'widgets/cart_page_content.dart';
@@ -21,19 +22,37 @@ class CartPageFinal extends StatelessWidget {
             ? BlocConsumer<CartPageCubit, CartPageState>(
                 listener: (context, state) {
                   if (state is CartItemDeleted) {
+                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text(state.message),
-                        backgroundColor: Colors.green,
+                        content: Text(
+                          state.message,
+                          style: AppStyles.NormalText().copyWith(
+                            fontSize: 15,
+                            color: Colors.white,
+                          ),
+                        ),
+                        backgroundColor:
+                            const Color.fromARGB(255, 196, 117, 15),
+                        duration: const Duration(seconds: 2),
                       ),
                     );
 
                     BlocProvider.of<CartPageCubit>(context).loadCart();
                   } else if (state is CartItemNotDeleted) {
+                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text(state.message),
-                        backgroundColor: Colors.red,
+                        content: Text(
+                          state.message,
+                          style: AppStyles.NormalText().copyWith(
+                            fontSize: 15,
+                            color: Colors.white,
+                          ),
+                        ),
+                        backgroundColor: const Color.fromARGB(255, 78, 48, 21),
+                        duration: const Duration(seconds: 2),
                       ),
                     );
 

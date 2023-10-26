@@ -5,10 +5,14 @@ abstract class RegisteredEventsAndOrdersState {}
 class RegisteredEventsAndOrdersLoaded extends RegisteredEventsAndOrdersState {
   List<RegisteredEvent> registeredOrders;
   List<Events> registeredEvents;
-  RegisteredEventsAndOrdersLoaded(this.registeredEvents,this.registeredOrders);
+  // temporary
+  List<String> registeredCombos;
+  RegisteredEventsAndOrdersLoaded(
+    this.registeredEvents,
+    this.registeredOrders,
+    this.registeredCombos,
+  );
 }
-
-
 
 class RegisteredEventsAndOrdersError extends RegisteredEventsAndOrdersState {
   final String errorMessage;

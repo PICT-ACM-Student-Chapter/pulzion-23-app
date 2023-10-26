@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:panorama/panorama.dart';
+import 'package:pulzion23/config/size_config.dart';
+import 'package:pulzion23/constants/styles.dart';
+import 'package:pulzion23/constants/widgets/halloween_button.dart';
 import 'package:pulzion23/features/login_page/logic/login_cubit.dart';
 import 'package:pulzion23/features/login_page/ui/login.dart';
-import 'package:pulzion23/features/login_page/ui/widgets/roundedbutton.dart';
 import 'package:pulzion23/features/login_page/ui/widgets/text_field.dart';
 import '../../../../constants/images.dart';
 import '../../../../project/cubit/animation_toggle_cubit.dart';
@@ -47,14 +48,13 @@ class _GetUserEmailState extends State<GetUserEmail> {
             return false;
           },
           builder: (context, state) {
-            return Panorama(
-              sensitivity: 0.4,
-              animSpeed: 0.5,
-              sensorControl:
-                  state ? SensorControl.Orientation : SensorControl.None,
-              child: Image.asset(
-                AppImages.spaceBackground,
-                fit: BoxFit.cover,
+            return Container(
+              constraints: const BoxConstraints.expand(),
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/app_background.jpeg"),
+                  fit: BoxFit.cover,
+                ),
               ),
             );
           },
@@ -64,41 +64,57 @@ class _GetUserEmailState extends State<GetUserEmail> {
             if (state is UserNotFound) {
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
+                SnackBar(
                   content: Text(
                     "User Not Found!",
+                    style: AppStyles.NormalText().copyWith(
+                      fontSize: 15,
+                      color: Colors.white,
+                    ),
                   ),
-                  backgroundColor: Colors.red,
+                  backgroundColor: const Color.fromARGB(255, 78, 48, 21),
                 ),
               );
             } else if (state is LoginFailure) {
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
+                SnackBar(
                   content: Text(
                     "Something went wrong...",
+                    style: AppStyles.NormalText().copyWith(
+                      fontSize: 15,
+                      color: Colors.white,
+                    ),
                   ),
-                  backgroundColor: Colors.red,
+                  backgroundColor: const Color.fromARGB(255, 78, 48, 21),
                 ),
               );
             } else if (state is OTPSent) {
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
+                SnackBar(
                   content: Text(
                     "OTP Sent Successfully!",
+                    style: AppStyles.NormalText().copyWith(
+                      fontSize: 15,
+                      color: Colors.white,
+                    ),
                   ),
-                  backgroundColor: Colors.green,
+                  backgroundColor: const Color.fromARGB(255, 196, 117, 15),
                 ),
               );
             } else if (state is PasswordChangedSuccess) {
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
+                SnackBar(
                   content: Text(
                     "Password Changed Successfully!",
+                    style: AppStyles.NormalText().copyWith(
+                      fontSize: 15,
+                      color: Colors.white,
+                    ),
                   ),
-                  backgroundColor: Colors.green,
+                  backgroundColor: const Color.fromARGB(255, 196, 117, 15),
                 ),
               );
               Navigator.pushReplacement(
@@ -122,86 +138,105 @@ class _GetUserEmailState extends State<GetUserEmail> {
                 child: Text('Something went wrong...'),
               );
             } else if (state is OTPSent) {
-              return Scaffold(
-                backgroundColor: Colors.transparent,
-                body: SafeArea(
+              return Material(
+                color: Colors.transparent,
+                child: SafeArea(
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Column(
                       children: [
-                        const Text(
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        Text(
                           'Enter new Password',
-                          style: TextStyle(
-                            fontSize: 25,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Panther',
+                          style: AppStyles.NormalText().copyWith(
+                            color: const Color.fromARGB(255, 208, 168, 116),
+                            fontSize:
+                                SizeConfig.getProportionateScreenFontSize(30),
                           ),
                         ),
                         const SizedBox(
                           height: 50,
                         ),
                         Form(
-                          child: Column(
-                            children: [
-                              LoginSignUpTextField(
-                                'Enter your OTP',
-                                Icons.message,
-                                controller: _otp_controller,
-                                obscureText: false,
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              LoginSignUpTextField(
-                                'Enter new password',
-                                Icons.password,
-                                controller: _password_controller,
-                                obscureText: true,
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              LoginSignUpTextField(
-                                'Confirm Password',
-                                Icons.lock,
-                                controller: _confirm_password_controller,
-                                obscureText: true,
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                            ],
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                LoginSignUpTextField(
+                                  'Enter your OTP',
+                                  Icons.message,
+                                  controller: _otp_controller,
+                                  obscureText: false,
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                LoginSignUpTextField(
+                                  'Enter new password',
+                                  Icons.password,
+                                  controller: _password_controller,
+                                  obscureText: true,
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                LoginSignUpTextField(
+                                  'Confirm Password',
+                                  Icons.lock,
+                                  controller: _confirm_password_controller,
+                                  obscureText: true,
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         const SizedBox(
                           height: 20,
                         ),
-                        RoundedButton(
-                          btnText: 'Reset',
-                          onPressed: () async {
-                            if (_password_controller.text !=
-                                _confirm_password_controller.text) {
-                              ScaffoldMessenger.of(context)
-                                  .hideCurrentSnackBar();
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text(
-                                    "Passwords do not match!",
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: MediaQuery.of(context).size.width / 3.5,
+                          ),
+                          height: 200,
+                          child: HalloweenButton(
+                            icon: Icons.password,
+                            buttonText: 'Reset',
+                            onPressed: () async {
+                              if (_password_controller.text !=
+                                  _confirm_password_controller.text) {
+                                ScaffoldMessenger.of(context)
+                                    .hideCurrentSnackBar();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      "Passwords do not match!",
+                                      style: AppStyles.NormalText().copyWith(
+                                        fontSize: 15,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    backgroundColor:
+                                        const Color.fromARGB(255, 78, 48, 21),
                                   ),
-                                  backgroundColor: Colors.red,
-                                ),
-                              );
+                                );
 
-                              return;
-                            }
-                            await BlocProvider.of<LoginCubit>(context)
-                                .resetPassword(
-                              _otp_controller.text,
-                              _password_controller.text,
-                              email,
-                            );
-                          },
+                                return;
+                              }
+                              await BlocProvider.of<LoginCubit>(context)
+                                  .resetPassword(
+                                _otp_controller.text,
+                                _password_controller.text,
+                                email,
+                              );
+                            },
+                          ),
                         ),
                       ],
                     ),
@@ -216,13 +251,13 @@ class _GetUserEmailState extends State<GetUserEmail> {
                     padding: const EdgeInsets.all(10.0),
                     child: Column(
                       children: [
-                        const Text(
+                        Text(
                           'Reset Password',
-                          style: TextStyle(
-                            fontSize: 28,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Panther',
+                          style: AppStyles.NormalText().copyWith(
+                            fontSize: 30,
+                            color: const Color.fromARGB(255, 208, 168, 116),
+                            // fontWeight: FontWeight.bold,
+                            fontFamily: 'Gothica-Book',
                           ),
                         ),
                         const SizedBox(
@@ -237,14 +272,27 @@ class _GetUserEmailState extends State<GetUserEmail> {
                         const SizedBox(
                           height: 20,
                         ),
-                        RoundedButton(
-                          btnText: 'Send OTP',
-                          onPressed: () async {
-                            email = _email_controller.text;
-                            await BlocProvider.of<LoginCubit>(context)
-                                .sendOTP(_email_controller.text);
-                          },
-                        ),
+                        // RoundedButton(
+                        //   btnText: 'Send OTP',
+                        //   onPressed: () async {
+                        //     email = _email_controller.text;
+                        //     await BlocProvider.of<LoginCubit>(context)
+                        //         .sendOTP(_email_controller.text);
+                        //   },
+                        // ),
+                        SizedBox(
+                          height: 200,
+                          width: 200,
+                          child: HalloweenButton(
+                            icon: Icons.email,
+                            buttonText: 'Send OTP',
+                            onPressed: () async {
+                              email = _email_controller.text;
+                              await BlocProvider.of<LoginCubit>(context)
+                                  .sendOTP(_email_controller.text);
+                            },
+                          ),
+                        )
                       ],
                     ),
                   ),
